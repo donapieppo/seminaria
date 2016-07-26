@@ -1,0 +1,164 @@
+@import "dm_unibo_common/variables";
+@import "dm_unibo_common/dm";
+@import 'dm_unibo_common/date_picker';
+@import 'dm_unibo_common/datetime_picker';
+
+p.actions {
+	text-align: right;
+}
+	
+.seminar {
+  @extend .panel;
+  @include make-row();
+  .when {
+    @include make-md-column(3);
+	 	text-align: right;
+    .date {
+  	  font-weight: bold;
+      font-size: 120%;
+    }
+    .where {
+      font-weight: bold;
+    }
+		.arguments {
+		}
+    .mto {
+      margin-top: 10px;
+    }
+    .today {
+      @extend .alert;
+      @extend .alert-danger;
+      margin-top: 10px;
+      margin-left: 20px;
+      margin-right: 20px;
+      text-align: center;
+    }
+  }
+  .what {
+    @include make-md-column(9);
+    @extend .panel;
+    @extend .panel-info;
+    padding-left: 0;
+    padding-right: 0;
+
+		.title {
+      @extend .panel-heading;
+      font-size: 16px;
+      font-weight: bold;
+      text-transform: uppercase;
+		}
+    .content {
+      @extend .panel-body;
+      .speaker {
+        font-weight: bold;
+      }
+  		.abstract {
+  			font-style: italic;
+  			padding: 1ex 3ex;
+  			text-align: justify;
+  		}
+    }
+    .footer {
+      @include make-row();
+      @extend .panel-footer;
+      margin-left: 0;
+      margin-right: 0;
+      .committee {
+        @include make-md-column(8);
+        font-size: 12px;
+      }
+      .calendars {
+        @include make-md-column(4);
+        text-align: right;
+      }
+      .fund_missing {
+        color: $state-danger-text;
+      }
+    }
+  }
+}
+
+.highlight {
+  @include make-row();
+  .when {
+    @include make-md-column(3);
+	 	text-align: right;
+    .date {
+    }
+  }
+  .what {
+    @include make-md-column(9);
+    @extend .panel;
+    @extend .panel-info;
+    padding-left: 0;
+    padding-right: 0;
+		.title {
+      @extend .panel-heading;
+      font-weight: bold;
+      text-transform: uppercase;
+		}
+    .content {
+      @extend .panel-body;
+      .description {
+  			font-style: italic;
+  			padding: 1ex 3ex;
+  			text-align: justify;
+      }
+    }
+    .tags {
+    }
+  }
+}
+
+.highlight-commission {
+  @include make-row(); 
+  .proponent {
+    font-weight: bold;
+  }
+  .commission {
+    dd {
+      margin-left: 10px;
+    }
+  }
+  .commission, .proponent {
+    @include make-md-column-offset(9);
+    @include make-md-column-offset(3);
+  }
+}
+
+.main-description {
+  @extend .alert;
+  @extend .alert-success;
+}
+
+.serial {
+  @extend .panel;
+  @extend .panel-info;
+  .title {
+    @extend .panel-heading;
+    font-weight: bold;
+  }
+  .description {
+    @extend .panel-body;
+  }
+  .next-seminars {
+    .next_in_serial {
+      margin-left: 10px;
+    }
+  }
+}
+dl.cycles {
+  dt {
+    margin-top: 10px
+  }
+  dd {
+    margin-left: 10px;
+  }
+}
+
+#seminar_duration {
+  width: 15em;
+}
+
+
+
