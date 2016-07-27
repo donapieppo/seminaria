@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   impersonates :user
 
-  before_filter :log_current_user, :redirect_unsigned_user
+  before_action :log_current_user, :redirect_unsigned_user
 
   helper_method :user_is_holder?
 

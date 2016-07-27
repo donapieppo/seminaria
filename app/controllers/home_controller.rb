@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  skip_filter :redirect_unsigned_user, only: [:index, :totem]
+  skip_before_action :redirect_unsigned_user, only: [:index, :totem]
 
   # Prossimi sono quelli a partire da tutto oggi
   def index
