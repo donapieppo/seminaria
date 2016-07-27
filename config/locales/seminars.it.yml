@@ -1,0 +1,92 @@
+it:
+  repayment: Richiesta di rimborso
+  address:    Indirizzo di residenza
+  postalcode: Codice postale
+  city:       Città
+  country:    Paese
+  birth_date:    Data di nascita
+  birth_place:   Luogo di nascita
+  birth_country: Paese di nascita
+  payment: Compenso 
+  gross: Lordo
+  affiliation: Ente di appartenenza
+  role: In qualità di
+  refund: Rimborso spese
+  speaker_arrival: Arrivo del relatore a Bologna
+  speaker_departure: Partenza del relatore da Bologna
+  expected_refund: Importo presunto
+  time:
+    am: am
+    formats:
+      seminar: ! "%a %d %b, ore %H:%M"
+      day: !     "%A %d %b"
+      past: !    "%d %b %Y"
+      hour: !    "%H:%M"
+      totem: !   "%A %d %B"
+
+  organized_by: "organizzato da:"
+  seminar: Seminario
+  place: presso
+  document: Allegato
+  serial: Serie
+
+  activerecord:
+    models:
+      seminar:  Seminario
+      cycle:    Ciclo seminari
+      document: Allegato
+      serial:   Serie
+      repayment:  Richiesta di rimborso
+      cycle:    Ciclo seminari
+    attributes:
+      repayment:
+        name:     Nome
+        surname:  Cognome
+        email:    Indirizzo mail
+        holder:   Titolare del fondo
+        italy:    Residenza fiscale in italia
+        address:    Indirizzo di residenza
+        postalcode: Codice postale
+        city:       Città
+        country:    Paese
+        birth_date:    Data di nascita
+        birth_place:   Luogo di nascita
+        birth_country: Paese di nascita
+        speaker_arrival: Arrivo del relatore a Bologna
+        speaker_departure: Partenza del relatore da Bologna
+        expected_refund: Importo presunto
+        affiliation: Ente di appartenenza
+        payment: Compenso 
+        gross: lordo
+        role: In qualità di
+        refund: Rimborso spese
+        fund: Fondo
+        cv: Curriculum Vitae
+      seminar:
+        title:      Titolo
+        date:       Giorno e ora
+        duration:   Durata
+        place:      Luogo
+        place_description:  Descrizione luogo
+        speaker_title:    Titolo relatore
+        speaker:    Relatore
+        committee:  Organizzazione
+        arguments:  Argomenti
+        abstract:   Abstract
+        file:       File
+        link:       Link
+        link_text:  Descrizione Link
+        document:   Allegato
+        cycle:      Ciclo
+        serial:     Serie
+        user:       Proponente
+      cycle:
+        title:       Nome
+        description: Descrizione
+        committee:   Organizzazione
+      document: 
+        description: Descrizione
+        attach:      Allegato
+
+  payment_hint: Compenso + eventuale quota forfettaria di rimborso spese da non giustificare, entrambi tassati.
+  dlgs33_2013: Si prega di inserire il curriculum vitae. Obbligatorio in caso di compenso ai sensi del D.Lgs. 33/2013 in materia di collaborazioni ed incarichi.
