@@ -1,7 +1,7 @@
 use `seminaria`;
 
 CREATE TABLE `users` (
-  `id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `upn` varchar(255) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `surname` varchar(255) DEFAULT NULL,
@@ -44,13 +44,28 @@ CREATE TABLE `funds` (
   CONSTRAINT `funds_ibfk_1` FOREIGN KEY (`holder_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `places` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `serials` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(250) DEFAULT NULL,
+  `description` text,
+  `committee` varchar(250) DEFAULT NULL,
+  `link` varchar(250) DEFAULT NULL,
+  `active` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `seminars` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned DEFAULT NULL,
   `date` datetime DEFAULT NULL,
   `duration` int(3) DEFAULT NULL,
-  `place_id` int(10) DEFAULT NULL,
+  `place_id` int(10) unsigned DEFAULT NULL,
   `place_description` text,
   `speaker` varchar(250) DEFAULT NULL,
   `speaker_title` char(20) DEFAULT NULL,
@@ -62,23 +77,17 @@ CREATE TABLE `seminars` (
   `link_text` varchar(255) DEFAULT NULL,
   `alert_message` varchar(255) DEFAULT NULL,
   `alert_deadline` datetime DEFAULT NULL,
-  `serial_id` int(10) DEFAULT NULL,
-  `cycle_id` int(10) DEFAULT NULL,
+  `serial_id` int(10) unsigned DEFAULT NULL,
+  `cycle_id` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_seminars_on_user_id` (`user_id`),
+  KEY `index_seminars_on_place_id` (`place_id`),
   KEY `index_seminars_on_serial_id` (`serial_id`),
   KEY `index_seminars_on_cycle_id` (`cycle_id`),
-  CONSTRAINT `seminars_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `serials` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(250) DEFAULT NULL,
-  `description` text,
-  `committee` varchar(250) DEFAULT NULL,
-  `link` varchar(250) DEFAULT NULL,
-  `active` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  CONSTRAINT `seminars_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `seminars_ibfk_2` FOREIGN KEY (`place_id`) REFERENCES `places` (`id`),
+  CONSTRAINT `seminars_ibfk_3` FOREIGN KEY (`serial_id`) REFERENCES `serials` (`id`),
+  CONSTRAINT `seminars_ibfk_4` FOREIGN KEY (`cycle_id`) REFERENCES `cycles` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `tags` (
