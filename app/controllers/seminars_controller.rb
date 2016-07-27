@@ -1,9 +1,9 @@
 class SeminarsController < ApplicationController
   # uniche pagine da vedere senza essere loggati
   # index solitamente non si raggiunge perchè index è in home con insieme seminari e highlights
-  skip_filter :redirect_unsigned_user, only: [:index, :archive, :show, :totem]
+  skip_before_action :redirect_unsigned_user, only: [:index, :archive, :show, :totem]
 
-  before_filter :get_seminar_and_check_permission, only: [:edit, :update, :destroy, :mail_text, :submit_mail_text]
+  before_action :get_seminar_and_check_permission, only: [:edit, :update, :destroy, :mail_text, :submit_mail_text]
 
   # Prossimi sono quelli a partire da tutto oggi
   def index
