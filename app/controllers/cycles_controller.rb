@@ -1,7 +1,7 @@
 class CyclesController < ApplicationController
-  skip_filter :redirect_unsigned_user, only: :show
+  skip_before_action :redirect_unsigned_user, only: :show
 
-  before_filter :get_cycle_and_check_permission, only: [:edit, :update]
+  before_action :get_cycle_and_check_permission, only: [:edit, :update]
 
   def index
     @cycles = Cycle.order('id desc').all

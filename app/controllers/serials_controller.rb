@@ -1,8 +1,8 @@
 class SerialsController < ApplicationController
-  skip_filter   :redirect_unsigned_user, only: [:index, :show]
-  before_filter :user_is_admin!,       except: [:index, :show]
+  skip_before_action :redirect_unsigned_user, only: [:index, :show]
+  before_action      :user_is_admin!,       except: [:index, :show]
 
-  before_filter :get_serial,     only: [:show, :edit, :update]
+  before_action :get_serial, only: [:show, :edit, :update]
 
   def index
     @serials = Serial.order('serials.active desc, serials.title asc')
