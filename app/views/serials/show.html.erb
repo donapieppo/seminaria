@@ -1,0 +1,11 @@
+<h1><%= serial_image(@serial) %> <%= @serial %></h1>
+
+<p class="centered_action">
+  <%= link_to big_icon('home', :text => 'pagina web ufficiale'), @serial.link, :target => "_blank" %>
+  <%= link_to_edit 'modifica la serie', edit_serial_path(@serial) if user_admin? %>
+</p>
+
+<% @seminars.each do |seminar| %>
+  <%= render seminar %>
+<% end %>
+

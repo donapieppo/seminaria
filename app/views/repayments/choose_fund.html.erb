@@ -1,0 +1,26 @@
+<fieldset>
+  <legend>Scelta del Fondo</legend>
+
+  <%= horizontal_form_for @repayment, url: fund_repayment_path(@repayment), method: :post do |repayment| %>  
+    <% if user_is_manager? %>  
+      <%= repayment.association :fund, collection: @funds, label_method: :to_s_with_holder, include_blank: false %>
+    <% else %>
+      <%= repayment.association :fund, collection: @funds, label_method: :to_s, include_blank: false %>
+    <% end %>
+
+    <% if user_owns?(@repayment.seminar) %>  
+      <%= repayment.submit "Salva e invia richiesta" %>
+    <% else %>
+      <%= repayment.submit "Salva e approva" %>
+    <% end %>
+
+    - <%= link_to 'indietro', repayment_path(@repayment) %>   
+  <% end %>
+</fieldset>
+
+<h2>Dettagli seminario</h2>
+
+<%= render @repayment.seminar %>  
+
+<%= render @repayment %>  
+

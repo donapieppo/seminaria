@@ -1,0 +1,83 @@
+<h2>Richiesta rimborso</h2>
+
+<div>
+  <table class="table table-striped table-condensed">
+    <tr>
+      <th>Fondo</th>
+      <td>Richiedente</td>
+      <td><%= repayment.seminar.user %> </td>
+    </th>
+    <tr>
+      <th></th>
+      <td>Titolare del fondo</td>
+      <td><%= repayment.holder %> </td>
+    </th>
+    <tr>
+      <th></th>
+      <td>Fondo</td>
+      <td>
+        <%= repayment.fund or "Fondo ancora da stabilire" %> 
+        <% if user_is_manager? or @repayment.holder_id == current_user.id %>  
+          - <%= link_to 'cambia', choose_fund_repayment_path(@repayment) %>  
+        <% end %>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Compensi</th>
+      <td>Compenso lordo percipiente</td>
+      <td><%= repayment.lordo_percipiente || '-' %> &euro;</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>Compenso netto percipiente</td>
+      <td><%= repayment.netto_percipiente || '-' %> &euro;</td>
+    </th>
+    <tr>
+      <th></th>
+      <td>Compenso lordo ente</td>
+      <td><%= repayment.lordo_ente || '-' %> &euro;</td>
+    </th>
+
+    <% if repayment.refund %>  
+    <tr>
+      <th>Rimborsi</th>
+      <td><%= t :speaker_arrival %></td>
+      <td><%= l repayment.speaker_arrival %></td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><%= t :speaker_departure %></td>
+      <td><%= l repayment.speaker_departure %></td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><%= t :expected_refund %></td>
+      <td><%= repayment.expected_refund %> &euro;</td> 
+    </tr>
+  <% end %>
+
+    <tr>
+      <th>Dettagli</th>
+      <td>Relatore</td>
+      <td><%= repayment.speaker_with_title %></td>
+    </tr>
+      <th></th>
+      <td>C.V.</td>
+      <td>
+        <% repayment.documents.each do |doc| %>
+          <%= link_to_cv doc %> 
+        <% end %>
+      </td>
+    </tr>
+    <% for m in [:email, :affiliation, :role, :address, :postalcode, :city, :country, :birth_date, :birth_place, :birth_country] do %>  
+      <tr>
+        <th></th>
+        <td><%= t m %> </td>
+        <td><%= true_false_to_s repayment.send(m) %>
+      </tr>
+    <% end %>
+  </table>
+
+</div>
+

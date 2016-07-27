@@ -1,0 +1,13 @@
+Gentile Amministrazione,
+
+<%= @repayment.holder %> ha approvato la richiesta
+di rimborso per il seminario 
+<%= @seminar %> 
+tenuto da <%= @seminar.speaker %> 
+previsto per il giorno <%= l @seminar.date %>
+sui suoi fondi <%= @repayment.fund %>.  
+
+Per stampare la lettera o modificare i dati collegarsi a
+<%= repayment_url(@repayment) %>  
+
+

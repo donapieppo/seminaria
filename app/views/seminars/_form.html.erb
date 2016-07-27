@@ -1,0 +1,52 @@
+<% if @cycle %>  
+  <h2>Ciclo: <%= @cycle %></h2>
+  <p class="main-description"><%= @cycle.description %></p>
+<% end %>
+
+<% if @serial %>  
+  <h2>Seminario periodico: <%= @serial %></h2>
+  <p class="main-description"><%= @serial.description %> </p>
+<% end %>
+
+<%= horizontal_form_for @seminar do |seminar| %>  
+  <%= seminar.dm_error_notification %>  
+  <fieldset>
+    <%= form_legend(@seminar) %>
+    <% if user_admin? %>  
+      <%= seminar.association :cycle %>  
+      <%= seminar.association :serial %>  
+    <% else %>
+      <%= seminar.input :serial_id, :as => :hidden %>  
+      <%= seminar.input :cycle_id,  :as => :hidden %>  
+    <% end %>
+    <%= seminar.input :title, :as => :text %>  
+    <%= seminar.input :date,  :as => :datetime_picker %>  
+    <%= seminar.input :duration, :collection => [30,45,60,75,90,120,180].map{ |p| ["#{p} minuti", p] }, :include_blank => false %>
+    <%= seminar.input :speaker_title, :collection => User.abbr_titles, :include_blank => false %>  
+    <%= seminar.input :speaker %>  
+    <%= seminar.association :place, :collection => Place.all, :include_blank => false %>
+    <%= seminar.input :place_description, :input_html => { :cols => 50, :rows => 2 } %>
+    <%= seminar.input :committee %>
+    <%# seminar.collection_check_boxes :argument_ids, Argument.all, :id, :name %> 
+    <%= seminar.association :arguments %> 
+    <%= seminar.input :abstract %>
+    <%= seminar.input :link %>
+    <%= seminar.input :link_text %> 
+    <% if user_admin? %>  
+      <%= seminar.association :user, :collection => User.order('surname').to_a, :label_method => :cn %>  
+    <% end %>
+
+    <%= seminar.submit :class => 'button' %> -
+    <%= link_to 'indietro', root_path %>   
+  </fieldset>
+<% end %>
+
+<% if @cycle %>  
+  <dl class="dl-horizontal">
+    <dt>Recupera dati da</dt>
+    <% @cycle.seminars.order('id desc').each do |s| %>
+      <dd><%= link_to 'recupera dati da ' + s.to_s + ' del ' + l(s.date), new_cycle_seminar_path(@cycle, as: s.id) %></dd>
+    <% end %>
+  </dl>
+<% end %>
+

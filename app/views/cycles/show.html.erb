@@ -1,0 +1,14 @@
+
+<h2>Elenco seminari del ciclo ``<%= @cycle %>''</h2>
+
+<div class="well"><%= @cycle.description %></div> 
+
+<% @seminars.each do |seminar| %>  
+  <%= render seminar %>  
+<% end %>
+
+<% if user_owns?(@cycle) %>  
+  <%= link_to 'modifica il ciclo '.html_safe  + icon('pencil'), edit_cycle_path(@cycle) %> <br/>
+  <%= link_to 'aggiungi seminario '.html_safe + icon('plus'),   new_cycle_seminar_path(@cycle) %>  
+<% end %>
+

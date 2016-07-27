@@ -1,0 +1,12 @@
+Gentile <%= @repayment.holder %>,
+
+<%= @seminar.user %> ha presentato una richiesta
+di rimborso per il seminario 
+<%= @seminar %>  
+tenuto da <%= @seminar.speaker %> 
+previsto per il giorno <%= l @seminar.date %>.
+
+Per selezionare i fondi collegarsi al sito
+<%= choose_fund_repayment_url(@repayment) %>  
+
+

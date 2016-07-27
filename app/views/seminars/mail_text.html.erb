@@ -1,0 +1,28 @@
+<h1>Scegliere se inviare avviso del seminario.
+  <small>Nella pagina successiva sarà possibile compilare la richiesta di compenso e/o rimborso</small>
+</h1>
+
+<%= horizontal_form_for :seminar_mail, url: submit_mail_text_seminar_path(@seminar) do |f|%>  
+  <%= f.input :to, label: "Destinatari", input_html: { value: "dipmat-seminari@unibo.it" }, 
+                   hint: "dipmat-seminari@unibo.it comprende docenti, dottorandi, borsisti e coloro che fanno richiesta per essere inseriti. Inserire eventuali altri destinatari separati da virgola" %>  
+
+  <%= f.input :subject, label: "Subject", input_html: { value: "AVVISO DI SEMINARIO" } %>
+
+  <%= f.input :text, as: 'text', input_html: { value: "
+    #{l @seminar.date, :format => :seminar} 
+    aula: #{@seminar.place_to_s}
+
+    #{@seminar.speaker}
+
+    terrà un seminario dal titolo
+
+    #{@seminar.title}
+
+    organizzato da: #{@seminar.committee}
+
+    https://www.dm.unibo.it/seminari/
+    ", rows: "20", cols: "20" }  %>
+
+    <%= f.submit "Invia avviso via e-mail" %> -
+    <%= link_to "Salta invio e-mail", new_seminar_repayment_path(@seminar) %>  
+<% end %>

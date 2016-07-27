@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="1800">
+    <meta charset="utf-8">
+    <meta name="description" content="Gestione seminari e Notizie del Dipartimento di Matematia. Università di Bologna.">
+    <meta name="author" content="Dipartimento di Matematica - Unibo">
+    <%= stylesheet_link_tag "application", :media => "all" %>
+    <style>
+      .calendars, .links_and_documents {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Prossimi seminari</h2>
+
+      <% @seminars.each do |seminar| %>  
+        <%= render seminar %>  
+      <% end %>
+    </div>
+  </body>
+</html>
+

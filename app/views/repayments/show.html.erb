@@ -1,0 +1,16 @@
+<%= render @repayment %>  
+
+<p>
+  <%= link_to 'stampa anteprima', repayment_path(@repayment, format: :pdf), class: :button  %>  
+  <% if user_is_manager? or (user_owns?(@repayment.seminar) and ! @repayment.notified) %>
+    <%= link_to 'modifica dati', new_seminar_repayment_path(@repayment.seminar), class: :button %>
+  <% end %>
+  <% if ! @repayment.notified and ! user_is_manager? and @repayment.holder_id != current_user.id %>  
+    <%= link_to 'invia richiesta', notify_repayment_path(@repayment), class: :button, method: :post %>
+  <% end %>
+  <% if @repayment.holder_id == current_user.id or user_is_manager? %>  
+    <%= link_to ' scegli fondo', choose_fund_repayment_path(@repayment), class: :button %>
+  <% end %>
+  - <%= link_to 'indietro', root_path %>  
+</p>
+

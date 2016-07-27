@@ -1,0 +1,38 @@
+<h1>Inserisci nuovo seminario</h1>
+
+<div class="row">
+  <div class="col-md-4">
+    <h2>Seminario singolo</h2>
+    <ul class="all_clickable">
+      <li><%= link_to icon('plus', text: "Singolo seminario"), new_seminar_path %></li>
+    </ul>
+  </div>
+
+  <div class="col-md-4">
+    <h2>Seminario in un ciclo</h2>
+    <% @cycles.each do |cycle| %>  
+      <ul class="all_clickable"> 
+        <li>
+          <%= link_to icon('plus', text: "&ldquo;#{cycle}&rdquo;"), new_cycle_seminar_path(cycle) %> 
+        </li>
+      </ul>
+      <%= link_to icon('pencil', text: "Modifica ciclo &ldquo;#{cycle}&rdquo;"), edit_cycle_path(cycle) if user_owns?(cycle)%>
+    <% end %>
+
+    <div>
+      <p class="centered_action"><%= link_to icon('plus', text: "Nuovo ciclo di seminari"), new_cycle_path, class: :button %></p>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <h2>Seminario in una serie</h2>
+    <ul class="all_clickable">
+      <% @serials.each do |serial| %>  
+        <li><%= link_to icon('plus', text: "&ldquo;#{serial}&rdquo;"), new_serial_seminar_path(serial) %></li>
+      <% end %>
+    </ul>
+    <p class="info">Per far inserire una <strong>nuova serie</strong> si prega di inviare la richiesta all'indirizzo <%= support_mail %></p>
+  </div>
+
+</div>
+

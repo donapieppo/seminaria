@@ -1,0 +1,20 @@
+<h2>Allegati</h2>
+
+<div class="attachs">
+  <% if @documents.size > 0 %>  
+    <ul>
+      <% @documents.each do |document| %>
+        <li><%= link_to document, document.url %> - <%= link_to_delete document_path(document) %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <h3>Nuovo allegato</h3>
+  <%= horizontal_form_for @document, :url => seminar_documents_path(@seminar), :html => { :multipart => true } do |document| %>
+    <%= document.input :description %>
+    <%= document.input :attach, :as => :file, class: "" %>
+    <%= document.submit 'Invia' %> -
+    <%= link_to 'indietro', root_path %>   
+  <% end %>
+</div>
+

@@ -1,0 +1,15 @@
+<%= render 'form' %>
+
+<%= render 'documents' %>
+
+<h2>Richiesta di compenso e/o rimborso</h2>
+<% if @repayment %>
+  <% if (! @repayment.notified) or user_is_manager? %>
+    <%= render 'repayments/form' %>
+  <% else %>
+    <%= link_to 'visualizza richiesta di rimborso', repayment_path(@repayment), class: :button %>
+  <% end %>
+<% else %>  
+  <p class="info">È possibile richiedere compenso e/o rimborso<p>
+  <%= link_to 'Richiesta compenso', new_seminar_repayment_path(@seminar), class: :button %>  
+<% end %>

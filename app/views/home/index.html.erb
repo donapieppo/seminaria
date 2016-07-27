@@ -1,0 +1,12 @@
+<h2>Prossimi Seminari</h2>
+<% if user_signed_in? %>
+  <p class="actions">
+    <%= link_to icon('plus')    + ' inserisci seminario', choose_type_seminars_path %> &mdash; 
+    <%= link_to icon('list')    + " seminari inseriti da #{current_user}", user_seminars_path %> 
+  </p>
+<% end %>
+
+<% @seminars.each do |seminar| %>  
+  <%= render seminar %>  
+<% end %>
+

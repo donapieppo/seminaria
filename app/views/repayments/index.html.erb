@@ -1,0 +1,7 @@
+<h2>Richieste di compenso</h2>
+
+<ul class="all_clickable">
+  <% @repayments.each do |repayment| %>  
+    <li><%= link_to repayment.seminar.to_long_s, repayment_path(repayment) %></li>
+  <% end %>
+</ul>
