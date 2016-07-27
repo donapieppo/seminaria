@@ -1,4 +1,4 @@
-class Serial < ActiveRecord::Base
+class Serial < ApplicationRecord
   has_many :seminars
 
   scope :active, -> {where(active: 1)}

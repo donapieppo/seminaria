@@ -1,4 +1,4 @@
-class Cycle < ActiveRecord::Base
+class Cycle < ApplicationRecord
   belongs_to :user
   has_many :seminars
 

@@ -1,4 +1,4 @@
-class Place < ActiveRecord::Base 
+class Place < ApplicationRecord 
   has_many :seminars
 
   default_scope -> { order("name ASC") }
