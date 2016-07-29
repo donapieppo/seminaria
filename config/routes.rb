@@ -5,6 +5,11 @@ Rails.application.routes.draw do
   get 'user/seminars',   controller: 'seminars',   action: 'index', only_current_user: true, as: 'user_seminars'
   get 'user/cycles',     controller: 'cycles',     action: 'index',                          as: 'user_cycles'
 
+  resources :organizations do
+    resources :admins
+  end
+  resources :admins
+
   resources :seminars do
     get  :choose_type, on: :collection
     get  :mail_text,   on: :member
