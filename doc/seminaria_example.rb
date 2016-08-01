@@ -10,7 +10,7 @@ MANAGERS      = [ 'claudia.gamberini@unibo.it',
 
 MANAGERS_MAILS = ['dipmat.amministrazione@unibo.it', 'oscar.losurdo@unibo.it']
 
-module Seminars
+module Seminaria
   class Application < Rails::Application
     config.domain_name     = 'example.it'
     config.header_icon     = 'microphone'
