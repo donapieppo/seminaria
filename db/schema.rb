@@ -12,15 +12,12 @@
 
 ActiveRecord::Schema.define(version: 0) do
 
-  create_table "arguments", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name", limit: 30
-  end
-
-  create_table "arguments_seminars", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "argument_id", null: false, unsigned: true
-    t.integer "seminar_id",  null: false, unsigned: true
-    t.index ["argument_id"], name: "argument_id", using: :btree
-    t.index ["seminar_id"], name: "seminar_id", using: :btree
+  create_table "admins", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "user_id",         unsigned: true
+    t.integer "organization_id", unsigned: true
+    t.integer "authlevel",       unsigned: true
+    t.index ["organization_id"], name: "organization_id", using: :btree
+    t.index ["user_id"], name: "user_id", using: :btree
   end
 
   create_table "cycles", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -31,6 +28,10 @@ ActiveRecord::Schema.define(version: 0) do
     t.string  "link",        limit: 250
     t.boolean "active"
     t.index ["user_id"], name: "user_id", using: :btree
+  end
+
+  create_table "disciplines", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name", limit: 30
   end
 
   create_table "documents", unsigned: true, force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
@@ -65,8 +66,9 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   create_table "places", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text "name",    limit: 65535
-    t.text "address", limit: 65535
+    t.text   "name",    limit: 65535
+    t.text   "address", limit: 65535
+    t.string "city"
   end
 
   create_table "repayments", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -99,8 +101,9 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   create_table "rooms", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text    "name",     limit: 65535
-    t.integer "place_id",               unsigned: true
+    t.text    "name",        limit: 65535
+    t.text    "description", limit: 65535
+    t.integer "place_id",                  unsigned: true
     t.index ["place_id"], name: "place_id", using: :btree
   end
 
@@ -143,6 +146,19 @@ ActiveRecord::Schema.define(version: 0) do
     t.text   "description", limit: 65535
   end
 
+  create_table "topics", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "discipline_id",            unsigned: true
+    t.string  "name",          limit: 30
+    t.index ["discipline_id"], name: "discipline_id", using: :btree
+  end
+
+  create_table "topics_seminars", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "topic_id",   null: false, unsigned: true
+    t.integer "seminar_id", null: false, unsigned: true
+    t.index ["seminar_id"], name: "seminar_id", using: :btree
+    t.index ["topic_id"], name: "topic_id", using: :btree
+  end
+
   create_table "users", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "upn",        null: false
     t.string   "name"
@@ -152,6 +168,8 @@ ActiveRecord::Schema.define(version: 0) do
     t.index ["upn"], name: "index_upn_on_users", using: :btree
   end
 
+  add_foreign_key "admins", "organizations", name: "admins_ibfk_2"
+  add_foreign_key "admins", "users", name: "admins_ibfk_1"
   add_foreign_key "cycles", "users", name: "cycles_ibfk_1"
   add_foreign_key "funds", "users", column: "holder_id", name: "funds_ibfk_1"
   add_foreign_key "repayments", "funds", name: "repayments_ibfk_3"
@@ -163,4 +181,5 @@ ActiveRecord::Schema.define(version: 0) do
   add_foreign_key "seminars", "rooms", name: "seminars_ibfk_2"
   add_foreign_key "seminars", "serials", name: "seminars_ibfk_3"
   add_foreign_key "seminars", "users", name: "seminars_ibfk_1"
+  add_foreign_key "topics", "disciplines", name: "topics_ibfk_1"
 end

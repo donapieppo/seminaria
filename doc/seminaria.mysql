@@ -10,13 +10,15 @@ CREATE TABLE `organizations` (
 CREATE TABLE `places` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` text,
-  `address` text, 
+  `address` text,
+  `city` varchar(255),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `rooms` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` text,
+  `description` text, 
   `place_id` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `place_id` (`place_id`),
@@ -46,10 +48,19 @@ CREATE TABLE `admins` (
   CONSTRAINT `admins_ibfk_2` FOREIGN KEY (`organization_id`) REFERENCES `organizations` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `arguments` (
+CREATE TABLE `disciplines` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `topics` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `discipline_id` int(10) unsigned DEFAULT NULL,
+  `name` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `discipline_id` (`discipline_id`),
+  CONSTRAINT `topics_ibfk_1` FOREIGN KEY (`discipline_id`) REFERENCES `disciplines` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `cycles` (
@@ -129,10 +140,10 @@ CREATE TABLE `tags` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `arguments_seminars` (
-  `argument_id` int(10) unsigned NOT NULL,
+CREATE TABLE `topics_seminars` (
+  `topic_id` int(10) unsigned NOT NULL,
   `seminar_id` int(10) unsigned NOT NULL,
-  KEY `argument_id` (`argument_id`),
+  KEY `topic_id` (`topic_id`),
   KEY `seminar_id` (`seminar_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
