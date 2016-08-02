@@ -16,27 +16,27 @@
       <%= seminar.association :cycle %>  
       <%= seminar.association :serial %>  
     <% else %>
-      <%= seminar.input :serial_id, :as => :hidden %>  
-      <%= seminar.input :cycle_id,  :as => :hidden %>  
+      <%= seminar.input :serial_id, as: :hidden %>  
+      <%= seminar.input :cycle_id,  as: :hidden %>  
     <% end %>
-    <%= seminar.input :title, :as => :text %>  
-    <%= seminar.input :date,  :as => :datetime_picker %>  
-    <%= seminar.input :duration, :collection => [30,45,60,75,90,120,180].map{ |p| ["#{p} minuti", p] }, :include_blank => false %>
-    <%= seminar.input :speaker_title, :collection => User.abbr_titles, :include_blank => false %>  
+    <%= seminar.input :title, as: :text %>  
+    <%= seminar.input :date,  as: :datetime_picker %>  
+    <%= seminar.input :duration, collection: [30,45,60,75,90,120,180].map{ |p| ["#{p} minuti", p] }, include_blank: false %>
+    <%= seminar.input :speaker_title, collection: User.abbr_titles, include_blank: false %>  
     <%= seminar.input :speaker %>  
-    <%= seminar.association :place, :collection => Place.all, :include_blank => false %>
-    <%= seminar.input :place_description, :input_html => { :cols => 50, :rows => 2 } %>
+    <%= seminar.association :room, collection: Room.all, include_blank: false %>
+    <%= seminar.input :room_description, input_html: { cols: 50, rows: 2 } %>
     <%= seminar.input :committee %>
     <%# seminar.collection_check_boxes :argument_ids, Argument.all, :id, :name %> 
-    <%= seminar.association :arguments %> 
+    <%= seminar.association :topics %> 
     <%= seminar.input :abstract %>
     <%= seminar.input :link %>
     <%= seminar.input :link_text %> 
     <% if user_admin? %>  
-      <%= seminar.association :user, :collection => User.order('surname').to_a, :label_method => :cn %>  
+      <%= seminar.association :user, collection: User.order('surname').to_a, label_method: :cn %>  
     <% end %>
 
-    <%= seminar.submit :class => 'button' %> -
+    <%= seminar.submit class: 'button' %> -
     <%= link_to 'indietro', root_path %>   
   </fieldset>
 <% end %>

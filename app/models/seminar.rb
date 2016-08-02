@@ -3,12 +3,12 @@ class Seminar < ApplicationRecord
   include Calendar
 
   belongs_to :user
-  belongs_to :place
+  belongs_to :room
   belongs_to :cycle
   belongs_to :serial
   has_many   :documents, dependent: :destroy
   has_one    :repayment, dependent: :destroy
-  has_and_belongs_to_many :arguments
+  has_and_belongs_to_many :topics
 
   scope :future, -> { where("date > DATE_ADD(NOW(), INTERVAL -2 hour)") }
 

@@ -14,7 +14,7 @@ class SeminarsController < ApplicationController
       @title = "Prossimi seminari"
       @seminars = Seminar.order('seminars.date ASC').future
     end
-    @seminars = @seminars.includes([:documents, :arguments, :place])
+    @seminars = @seminars.includes([:documents, :topics, :place])
     respond_to do |format|
       format.html
       format.json { render json: @seminars }
@@ -35,7 +35,7 @@ class SeminarsController < ApplicationController
     @year = params[:year] ? params[:year].to_i : Date.today.year
     @seminars = Seminar.order('seminars.date DESC')
                        .where("YEAR(date) = ? and date < NOW()", @year)
-                       .includes(:documents, :arguments, repayment: :fund)
+                       .includes(:documents, :topics, repayment: :fund)
   end
 
   def choose_type
@@ -135,7 +135,7 @@ class SeminarsController < ApplicationController
   end
 
   def seminar_params
-    p = [:date, :duration, :place_id, :place_description, :cycle_id, :serial_id, :speaker_title, :speaker, :committee, { :argument_ids => [] }, :title, :abstract, :file, :link, :link_text]
+    p = [:date, :duration, :room_id, :room_description, :cycle_id, :serial_id, :speaker_title, :speaker, :committee, { :argument_ids => [] }, :title, :abstract, :file, :link, :link_text]
     p = p + [:user_id, :serial_id, :cycle_id] if current_user.is_admin?
     params[:seminar].permit(p)
   end
