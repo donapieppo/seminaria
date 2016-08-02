@@ -3,11 +3,11 @@ class HomeController < ApplicationController
 
   # Prossimi sono quelli a partire da tutto oggi
   def index
-    @seminars = Seminar.order('seminars.date ASC').future.includes([:documents, :arguments, :place, :cycle, :repayment])
+    @seminars = Seminar.order('seminars.date ASC').future.includes([:documents, :topics, :room, :cycle, :repayment])
   end
 
   def totem
-    @seminars = Seminar.order('seminars.date ASC').future.includes([:documents, :arguments, :place, :repayment])
+    @seminars = Seminar.order('seminars.date ASC').future.includes([:documents, :topics, :room, :repayment])
     render layout: nil
   end
 end

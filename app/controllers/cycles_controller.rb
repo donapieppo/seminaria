@@ -9,7 +9,7 @@ class CyclesController < ApplicationController
 
   def show
     @cycle = Cycle.find(params[:id])
-    @seminars = @cycle.seminars.includes([:documents, :arguments]).order('seminars.date DESC')
+    @seminars = @cycle.seminars.includes([:documents, :topics]).order('seminars.date DESC')
   end
 
   def new

@@ -9,7 +9,7 @@ class SerialsController < ApplicationController
   end
 
   def show
-    @seminars = @serial.seminars.includes([:documents, :arguments]).order('seminars.date DESC')
+    @seminars = @serial.seminars.includes([:documents, :topics]).order('seminars.date DESC')
   end
 
   def new
@@ -21,7 +21,7 @@ class SerialsController < ApplicationController
     if @serial.save
       redirect_to serials_path, notice: "Serie creata correttamente"
     else
-      render :action => :new
+      render action: :new
     end
   end
 
@@ -32,7 +32,7 @@ class SerialsController < ApplicationController
     if @serial.update_attributes(serial_params)
       redirect_to serials_path, notice: "Serie aggiornata correttamente"
     else
-      render :action => :edit
+      render action: :edit
     end
   end
 
