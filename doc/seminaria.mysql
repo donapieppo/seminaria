@@ -17,9 +17,9 @@ CREATE TABLE `places` (
 
 CREATE TABLE `rooms` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `place_id` int(10) unsigned DEFAULT NULL,
   `name` text,
   `description` text, 
-  `place_id` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `place_id` (`place_id`),
   CONSTRAINT `rooms_ibfk_1` FOREIGN KEY (`place_id`) REFERENCES `places` (`id`)
@@ -66,10 +66,10 @@ CREATE TABLE `topics` (
 CREATE TABLE `cycles` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned DEFAULT NULL,
-  `title` varchar(250) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
   `description` text,
-  `committee` varchar(250) DEFAULT NULL,
-  `link` varchar(250) DEFAULT NULL,
+  `committee` varchar(255) DEFAULT NULL,
+  `link` varchar(255) DEFAULT NULL,
   `active` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
@@ -78,7 +78,7 @@ CREATE TABLE `cycles` (
 
 CREATE TABLE `funds` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `category_id` int(10) unsigned NOT NULL,
   `holder_id` int(10) unsigned NOT NULL,
@@ -92,34 +92,29 @@ CREATE TABLE `funds` (
 
 CREATE TABLE `serials` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(250) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
   `description` text,
-  `committee` varchar(250) DEFAULT NULL,
-  `link` varchar(250) DEFAULT NULL,
+  `committee` varchar(255) DEFAULT NULL,
+  `link` varchar(255) DEFAULT NULL,
   `active` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `seminars` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(10) unsigned DEFAULT NULL,
+  `id`              int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id`         int(10) unsigned DEFAULT NULL,
   `organization_id` int(10) unsigned DEFAULT NULL, 
-  `date` datetime DEFAULT NULL,
-  `duration` int(3) DEFAULT NULL,
-  `room_id` int(10) unsigned DEFAULT NULL,
-  `room_description` text,
-  `speaker` varchar(250) DEFAULT NULL,
-  `speaker_title` char(20) DEFAULT NULL,
-  `committee` varchar(200) DEFAULT NULL,
-  `title` varchar(250) DEFAULT NULL,
-  `abstract` text,
-  `file` varchar(200) DEFAULT NULL,
-  `link` varchar(250) DEFAULT NULL,
-  `link_text` varchar(255) DEFAULT NULL,
-  `alert_message` varchar(255) DEFAULT NULL,
-  `alert_deadline` datetime DEFAULT NULL,
-  `serial_id` int(10) unsigned DEFAULT NULL,
-  `cycle_id` int(10) unsigned DEFAULT NULL,
+  `speaker`         varchar(255) DEFAULT NULL,
+  `speaker_title`   char(20) DEFAULT NULL,
+  `bio`             text,
+  `committee`       varchar(255) DEFAULT NULL,
+  `title`           varchar(255) DEFAULT NULL,
+  `abstract`        text,
+  `file`            varchar(255) DEFAULT NULL,
+  `link`            varchar(255) DEFAULT NULL,
+  `link_text`       varchar(255) DEFAULT NULL,
+  `serial_id`       int(10) unsigned DEFAULT NULL,
+  `cycle_id`        int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `organization_id` (`organization_id`),
   KEY `user_id` (`user_id`),
@@ -133,6 +128,19 @@ CREATE TABLE `seminars` (
   CONSTRAINT `seminars_ibfk_5` FOREIGN KEY (`organization_id`) REFERENCES `organizations` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `events` {
+  `id`         int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `seminar_id` int(10) unsigned DEFAULT NULL,
+  `date`       datetime DEFAULT NULL,
+  `duration`   int(3) DEFAULT NULL,
+  `room_id`    int(10) unsigned DEFAULT NULL,
+  `room_description` text,
+  KEY `seminar_id` (`seminar_id`),
+  KEY `room_id` (`room_id`),
+  CONSTRAINT `events_ibfk_1` FOREIGN KEY (`room_id`)   REFERENCES `rooms` (`id`),
+  CONSTRAINT `events_ibfk_2` FOREIGN KEY (`seminar_id`) REFERENCES `seminars` (`id`)
+}
+
 CREATE TABLE `tags` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -140,9 +148,9 @@ CREATE TABLE `tags` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `topics_seminars` (
-  `topic_id` int(10) unsigned NOT NULL,
+CREATE TABLE `seminars_topics` (
   `seminar_id` int(10) unsigned NOT NULL,
+  `topic_id` int(10) unsigned NOT NULL,
   KEY `topic_id` (`topic_id`),
   KEY `seminar_id` (`seminar_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -152,16 +160,17 @@ CREATE TABLE `documents` (
   `user_id` int(10) unsigned DEFAULT NULL,
   `seminar_id` int(10) unsigned DEFAULT NULL,
   `repayment_id` int(10) unsigned DEFAULT NULL,
-  `description` varchar(200) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
-  `attach_file_name` varchar(200) DEFAULT NULL,
+  `attach_file_name` varchar(255) DEFAULT NULL,
   `attach_content_type` varchar(100) DEFAULT NULL,
   `attach_file_size` int(10) unsigned DEFAULT NULL,
   `attach_updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `seminar_id` (`seminar_id`),
-  KEY `repayment_id` (`repayment_id`)
+  KEY `repayment_id` (`repayment_id`),
+  CONSTRAINT `documents_ibfk_2` FOREIGN KEY (`seminar_id`) REFERENCES `seminars` (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `repayments` (
