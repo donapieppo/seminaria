@@ -134,6 +134,13 @@ ActiveRecord::Schema.define(version: 0) do
     t.index ["user_id"], name: "user_id", using: :btree
   end
 
+  create_table "seminars_topics", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "seminar_id", null: false, unsigned: true
+    t.integer "topic_id",   null: false, unsigned: true
+    t.index ["seminar_id"], name: "seminar_id", using: :btree
+    t.index ["topic_id"], name: "topic_id", using: :btree
+  end
+
   create_table "serials", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string  "title",       limit: 250
     t.text    "description", limit: 65535
@@ -151,13 +158,6 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer "discipline_id",            unsigned: true
     t.string  "name",          limit: 30
     t.index ["discipline_id"], name: "discipline_id", using: :btree
-  end
-
-  create_table "topics_seminars", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "topic_id",   null: false, unsigned: true
-    t.integer "seminar_id", null: false, unsigned: true
-    t.index ["seminar_id"], name: "seminar_id", using: :btree
-    t.index ["topic_id"], name: "topic_id", using: :btree
   end
 
   create_table "users", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

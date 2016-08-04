@@ -141,11 +141,11 @@ CREATE TABLE `tags` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `topics_seminars` (
-  `topic_id` int(10) unsigned NOT NULL,
+CREATE TABLE `seminars_topics` (
   `seminar_id` int(10) unsigned NOT NULL,
-  KEY `topic_id` (`topic_id`),
-  KEY `seminar_id` (`seminar_id`)
+  `topic_id` int(10) unsigned NOT NULL,
+  KEY `seminar_id` (`seminar_id`), 
+  KEY `topic_id` (`topic_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `documents` (
