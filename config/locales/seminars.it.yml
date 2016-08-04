@@ -23,19 +23,27 @@ it:
 
   organized_by: "organizzato da:"
   seminar:  Seminario
-  place:    presso
+  room:     presso
   document: Allegato
   serial:   Serie
 
   activerecord:
     models:
-      seminar:  Seminario
-      cycle:    Ciclo seminari
-      document: Allegato
-      serial:   Serie
+      seminar:    Seminario
+      cycle:      Ciclo seminari
+      document:   Allegato
+      serial:     Serie
       repayment:  Richiesta di rimborso
-      cycle:    Ciclo seminari
-    attributes:
+      cycle:      Ciclo seminari
+      admin:      Amministratore
+
+  simple_form:
+    labels:
+      organization:
+        name:        Nome 
+        description: Descrizione
+      admin:
+        user_upn:    Email
       repayment:
         name:     Nome
         surname:  Cognome
@@ -63,12 +71,14 @@ it:
         title:      Titolo
         date:       Giorno e ora
         duration:   Durata
-        place:      Luogo
-        place_description:  Descrizione luogo
-        speaker_title:    Titolo relatore
+        place:      Indirizzo
+        room:       Stanza
+        room_description: Dove si tiene il seminariuo
         speaker:    Relatore
+        speaker_title: Titolo relatore
+        speaker_bio:   Note bibliografiche
         committee:  Organizzazione
-        arguments:  Argomenti
+        topics:     Argomenti
         abstract:   Abstract
         file:       File
         link:       Link
@@ -84,6 +94,18 @@ it:
       document: 
         description: Descrizione
         attach:      Allegato
+    hints:
+      organization:
+        name:        Per esempio DipMat, CeSIA, DICAM...
+      admin:
+        user_upn:    Indicare la mail istituzionale.
+    placeholders:
+      organization:
+        name:      Nome della struttura
+      admin:
+        user_upn:  nome.cognome@unibo.it
+      seminar:
+        link:        http://
 
   time:
     am: am
@@ -93,6 +115,8 @@ it:
       past: !    "%d %b %Y"
       hour: !    "%H:%M"
       totem: !   "%A %d %B"
+
+  minutes: minuti
 
 
   payment_hint: Compenso + eventuale quota forfettaria di rimborso spese da non giustificare, entrambi tassati.
