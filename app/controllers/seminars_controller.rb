@@ -127,7 +127,7 @@ class SeminarsController < ApplicationController
   end
 
   def seminar_params
-    p = [:date, :duration, :room_id, :room_description, :cycle_id, :serial_id, :speaker_title, :speaker, :committee, :title, :abstract, :file, :link, :link_text]
+    p = [:date, :duration, :room_id, :room_description, :cycle_id, :serial_id, :speaker_title, :speaker, :committee, :title, :abstract, :file, :link, :link_text, :organization_id]
     p = p + [:user_id, :serial_id, :cycle_id] if current_user.is_admin?
     params[:seminar].permit(p)
   end
