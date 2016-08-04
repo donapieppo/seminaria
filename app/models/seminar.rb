@@ -3,10 +3,10 @@ class Seminar < ApplicationRecord
   include Calendar
 
   belongs_to :user
-  belongs_to :organization
-  belongs_to :room, required: false
-  belongs_to :cycle, required: false
-  belongs_to :serial, required: false
+  belongs_to :organization, required: true
+  belongs_to :room,         required: false
+  belongs_to :cycle,        required: false
+  belongs_to :serial,       required: false
   has_many   :documents, dependent: :destroy
   has_one    :repayment, dependent: :destroy
   has_and_belongs_to_many :topics
@@ -27,13 +27,10 @@ class Seminar < ApplicationRecord
   end
 
   def place_to_s
-    case self.place_id
-    when 2
-      self.place_description
-    when nil
-      'Non definita'
+    if self.room_id
+      self.room.to_s + " " + self.room.place.to_s
     else
-      self.place.to_s
+      I18n.t(:undefined_room)
     end
   end
 
