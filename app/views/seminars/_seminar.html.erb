@@ -2,25 +2,14 @@
 <div class="seminar <%= css_classes(seminar) %>">
 
   <div class="when">
-    <div class="date">
-      <%= l(seminar.date, format: (seminar.past? ? :past : :day)) %> 
-      <%= "ore " + l(seminar.date, format: :hour) unless (seminar.past? or short) %>
-    </div>
-    <div class="where">
-      <%= where_tag(seminar) unless (seminar.past? or short) %>  
-    </div>
+    <%= date_tag(seminar, short) %>  
+    <%= where_tag(seminar) unless (seminar.past? or short) %>  
+
     <div class="arguments">
       <%= seminar.arguments_string %>
     </div>
 
-    <% if (seminar.date.today? and !short) %>
-      <div class="today">
-        <%= big_icon('clock-o') %> 
-        <span>
-          <%= (seminar.date < Time.now) ? 'iniziato da ' :  'tra ' %> <%= time_ago_in_words(seminar.date) %>
-        </span>
-      </div>
-    <% end %>
+    <%= started_tag(seminar) if (seminar.date.today? and !short) %>
 
     <div class="mto">
       <%# se in una serie ma non stiamo vedendo proprio la serie %>

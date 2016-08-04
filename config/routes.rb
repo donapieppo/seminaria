@@ -36,5 +36,7 @@ Rails.application.routes.draw do
     get :download, on: :member
   end
 
+  resources :rooms
+
   root to: 'home#index'
 end

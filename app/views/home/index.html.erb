@@ -1,8 +1,13 @@
-<h2>Prossimi Seminari</h2>
+<h2><%= @title %></h2>
+
 <% if user_signed_in? %>
   <p class="actions">
-    <%= link_to icon('plus')    + ' inserisci seminario', choose_type_seminars_path %> &mdash; 
-    <%= link_to icon('list')    + " seminari inseriti da #{current_user}", user_seminars_path %> 
+    <%= link_to icon('plus') + ' inserisci seminario', choose_type_seminars_path %> &mdash; 
+    <% if params[:only_current_user] %>
+      <%= link_to icon('list') + " tutti i prossimi seminari", root_path %> 
+    <% else %>
+      <%= link_to icon('list') + " seminari inseriti da #{current_user}", user_seminars_path %> 
+    <% end %>
   </p>
 <% end %>
 

@@ -20,11 +20,12 @@
       <%= seminar.input :cycle_id,  as: :hidden %>  
     <% end %>
     <%= seminar.input :title %>  
+    <%= seminar.input :abstract %>
+
     <%= seminar.input :speaker_title, collection: User.abbr_titles, include_blank: false %>  
     <%= seminar.input :speaker %>  
-    <%# <%= seminar.input :speaker_bio %1> %>  
+    <%= seminar.input :speaker_bio %>  
 
-    <%= seminar.input :abstract %>
     <%= seminar.input :link %>
     <%= seminar.input :link_text %> 
     <% if user_admin? %>  
@@ -37,13 +38,13 @@
     <%= seminar.input :date,  as: :datetime_picker %>  
     <%= seminar.input :duration, collection: minutes_collection, include_blank: false %>
     <%= seminar.input :place, collection: Place.all_with_other, include_blank: false, label_method: :to_s %>
-    <%= seminar.input :room, collection: Room.all, include_blank: false %>
+    <%= seminar.association :room, collection: Room.all, include_blank: false %>
     <%= seminar.input :room_description, input_html: { cols: 50, rows: 2 } %>
   </fieldset>
 
   <fieldset>
     <legend>Organizzazione</legend>
-      <%= seminar.association :organization %>  
+      <%= seminar.association :organization, label_method: :to_s %>  
       <%= seminar.input :committee %>
   </fieldset>
 
