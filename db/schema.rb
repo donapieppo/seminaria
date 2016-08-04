@@ -101,9 +101,9 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   create_table "rooms", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text    "name",        limit: 65535
-    t.text    "description", limit: 65535
     t.integer "place_id",                  unsigned: true
+    t.string  "name"
+    t.text    "description", limit: 65535
     t.index ["place_id"], name: "place_id", using: :btree
   end
 
@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.text     "room_description", limit: 65535
     t.string   "speaker",          limit: 250
     t.string   "speaker_title",    limit: 20
+    t.text     "speaker_bio",      limit: 65535
     t.string   "committee",        limit: 200
     t.string   "title",            limit: 250
     t.text     "abstract",         limit: 65535
