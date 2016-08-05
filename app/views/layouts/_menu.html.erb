@@ -3,7 +3,7 @@
   <%= dm_nav do  %>  
     <li><%= link_to big_icon('home')     + ' Home', root_path %></li>
     <li><%= link_to big_icon('list')     + ' Seminari periodici', serials_path %></li>
-    <li><%= link_to big_icon('archive')  + ' Archivio', archive_seminars_path %></li>
+    <li><%= link_to big_icon('archive')  + t(:archive), archive_seminars_path %></li>
     <%# <%= dropdown_menu big_icon('archive') + ' Archivio' do  %1> %>  
     <%#   <li><%= link_to 'archivio seminari', archive_seminars_path %1></li> %>
     <%#   <li><%= link_to 'archivio notizie',  archive_highlights_path %1></li> %>
@@ -11,9 +11,9 @@
     <%# <% if user_is_commissioner? or user_is_publisher? %1> %>
     <%#   <li><%= link_to big_icon('comment-o') + ' notizie', admin_highlights_path %1></li> %>
     <%# <% end %1> %>
-    <% if user_is_manager? %>  
-      <li><%= link_to big_icon('euro') + ' compensi', repayments_path %></li>
-    <% end %>
+    <%# <% if user_is_manager? %1> %>  
+    <%#   <li><%= link_to big_icon('euro') + ' compensi', repayments_path %1></li> %>
+    <%# <% end %1> %>
   <% end %>
 <% end %>
 
