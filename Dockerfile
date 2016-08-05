@@ -17,12 +17,12 @@ RUN ["/bin/cp", "doc/dm_unibo_common_docker.yml",  "config/dm_unibo_common.yml"]
 RUN ["/bin/cp", "doc/seminaria_example_docker.rb", "config/initializers/seminaria.rb"]
 RUN ["/bin/cp", "doc/docker_database.yml",         "config/database.yml"]
 
+# old without docker compose
 # db
-RUN ["rake", "db:create"]
-RUN ["rake", "db:schema:load"]
-
-EXPOSE 3000
-CMD ["rails", "server", "-b", "0.0.0.0"]
+#RUN ["rake", "db:create"]
+#RUN ["rake", "db:schema:load"]
+#EXPOSE 3000
+#CMD ["rails", "server", "-b", "0.0.0.0"]
 
 
 
