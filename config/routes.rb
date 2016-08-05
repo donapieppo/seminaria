@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   get 'seminars/archive/(:year)', to: 'seminars#archive', as: 'archive_seminars'
   get 'totem',                    to: 'home#totem', as: 'totem'
 
-  get 'user/seminars',   controller: 'seminars',   action: 'index', only_current_user: true, as: 'user_seminars'
-  get 'user/cycles',     controller: 'cycles',     action: 'index',                          as: 'user_cycles'
+  get 'user/seminars',   controller: 'home',   action: 'index', only_current_user: true, as: 'user_seminars'
+  get 'user/cycles',     controller: 'cycles', action: 'index',                          as: 'user_cycles'
 
   resources :organizations do
     resources :admins
