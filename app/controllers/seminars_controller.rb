@@ -119,10 +119,10 @@ class SeminarsController < ApplicationController
   end
 
   def fix_place_and_room_params
-    if params.delete(:place_id) == 0
-      params[:room_id] = nil
+    if params[:seminar].delete(:place_id) == "0"
+      params[:seminar][:room_id] = nil
     else
-      params.delete(:room_description)
+      params[:seminar][:room_description] = ''
     end
   end
 
