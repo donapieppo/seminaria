@@ -1,6 +1,6 @@
-<h2>Allegati</h2>
-
 <div class="attachs">
+<fielset>
+<legend>Allegati</legend>
   <% if @documents.size > 0 %>  
     <ul>
       <% @documents.each do |document| %>
@@ -8,13 +8,10 @@
       <% end %>
     </ul>
   <% end %>
-
-  <h3>Nuovo allegato</h3>
-  <%= horizontal_form_for @document, :url => seminar_documents_path(@seminar), :html => { :multipart => true } do |document| %>
+  <%= horizontal_form_for @document, url: seminar_documents_path(@seminar), html: { :multipart => true } do |document| %>
     <%= document.input :description %>
-    <%= document.input :attach, :as => :file, class: "" %>
-    <%= document.submit 'Invia' %> -
-    <%= link_to 'indietro', root_path %>   
+    <%= document.input :attach, as: :file, class: "" %>
+    <%= document.submit 'Invia' %> - <%= link_to_back root_path %>   
   <% end %>
+</fielset>
 </div>
-

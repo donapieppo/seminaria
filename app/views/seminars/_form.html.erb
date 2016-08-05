@@ -37,7 +37,7 @@
     <legend>Data e luogo</legend>
     <%= seminar.input :date,  as: :datetime_picker %>  
     <%= seminar.input :duration, collection: minutes_collection, include_blank: false %>
-    <%= seminar.input :place, collection: Place.all_with_other, include_blank: false, label_method: :to_s %>
+    <%= seminar.input :place_id, collection: Place.all_with_other, include_blank: false, label_method: :to_s %>
     <%= seminar.association :room, collection: Room.all, include_blank: false %>
     <%= seminar.input :room_description, input_html: { cols: 50, rows: 2 } %>
   </fieldset>

@@ -5,7 +5,7 @@
     place_to_rooms = <%= raw place_and_room_json_hash %>
 
     function show_place_rooms() {
-      place_id = $("select#seminar_place option:selected").val();
+      place_id = $("select#seminar_place_id option:selected").val();
       // place_id == 0 means define room by hand
       if (place_id == 0) {
         $(".seminar_room_description").show();
@@ -25,7 +25,7 @@
       };
     }
 
-    $("select#seminar_place").change(function() {
+    $("select#seminar_place_id").change(function() {
       show_place_rooms();
     });
 
