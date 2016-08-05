@@ -1,13 +1,13 @@
 class RepaymentsController < ApplicationController
   # richiesta su proprio seminario
-  before_filter :get_seminar_and_check_seminar_permission, only: [:new, :create, :update]
+  before_action :get_seminar_and_check_seminar_permission, only: [:new, :create, :update]
   # propria richiesta o su propri fondi
-  before_filter :get_repayment_and_check_permission, only: [:show, :notify]
+  before_action :get_repayment_and_check_permission, only: [:show, :notify]
   # su propri fondi
-  before_filter :get_repayment_and_check_fund_permission, only: [:choose_fund, :fund]
-  before_filter :get_and_validate_holder, only: [:create, :update]
+  before_action :get_repayment_and_check_fund_permission, only: [:choose_fund, :fund]
+  before_action :get_and_validate_holder, only: [:create, :update]
 
-  before_filter :user_is_manager!, only: [:index]
+  before_action :user_is_manager!, only: [:index]
 
   def index
     @repayments = Repayment.includes(:seminar).order('seminars.date DESC').references(:seminars)
