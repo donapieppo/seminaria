@@ -7,6 +7,10 @@ class User < ApplicationRecord
   has_many :approvals
   has_many :funds, foreign_key: "holder_id"
 
+  def is_admin?
+    false
+  end
+
   def is_commissioner?
     COMMISSIONERS.include?(self.upn) or self.is_admin?
   end
