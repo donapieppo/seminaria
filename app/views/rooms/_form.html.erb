@@ -1,0 +1,13 @@
+<%= horizontal_form_for @room do |room| %>  
+  <%= room.dm_error_notification %>  
+  <fieldset>
+    <legend><%= t :room %></legend>
+
+    <%= room.association :place, collection: Place.all %>  
+    <%= room.input :name %>  
+    <%= room.input :description %>  
+    <%= room.submit %> - <%= link_to 'indietro', root_path %>   
+
+  </fieldset>
+<% end %>
+
