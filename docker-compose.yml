@@ -2,7 +2,6 @@ version: '2'
 services:
   db:
     image: mysql
-    hostname: seminaria-mysql
     environment:
       - MYSQL_DATABASE=seminaria
       - MYSQL_ROOT_PASSWORD=verysecuresecret
