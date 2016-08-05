@@ -94,11 +94,17 @@ it:
       document: 
         description: Descrizione
         attach:      Allegato
+
     hints:
       organization:
         name:        Per esempio DipMat, CeSIA, DICAM...
       admin:
         user_upn:    Indicare la mail istituzionale.
+      repayment:
+        payment:     Compenso + eventuale quota forfettaria di rimborso spese da non giustificare, entrambi tassati.
+        role:        "Qualifica e/o attività del relatore (esempio: 'professore ordinario', 'professore associato', 'ricercatore' ecc.)"
+        cv:          Si prega di inserire il curriculum vitae. Obbligatorio in caso di compenso ai sensi del D.Lgs. 33/2013 in materia di collaborazioni ed incarichi.
+
     placeholders:
       organization:
         name:      Nome della struttura
@@ -119,5 +125,3 @@ it:
   minutes: minuti
 
 
-  payment_hint: Compenso + eventuale quota forfettaria di rimborso spese da non giustificare, entrambi tassati.
-  dlgs33_2013: Si prega di inserire il curriculum vitae. Obbligatorio in caso di compenso ai sensi del D.Lgs. 33/2013 in materia di collaborazioni ed incarichi.
