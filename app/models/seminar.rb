@@ -78,7 +78,7 @@ class Seminar < ApplicationRecord
   end
 
   def place_id
-    @place_id || (self.room_id ? self.room.place_id : nil)
+    @place_id || (self.room_id ? self.room.place_id : 0)
   end
 end
 
