@@ -4,7 +4,7 @@ default: &default
   pool: 5
   username: root
   password: <%= ENV['SEMINARIA_DATABASE_PASSWORD'] %>
-  host: seminaria-mysql
+  host: db
 
 development:
   <<: *default
