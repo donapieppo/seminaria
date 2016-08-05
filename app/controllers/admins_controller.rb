@@ -1,6 +1,14 @@
 class AdminsController < ApplicationController
   before_action :user_cesia!
 
+  def index
+    @admins = Hash.new
+    Admin.includes(:organization, :user).order('organizations.name').each do |admin|
+      @admins[admin.organization] ||= []
+      @admins[admin.organization] << admin
+    end
+  end
+
   def new
     @organization = Organization.find(params[:organization_id])
     @admin = @organization.admins.new

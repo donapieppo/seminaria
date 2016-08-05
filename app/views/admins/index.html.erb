@@ -1,0 +1,14 @@
+<h1><%= t :admins %></h1>
+
+<% Organization.order(:name).each do |organization| %>  
+  <h2><%= organization %></h2>
+  <ul>
+    <% if @admins[organization] %>  
+      <% @admins[organization].each do |admin| %>  
+        <li><%= admin %> <%= link_to_delete admin_path(admin) %></li>
+      <% end %>
+    <% end %>
+    <li><%= link_to t(:new_admin), new_organization_admin_path(organization) %> </li>
+  </ul>
+<% end %>
+
