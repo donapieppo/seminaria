@@ -123,5 +123,6 @@ it:
       totem: !   "%A %d %B"
 
   minutes: minuti
+  printable_page: Pagina stampabile
 
 

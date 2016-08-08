@@ -11,7 +11,13 @@ module SeminarsHelper
   def where_tag(seminar)
     return unless seminar.room_id
     content_tag :div, class: :where do
-      h(I18n.t(:room)) + " " + h(seminar.room.to_s) + "<br/>".html_safe + h(seminar.room.place.to_s)
+      h(I18n.t(:room)) + " " + h(seminar.room.to_s) + " - <em>".html_safe + h(seminar.room.place.to_s) + ".</em>".html_safe
+    end
+  end
+
+  def committee_tag(seminar)
+    content_tag :div, class: :committee do
+      h(I18n.t(:organized_by)) + " " + seminar.committee + "<br/>".html_safe + seminar.project 
     end
   end
 
@@ -40,6 +46,31 @@ module SeminarsHelper
         (seminar.date < Time.now) ? 'iniziato da ' :  'tra ' +
         time_ago_in_words(seminar.date)
       end )
+    end
+  end
+
+  def edit_and_delete_tag(seminar)
+    if user_owns?(seminar) or user_is_manager?
+      link_to_edit(edit_seminar_path(seminar)) + " " + link_to_delete(seminar_path(seminar))
+    end
+  end
+
+  def fund_tag(seminar)
+    if user_is_holder?(seminar)
+      repayment_class = (seminar.repayment.fund ? 'fund_ok' : 'fund_missing')
+      link_to icon('eur'), choose_fund_repayment_path(seminar.repayment), title: 'Scelta fondo', class: repayment_class
+    end
+  end
+
+  def actions_tag(seminar) 
+    content_tag(:div, :actions) do
+      unless seminar.past? 
+        concat edit_and_delete_tag(seminar)
+        concat fund_tag(seminar)
+        concat link_to(fwicon('google'), seminar.google_url, target: :new, title: 'aggiungi a Google Calendar')
+        concat link_to(fwicon('calendar'), seminar_url(seminar, format: :ics), title: 'aggiungi a iCal')
+      end
+      concat link_to(fwicon('print'), seminar_path(seminar), title: I18n.t(:printable_page))
     end
   end
 

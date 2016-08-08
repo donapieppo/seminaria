@@ -3,14 +3,10 @@
 
   <div class="when">
     <%= date_tag(seminar, short) %>  
-    <%= where_tag(seminar) unless (seminar.past? or short) %>  
-
     <div class="arguments">
       <%= seminar.arguments_string %>
     </div>
-
     <%= started_tag(seminar) if (seminar.date.today? and !short) %>
-
     <div class="mto">
       <%# se in una serie ma non stiamo vedendo proprio la serie %>
       <% if seminar.serial_id and !@serial %>
@@ -40,27 +36,9 @@
     </div><!-- content -->
     <% if ! short %>
       <div class="footer">
-        <div class="committee">
-          <%= t :organized_by %> <%= seminar.committee %> <br/> 
-          <%= seminar.project %>  
-        </div>
-        <div class="calendars">
-          <% if ! seminar.past? %>
-            <% if user_owns?(seminar) or user_is_manager? %>
-              &nbsp;
-              <%= link_to_edit edit_seminar_path(seminar) %>  
-              <%= link_to_delete seminar_path(seminar) %>
-            <% end %>
-            <% if user_is_holder?(seminar) %>
-              &nbsp;
-              <% repayment_class = (seminar.repayment.fund ? 'fund_ok' : 'fund_missing') %>  
-              <%= link_to icon('eur'), choose_fund_repayment_path(seminar.repayment), title: 'Scelta fondo', class: repayment_class %>  
-            <% end %>
-            <%= link_to fwicon('google'), seminar.google_url, target: :new, title: 'aggiungi a Google Calendar' %>  
-            <%= link_to fwicon('calendar'), seminar_url(seminar, format: :ics), title: 'aggiungi a iCal' %>  
-          <% end %>
-          <%= link_to fwicon('print'), seminar_path(seminar), title: 'pagina stampabile' %>  
-        </div>
+        <%= where_tag(seminar) unless (seminar.past? or short) %>  
+        <%= committee_tag(seminar) %>  
+        <%= actions_tag(seminar) %>  
       </div><!-- footer -->
     <% end %>
   </div><!-- what -->

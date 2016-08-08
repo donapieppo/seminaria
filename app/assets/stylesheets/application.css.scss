@@ -8,7 +8,6 @@ p.actions {
 }
 	
 .seminar {
-  @extend .panel;
   @include make-row();
   .when {
     @include make-md-column(3);
@@ -67,7 +66,7 @@ p.actions {
         @include make-md-column(8);
         font-size: 12px;
       }
-      .calendars {
+      .actions {
         @include make-md-column(4);
         text-align: right;
       }
