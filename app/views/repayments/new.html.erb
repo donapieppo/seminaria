@@ -1,6 +1,10 @@
-<h1>Richiesta di rimborso</h1>
+<div>
+  <%= l(@seminar.date) %><br/>
+  <%= @seminar.speaker %> <br/>
+  <%= @seminar.title %>  
+</div>
 
-<%= render @seminar, short: false %>  
+<h1>Richiesta di rimborso</h1>
 
 <% if @repayment.notified and ! user_is_manager? %>
   <p class="info">La richiesta è già stata inviata e non è più possibile modificarla. Si prega di contattare l'amministrazione.</p>

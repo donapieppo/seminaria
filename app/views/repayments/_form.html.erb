@@ -11,7 +11,7 @@ Per questo seminario è possibile fare richiesta di <strong>compenso e/o rimbors
   </fieldset>
 
   <fieldset>
-    <legend>Dati anagrafici <%= @seminar.speaker_title %> <%= @seminar.speaker %></legend>
+    <legend>Dati anagrafici <%= @seminar.speaker_with_title %></legend>
     <%= repayment.input :name %>
     <%= repayment.input :surname %>
     <%= repayment.input :birth_date %>
@@ -20,14 +20,14 @@ Per questo seminario è possibile fare richiesta di <strong>compenso e/o rimbors
   </fieldset>
 
   <fieldset>
-    <legend>Ruolo <%= @seminar.speaker_title %> <%= @seminar.speaker %></legend>
+    <legend>Ruolo <%= @seminar.speaker_with_title %></legend>
     <%= repayment.input :affiliation %>
     <%= repayment.input :role %> 
     <%= repayment.input :email %>
   </fieldset>
 
   <fieldset>
-    <legend>Indirizzo di residenza <%= @seminar.speaker_title %> <%= @seminar.speaker %></legend>
+    <legend>Indirizzo di residenza <%= @seminar.speaker_with_title %></legend>
     <div class="input">
       <label>Residenza fiscale in Italia</label>
       <%= repayment.input_field :italy, label: false, boolean_style: :inline %>
@@ -85,9 +85,9 @@ Per questo seminario è possibile fare richiesta di <strong>compenso e/o rimbors
   </fieldset> 
 
   <p>
-  <%= repayment.submit 'Salva', :class => 'button', style: "margin-bottom: 0" %> -
+  <%= repayment.submit 'Salva', style: "margin-bottom: 0" %> -
   <% if ! @repayment.new_record? and current_user.is_admin? %>  
-    <%= link_to 'stampa', repayment_path(@repayment), :class => 'button' %> -
+    <%= link_to 'stampa', repayment_path(@repayment), class: :button %> -
   <% end %>
   <%= link_to 'torna alla home page', root_path %>   
   </p>
