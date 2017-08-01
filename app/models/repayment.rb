@@ -1,6 +1,6 @@
 class Repayment < ApplicationRecord
   belongs_to :seminar
-  belongs_to :holder, class_name: User, foreign_key: :holder_id
+  belongs_to :holder, class_name: 'User', foreign_key: :holder_id
   belongs_to :fund
   # non ci basta che sia in seminario con type=cv. Ci piace di piu' cosi'. Anche solo perche' va visto da chi vede 
   # il seminario e questo va visto da chi vede il repayment
