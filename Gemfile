@@ -5,6 +5,8 @@ gem 'sqlite3'
 gem 'dm_unibo_common',      git: 'https://github.com/donapieppo/dm_unibo_common.git',      ref: 'master', branch: 'master'
 gem 'dm_unibo_user_search', git: 'https://github.com/donapieppo/dm_unibo_user_search.git', ref: 'master', branch: 'master'
 
+# gem 'webpacker', github: 'rails/webpacker'
+
 gem "paperclip"
 gem "prawn"
 gem "prawn-table"
@@ -22,7 +24,7 @@ end
 
 group :development, :test do
   gem 'listen', '~> 3.0.5'
-  gem 'rspec-rails', '~> 3.1.0'
+  gem 'rspec-rails', '~> 3.6.0'
   gem 'factory_girl_rails'
   gem 'mocha'
   gem 'spring'
