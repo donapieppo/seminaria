@@ -1,14 +1,13 @@
 Rails.application.routes.draw do
-  get 'seminars/archive/(:year)', to: 'seminars#archive', as: 'archive_seminars'
-  get 'totem',                    to: 'home#totem', as: 'totem'
+  get 'seminars/archive/(:year)',   controller: 'seminars',   action: 'archive', as: 'archive_seminars'
+  get 'highlights/archive/(:year)', controller: 'highlights', action: 'archive', as: 'archive_highlights'
 
-  get 'user/seminars',   controller: 'home',   action: 'index', only_current_user: true, as: 'user_seminars'
-  get 'user/cycles',     controller: 'cycles', action: 'index',                          as: 'user_cycles'
+  get 'totem', controller: 'home', action: 'totem', as: 'totem'
 
-  resources :organizations do
-    resources :admins
-  end
-  resources :admins
+  get 'user/seminars',   controller: 'seminars',   action: 'index', only_current_user: true,  as: 'user_seminars'
+  get 'funds/seminars',  controller: 'seminars',   action: 'index', funds_current_user: true, as: 'funds_seminars'
+  get 'user/cycles',     controller: 'cycles',     action: 'index',                           as: 'user_cycles'
+  get 'user/highlights', controller: 'highlights', action: 'index', only_current_user: true,  as: 'user_highlights'
 
   resources :seminars do
     get  :choose_type, on: :collection
@@ -26,17 +25,31 @@ Rails.application.routes.draw do
     resources :seminars
   end
   
+  resources :highlights do
+    get :admin, on: :collection
+    put :publish, on: :member
+    put :refuse, on: :member
+    resources :approvals
+  end
+
+  resources :approvals
   resources :repayments do
     post :notify, on: :member
     get  :choose_fund, on: :member
     post :fund, on: :member
+    get  :print_letter, on: :member
+    get  :print_decree, on: :member
+    get  :print_proposal, on: :member
   end
 
   resources :documents do
     get :download, on: :member
   end
 
-  resources :rooms
+  resources :funds do
+    get :owners, on: :collection
+    get :justifications, on: :member
+  end
 
-  root to: 'home#index'
+  root to: 'seminars#index'
 end
