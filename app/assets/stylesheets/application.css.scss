@@ -1,16 +1,16 @@
 @import "dm_unibo_common/variables";
 @import "dm_unibo_common/dm";
 @import 'dm_unibo_common/date_picker';
-@import 'dm_unibo_common/datetime_picker';
 
 p.actions {
 	text-align: right;
 }
 	
 .seminar {
-  @include make-row();
+  @extend .row;
+  @extend .mb-3;
   .when {
-    @include make-md-column(3);
+    @extend .col-md-3;
 	 	text-align: right;
     .date {
   	  font-weight: bold;
@@ -26,28 +26,30 @@ p.actions {
     }
     .today {
       @extend .alert;
-      @extend .alert-danger;
-      margin-top: 10px;
-      margin-left: 20px;
-      margin-right: 20px;
+      @extend .bg-warning;
+      @extend .my-3;
+      @extend .mx-5;
+      font-weight: bold;
       text-align: center;
     }
   }
   .what {
-    @include make-md-column(9);
-    @extend .panel;
-    @extend .panel-info;
+    @extend .col-md-9;
+    @extend .card;
     padding-left: 0;
     padding-right: 0;
 
 		.title {
-      @extend .panel-heading;
+      @extend .card-header;
+      background-color: #d9edf7;
+      color: #31708f;
+      border-bottom: 2px solid #31708f;
       font-size: 16px;
       font-weight: bold;
       text-transform: uppercase;
 		}
     .content {
-      @extend .panel-body;
+      @extend .card-body;
       .speaker {
         font-weight: bold;
       }
@@ -58,46 +60,45 @@ p.actions {
   		}
     }
     .footer {
-      @include make-row();
-      @extend .panel-footer;
+      @extend .row;
+      @extend .card-footer;
       margin-left: 0;
       margin-right: 0;
       .committee {
-        @include make-md-column(8);
+        @extend .col-md-9;
         font-size: 12px;
       }
-      .actions {
-        @include make-md-column(4);
+      .actions-and-calendars {
+        @extend .col-md-3;
         text-align: right;
       }
       .fund_missing {
-        color: $state-danger-text;
+        @extend .text-danger;
       }
     }
   }
 }
 
 .highlight {
-  @include make-row();
+  @extend .row;
   .when {
-    @include make-md-column(3);
+    @extend .col-md-3;
 	 	text-align: right;
     .date {
     }
   }
   .what {
-    @include make-md-column(9);
-    @extend .panel;
-    @extend .panel-info;
+    @extend .col-md-9;
+    @extend .card;
     padding-left: 0;
     padding-right: 0;
 		.title {
-      @extend .panel-heading;
+      @extend .card-header;
       font-weight: bold;
       text-transform: uppercase;
 		}
     .content {
-      @extend .panel-body;
+      @extend .card-body;
       .description {
   			font-style: italic;
   			padding: 1ex 3ex;
@@ -110,7 +111,7 @@ p.actions {
 }
 
 .highlight-commission {
-  @include make-row(); 
+  @extend .row;
   .proponent {
     font-weight: bold;
   }
@@ -120,32 +121,16 @@ p.actions {
     }
   }
   .commission, .proponent {
-    @include make-md-column-offset(9);
-    @include make-md-column-offset(3);
+    //@include make-md-column-offset(9);
+    //@include make-md-column-offset(3);
   }
 }
 
 .main-description {
-  @extend .alert;
-  @extend .alert-success;
+  // @extend .alert;
+  // @extend .alert-info;
 }
 
-.serial {
-  @extend .panel;
-  @extend .panel-info;
-  .title {
-    @extend .panel-heading;
-    font-weight: bold;
-  }
-  .description {
-    @extend .panel-body;
-  }
-  .next-seminars {
-    .next_in_serial {
-      margin-left: 10px;
-    }
-  }
-}
 dl.cycles {
   dt {
     margin-top: 10px
@@ -155,17 +140,25 @@ dl.cycles {
   }
 }
 
+#seminar_hour {
+  width: 5em;
+}
+#seminar_minute {
+  width: 5em;
+}
 #seminar_duration {
-  width: 20ex;
+  width: 15em;
 }
 
-li span.organization_name {
-  display: inline-block;
-  text-align: right;
-  width: 16ex;
-  font-weight: bold;
+
+
+table.funds {
+  @extend .table;
+  @extend .table-striped;
+  @extend .table-sm;
+  @extend .table-bordered;
+  .unavailable {
+    text-decoration: line-through;
+  }
 }
 
-#seminar_speaker_title {
-  width: 20ex;
-}

@@ -6,7 +6,6 @@ description_field = ->
       $(".seminar_place_description").hide('fast')
   
 $ ->
-  $("input.datetime_picker").datetimepicker(minuteStepping: 15)
   $(".abstract").jTruncate(moreText: "[vedi tutto]", lessText: "[comprimi]");
 
   description_field()
