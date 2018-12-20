@@ -1,0 +1,45 @@
+<h1>Elenco fondi</h1>
+
+<p class="centered"><%= link_to 'Nuovo fondo', new_fund_path, class: :button %>  </p>
+
+<p>
+<% if @all %>  
+  <%= link_to 'Mostra solo i fondi <strong>disponibili</strong>.'.html_safe, funds_path %>
+<% else %>
+  <%= link_to 'Mostra anche i fondi <strong>non disponibili</strong>.'.html_safe, funds_path(all: true) %>
+<% end %>
+</p>
+
+<% @holders.each do |holder, funds| %>
+  <div class="dm-card my-0" style="margin: 7px !important">
+    <div class="dm-card-header my-0">
+      <%= holder.cn_militar %>
+    </div>
+    <div class="dm-card-body">
+      <ul class="list-group list-group-flush">
+      <% funds.each do |fund| %>  
+        <li class="list-group-item list-group-item <%= "bg-light text-warning" unless fund.available %>  " >
+          <span class="btn btn-sm <%= fund.available ? 'btn-info' : 'btn-warning' %> py-1 font-weight-bold"><%= fund.code %></span> - <%= fund.name %>
+          (<%= fund.category.name %>)
+          <span class="float-right">
+            <%= link_to icon(:eye), fund_path(fund), title: 'mostra i rimborsi associati' %>
+            <%= link_to_edit edit_fund_path(fund) %>
+            <%= link_to_delete fund_path(fund) %>
+          </span>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<%= javascript_tag do %>
+  $(document).ready(function(){
+    $(".dm-card-header").css('cursor', 'pointer');
+    $(".dm-card-body").toggle();
+    $(".dm-card-footer").toggle();
+    $(".dm-card-header").click(function() {
+      $(this).css('font-weight', 'bold');
+      //$(this).next(".dm-card-body").slideToggle();
+      $(this).next(".dm-card-body").slideToggle().next(".dm-card-footer").slideToggle();
+    });
+  });
+<% end %>
