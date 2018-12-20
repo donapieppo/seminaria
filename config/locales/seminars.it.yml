@@ -1,49 +1,48 @@
 it:
-  organizations: Dipartimenti
-  archive:    Archivio 
-
-  repayment:     Richiesta di rimborso
-  address:       Indirizzo di residenza
-  postalcode:    Codice postale
-  city:          Città
-  country:       Paese
+  repayment: Richiesta di rimborso
+  address:    Indirizzo di residenza
+  postalcode: Codice postale
+  city:       Città
+  country:    Paese
   birth_date:    Data di nascita
   birth_place:   Luogo di nascita
   birth_country: Paese di nascita
-
-  payment:     Compenso 
-  gross:       Lordo
+  payment: Compenso 
+  gross: Lordo
   affiliation: Ente di appartenenza
-  role:        In qualità di
-  refund:      Rimborso spese
-
-  speaker_arrival:   Arrivo del relatore a Bologna
+  role: In qualità di
+  position: In qualità di
+  position_to_s: In qualità di
+  refund: Rimborso spese
+  speaker_arrival: Arrivo del relatore a Bologna
   speaker_departure: Partenza del relatore da Bologna
-  expected_refund:   Importo presunto
+  expected_refund: Importo presunto
+  time:
+    am: am
+    formats:
+      seminar: ! "%a %d %b, ore %H:%M"
+      day: !     "%A %d %B"
+      past: !    "%d %b %Y"
+      hour: !    "%H:%M"
+      totem: !   "%A %d %B"
+      date: !    "%d/%m/%y"
 
   organized_by: "organizzato da:"
-  seminar:  Seminario
-  room:     presso
+  seminar: Seminario
+  place: presso
   document: Allegato
-  serial:   Serie
+  serial: Serie
 
   activerecord:
     models:
-      seminar:    Seminario
-      cycle:      Ciclo seminari
-      document:   Allegato
-      serial:     Serie
-      repayment:  Richiesta di rimborso
-      cycle:      Ciclo seminari
-      admin:      Amministratore
-
-  simple_form:
-    labels:
-      organization:
-        name:        Nome 
-        description: Descrizione
-      admin:
-        user_upn:    Email
+      seminar:   Seminario
+      cycle:     Ciclo seminari
+      document:  Allegato
+      serial:    Serie
+      repayment: Richiesta di rimborso
+      cycle:     Ciclo seminari
+      fund:      Fondo
+    attributes:
       repayment:
         name:     Nome
         surname:  Cognome
@@ -61,24 +60,27 @@ it:
         speaker_departure: Partenza del relatore da Bologna
         expected_refund: Importo presunto
         affiliation: Ente di appartenenza
+        reason: Descrizione dettagliata delle eccezionali ragioni di particolare qualificazione, abilità e conoscenze possedute dal conferenziere che motivano la deroga alla procedura comparativa pubblica con assegnazione diretta dell’incarico
         payment: Compenso 
         gross: lordo
-        role: In qualità di
+        role: Dettagli posizione
+        position: In qualità di
         refund: Rimborso spese
         fund: Fondo
         cv: Curriculum Vitae
       seminar:
         title:      Titolo
         date:       Giorno e ora
+        day:        Giorno
+        hour:       Ora
+        minute:     Minuti
         duration:   Durata
-        place:      Indirizzo
-        room:       Stanza
-        room_description: Dove si tiene il seminariuo
+        place:      Luogo
+        place_description:  Descrizione luogo
+        speaker_title:    Titolo relatore
         speaker:    Relatore
-        speaker_title: Titolo relatore
-        speaker_bio:   Note bibliografiche
         committee:  Organizzazione
-        topics:     Argomenti
+        arguments:  Argomenti
         abstract:   Abstract
         file:       File
         link:       Link
@@ -87,6 +89,13 @@ it:
         cycle:      Ciclo
         serial:     Serie
         user:       Proponente
+      fund:
+        name: Nome
+        category:    Categoria
+        description: Descrizione
+        holder:      Titolare del fondo
+        code:        Codice
+        available:   Disponibile
       cycle:
         title:       Nome
         description: Descrizione
@@ -95,34 +104,13 @@ it:
         description: Descrizione
         attach:      Allegato
 
+  simple_form:
     hints:
-      organization:
-        name:        Per esempio DipMat, CeSIA, DICAM...
-      admin:
-        user_upn:    Indicare la mail istituzionale.
       repayment:
-        payment:     Compenso + eventuale quota forfettaria di rimborso spese da non giustificare, entrambi tassati.
-        role:        "Qualifica e/o attività del relatore (esempio: 'professore ordinario', 'professore associato', 'ricercatore' ecc.)"
-        cv:          Si prega di inserire il curriculum vitae. Obbligatorio in caso di compenso ai sensi del D.Lgs. 33/2013 in materia di collaborazioni ed incarichi.
+        reason: Descrizione dettagliata delle eccezionali ragioni di particolare qualificazione, abilità e conoscenze possedute dal conferenziere che motivano la deroga alla procedura comparativa pubblica con assegnazione diretta dell’incarico
 
-    placeholders:
-      organization:
-        name:      Nome della struttura
-      admin:
-        user_upn:  nome.cognome@unibo.it
-      seminar:
-        link:        http://
+  payment_hint: Compenso + eventuale quota forfettaria di rimborso spese da non giustificare, entrambi tassati.
+  dlgs33_2013: Si prega di inserire il curriculum vitae. Obbligatorio in caso di compenso ai sensi del D.Lgs. 33/2013 in materia di collaborazioni ed incarichi.
 
-  time:
-    am: am
-    formats:
-      seminar: ! "%a %d %b, ore %H:%M"
-      day: !     "%A %d %b"
-      past: !    "%d %b %Y"
-      hour: !    "%H:%M"
-      totem: !   "%A %d %B"
-
-  minutes: minuti
-  printable_page: Pagina stampabile
-
-
+  too_late_to_modify_repayment: La richiesta è già stata inviata e non è più possibile modificarla. Si prega di contattare l'amministrazione.
+  too_late_for_repayment: È troppo tardi per richiedere compenso e/o rimborso.
