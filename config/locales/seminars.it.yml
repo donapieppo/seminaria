@@ -68,6 +68,8 @@ it:
         refund: Rimborso spese
         fund: Fondo
         cv: Curriculum Vitae
+        bond_number: Vincolo di costo (numero)
+        bond_year: Vincolo di costo (anno)
       seminar:
         title:      Titolo
         date:       Giorno e ora
