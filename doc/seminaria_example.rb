@@ -1,14 +1,11 @@
 ADMINS        = [ 'name.surname@example.it', 
-                  'pietro.donatini@unibo.it', 
+                  'name.surname2@example.it', 
                 ]
 
-MANAGERS      = [ 'claudia.gamberini@unibo.it',
-                  'oscar.losurdo@unibo.it',
-                  'angela.finelli@unibo.it',
-                  'anna.macagnino@unibo.it',
-                  'marco.baccolini@unibo.it' ]
+MANAGERS      = [ 'pippo.pluto@example.it', 
+                  'marco.example@example.it' ]
 
-MANAGERS_MAILS = ['dipmat.amministrazione@unibo.it', 'oscar.losurdo@unibo.it']
+MANAGERS_MAILS = ['dipmat.amministrazione@example.comf', 'o.oooo@example.it']
 
 module Seminaria
   class Application < Rails::Application
@@ -19,9 +16,9 @@ module Seminaria
 
     config.dm_unibo_common.update(
       login_method:        :log_and_create,
-      message_footer:      %Q{Messaggio inviato da 'Gestione Seminari e Notizie Dipartimento di Matematica'.\nNon rispondere a questo messaggio.\nPer problemi tecnici contattare dipmat-supportoweb@unibo.it},
-      impersonate_admins:  ['pietro.donatini@unibo.it'],
-      interceptor_mails:   ['donatini@dm.unibo.it'], 
+      message_footer:      %Q{Messaggio inviato da 'Gestione Seminari e Notizie Dipartimento di Matematica'.\nNon rispondere a questo messaggio.\nPer problemi tecnici contattare testmail@example.comd},
+      impersonate_admins:  ['name.surname@examplexample.com'],
+      interceptor_mails:   ['name.surname2@examplexample.com'], 
     )
   end
 end
