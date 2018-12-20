@@ -1,12 +1,13 @@
 <% short ||= false %>  
-<div class="seminar <%= css_classes(seminar) %>">
+<%= content_tag :div, class: css_classes(seminar) do %>
 
-  <div class="when">
-    <%= date_tag(seminar, short) %>  
-    <div class="arguments">
-      <%= seminar.arguments_string %>
-    </div>
-    <%= started_tag(seminar) if (seminar.date.today? and !short) %>
+  <div class="when" style="text-align: center">
+    <%= when_tag(seminar, past: seminar.past?, short: short) %>  
+    <%= where_tag(seminar, past: seminar.past?, short: short) %>  
+    <%= arguments_tag(seminar) %>  
+
+    <%= clock_tag(seminar) %>  
+
     <div class="mto">
       <%# se in una serie ma non stiamo vedendo proprio la serie %>
       <% if seminar.serial_id and !@serial %>
@@ -27,21 +28,39 @@
       <div class="abstract"><%= seminar.abstract unless short %></div>
       <div class="links_and_documents">
         <% if ! seminar.link.blank? %>
-          <%= icon('external-link') %> <a href="<%= seminar.link %>" target="_blank"><%= seminar.link_text.blank? ? seminar.link : seminar.link_text %></a> <br/>
+          <%= icon('external-link-alt') %> <a href="<%= seminar.link %>" target="_blank"><%= seminar.link_text.blank? ? seminar.link : seminar.link_text %></a> <br/>
         <% end %>
         <% seminar.documents.each do |document| %>
-          <%= icon('file-o') %> <%= link_to document, document.url %> <br/>
+          <%= icon('file') %> <%= link_to document, document.url %> <br/>
         <% end %>
       </div><!-- links_and_documents -->
     </div><!-- content -->
     <% if ! short %>
       <div class="footer">
-        <%= where_tag(seminar) unless (seminar.past? or short) %>  
-        <%= committee_tag(seminar) %>  
-        <%= actions_tag(seminar) %>  
+        <div class="committee">
+          <%= t :organized_by %> <%= seminar.committee %> <br/> 
+          <%= seminar.project %>  
+        </div>
+        <div class="actions-and-calendars">
+          <% if ! seminar.past? %>
+            <% if user_owns?(seminar) or user_is_manager? %>
+              &nbsp;
+              <%= link_to_edit edit_seminar_path(seminar) %>  
+              <%= link_to_delete seminar_path(seminar) %>
+            <% end %>
+            <% if user_is_holder?(seminar) %>
+              &nbsp;
+              <% repayment_class = (seminar.repayment.fund ? 'fund_ok' : 'fund_missing') %>  
+              <%= link_to icon('euro'), choose_fund_repayment_path(seminar.repayment), title: 'Scelta fondo', class: repayment_class %>  
+            <% end %>
+            <%= link_to fwicon('google', prefix: 'fab'), seminar.google_url, target: :new, title: 'aggiungi a Google Calendar' %>  
+            <%= link_to fwicon('calendar-plus'), seminar_url(seminar, format: :ics), title: 'aggiungi a iCal' %>  
+          <% end %>
+          <%= link_to fwicon('print'), seminar_path(seminar), title: 'pagina stampabile' %>  
+        </div>
       </div><!-- footer -->
     <% end %>
   </div><!-- what -->
 
-</div><!-- seminar -->
+<% end %><!-- seminar -->
 

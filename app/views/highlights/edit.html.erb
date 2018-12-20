@@ -1,0 +1,24 @@
+<%= render @highlight %>  
+
+<% if user_is_publisher? %> 
+  <div class="boxed"> 
+    <h2>Pubblicazione</h2>
+    <%= form_tag(publish_highlight_path(@highlight), :method => :put) do %>  
+      <div id="priority">
+        <label>Seleziona la priorità</label>
+        <%= select_tag "priority", options_for_select(Highlight::Priorities, :selected => 'normal') %> -
+        <%= submit_tag 'PUBBLICA', :class => :button, :id => 'publish_button', data: { confirm: 'Sicuro di voler pubblicare la notizia?' } %>  
+      </div>
+    <% end %>
+    <%= form_tag(refuse_highlight_path(@highlight), :method => :put) do %>  
+      <%= submit_tag 'RIFIUTA', :class => :button, :id => 'refuse_button', data: { confirm: 'Sicuro di voler rifiutare la notizia?' } %>  
+    <% end %>
+  </div>
+<% end %>
+
+<br clear="all"/> 
+
+<div class="boxed movebutton">
+  <h2>Modifica i dati</h2>
+  <%= render 'form' %>
+</div>

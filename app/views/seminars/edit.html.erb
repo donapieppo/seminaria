@@ -3,13 +3,32 @@
 <%= render 'documents' %>
 
 <h2>Richiesta di compenso e/o rimborso</h2>
+
 <% if @repayment %>
-  <% if (! @repayment.notified) or user_is_manager? %>
+  <% if user_can_edit_repayment?(@repayment) %>
     <%= render 'repayments/form' %>
   <% else %>
     <%= link_to 'visualizza richiesta di rimborso', repayment_path(@repayment), class: :button %>
   <% end %>
-<% else %>  
-  <p class="info">È possibile richiedere compenso e/o rimborso<p>
+<% elsif @too_late_for_repayment %>  
+  <p class="alert alert-warning">
+    È troppo tardi per richiedere rimborso e/o compenso.<br/>
+    <%= repayment_days_warning %>  
+  </p>
+<% else %>
+  <p class="alert alert-info">
+  È possibile richiedere compenso e/o rimborso. <br/>
+
+    <%= repayment_days_warning %>  
+  </p>
+  <div class="alert alert-warning">
+  Per richedere il compenso e/o rimborso le verranno chieste le seguenti cose:
+  <ul>
+    <li><strong>curriculum vitae</strong> del conferenziere</li>
+    <li>eccezionali ragioni di particolare qualificazione, abilità e conoscenze possedute dal conferenziere che 
+      motivano la deroga alla procedura comparativa pubblica con assegnazione diretta dell’incarico.</li>
+    <li><strong>dati anagrafici</strong> e la <strong>residenza</strong> del conferenziere.</li>
+  </ul>
+  </div>
   <%= link_to 'Richiesta compenso', new_seminar_repayment_path(@seminar), class: :button %>  
 <% end %>

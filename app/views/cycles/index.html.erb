@@ -4,11 +4,11 @@
   <% @cycles.each do |cycle| %>  
     <dt>
       <%= link_to cycle, cycle_path(cycle) %> 
-      <%= link_to icon('pencil'), edit_cycle_path(cycle) if user_owns?(cycle) %>  
+      <%= link_to icon('edit'), edit_cycle_path(cycle) if user_owns?(cycle) %>  
       <%= link_to icon('plus'), new_cycle_seminar_path(cycle) if user_owns?(cycle) %>  
     </dt>
     <% cycle.seminars.each do |seminar| %>  
-      <dd><%= l seminar.date, :format => :seminar %> <strong><%= seminar %></strong> (<%= seminar.speaker %>)</dd>
+      <dd><%= l seminar.date, format: :seminar %> <strong><%= seminar %></strong> (<%= seminar.speaker %>)</dd>
     <% end %>
   <% end %>
 </dl>

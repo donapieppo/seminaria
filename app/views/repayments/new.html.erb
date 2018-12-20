@@ -1,14 +1,18 @@
-<div>
-  <%= l(@seminar.date) %><br/>
-  <%= @seminar.speaker %> <br/>
-  <%= @seminar.title %>  
-</div>
+<h1>Richiesta di rimborso / compenso</h1>
 
-<h1>Richiesta di rimborso</h1>
+<%= render @seminar, short: false %>  
 
-<% if @repayment.notified and ! user_is_manager? %>
-  <p class="info">La richiesta è già stata inviata e non è più possibile modificarla. Si prega di contattare l'amministrazione.</p>
-<% else %>
-  <%= render 'form' %>
+<% if @repayment %>  
+  <% if user_can_edit_repayment?(@repayment) %>
+    <%= render 'form' %>
+  <% else %>
+    <p class="alert alert-warning">
+      <%= t :too_late_to_modify_repayment %> 
+    </p>
+  <% end %>
+<% elsif @too_late_for_repayment %>  
+  <p class="alert alert-warning">
+    <%= t :too_late_for_repayment %> <br/> <%= repayment_days_warning %>  
+  </p>
 <% end %>
 

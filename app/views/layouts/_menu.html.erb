@@ -1,19 +1,18 @@
 <%= dm_menu do %>  
   <%= dm_header %>
   <%= dm_nav do  %>  
-    <li><%= link_to big_icon('home')     + ' Home', root_path %></li>
-    <li><%= link_to big_icon('list')     + ' Seminari periodici', serials_path %></li>
-    <li><%= link_to big_icon('archive')  + t(:archive), archive_seminars_path %></li>
-    <%# <%= dropdown_menu big_icon('archive') + ' Archivio' do  %1> %>  
-    <%#   <li><%= link_to 'archivio seminari', archive_seminars_path %1></li> %>
-    <%#   <li><%= link_to 'archivio notizie',  archive_highlights_path %1></li> %>
-    <%# <% end %1> %>
-    <%# <% if user_is_commissioner? or user_is_publisher? %1> %>
-    <%#   <li><%= link_to big_icon('comment-o') + ' notizie', admin_highlights_path %1></li> %>
-    <%# <% end %1> %>
-    <%# <% if user_is_manager? %1> %>  
-    <%#   <li><%= link_to big_icon('euro') + ' compensi', repayments_path %1></li> %>
-    <%# <% end %1> %>
+    <li><%= link_to big_icon('home', text: 'Home'), root_path %></li>
+    <% if user_signed_in? %>  
+      <li><%= link_to big_icon('plus', text: 'Inserisci seminario'), new_seminar_path %></li>
+    <% end %>
+    <li><%= link_to big_icon('list', text: 'Seminari periodici'), serials_path %></li>
+    <li><%= link_to big_icon('archive', text: 'Archivio'), archive_seminars_path %></li>
+    <% if user_is_manager? %>  
+      <%= dropdown_menu :amm, big_icon('euro-sign') + ' Compensi e fondi' do  %>
+        <%= link_to fwicon('euro-sign') + ' Compensi', repayments_path %>
+        <%= link_to fwicon('wallet')    + ' Fondi',    funds_path %>
+      <% end %>
+    <% end %>
   <% end %>
 <% end %>
 

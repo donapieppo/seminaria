@@ -10,6 +10,6 @@ module ApplicationHelper
   end
 
   def link_to_cv(doc)
-    link_to_download(doc.url) 
+    link_to_download(doc.url, doc.description) 
   end
 end

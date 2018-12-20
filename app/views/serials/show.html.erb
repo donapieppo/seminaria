@@ -1,7 +1,9 @@
 <h1><%= serial_image(@serial) %> <%= @serial %></h1>
 
 <p class="centered_action">
-  <%= link_to big_icon('home', :text => 'pagina web ufficiale'), @serial.link, :target => "_blank" %>
+  <% unless @serial.link.blank? %>  
+    <%= link_to icon('home', text: 'pagina web ufficiale'), @serial.link, target: "_blank" %>
+  <% end %>
   <%= link_to_edit 'modifica la serie', edit_serial_path(@serial) if user_admin? %>
 </p>
 

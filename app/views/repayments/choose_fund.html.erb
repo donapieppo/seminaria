@@ -1,7 +1,10 @@
-<fieldset>
-  <legend>Scelta del Fondo</legend>
-
-  <%= horizontal_form_for @repayment, url: fund_repayment_path(@repayment), method: :post do |repayment| %>  
+<% if @too_late_for_repayment %>  
+  <p class="alert alert-danger">
+  Non è più possibile approvare la richiesta di compenso / rimborso.<br/>
+  <%= repayment_days_warning %> 
+  </p> 
+<% else %>
+  <%= dm_form_for @repayment, url: fund_repayment_path(@repayment), method: :post, title: "Scelta del Fondo" do |repayment| %>  
     <% if user_is_manager? %>  
       <%= repayment.association :fund, collection: @funds, label_method: :to_s_with_holder, include_blank: false %>
     <% else %>
@@ -15,12 +18,12 @@
     <% end %>
 
     - <%= link_to 'indietro', repayment_path(@repayment) %>   
-  <% end %>
-</fieldset>
+<% end %>
 
-<h2>Dettagli seminario</h2>
+<h2 class="my-5">Dettagli seminario</h2>
 
-<%= render @repayment.seminar %>  
+<%= render @repayment.seminar, short: false %>  
 
 <%= render @repayment %>  
+<% end %>
 

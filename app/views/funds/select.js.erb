@@ -1,0 +1,8 @@
+<form action="#" id="fund_category_select">
+  <select name="upn">
+  <%= @funds.each do |f| %>  
+    <option value="<%= f.id %>" ><%= f.category.name %></option>
+  <% end %>
+  </select>
+</form>
+

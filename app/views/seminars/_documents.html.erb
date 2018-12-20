@@ -1,17 +1,23 @@
+<h2>Allegati</h2>
+
 <div class="attachs">
-<fielset>
-<legend>Allegati</legend>
-  <% if @documents.size > 0 %>  
+  <% if @documents.any? %>  
     <ul>
       <% @documents.each do |document| %>
         <li><%= link_to document, document.url %> - <%= link_to_delete document_path(document) %></li>
       <% end %>
     </ul>
+  <% else %>
+    <p>Non sono ancora stati inseriti allegati a questo seminario</p>
   <% end %>
-  <%= horizontal_form_for @document, url: seminar_documents_path(@seminar), html: { :multipart => true } do |document| %>
-    <%= document.input :description %>
-    <%= document.input :attach, as: :file, class: "" %>
-    <%= document.submit 'Invia' %> - <%= link_to_back root_path %>   
+
+  <%= dm_form_for @document, url: seminar_documents_path(@seminar), html: { multipart: true } do |document| %>
+    <fieldset>
+      <%= document.input :description %>
+      <%= document.input :attach, as: :file, class: "" %>
+      <%= document.submit 'Invia' %> -
+      <%= link_to 'indietro', root_path %>   
+    </fieldset>
   <% end %>
-</fielset>
 </div>
+

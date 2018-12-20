@@ -1,0 +1,12 @@
+<%= dm_form_for @fund do |f| %>  
+  <%= f.dm_error_notification %>
+
+  <%= f.association :category, include_blank: false %>
+  <%= f.input :name %>
+  <%= f.input :description %>
+  <%= f.input :code %>  
+  <%= f.association :holder, collection: User.order('users.surname, users.name'), label_method: :cn_militar, include_blank: true %>
+  <%= f.input :available, as: :boolean %>
+  <%= f.submit %>  
+<% end %>
+

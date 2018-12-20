@@ -1,63 +1,52 @@
 <% if @cycle %>  
   <h2>Ciclo: <%= @cycle %></h2>
-  <p class="main-description"><%= @cycle.description %></p>
+  <% unless @cycle.description.blank? %>  
+    <p class="alert alert-info"><%= @cycle.description %></p>
+  <% end %>
 <% end %>
 
 <% if @serial %>  
   <h2>Seminario periodico: <%= @serial %></h2>
-  <p class="main-description"><%= @serial.description %></p>
+  <p class="alert alert-info"><%= @serial.description %> </p>
 <% end %>
 
-<%= horizontal_form_for @seminar do |seminar| %>  
+<%= dm_form_for @seminar do |seminar| %>  
   <%= seminar.dm_error_notification %>  
   <fieldset>
-    <legend><%= t :seminar %></legend>
     <% if user_admin? %>  
       <%= seminar.association :cycle %>  
-      <%= seminar.association :serial %>  
+      <%= seminar.association :serial, collection: Serial.active.order(:title) %>  
     <% else %>
       <%= seminar.input :serial_id, as: :hidden %>  
       <%= seminar.input :cycle_id,  as: :hidden %>  
     <% end %>
     <%= seminar.input :title %>  
-    <%= seminar.input :abstract %>
-
+    <%= seminar.input :date, as: :datetime_picker2 %>
+    <%= seminar.input :duration, collection: [30,45,60,75,90,120,180].map{ |p| ["#{p} minuti", p] }, include_blank: false %>
     <%= seminar.input :speaker_title, collection: User.abbr_titles, include_blank: false %>  
     <%= seminar.input :speaker %>  
-    <%= seminar.input :speaker_bio %>  
-
+    <%= seminar.association :place, collection: Place.all, include_blank: false %>
+    <%= seminar.input :place_description, input_html: { cols: 50, rows: 2 } %>
+    <%= seminar.input :committee %>
+    <%= seminar.association :arguments, collection: Argument.order(:name) %> 
+    <%= seminar.input :abstract, input_html: { cols: 50, rows: 3 } %>
     <%= seminar.input :link %>
     <%= seminar.input :link_text %> 
     <% if user_admin? %>  
       <%= seminar.association :user, collection: User.order('surname').to_a, label_method: :cn %>  
     <% end %>
-  </fieldset>
 
-  <fieldset>
-    <legend>Data e luogo</legend>
-    <%= seminar.input :date,  as: :datetime_picker %>  
-    <%= seminar.input :duration, collection: minutes_collection, include_blank: false %>
-    <%= seminar.input :place_id, collection: Place.all_with_other, include_blank: false, label_method: :to_s %>
-    <%= seminar.association :room, collection: Room.all, include_blank: false %>
-    <%= seminar.input :room_description, input_html: { cols: 50, rows: 2 } %>
+    <%= seminar.submit class: 'button' %> -
+    <%= link_to 'indietro', root_path %>   
   </fieldset>
-
-  <fieldset>
-    <legend>Organizzazione</legend>
-      <%= seminar.association :organization, label_method: :to_s %>  
-      <%= seminar.input :committee %>
-  </fieldset>
-
-    <%= seminar.submit %> - <%= link_to 'indietro', root_path %>   
 <% end %>
 
 <% if @cycle %>  
   <dl class="dl-horizontal">
-    <dt>Recupera dati da</dt>
+    <dt>Recupera dati dal</dt>
     <% @cycle.seminars.order('id desc').each do |s| %>
-      <dd><%= link_to 'recupera dati da ' + s.to_s + ' del ' + l(s.date), new_cycle_seminar_path(@cycle, same_as: s.id) %></dd>
+      <dd><%= link_to "seminario del #{I18n.l(s.date)} #{s.to_s}", new_cycle_seminar_path(@cycle, as: s.id) %></dd>
     <% end %>
   </dl>
 <% end %>
 
-<%= render partial: 'place_select.js' %>  

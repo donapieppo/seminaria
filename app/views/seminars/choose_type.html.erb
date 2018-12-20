@@ -3,32 +3,33 @@
 <div class="row">
   <div class="col-md-4">
     <h2>Seminario singolo</h2>
-    <ul class="all_clickable">
+    <ul class="bordered">
       <li><%= link_to icon('plus', text: "Singolo seminario"), new_seminar_path %></li>
     </ul>
   </div>
 
   <div class="col-md-4">
     <h2>Seminario in un ciclo</h2>
+    <% if @cycles.empty? %>  
+      <p class="alert alert-warning">Non sono al momento presenti cicli di seminari da te organizzati.</p>
+    <% end %>
     <% @cycles.each do |cycle| %>  
-      <ul class="all_clickable"> 
+      <ul class="bordered"> 
         <li>
-          <%= link_to icon('plus', text: "&ldquo;#{cycle}&rdquo;"), new_cycle_seminar_path(cycle) %> 
+          <%= link_to icon('plus', text: "&ldquo;#{h cycle}&rdquo;".html_safe), new_cycle_seminar_path(cycle) %> 
+          <span class='float-right'><%= link_to_edit edit_cycle_path(cycle) if user_owns?(cycle)%></span>
         </li>
       </ul>
-      <%= link_to icon('pencil', text: "Modifica ciclo &ldquo;#{cycle}&rdquo;"), edit_cycle_path(cycle) if user_owns?(cycle)%>
     <% end %>
 
-    <div>
-      <p class="centered_action"><%= link_to icon('plus', text: "Nuovo ciclo di seminari"), new_cycle_path, class: :button %></p>
-    </div>
+    <p><%= link_to icon('plus', text: "Crea nuovo ciclo di seminari"), new_cycle_path, class: :button %></p>
   </div>
 
   <div class="col-md-4">
     <h2>Seminario in una serie</h2>
-    <ul class="all_clickable">
+    <ul class="bordered mb-3">
       <% @serials.each do |serial| %>  
-        <li><%= link_to icon('plus', text: "&ldquo;#{serial}&rdquo;"), new_serial_seminar_path(serial) %></li>
+        <li><%= link_to icon('plus', text: "&ldquo;#{h serial}&rdquo;".html_safe), new_serial_seminar_path(serial) %></li>
       <% end %>
     </ul>
     <p class="info">Per far inserire una <strong>nuova serie</strong> si prega di inviare la richiesta all'indirizzo <%= support_mail %></p>

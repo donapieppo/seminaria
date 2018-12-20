@@ -1,16 +1,24 @@
 <%= render @repayment %>  
 
 <p>
-  <%= link_to 'stampa anteprima', repayment_path(@repayment, format: :pdf), class: :button  %>  
-  <% if user_is_manager? or (user_owns?(@repayment.seminar) and ! @repayment.notified) %>
+  <%= link_to 'stampa lettera', print_letter_repayment_path(@repayment, format: :docx), class: :button  %>  
+  <%= link_to 'stampa decreto', print_decree_repayment_path(@repayment, format: :docx), class: :button  %>  
+  <%= link_to 'stampa proposta', print_proposal_repayment_path(@repayment, format: :docx), class: :button  %>  
+
+  <% if user_can_edit_repayment?(@repayment) %>  
     <%= link_to 'modifica dati', new_seminar_repayment_path(@repayment.seminar), class: :button %>
   <% end %>
+
   <% if ! @repayment.notified and ! user_is_manager? and @repayment.holder_id != current_user.id %>  
-    <%= link_to 'invia richiesta', notify_repayment_path(@repayment), class: :button, method: :post %>
+    <% disabled = @repayment.missing_payment_and_refund? ? 'disabled' : '' %>  
+    <%= link_to 'invia richiesta', notify_repayment_path(@repayment), class: "button #{disabled}", method: :post %>
   <% end %>
-  <% if @repayment.holder_id == current_user.id or user_is_manager? %>  
-    <%= link_to ' scegli fondo', choose_fund_repayment_path(@repayment), class: :button %>
+
+  <% if user_can_choose_fund?(@repayment) %>  
+    <% disabled = @repayment.missing_payment_and_refund? ? 'disabled' : '' %>  
+    <%= link_to ' scegli fondo', choose_fund_repayment_path(@repayment), class: "button #{disabled}" %>
   <% end %>
+
   - <%= link_to 'indietro', root_path %>  
 </p>
 

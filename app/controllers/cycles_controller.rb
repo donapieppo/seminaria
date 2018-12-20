@@ -4,12 +4,12 @@ class CyclesController < ApplicationController
   before_action :get_cycle_and_check_permission, only: [:edit, :update]
 
   def index
-    @cycles = Cycle.order('id desc').all
+    @cycles = Cycle.order('id desc').includes(:seminars).all
   end
 
   def show
     @cycle = Cycle.find(params[:id])
-    @seminars = @cycle.seminars.includes([:documents, :topics]).order('seminars.date DESC')
+    @seminars = @cycle.seminars.includes(:documents, :arguments, :repayment).order('seminars.date DESC')
   end
 
   def new

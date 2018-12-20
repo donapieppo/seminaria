@@ -1,15 +1,17 @@
-class Repayment < ApplicationRecord
+class Repayment < ActiveRecord::Base
   belongs_to :seminar
   belongs_to :holder, class_name: 'User', foreign_key: :holder_id
-  belongs_to :fund
+  belongs_to :fund, optional: true
+  belongs_to :position, optional: true
   # non ci basta che sia in seminario con type=cv. Ci piace di piu' cosi'. Anche solo perche' va visto da chi vede 
   # il seminario e questo va visto da chi vede il repayment
   has_many   :documents, dependent: :destroy
 
-  validates :name, :surname, :email, :address, :postalcode, :city, :birth_date, :birth_place, :birth_country, :role, :affiliation, presence: true
+  validates :name, :surname, :email, :address, :postalcode, :city, :birth_date, :birth_place, :birth_country, :affiliation, :reason, presence: true
   validates :speaker_arrival, :speaker_departure, :expected_refund, presence: true, if: :refund
 
   validate :payment_limit_for_italians
+  validate :speaker_arrival_departure_validation
 
   ADAPT_GROSS_VALUE       = 0.92165898
   IRAP                    = 0.085 # 85%
@@ -19,10 +21,18 @@ class Repayment < ApplicationRecord
   ADAPT_NET_FOREIGN_VALUE = 1.42858142
 
   def payment_limit_for_italians
-    return true unless self.italy
-    if self.lordo_percipiente and self.lordo_percipiente > 500
+    if self.italy and self.lordo_percipiente and self.lordo_percipiente > 500
       self.errors.add(:payment, "il compenso massimo erogabile a conferenzieri con residenza fiscale in Italia è pari a Euro 500 lordo percipiente (400 euro nette; 542,50 euro lordo ente)")
-      return false
+    end
+  end
+
+  def speaker_arrival_departure_validation
+    return true unless self.refund
+    if self.speaker_departure < self.speaker_arrival
+      self.errors.add(:speaker_departure, "La partenza non può essere precedente all'arrivo.")
+    end
+    if self.speaker_arrival > self.seminar.date
+      self.errors.add(:speaker_arrival, "Il relatore non può arrivare a Bologna dopo la data prevista per il seminario.")
     end
   end
 
@@ -76,12 +86,26 @@ class Repayment < ApplicationRecord
    "richiesta_compenso_#{clean_speaker_name}.pdf"
   end
 
+  def letter_filename_docx(what)
+    clean_speaker_name = self.seminar.speaker.downcase.gsub(' ','_')
+   "#{what}_per_seminario_di_#{clean_speaker_name}.docx"
+  end
+
   def speaker_with_title
     if self.name.blank? or self.surname.blank?
       self.seminar.speaker_with_title
     else
       self.seminar.speaker_title + " " + self.name + " " + self.surname
     end
+  end
+
+  def missing_payment_and_refund?
+    price = self.payment || self.expected_refund
+    price.to_i <= 0
+  end
+
+  def position_to_s
+    self.position.code == 'other' ? self.role : self.position.name
   end
 end
 

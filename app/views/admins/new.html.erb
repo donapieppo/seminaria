@@ -1,7 +1,0 @@
-<h1><%= t :new %> <%= t 'activerecord.models.admin' %> <small>in <%= @organization %></small></h1>
-
-<%= horizontal_form_for [@organization, @admin] do |admin| %>
-  <%= admin.dm_error_notification %>  
-  <%= admin.input :user_upn %>
-  <%= admin.submit %>  
-<% end %>

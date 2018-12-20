@@ -1,8 +1,6 @@
-<%= horizontal_form_for @serial do |serial| %>  
+<%= dm_form_for @serial do |serial| %>  
   <%= serial.dm_error_notification %>  
   <fieldset>
-    <%= form_legend(@serial) %>
-
     <%= serial.input :title %>  
     <%= serial.input :committee %> 
     <%= serial.input :description %> 

@@ -1,0 +1,49 @@
+<h1>
+  <%= t :highlights %>
+  <%= "rifiutate"  if params[:refused] %>
+  <%= "pubblicate" if params[:published] %>
+</h1>
+
+<p class="centered_action"> |
+  <%= link_to('nuove notizie',      admin_highlights_path)             + ' | ' if (params[:refused] or params[:published]) %> 
+  <%= link_to('notizie rifiutate',  admin_highlights_path(refused: 1)) + ' | ' unless params[:refused] %>  
+  <%= link_to('notizie pubblicate', admin_highlights_path(published: 1)) + ' | ' unless params[:published] %>
+</p>
+
+<% @highlights.each do |highlight| %>
+
+  <%= render highlight %> 
+
+  <div class="highlight-commission">
+    <div class="proponent">
+      Notizia proposta da <%= highlight.proponent %> (<%= highlight.user.upn %>)
+    </div>
+    <div class="commission">
+      <% if highlight.under_evaluation? %>  
+        Pareri della Commissione:
+        <dl class="dl-horizontal">
+          <% highlight.approvals.each do |approval| %>
+            <dt><%= approval.user %>:</dt>  
+            <dd> <strong><%= approval.verdict %></strong> -
+            <%= approval.justification %> 
+            <%= link_to_edit edit_approval_path(approval) if user_owns?(approval) %>
+            </dd>
+          <% end %>
+        </dl>
+
+        <% if user_is_commissioner? and ! highlight.voted_by?(current_user) %>
+          <div class="highlight_admin_actions">
+            <%= link_to('Esprimi parere', new_highlight_approval_path(highlight), class: :button) %>
+          </div>
+        <% end %>
+      <% elsif user_is_publisher? %>  
+        pubblicato con priorità: <%= t highlight.priority %> <br/>
+      <% end %>
+
+      <% if user_is_publisher? or (user_owns?(highlight) and highlight.under_evaluation?) %>  
+        <%= link_to icon('hand-o-right') + " Gestisci notizia", edit_highlight_path(highlight), class: :button %>
+      <% end %>
+    </div>
+  </div>
+  <hr/>
+<% end %>

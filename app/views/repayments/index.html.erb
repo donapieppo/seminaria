@@ -1,7 +1,17 @@
-<h2>Richieste di compenso</h2>
+<h1>Richieste di compenso</h1>
 
-<ul class="all_clickable">
-  <% @repayments.each do |repayment| %>  
-    <li><%= link_to repayment.seminar.to_long_s, repayment_path(repayment) %></li>
+<ul class="pagination justify-content-center">
+  <% (2014..Date.today.year).each do |year| %>  
+    <li class="page-item <%= 'active' if (@year == year) %>"><%= link_to year, repayments_path(year: year), class: "page-link" %></li>
   <% end %>
 </ul>
+
+<div class="list-group">
+  <% @repayments.each do |repayment| %>  
+    <%= link_to repayment_path(repayment), class: "list-group-item list-group-item-action" do %>
+      <span class="font-weight-bold mr-3"><%= l(repayment.seminar.date, format: :date) %></span> 
+      <%= repayment.seminar.speaker %>
+      <span class="float-right"><small><%= repayment.fund %></small></span>
+    <% end %>
+  <% end %>
+</div>

@@ -1,15 +1,15 @@
 class SerialsController < ApplicationController
   skip_before_action :redirect_unsigned_user, only: [:index, :show]
-  before_action      :user_is_admin!,       except: [:index, :show]
 
-  before_action :get_serial, only: [:show, :edit, :update]
+  before_action :user_is_admin!, except: [:index, :show]
+  before_action :get_serial,     only: [:show, :edit, :update]
 
   def index
     @serials = Serial.order('serials.active desc, serials.title asc')
   end
 
   def show
-    @seminars = @serial.seminars.includes([:documents, :topics]).order('seminars.date DESC')
+    @seminars = @serial.seminars.includes([:repayment, :documents, :arguments]).order('seminars.date DESC')
   end
 
   def new

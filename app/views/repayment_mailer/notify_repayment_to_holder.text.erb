@@ -1,12 +1,18 @@
 Gentile <%= @repayment.holder %>,
 
-<%= @seminar.user %> ha presentato una richiesta
+  <%= @seminar.user %> ha presentato una richiesta
 di rimborso per il seminario 
+
 <%= @seminar %>  
+
 tenuto da <%= @seminar.speaker %> 
 previsto per il giorno <%= l @seminar.date %>.
 
 Per selezionare i fondi collegarsi al sito
-<%= choose_fund_repayment_url(@repayment) %>  
+<%= choose_fund_repayment_url(@repayment) %>
 
-
+<% if @repayment.speaker_arrival %>  
+Ricordiamo che la richiesta di compenso / rimborso 
+spese deve essere approvata entro il giorno <%= l(@repayment.speaker_arrival - Rails.configuration.repayment_deadline.days) %> 
+(almeno <%= Rails.configuration.repayment_deadline %> giorni prima dell'arrivo dell'ospite).
+<% end %>

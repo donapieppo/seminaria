@@ -1,5 +1,4 @@
-
-<h2>Elenco seminari del ciclo ``<%= @cycle %>''</h2>
+<h1>Elenco seminari del ciclo ``<%= @cycle %>''</h1>
 
 <div class="well"><%= @cycle.description %></div> 
 
@@ -8,7 +7,7 @@
 <% end %>
 
 <% if user_owns?(@cycle) %>  
-  <%= link_to 'modifica il ciclo '.html_safe  + icon('pencil'), edit_cycle_path(@cycle) %> <br/>
-  <%= link_to 'aggiungi seminario '.html_safe + icon('plus'),   new_cycle_seminar_path(@cycle) %>  
+  <%= link_to icon('edit', text: 'modifica il ciclo'), edit_cycle_path(@cycle), class: :button %> 
+  <%= link_to icon('plus', text: 'aggiungi seminario al ciclo'), new_cycle_seminar_path(@cycle), class: :button %>  
 <% end %>
 

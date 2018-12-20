@@ -1,0 +1,12 @@
+<h1><%= @fund %></h1>
+
+<h2>Elenco compensi sul fondo</h2>
+
+<ul>
+  <% @repayments.each do |repayment| %>  
+    <li><%= repayment.holder %> - <%= link_to repayment.seminar, edit_seminar_path(repayment.seminar) %></li>
+  <% end %>
+</ul>
+
+<%= link_to_back funds_path %>  
+

@@ -1,43 +1,36 @@
 <h1>Seminari periodici</h1>
 
 <% @serials.each do |serial| %>  
-  <div class="serial">
-    <div class="title"><%= serial %>
-      <%= link_to_edit edit_serial_path(serial.id) if user_admin? %>
+  <div class="dm-card">
+    <div class="dm-card-title">
+      <%= serial %>
       <%= "(serie conclusa)" unless serial.active %>
-    </div>
-    <div class="description">
-      <div class="committee"><strong>Organizzazione:</strong> <%= serial.committee %></div>
-      <div>
-        <%= link_to fwicon('home', :text => 'pagina web ufficiale'), serial.link, :target => "_blank" %> 
-        <% if user_signed_in? and serial.active %>  
-          <%= link_to fwicon('plus', :text => "nuovo seminario"), new_serial_seminar_path(serial) %>
-        <% end %>
+      <span class="float-right">
+        <%= link_to(fwicon('plus', text: "nuovo seminario"), new_serial_seminar_path(serial)) if (user_signed_in? and serial.active) %>
+        <%= link_to(fwicon('home', text: 'pagina web ufficiale'), serial.link, target: "_blank") unless serial.link.blank? %> 
+        <%= link_to_edit('modifica', edit_serial_path(serial.id)) if user_admin? %>
+      </span>
+    </div><!-- title -->
+    <div class="dm-card-body">
+      <strong>Organizzazione:</strong> <%= serial.committee %>
+      <div class="mt-2 mx-3">
         <% if (number = serial.seminars.count) > 0 %>  
-          <%= link_to fwicon('list', :text => 'elenco seminari'), serial_path(serial) %> (<%= number %>) 
+          <%= link_to fwicon('list', text: 'elenco seminari'), serial_path(serial) %> (<%= number %>) 
         <% end %>
       </div>
 
-      <% next_seminars = serial.seminars.future %>
-      <% if next_seminars.size > 0 %>
-        <div class="next-seminars">
-          <strong>Prossimi seminari:</strong>
-          <dl class="next_in_serial">
-            <% next_seminars.each do |seminar| %>
-              <dt><%= l seminar.date, :format => :seminar %>  <%= seminar.place %></dt>
-              <dd><%= seminar %> (<%= seminar.speaker %>)</dd>
-            <% end %>
-          </dl>
-        </div>
+      <% if (next_count = serial.seminars.future.count) > 0 %>
+        <%= next_count %> seminari
       <% end %>
-    </div>
-  </div>
+    </div><!-- body -->
+  </div><!-- card -->
 <% end %>
 
 <% if user_admin? %>
-  <p><%= link_to 'nuova serie', new_serial_path, :class => :button %> </p>
+  <p><%= link_to 'nuova serie', new_serial_path, class: :button %> </p>
 <% elsif user_signed_in? %>
   <p class="info">
   Per l'inserimento di una nuova serie occorre inviare una richiesta all'indirizzo <%= support_mail %>
   </p>
 <% end %>
+
