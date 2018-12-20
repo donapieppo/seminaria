@@ -1,33 +1,48 @@
-<p class="info">
-Per questo seminario è possibile fare richiesta di <strong>compenso e/o rimborso</strong> compilando i seguenti campi: 
+<p class="alert alert-info">
+Per questo seminario è possibile fare richiesta di <strong>compenso e/o rimborso</strong> compilando i seguenti campi: <br/>
+<%= repayment_days_warning  %>
 </p>
 
 <%= horizontal_form_for [@seminar, @repayment] do |repayment| %>  
   <%= repayment.dm_error_notification %>  
 
-  <fieldset>
-    <legend>Fondo</legend>
-    <%= repayment.association :holder, collection: Fund.holders2, label_method: :cn_militar, include_blank: false %>
-  </fieldset>
+  <%= dm_card title: 'Fondo' do %>
+    <%= repayment.association :holder, collection: Fund.holders2, label_method: :cn_militar, include_blank: false, hint: repayment_days_warning() %>
+    <% if current_user.is_admin? %>  
+      <%= repayment.input :bond_number %>
+      <%= repayment.input :bond_year, collection: [2018, 2019] %>
+    <% end %>
+  <% end %>
 
-  <fieldset>
-    <legend>Dati anagrafici <%= @seminar.speaker_with_title %></legend>
+  <%= dm_card title: 'Scelta conferenziere' do %>
+    <%= repayment.input :reason, input_html: {rows: 8} %>  
+    <%= repayment.input :cv, as: :file, hint: t(:dlgs33_2013) %>
+    <div class=row">
+      <div class="col-sm-9 offset-sm-3">
+        <% can_delete = @repayment.documents.size > 1 %>  
+        <% @repayment.documents.each do |doc| %>  
+          <strong>allegato:</strong> <%= link_to_cv doc %> <%= link_to_delete document_path(doc) if can_delete %><br/>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <%= dm_card title: "Dati anagrafici #{@seminar.speaker_title} #{@seminar.speaker}" do %>
     <%= repayment.input :name %>
     <%= repayment.input :surname %>
     <%= repayment.input :birth_date %>
     <%= repayment.input :birth_place %>
     <%= repayment.input :birth_country, as: :string %>
-  </fieldset>
+  <% end %>
 
-  <fieldset>
-    <legend>Ruolo <%= @seminar.speaker_with_title %></legend>
+  <%= dm_card title: "Ruolo #{@seminar.speaker_title} #{@seminar.speaker}" do %>
     <%= repayment.input :affiliation %>
-    <%= repayment.input :role %> 
+    <%= repayment.association :position, hint: "Qualifica e/o attività del relatore" %>
+    <%= repayment.input :role, hint: "Dettagli sulla qualifica e/o attività del relatore. Obbligatorio nel caso abbiate scelto Altro come ruolo." %>
     <%= repayment.input :email %>
-  </fieldset>
+  <% end %>
 
-  <fieldset>
-    <legend>Indirizzo di residenza <%= @seminar.speaker_with_title %></legend>
+  <%= dm_card title: "Indirizzo di residenza #{@seminar.speaker_title} #{@seminar.speaker}" do %>
     <div class="input">
       <label>Residenza fiscale in Italia</label>
       <%= repayment.input_field :italy, label: false, boolean_style: :inline %>
@@ -38,7 +53,7 @@ Per questo seminario è possibile fare richiesta di <strong>compenso e/o rimbors
     <div id="foreign_country">
       <%= repayment.input :country, as: :string, id: "foreign_country" %>
     </div>
-  </fieldset>
+  <% end %>
 
   <!-- PAYMENT -->
   <fieldset>
@@ -49,22 +64,13 @@ Per questo seminario è possibile fare richiesta di <strong>compenso e/o rimbors
       <input type="checkbox" name="payment_bool" id="payment_bool" <%= 'checked="checked"' if @repayment.payment %>/>
     </div>
     <div id="payment_amount">
-      <%= repayment.input :payment, as: :currency_float %>
-      <%= repayment.input :gross, as: :radio_buttons, collection: [['Lordo ente', true], ['Compenso netto', false]], label: "", boolean_style: :inline %>  
+      <%= repayment.input :payment, hint: t(:payment_hint), as: :currency_float %>
+      <%= repayment.input :gross, as: :radio_buttons, collection: [['Lordo ente', true], ['Compenso netto', false]], label: "" %>  
       <div class=row">
         <div class="col-sm-9 col-sm-offset-3">
           <div id="payment_summary" %></div>
         </div>
       </div>  
-      <%= repayment.input :cv, as: :file %>
-      <div class=row">
-        <div class="col-sm-9 col-sm-offset-3">
-          <% can_delete = @repayment.documents.size > 1 %>  
-          <% @repayment.documents.each do |doc| %>  
-            allegato: <%= link_to_cv doc %> <%= link_to_delete document_path(doc) if can_delete %><br/>
-          <% end %>
-        </div>
-      </div>
     </div>
   </fieldset>
 
@@ -78,16 +84,16 @@ Per questo seminario è possibile fare richiesta di <strong>compenso e/o rimbors
       <%= repayment.input_field :refund, boolean_style: :inline, id: 'refund_bool' %>
     </div>
     <div id="refund_details">
-      <%= repayment.input :speaker_arrival,   as: :date_picker %>
+      <%= repayment.input :speaker_arrival,   as: :date_picker, hint: repayment_days_warning %>
       <%= repayment.input :speaker_departure, as: :date_picker %>
       <%= repayment.input :expected_refund,   as: :currency %>
     </div>
   </fieldset> 
 
   <p>
-  <%= repayment.submit 'Salva', style: "margin-bottom: 0" %> -
+  <%= repayment.submit 'Salva', class: 'button', style: "margin-bottom: 0" %> -
   <% if ! @repayment.new_record? and current_user.is_admin? %>  
-    <%= link_to 'stampa', repayment_path(@repayment), class: :button %> -
+    <%= link_to 'stampa', repayment_path(@repayment), class: 'button' %> -
   <% end %>
   <%= link_to 'torna alla home page', root_path %>   
   </p>
@@ -116,9 +122,19 @@ Per questo seminario è possibile fare richiesta di <strong>compenso e/o rimbors
 
 <%= javascript_tag do %>
   $(function() {
+    var startDatePossibleRepayment = moment().add(<%= Rails.configuration.repayment_deadline %>, 'days');
+    <% if user_is_manager? %>  
+      startDatePossibleRepayment = moment(0);
+    <% end %>
+
+    console.log(startDatePossibleRepayment.format('DD/MM/YYYY'));
+    $('#repayment_speaker_arrival').data('datepicker').setStartDate(startDatePossibleRepayment.format('DD/MM/YYYY'));
+    $('#repayment_speaker_departure').data('datepicker').setStartDate(startDatePossibleRepayment.format('DD/MM/YYYY'));
+
     function roundToTwo(num) {    
       return +(Math.round(num + "e+2")  + "e-2");
     };
+
     function show_lordo_percipiente() {
       italy   = $("#repayment_italy").is(':checked');
       gross   = $("#repayment_gross_true").is(':checked'); 
@@ -145,4 +161,17 @@ Per questo seminario è possibile fare richiesta di <strong>compenso e/o rimbors
     $("div.repayment_gross").change(function() { show_lordo_percipiente(); });
   });
 <% end %>
+
+<%= javascript_tag do %>
+  $(function() {
+    $("#repayment_position_id").change(function() { 
+      if ($("#repayment_position_id").val() == 8) {
+        console.log($("#repayment_position_id").val());
+        alert("Ricorda di completare il campo successivo fornendo la descrizione della qualifica e/o attività del relatore");
+      }
+    });
+  });
+<% end %>
+
+
 
