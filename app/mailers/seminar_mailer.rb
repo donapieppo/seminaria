@@ -1,4 +1,4 @@
-class SeminarMailer < ActionMailer::Base
+class SeminarMailer < ApplicationMailer
   default from: Rails.configuration.default_from
 
   def notify_seminar(seminar, to, subject, text)
@@ -6,7 +6,7 @@ class SeminarMailer < ActionMailer::Base
     @to      = to
     @text    = text
     mail(to:       to,
-         reply_to: Rails.configuration.reply_to, 
+         reply_to: Rails.configuration.reply_to,
          subject:  subject)
   end
 end
