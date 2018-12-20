@@ -1,0 +1,99 @@
+letter_defaults(docx)
+
+repayment_header(docx)
+
+repayment = @repayment
+
+col_prot = Caracal::Core::Models::TableCellModel.new do
+  p 'Rep. n.             Prot. n.          del', bold: true
+  p 'Bologna,', bold: true
+end
+
+col_attenzione = Caracal::Core::Models::TableCellModel.new do
+  p 'Alla cortese attenzione di', align: :left
+  p repayment.speaker_with_title, align: :left, bold: true
+  p repayment.address, align: :left, bold: true 
+  p "#{repayment.postalcode} #{repayment.city}", align: :left, bold: true
+  p repayment.country, align: :left, bold: true                         
+  p ""
+end
+
+docx.table [[col_prot,col_attenzione]] do
+  border_line    false
+end
+
+docx.p "Oggetto: Lettera di incarico per lo svolgimento di seminari."
+
+docx.p
+
+docx.p "Con la presente si dà incarico #{@repayment.seminar.female_speaker? ? 'alla' : 'al'} #{@repayment.speaker_with_title}, nat#{@repayment.seminar.female_speaker? ? 'a' : 'o'} a #{@repayment.birth_place} (#{@repayment.birth_country}), il #{@repayment.birth_date}, residente in #{@repayment.address} – #{@repayment.postalcode}, #{@repayment.city} (#{@repayment.country}), in qualità di #{@repayment.position_to_s} presso #{@repayment.affiliation}, di svolgere le seguenti prestazioni:"
+
+docx.p
+
+docx.p "Seminario “#{@repayment.seminar.title}” del #{@repayment.seminar.date.strftime("%d/%m/%Y")}, organizzato dal prof. #{@repayment.seminar.committee}, nell'ambito del Progetto #{@repayment.fund} del prof. #{@repayment.holder}."  
+
+docx.p 
+
+docx.p "La prestazione è riconducibile nell’ambito di quelle che danno origine a reddito da prestazioni di lavoro autonomo saltuarie ed occasionali ex art.67, comma 1, lett.L) DPR 917/86."
+
+docx.p payment_and_refound_string(@repayment)
+
+docx.p
+
+# a esclusione di estero con solo compenso (payment) (quindi esculdo i non italiani con refund vuoto)
+docx.p "Sarà a carico #{@repayment.seminar.female_speaker? ? 'della' : 'del'} #{@repayment.speaker_with_title} la marca da bollo da applicarsi ad ogni nota spese." unless (! @repayment.italy.nil? and @repayment.refund.blank?)
+
+docx.p "Distinti saluti."
+
+docx.p
+
+col_delega = Caracal::Core::Models::TableCellModel.new do
+  p "Per delega della Giunta di Dipartimento del 23.06.2015", size: 16
+  p "Il Direttore", size: 16
+  p "Prof. Giovanni Dore" 
+  p "_________________________________"
+end
+
+col_accettazione = Caracal::Core::Models::TableCellModel.new do
+  p "Per Accettazione",           size: 16, align: :right
+  p "Il prestatore occasionale",  size: 16, align: :right
+  p repayment.speaker_with_title, align: :right
+  p "_________________________________", align: :right
+end
+
+docx.table [[col_delega, col_accettazione]] do
+  border_line    false
+end
+
+docx.p
+
+docx.style id: 'notes', name: 'Notes', size: 16
+
+docx.p "Il sottoscritto prestatore s’impegna a comunicare tempestivamente all’Università il suo diverso inquadramento fiscale qualora svolga attività libero professionale ex art.53 e ss. DPR 917/86 e la prestazione oggetto dell’incarico rientri nella propria professione abituale.", style: 'notes'
+
+if @repayment.refund
+  docx.p "Il sottoscritto s’impegna altresì a non detrarre/dedurre in sede di dichiarazione dei redditi le somme relative alle spese rimborsate per l’espletamento del presente incarico.", style: 'notes'
+end
+
+docx.p "Per l’esecuzione della prestazione di cui trattasi, il sottoscritto dovrà attenersi ai seguenti criteri, che accetta:", style: 'notes'
+
+docx.list_style do
+  type :ordered
+  level   2        
+  format  'decimal'
+  value   '%3.' 
+end
+
+docx.ul do
+  li "Svolgere l’opera in piena autonomia, col solo obbligo di compiere il lavoro nel termine sopraindicato, senza potersi valere di sostituti.", size: 16
+  li "Nel caso di mancato adempimento della prestazione oggetto del presente contratto, nonché qualora si riscontrino negligenze di rilevante entità, tali da configurare l’inesatto adempimento, l’Università potrà procedere alla risoluzione del contratto ai sensi degli artt. 1453 s.s. del Codice Civile. Il recesso potrà essere esercitato da entrambe le parti ai sensi dell’art. 2237 del Codice Civile. Il recesso dovrà essere esercitato dalla S.V. per giusta causa ed in modo da evitare qualsiasi pregiudizio all’Università.", size: 16
+  li "Tutti i dati e le informazioni di carattere tecnico, amministrativo, scientifico, didattico, di cui la S.V. dovesse avere conoscenza nello svolgimento dell’incarico di cui trattasi, dovranno essere considerati strettamente riservati e pertanto la S.V. non ne potrà fare uso per scopi diversi da quelli esclusivamente contemplati e rientranti nell’oggetto della prestazione di cui al presente contratto.", size: 16
+  li "Ai sensi dell’art. 30 del D.Lgs. 30 giugno 2003, n. 196, la S.V. è nominato “Incaricato del trattamento dei dati personali”. Potrà trattare i dati personali solo limitatamente alle operazioni essenziali per svolgere l’incarico conferito. Dovrà trattare i dati conformemente alle istruzioni che saranno impartite dal Titolare. Non potrà in nessun caso effettuare trattamenti autonomi né comunicare i dati ad altri soggetti, se non secondo le istruzioni ricevute. Ogni trattamento dei dati difforme può essere oggetto di sanzione penale.", size: 16
+  li "Impegnarsi a rispettare, per quanto compatibili, gli obblighi di condotta previsti dalla Sezione III del Codice etico e di comportamento dell’Università di Bologna http://www.unibo.it/it/ateneo/concorsi-e-selezioni/modulistica-attivazione-incarichi-1 (Estratto del Codice Etico e di Comportamento – Sezione III Obblighi di comportamento connessi all’attività di servizio).", size: 16
+end
+
+docx.p
+
+docx.p "In fede, ______________________________"
+docx.p "            #{@repayment.speaker_with_title}"
+
