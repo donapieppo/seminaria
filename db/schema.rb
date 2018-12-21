@@ -12,175 +12,180 @@
 
 ActiveRecord::Schema.define(version: 0) do
 
-  create_table "admins", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "user_id",         unsigned: true
-    t.integer "organization_id", unsigned: true
-    t.integer "authlevel",       unsigned: true
-    t.index ["organization_id"], name: "organization_id", using: :btree
-    t.index ["user_id"], name: "user_id", using: :btree
+  create_table "approvals", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "highlight_id", null: false, unsigned: true
+    t.integer "user_id", null: false, unsigned: true
+    t.string "judgment", limit: 3
+    t.text "justification"
+    t.datetime "updated_at"
+    t.index ["highlight_id"], name: "index_approvals_on_hightlight_id"
+    t.index ["user_id"], name: "index_approvals_on_user_id"
   end
 
-  create_table "cycles", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "user_id",                   unsigned: true
-    t.string  "title",       limit: 250
-    t.text    "description", limit: 65535
-    t.string  "committee",   limit: 250
-    t.string  "link",        limit: 250
-    t.boolean "active"
-    t.index ["user_id"], name: "user_id", using: :btree
-  end
-
-  create_table "disciplines", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "arguments", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", limit: 30
   end
 
-  create_table "documents", unsigned: true, force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
-    t.integer  "user_id",                         unsigned: true
-    t.integer  "seminar_id",                      unsigned: true
-    t.integer  "repayment_id",                    unsigned: true
-    t.string   "description",         limit: 200
+  create_table "arguments_seminars", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "argument_id", null: false, unsigned: true
+    t.integer "seminar_id", null: false, unsigned: true
+    t.index ["argument_id"], name: "argument_id"
+    t.index ["seminar_id"], name: "seminar_id"
+  end
+
+  create_table "categories", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", limit: 200
+  end
+
+  create_table "cycles", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "user_id", unsigned: true
+    t.string "title", limit: 250
+    t.text "description"
+    t.string "committee", limit: 250
+    t.string "link", limit: 250
+    t.boolean "active"
+    t.index ["user_id"], name: "user_id"
+  end
+
+  create_table "documents", id: :integer, unsigned: true, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "user_id", unsigned: true
+    t.integer "seminar_id", unsigned: true
+    t.integer "repayment_id", unsigned: true
+    t.string "description", limit: 200
     t.datetime "created_at"
-    t.string   "attach_file_name",    limit: 200
-    t.string   "attach_content_type", limit: 100
-    t.integer  "attach_file_size",                unsigned: true
+    t.string "attach_file_name", limit: 200
+    t.string "attach_content_type", limit: 100
+    t.integer "attach_file_size", unsigned: true
     t.datetime "attach_updated_at"
-    t.index ["repayment_id"], name: "repayment_id", using: :btree
-    t.index ["seminar_id"], name: "seminar_id", using: :btree
-    t.index ["user_id"], name: "user_id", using: :btree
+    t.index ["repayment_id"], name: "repayment_id"
+    t.index ["seminar_id"], name: "seminar_id"
+    t.index ["user_id"], name: "user_id"
   end
 
-  create_table "funds", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string  "name",        limit: 200
-    t.string  "description"
-    t.integer "category_id",             null: false, unsigned: true
-    t.integer "holder_id",               null: false, unsigned: true
-    t.date    "deadline"
+  create_table "funds", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", limit: 200
+    t.string "description"
+    t.integer "category_id", null: false, unsigned: true
+    t.integer "holder_id", null: false, unsigned: true
+    t.date "deadline"
     t.boolean "available"
-    t.string  "code",        limit: 50
-    t.index ["holder_id"], name: "holder_id", using: :btree
+    t.string "code", limit: 50
   end
 
-  create_table "organizations", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name",                      null: false
-    t.text   "description", limit: 65535
+  create_table "highlights", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "user_id", unsigned: true
+    t.string "proponent"
+    t.string "name", null: false
+    t.text "description"
+    t.string "link"
+    t.string "link_text"
+    t.string "priority", limit: 10
+    t.integer "position"
+    t.boolean "refused"
+    t.date "visible_from"
+    t.date "visible_to"
+    t.datetime "approved_at"
+    t.datetime "created_at", null: false
+    t.index ["user_id"], name: "index_hightlights_on_user_id"
   end
 
-  create_table "places", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text   "name",    limit: 65535
-    t.text   "address", limit: 65535
+  create_table "highlights_tags", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "highlight_id", null: false, unsigned: true
+    t.integer "tag_id", null: false, unsigned: true
+    t.index ["highlight_id"], name: "highlight_id"
+    t.index ["tag_id"], name: "tag_id"
+  end
+
+  create_table "places", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.text "name"
+  end
+
+  create_table "positions", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "code", limit: 50
+    t.string "name"
+  end
+
+  create_table "repayments", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "seminar_id", null: false, unsigned: true
+    t.integer "holder_id", null: false, unsigned: true
+    t.integer "fund_id", unsigned: true
+    t.string "name"
+    t.string "surname"
+    t.string "email"
+    t.string "address"
+    t.string "postalcode"
     t.string "city"
-  end
-
-  create_table "repayments", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "seminar_id",                                null: false, unsigned: true
-    t.integer "holder_id",                                 null: false, unsigned: true
-    t.integer "fund_id",                                                unsigned: true
-    t.string  "name"
-    t.string  "surname"
-    t.string  "email"
-    t.string  "address"
-    t.string  "postalcode"
-    t.string  "city"
-    t.string  "country"
+    t.string "country"
     t.boolean "italy"
-    t.string  "birth_date"
-    t.string  "birth_place"
-    t.string  "birth_country"
-    t.date    "speaker_arrival"
-    t.date    "speaker_departure"
-    t.string  "affiliation"
-    t.decimal "payment",           precision: 8, scale: 2
+    t.string "birth_date"
+    t.string "birth_place"
+    t.string "birth_country"
+    t.date "speaker_arrival"
+    t.date "speaker_departure"
+    t.string "affiliation"
+    t.text "reason"
+    t.decimal "payment", precision: 8, scale: 2
     t.boolean "gross"
-    t.string  "role"
+    t.integer "position_id", unsigned: true
+    t.string "role"
     t.boolean "refund"
     t.integer "expected_refund"
+    t.integer "bond_year", unsigned: true
+    t.integer "bond_number", unsigned: true
     t.boolean "notified"
-    t.index ["fund_id"], name: "fund_id", using: :btree
-    t.index ["holder_id"], name: "holder_id", using: :btree
-    t.index ["seminar_id"], name: "seminar_id", using: :btree
+    t.index ["fund_id"], name: "fund_id"
+    t.index ["holder_id"], name: "index_repayments_on_holder_id"
+    t.index ["seminar_id"], name: "index_repayments_on_seminar_id"
   end
 
-  create_table "rooms", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "place_id",                  unsigned: true
-    t.string  "name"
-    t.text    "description", limit: 65535
-    t.index ["place_id"], name: "place_id", using: :btree
-  end
-
-  create_table "seminars", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "user_id",                        unsigned: true
-    t.integer  "organization_id",                unsigned: true
+  create_table "seminars", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "user_id", unsigned: true
     t.datetime "date"
-    t.integer  "duration"
-    t.integer  "room_id",                        unsigned: true
-    t.text     "room_description", limit: 65535
-    t.string   "speaker",          limit: 250
-    t.string   "speaker_title",    limit: 20
-    t.text     "speaker_bio",      limit: 65535
-    t.string   "committee",        limit: 200
-    t.string   "title",            limit: 250
-    t.text     "abstract",         limit: 65535
-    t.string   "file",             limit: 200
-    t.string   "link",             limit: 250
-    t.string   "link_text"
-    t.string   "alert_message"
+    t.integer "duration"
+    t.integer "place_id"
+    t.text "place_description"
+    t.string "speaker", limit: 250
+    t.string "speaker_title", limit: 20
+    t.string "committee", limit: 200
+    t.string "title", limit: 250
+    t.text "abstract"
+    t.string "file", limit: 200
+    t.string "link", limit: 250
+    t.string "link_text"
+    t.string "alert_message"
     t.datetime "alert_deadline"
-    t.integer  "serial_id",                      unsigned: true
-    t.integer  "cycle_id",                       unsigned: true
-    t.index ["cycle_id"], name: "cycle_id", using: :btree
-    t.index ["organization_id"], name: "organization_id", using: :btree
-    t.index ["room_id"], name: "room_id", using: :btree
-    t.index ["serial_id"], name: "serial_id", using: :btree
-    t.index ["user_id"], name: "user_id", using: :btree
+    t.integer "serial_id"
+    t.integer "cycle_id"
+    t.index ["cycle_id"], name: "index_seminars_on_cycle_id"
+    t.index ["serial_id"], name: "index_seminars_on_serial_id"
+    t.index ["user_id"], name: "index_seminars_on_user_id"
   end
 
-  create_table "seminars_topics", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "seminar_id", null: false, unsigned: true
-    t.integer "topic_id",   null: false, unsigned: true
-    t.index ["seminar_id"], name: "seminar_id", using: :btree
-    t.index ["topic_id"], name: "topic_id", using: :btree
-  end
-
-  create_table "serials", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string  "title",       limit: 250
-    t.text    "description", limit: 65535
-    t.string  "committee",   limit: 250
-    t.string  "link",        limit: 250
+  create_table "serials", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title", limit: 250
+    t.text "description"
+    t.string "committee", limit: 250
+    t.string "link", limit: 250
     t.boolean "active"
   end
 
-  create_table "tags", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name",                      null: false
-    t.text   "description", limit: 65535
+  create_table "tags", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
   end
 
-  create_table "topics", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "discipline_id",            unsigned: true
-    t.string  "name",          limit: 30
-    t.index ["discipline_id"], name: "discipline_id", using: :btree
-  end
-
-  create_table "users", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "upn",        null: false
-    t.string   "name"
-    t.string   "surname"
-    t.string   "email"
+  create_table "users", id: :integer, unsigned: true, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "upn", null: false
+    t.string "name"
+    t.string "surname"
+    t.string "email"
     t.datetime "updated_at"
-    t.index ["upn"], name: "index_upn_on_users", using: :btree
+    t.index ["upn"], name: "index_upn_on_users"
   end
 
-  add_foreign_key "admins", "organizations", name: "admins_ibfk_2"
-  add_foreign_key "admins", "users", name: "admins_ibfk_1"
   add_foreign_key "cycles", "users", name: "cycles_ibfk_1"
-  add_foreign_key "funds", "users", column: "holder_id", name: "funds_ibfk_1"
   add_foreign_key "repayments", "funds", name: "repayments_ibfk_3"
   add_foreign_key "repayments", "seminars", name: "repayments_ibfk_2"
   add_foreign_key "repayments", "users", column: "holder_id", name: "repayments_ibfk_1"
-  add_foreign_key "rooms", "places", name: "rooms_ibfk_1"
-  add_foreign_key "seminars", "cycles", name: "seminars_ibfk_4"
-  add_foreign_key "seminars", "organizations", name: "seminars_ibfk_5"
-  add_foreign_key "seminars", "rooms", name: "seminars_ibfk_2"
-  add_foreign_key "seminars", "serials", name: "seminars_ibfk_3"
   add_foreign_key "seminars", "users", name: "seminars_ibfk_1"
-  add_foreign_key "topics", "disciplines", name: "topics_ibfk_1"
 end
