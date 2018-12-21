@@ -4,7 +4,7 @@ MAINTAINER Donapieppo <donapieppo@yahoo.it>
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update \
-    && apt-get install -y -y --no-install-recommends mysql-client \
+    && apt-get install -y -y --no-install-recommends mysql-client libmariadbclient18 \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/src/app
@@ -13,9 +13,9 @@ RUN bundle install
 COPY . .
 
 # configuration
-RUN ["/bin/cp", "doc/dm_unibo_common_docker.yml",  "config/dm_unibo_common.yml"]
-RUN ["/bin/cp", "doc/seminaria_example_docker.rb", "config/initializers/seminaria.rb"]
-RUN ["/bin/cp", "doc/docker_database.yml",         "config/database.yml"]
+RUN ["/bin/cp", "doc/dm_unibo_common_docker.yml", "config/dm_unibo_common.yml"]
+RUN ["/bin/cp", "doc/seminaria_example.rb",       "config/initializers/seminaria.rb"]
+RUN ["/bin/cp", "doc/docker_database.yml",        "config/database.yml"]
 
 # old without docker compose
 # db
