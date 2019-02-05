@@ -17,6 +17,7 @@ it:
   speaker_arrival: Arrivo del relatore a Bologna
   speaker_departure: Partenza del relatore da Bologna
   expected_refund: Importo presunto
+  hours: ore
   time:
     am: am
     formats:
@@ -26,6 +27,9 @@ it:
       hour: !    "%H:%M"
       totem: !   "%A %d %B"
       date: !    "%d/%m/%y"
+      wday: !    "%A"
+      nday: !    "%d"
+      month: !   "%b"
 
   organized_by: "organizzato da:"
   seminar: Seminario
