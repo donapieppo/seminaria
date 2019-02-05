@@ -4,7 +4,7 @@ class RepaymentsController < ApplicationController
   # richiesta su proprio seminario
   before_action :get_seminar_and_check_seminar_permission, only: [:new, :create, :update] # edit - update aliases di new - create
   # propria richiesta o su propri fondi
-  before_action :get_repayment_and_check_permission,       only: [:show, :notify, :print_decree, :print_letter, :print_proposal]
+  before_action :get_repayment_and_check_permission,       only: [:show, :edit, :update, :notify, :print_decree, :print_letter, :print_proposal]
   # su propri fondi
   before_action :get_repayment_and_check_fund_permission,  only: [:choose_fund, :fund]
   before_action :get_and_validate_holder,                  only: [:create, :update]
@@ -41,12 +41,9 @@ class RepaymentsController < ApplicationController
       @repayment = @seminar.build_repayment(repayment_params)
     end
 
-    if missing_cv?
-      @repayment.errors.add(:cv, 'Si prega di inserire il curriculum vitae.')
-      render :new and return
+    if @holder
+      @repayment.holder_id = @holder.id
     end
-
-    @repayment.holder_id = @holder.id
 
     if (user_is_manager? or ! @repayment.notified) and @repayment.save
       add_cv
@@ -56,7 +53,12 @@ class RepaymentsController < ApplicationController
     end
   end
 
-  alias update create
+  def edit
+    @seminar = @repayment.seminar
+    render :new
+  end
+
+  alias :update :create
 
   def show
   end
@@ -122,7 +124,8 @@ class RepaymentsController < ApplicationController
   private
 
   def repayment_params
-    p = [:name, :surname, :email, :address, :postalcode, :city, :italy, :country, :birth_date, :birth_place, :birth_country, :payment, :gross, :position_id, :role, :refund, :affiliation, :reason, :speaker_arrival, :speaker_departure, :expected_refund]
+    p = [:name, :surname, :email, :address, :postalcode, :city, :italy, :country, :birth_date, :birth_place, :birth_country, :affiliation,
+         :payment, :gross, :position_id, :role, :refund, :reason, :speaker_arrival, :speaker_departure, :expected_refund]
     p = p + [:bond_number, :bond_year] if current_user.is_admin?
     params[:repayment].permit(p)
   end
@@ -139,13 +142,13 @@ class RepaymentsController < ApplicationController
 
   def get_repayment_and_check_fund_permission
     @repayment = Repayment.find(params[:id])
-    user_is_manager? or (@repayment.holder_id == current_user.id) or raise "No access"
+    user_is_manager? or (@repayment.holder_id == current_user.id) or raise "No access."
   end
 
   # FIXME in model
   def get_and_validate_holder
     anagrafica_unica_holder = params[:repayment].delete(:holder_id)
-    @holder = User.update_from_anagrafica_unica(anagrafica_unica_holder)
+    @holder = anagrafica_unica_holder.blank? ? nil : User.update_from_anagrafica_unica(anagrafica_unica_holder) 
   end
   
   def available_funds
