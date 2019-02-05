@@ -80,4 +80,12 @@ module RepaymentsHelper
     end
   end
 
+  def checked_icon(ok)
+    if ok
+      '<i class="fas fa-check-circle" style="font-size: 24px; color: green"></i>'.html_safe
+    else
+      '<i class="fas fa-exclamation-triangle" style="font-size: 24px; color: red"></i>'.html_safe
+    end
+  end
+
 end
