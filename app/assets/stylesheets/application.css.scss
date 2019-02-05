@@ -7,128 +7,71 @@ p.actions {
 }
 	
 .seminar {
-  @extend .row;
-  @extend .mb-3;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+  @extend .card;
+  @extend .my-2;
+  .today {
+    @extend .alert;
+    @extend .bg-warning;
+    font-weight: bold;
+    text-align: center;
+  }
+  .seminar-header {
+    @extend .card-header;
+    @extend .py-3;
+  }
+  .seminar-body {
+    @extend .card-body;
+  }
+  .seminar-footer {
+    @extend .card-body;
+    @extend .text-muted;
+  }
+
   .when {
-    @extend .col-md-3;
-	 	text-align: right;
-    .date {
-  	  font-weight: bold;
-      font-size: 120%;
-    }
-    .where {
-      font-weight: bold;
-    }
-		.arguments {
-		}
-    .mto {
-      margin-top: 10px;
-    }
-    .today {
-      @extend .alert;
-      @extend .bg-warning;
-      @extend .my-3;
-      @extend .mx-5;
-      font-weight: bold;
-      text-align: center;
-    }
+    text-align: center;
+    border-right: 3px solid $cyan;
   }
-  .what {
-    @extend .col-md-9;
-    @extend .card;
-    padding-left: 0;
-    padding-right: 0;
-
-		.title {
-      @extend .card-header;
-      background-color: #d9edf7;
-      color: #31708f;
-      border-bottom: 2px solid #31708f;
-      font-size: 16px;
-      font-weight: bold;
-      text-transform: uppercase;
-		}
-    .content {
-      @extend .card-body;
-      .speaker {
-        font-weight: bold;
-      }
-  		.abstract {
-  			font-style: italic;
-  			padding: 1ex 3ex;
-  			text-align: justify;
-  		}
-    }
-    .footer {
-      @extend .row;
-      @extend .card-footer;
-      margin-left: 0;
-      margin-right: 0;
-      .committee {
-        @extend .col-md-9;
-        font-size: 12px;
-      }
-      .actions-and-calendars {
-        @extend .col-md-3;
-        text-align: right;
-      }
-      .fund_missing {
-        @extend .text-danger;
-      }
-    }
-  }
-}
-
-.highlight {
-  @extend .row;
-  .when {
-    @extend .col-md-3;
-	 	text-align: right;
-    .date {
-    }
-  }
-  .what {
-    @extend .col-md-9;
-    @extend .card;
-    padding-left: 0;
-    padding-right: 0;
-		.title {
-      @extend .card-header;
-      font-weight: bold;
-      text-transform: uppercase;
-		}
-    .content {
-      @extend .card-body;
-      .description {
-  			font-style: italic;
-  			padding: 1ex 3ex;
-  			text-align: justify;
-      }
-    }
-    .tags {
-    }
-  }
-}
-
-.highlight-commission {
-  @extend .row;
-  .proponent {
+  .speaker {
     font-weight: bold;
   }
-  .commission {
-    dd {
-      margin-left: 10px;
+  .title {
+    @extend .my-1;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: black;
+  }
+  .notes {
+    .abstract {
+      font-style: italic;
+      text-align: justify;
     }
   }
-  .commission, .proponent {
-    //@include make-md-column-offset(9);
-    //@include make-md-column-offset(3);
+  .hour {
+    @extend .mt-3;
+  }
+  .where {
+    @extend .mt-1;
+    @extend .mb-3;
   }
 }
 
-.main-description {
-  // @extend .alert;
-  // @extend .alert-info;
+.actions-button {
+  cursor: pointer;
+}
+.can_update {
+  color: green;
+}
+.actions-popup {
+  background-color: #f9f9f9;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  position: absolute;
+  display: none;
+  z-index: 1;
+  width: 250px;
 }
 
 dl.cycles {
@@ -150,7 +93,10 @@ dl.cycles {
   width: 15em;
 }
 
-
+.seminar-small-info {
+  @extend .pl-3;
+  border-left: 3px solid $cyan;
+}
 
 table.funds {
   @extend .table;
@@ -160,5 +106,9 @@ table.funds {
   .unavailable {
     text-decoration: line-through;
   }
+}
+.modal-dialog {
+  width: 90%;
+  max-width: 1200px;
 }
 
