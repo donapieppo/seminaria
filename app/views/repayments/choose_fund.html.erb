@@ -1,3 +1,5 @@
+<%= render 'seminar_brief', seminar: @repayment.seminar  %>  
+
 <% if @too_late_for_repayment %>  
   <p class="alert alert-danger">
   Non è più possibile approvare la richiesta di compenso / rimborso.<br/>
@@ -16,14 +18,9 @@
     <% else %>
       <%= repayment.submit "Salva e approva" %>
     <% end %>
-
     - <%= link_to 'indietro', repayment_path(@repayment) %>   
-<% end %>
+  <% end %>
 
-<h2 class="my-5">Dettagli seminario</h2>
-
-<%= render @repayment.seminar, short: false %>  
-
-<%= render @repayment %>  
+  <%= render @repayment %>  
 <% end %>
 

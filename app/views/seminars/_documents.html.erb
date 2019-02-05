@@ -4,7 +4,7 @@
   <% if @documents.any? %>  
     <ul>
       <% @documents.each do |document| %>
-        <li><%= link_to document, document.url %> - <%= link_to_delete document_path(document) %></li>
+        <li><%= link_to document, rails_blob_url(document.attach, disposition: "attachment") %> - <%= link_to_delete document_path(document) %></li>
       <% end %>
     </ul>
   <% else %>

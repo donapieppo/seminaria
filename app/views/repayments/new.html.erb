@@ -1,6 +1,6 @@
 <h1>Richiesta di rimborso / compenso</h1>
 
-<%= render @seminar, short: false %>  
+<%= render 'seminar_brief', seminar: @seminar  %>  
 
 <% if @repayment %>  
   <% if user_can_edit_repayment?(@repayment) %>

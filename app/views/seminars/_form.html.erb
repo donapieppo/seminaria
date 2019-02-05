@@ -1,8 +1,12 @@
 <% if @cycle %>  
-  <h2>Ciclo: <%= @cycle %></h2>
-  <% unless @cycle.description.blank? %>  
-    <p class="alert alert-info"><%= @cycle.description %></p>
-  <% end %>
+  <div class="alert alert-info">
+    <p>
+      <strong>Ciclo: <%= @cycle %></strong>
+      <% unless @cycle.description.blank? %>  
+        <br/><i><%= @cycle.description %></i>
+      <% end %>
+    </p>
+  </div>
 <% end %>
 
 <% if @serial %>  
@@ -12,40 +16,40 @@
 
 <%= dm_form_for @seminar do |seminar| %>  
   <%= seminar.dm_error_notification %>  
-  <fieldset>
-    <% if user_admin? %>  
-      <%= seminar.association :cycle %>  
-      <%= seminar.association :serial, collection: Serial.active.order(:title) %>  
-    <% else %>
-      <%= seminar.input :serial_id, as: :hidden %>  
-      <%= seminar.input :cycle_id,  as: :hidden %>  
-    <% end %>
-    <%= seminar.input :title %>  
-    <%= seminar.input :date, as: :datetime_picker2 %>
-    <%= seminar.input :duration, collection: [30,45,60,75,90,120,180].map{ |p| ["#{p} minuti", p] }, include_blank: false %>
-    <%= seminar.input :speaker_title, collection: User.abbr_titles, include_blank: false %>  
-    <%= seminar.input :speaker %>  
-    <%= seminar.association :place, collection: Place.all, include_blank: false %>
-    <%= seminar.input :place_description, input_html: { cols: 50, rows: 2 } %>
-    <%= seminar.input :committee %>
-    <%= seminar.association :arguments, collection: Argument.order(:name) %> 
-    <%= seminar.input :abstract, input_html: { cols: 50, rows: 3 } %>
-    <%= seminar.input :link %>
-    <%= seminar.input :link_text %> 
-    <% if user_admin? %>  
-      <%= seminar.association :user, collection: User.order('surname').to_a, label_method: :cn %>  
-    <% end %>
+  <% if user_admin? %>  
+    <%= seminar.association :cycle %>  
+    <%= seminar.association :serial, collection: Serial.active.order(:title) %>  
+  <% else %>
+    <%= seminar.input :serial_id, as: :hidden %>  
+    <%= seminar.input :cycle_id,  as: :hidden %>  
+  <% end %>
+  <%= seminar.input :title %>  
+  <%= seminar.input :date, as: :datetime_picker2 %>
+  <%= seminar.input :duration, collection: [30,45,60,75,90,120,180].map{ |p| ["#{p} minuti", p] }, include_blank: false %>
+  <%= seminar.input :speaker_title, collection: User.abbr_titles, include_blank: false %>  
+  <%= seminar.input :speaker %>  
+  <%= seminar.association :place, collection: Place.all, include_blank: false %>
+  <%= seminar.input :place_description, input_html: { cols: 50, rows: 2 } %>
+  <%= seminar.input :committee %>
+  <%= seminar.association :arguments, collection: Argument.order(:name) %> 
+  <%= seminar.input :abstract, input_html: { cols: 50, rows: 3 } %>
+  <%= seminar.input :link %>
+  <%= seminar.input :link_text %> 
+  <% if user_admin? %>  
+    <%= seminar.association :user, collection: User.order('surname').to_a, label_method: :cn %>  
+  <% end %>
 
-    <%= seminar.submit class: 'button' %> -
-    <%= link_to 'indietro', root_path %>   
-  </fieldset>
+  <%= seminar.submit %> - <%= link_to 'indietro', root_path %>   
 <% end %>
 
 <% if @cycle %>  
   <dl class="dl-horizontal">
     <dt>Recupera dati dal</dt>
     <% @cycle.seminars.order('id desc').each do |s| %>
-      <dd><%= link_to "seminario del #{I18n.l(s.date)} #{s.to_s}", new_cycle_seminar_path(@cycle, as: s.id) %></dd>
+      <dd>
+      <%= link_to "seminario del #{I18n.l(s.date)}", new_cycle_seminar_path(@cycle, as: s.id) %><br/>
+      <i><%= s %> </i>
+      </dd>
     <% end %>
   </dl>
 <% end %>

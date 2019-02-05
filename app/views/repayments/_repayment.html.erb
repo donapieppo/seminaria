@@ -1,4 +1,4 @@
-<h2>Richiesta rimborso / compenso</h2>
+<h1>Richiesta rimborso / compenso</h1>
 
 <p class="alert alert-info">
   <strong>Eccezionali ragioni di particolare qualificazione:</strong> 
@@ -7,7 +7,7 @@
 
 <% if @repayment.missing_payment_and_refund? %>  
   <p class="alert alert-danger">
-    Si prega di inserire il compenso o il rimborso.
+  <%= icon('exclamation-triangle') %>  Si prega di inserire il compenso o il rimborso.
   </p>
 <% end %>
 
@@ -82,7 +82,7 @@
       <td>C.V.</td>
       <td>
         <% repayment.documents.each do |doc| %>
-          <%= link_to_cv doc %> 
+          <%= link_to_cv doc %>
         <% end %>
       </td>
     </tr>

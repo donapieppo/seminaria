@@ -1,0 +1,15 @@
+<% seminar = repayment.object.seminar %>  
+
+<div class="dm-card">
+  <div class="dm-card-title">
+    Ruolo di <%= seminar.speaker_title %> <%= seminar.speaker %> <span class="float-right"><%= checked_icon(repayment.object.speaker_role_ok?) %></span>
+  </div>
+  <div class="dm-card-body">
+    <%= repayment.input :affiliation %>
+    <%= repayment.association :position, hint: "Qualifica e/o attività del relatore" %>
+    <%= repayment.input :role, hint: "Dettagli sulla qualifica e/o attività del relatore. Obbligatorio nel caso abbiate scelto Altro come ruolo." %>
+    <%= repayment.input :email %>
+  </div>
+</div>
+
+

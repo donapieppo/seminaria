@@ -1,0 +1,25 @@
+<div class="dm-card">
+  <div class="dm-card-title">
+    Compenso onnicomprensivo 
+  </div>
+  <div class="dm-card-body">
+      <p class="info">
+      Il <strong>compenso massimo</strong> erogabile a conferenzieri con residenza fiscale in Italia è pari 
+      a 500 &euro; lordo percipiente (400 &euro; nette; 542,50 &euro; lordo ente).
+      </p>
+
+    <div class="input">
+      <label>Richiedo compenso</label>
+      <input type="checkbox" name="payment_bool" id="payment_bool" <%= 'checked="checked"' if repayment.object.payment %>/>
+    </div>
+    <div id="payment_amount">
+      <%= repayment.input :payment, hint: t(:payment_hint), as: :currency_float %>
+      <%= repayment.input :gross, as: :radio_buttons, collection: [['Lordo ente', true], ['Compenso netto', false]], label: "" %>  
+      <div class=row">
+        <div class="col-sm-9 col-sm-offset-3">
+          <div id="payment_summary"></div>
+        </div>
+      </div>  
+    </div>
+  </div>
+</div>

@@ -1,30 +1,43 @@
 <% short ||= false %>  
 <%= content_tag :div, class: css_classes(seminar) do %>
 
-  <div class="when" style="text-align: center">
-    <%= when_tag(seminar, past: seminar.past?, short: short) %>  
-    <%= where_tag(seminar, past: seminar.past?, short: short) %>  
-    <%= arguments_tag(seminar) %>  
-
+  <div class="seminar-header">
     <%= clock_tag(seminar) %>  
+    <div class="row">
+      <div class="when col-md-2">
 
-    <div class="mto">
-      <%# se in una serie ma non stiamo vedendo proprio la serie %>
-      <% if seminar.serial_id and !@serial %>
-        nell'ambito della serie<br/>
-        <strong><%= link_to seminar.serial, serial_path(seminar.serial_id) %></strong>
-      <% end %>
-      <% if seminar.cycle_id and !@cycle %>
-        nel ciclo di seminari<br/>
-        <strong><%= link_to seminar.cycle, cycle_path(seminar.cycle_id) %></strong>
-      <% end %>
-    </div>
-  </div> <!-- when -->
+      <%= day_tag(seminar, short: short) %>  
 
-  <div class="what">
-    <div class="title"><%= seminar.title %></div>
+      </div> <!-- when -->
+
+      <div class="col">
+        <div class="float-right">
+          <%= actions_tag(seminar) %>  
+        </div>
+
+        <div class="speaker">
+          <%= seminar.speaker %>
+        </div>
+        <div class="title"><%= seminar.title %></div>
+        <div class="notes"><%= seminar.arguments_string %>
+        <%# se in una serie ma non stiamo vedendo proprio la serie %>
+        <% if seminar.serial_id and !@serial %>
+          nell'ambito della serie<br/>
+          <strong><%= link_to seminar.serial, serial_path(seminar.serial_id) %></strong>
+        <% end %>
+        <% if seminar.cycle_id and !@cycle %>
+          nel ciclo di seminari<br/>
+          <%= link_to seminar.cycle, cycle_path(seminar.cycle_id) %>
+        <% end %>
+        </div> <!-- notes -->
+        <%= hour_tag(seminar, short: short) %>  
+        <%= where_tag(seminar, short: short) %>  
+      </div><!-- what -->
+    </div> <!-- row -->
+  </div> <!-- header -->
+
+  <div class="seminar-body">
     <div class="content">
-      <div class="speaker"><%= seminar.speaker %></div>
       <div class="abstract"><%= seminar.abstract unless short %></div>
       <div class="links_and_documents">
         <% if ! seminar.link.blank? %>
@@ -35,32 +48,16 @@
         <% end %>
       </div><!-- links_and_documents -->
     </div><!-- content -->
-    <% if ! short %>
-      <div class="footer">
-        <div class="committee">
-          <%= t :organized_by %> <%= seminar.committee %> <br/> 
-          <%= seminar.project %>  
-        </div>
-        <div class="actions-and-calendars">
-          <% if ! seminar.past? %>
-            <% if user_owns?(seminar) or user_is_manager? %>
-              &nbsp;
-              <%= link_to_edit edit_seminar_path(seminar) %>  
-              <%= link_to_delete seminar_path(seminar) %>
-            <% end %>
-            <% if user_is_holder?(seminar) %>
-              &nbsp;
-              <% repayment_class = (seminar.repayment.fund ? 'fund_ok' : 'fund_missing') %>  
-              <%= link_to icon('euro'), choose_fund_repayment_path(seminar.repayment), title: 'Scelta fondo', class: repayment_class %>  
-            <% end %>
-            <%= link_to fwicon('google', prefix: 'fab'), seminar.google_url, target: :new, title: 'aggiungi a Google Calendar' %>  
-            <%= link_to fwicon('calendar-plus'), seminar_url(seminar, format: :ics), title: 'aggiungi a iCal' %>  
-          <% end %>
-          <%= link_to fwicon('print'), seminar_path(seminar), title: 'pagina stampabile' %>  
-        </div>
-      </div><!-- footer -->
-    <% end %>
-  </div><!-- what -->
+  </div><!-- body -->
 
+  <% if ! short %>
+    <div class="seminar-footer">
+      <span class="committee">
+        <hr/>
+        <%= t :organized_by %> <%= seminar.committee %> <br/>
+        <%= seminar.project %>  
+      </span>
+    </div><!-- footer -->
+  <% end %>
 <% end %><!-- seminar -->
 

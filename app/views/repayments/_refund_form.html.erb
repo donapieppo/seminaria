@@ -1,0 +1,18 @@
+<div class="dm-card">
+  <div class="dm-card-title">
+    Rimborsi 
+  </div>
+  <div class="dm-card-body">
+    <div class="input">
+      <p class="info">Il relatore dovrà presentare <strong>nota spese</strong> con marca da bollo da 2 &euro; allegando i documenti originali comprovanti il sostenimento delle spese.<br/>
+      Il rimborso spese è <strong>esente da ritenute</strong> solo se non è stata selezionata l'opzione per l'erogazione del compenso onnicomprensivo.</p>
+      <label>Richiedo rimborso spese</label>
+      <%= repayment.input_field :refund, boolean_style: :inline, id: 'refund_bool' %>
+    </div>
+    <div id="refund_details">
+      <%= repayment.input :speaker_arrival,   as: :date_picker, hint: repayment_days_warning %>
+      <%= repayment.input :speaker_departure, as: :date_picker %>
+      <%= repayment.input :expected_refund,   as: :currency %>
+    </div>
+  </div>
+</div>

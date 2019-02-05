@@ -1,0 +1,23 @@
+<div class="dm-card">
+  <div class="dm-card-title">
+    Scelta conferenziere <span class="float-right"><%= checked_icon(repayment.object.speaker_reason_ok?) %></span>
+  </div>
+  <div class="dm-card-body">
+    <%= repayment.input :reason, input_html: {rows: 6} %>  
+    <% if repayment.object.documents.any? %>  
+      <div class=row">
+        <div class="col-sm-9 offset-sm-3">
+          <% repayment.object.documents.each do |doc| %>  
+            <strong>allegato:</strong> 
+            <%= link_to_cv doc %> 
+            <%= link_to_delete document_path(doc) %><br/>
+          <% end %>
+        </div>
+      </div>
+    <% else %>
+      <%= repayment.input :cv, as: :file, hint: t(:dlgs33_2013) %>
+    <% end %>
+  </div>
+</div>
+
+
