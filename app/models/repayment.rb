@@ -1,14 +1,14 @@
 class Repayment < ActiveRecord::Base
   belongs_to :seminar
-  belongs_to :holder, class_name: 'User', foreign_key: :holder_id
+  belongs_to :holder, class_name: 'User', foreign_key: :holder_id, optional: true
   belongs_to :fund, optional: true
   belongs_to :position, optional: true
   # non ci basta che sia in seminario con type=cv. Ci piace di piu' cosi'. Anche solo perche' va visto da chi vede 
   # il seminario e questo va visto da chi vede il repayment
   has_many   :documents, dependent: :destroy
 
-  validates :name, :surname, :email, :address, :postalcode, :city, :birth_date, :birth_place, :birth_country, :affiliation, :reason, presence: true
-  validates :speaker_arrival, :speaker_departure, :expected_refund, presence: true, if: :refund
+  #validates :name, :surname, :email, :address, :postalcode, :city, :birth_date, :birth_place, :birth_country, :affiliation, :reason, presence: true
+  #validates :speaker_arrival, :speaker_departure, :expected_refund, presence: true, if: :refund
 
   validate :payment_limit_for_italians
   validate :speaker_arrival_departure_validation
@@ -105,7 +105,30 @@ class Repayment < ActiveRecord::Base
   end
 
   def position_to_s
+    return "" unless self.position_id
     self.position.code == 'other' ? self.role : self.position.name
+  end
+
+  # checks
+  
+  def holder_ok?
+    self.holder_id
+  end
+
+  def speaker_reason_ok?
+    ! ((self.documents.empty?) || (self.reason.blank?))
+  end
+
+  def speaker_anagrafica_ok?
+    ! ((self.name.blank?) || (self.surname.blank?) || (self.birth_place.blank?) || (self.birth_date.blank?))
+  end
+
+  def speaker_role_ok?
+    ! ((self.affiliation.blank?) || (self.position_id.nil?) || (self.email.blank?))
+  end
+
+  def speaker_address_ok?
+    ! ((self.address.blank?) || (self.postalcode.nil?) || (self.city.blank?))
   end
 end
 
