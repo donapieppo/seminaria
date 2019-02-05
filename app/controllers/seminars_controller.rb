@@ -1,9 +1,7 @@
 class SeminarsController < ApplicationController
-  # uniche pagine da vedere senza essere loggati
-  # index solitamente non si raggiunge perchè index è in home con insieme seminari e highlights
   skip_before_action :redirect_unsigned_user, only: [:index, :archive, :show, :totem]
 
-  before_action :get_seminar_and_check_permission, only: [:edit, :update, :destroy, :mail_text, :submit_mail_text]
+  before_action :get_seminar_and_check_permission, only: [:show, :edit, :update, :destroy, :mail_text, :submit_mail_text]
 
   # Prossimi sono quelli a partire da tutto oggi
   def index
@@ -27,9 +25,8 @@ class SeminarsController < ApplicationController
 
   # ics formato per ical
   def show
-    @seminar = Seminar.find(params[:id])
     respond_to do |format|
-      format.html { render layout: false }
+      format.html 
       format.ics
     end  
   end
@@ -56,7 +53,7 @@ class SeminarsController < ApplicationController
       @seminar = Seminar.new(duration: 60,
                              link: 'http://', 
                              committee: current_user.cn, 
-                             date: Time.now + 1.day)
+                             date: Date.tomorrow)
     end
     if params[:cycle_id]
       @cycle = Cycle.find(params[:cycle_id])
@@ -132,14 +129,18 @@ class SeminarsController < ApplicationController
     else
       flash[:error] = "Errore nell'invio della mail."
     end
-    redirect_to new_seminar_repayment_path(@seminar)
+    redirect_to seminar_path(@seminar)
   end
 
   private 
 
   def get_seminar_and_check_permission
-    @seminar = Seminar.find(params[:id])
-    current_user.is_manager? or user_owns!(@seminar) 
+    begin
+      @seminar = Seminar.find(params[:id])
+      authorize @seminar
+    rescue ActiveRecord::RecordNotFound
+      redirect_to seminars_path, alert: 'Seminario non presente in archivio.'
+    end
   end
 
   def seminar_params
