@@ -1,5 +1,5 @@
 # committee = Organizzatore
-class Seminar < ActiveRecord::Base
+class Seminar < ApplicationRecord
   include Calendar
 
   belongs_to :user
