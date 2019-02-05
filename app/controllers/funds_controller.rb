@@ -35,6 +35,7 @@ class FundsController < ApplicationController
 
   def show
     @repayments = @fund.repayments.includes(:holder)
+    render layout: false if modal_page
   end
 
   def destroy
