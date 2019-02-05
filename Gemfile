@@ -13,6 +13,8 @@ gem "prawn-table"
 gem "caracal"
 gem 'caracal-rails'
 
+gem 'pundit'
+
 gem 'momentjs-rails'
 
 gem 'roo'
