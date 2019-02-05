@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   include DmUniboCommon::Controllers::Helpers
   include UserPermissionHelper
+  include Pundit
 
   impersonates :user
 
