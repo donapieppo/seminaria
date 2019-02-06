@@ -6,6 +6,10 @@
         <br/><i><%= @cycle.description %></i>
       <% end %>
     </p>
+    È possibile recuperare parte dei dati da uno dei seguenti seminario precedente dello stesso ciclo: <br/>
+    <% @cycle.seminars.order('id desc').each do |s| %>
+      <%= link_to "#{I18n.l(s.date)}", new_cycle_seminar_path(@cycle, as: s.id), class: 'btn btn-outline-primary my-1' %>
+    <% end %>
   </div>
 <% end %>
 
@@ -42,15 +46,4 @@
   <%= seminar.submit %> - <%= link_to 'indietro', root_path %>   
 <% end %>
 
-<% if @cycle %>  
-  <dl class="dl-horizontal">
-    <dt>Recupera dati dal</dt>
-    <% @cycle.seminars.order('id desc').each do |s| %>
-      <dd>
-      <%= link_to "seminario del #{I18n.l(s.date)}", new_cycle_seminar_path(@cycle, as: s.id) %><br/>
-      <i><%= s %> </i>
-      </dd>
-    <% end %>
-  </dl>
-<% end %>
 
