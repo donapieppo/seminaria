@@ -36,7 +36,7 @@ Rails.application.routes.draw do
   resources :repayments do
     post :notify, on: :member
     get  :choose_fund, on: :member
-    post :fund, on: :member
+    post :update_fund, on: :member
     get  :print_letter, on: :member
     get  :print_decree, on: :member
     get  :print_proposal, on: :member
