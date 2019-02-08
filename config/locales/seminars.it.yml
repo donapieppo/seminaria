@@ -1,5 +1,7 @@
 it:
   repayment: Richiesta di rimborso
+  fund: Fondo
+  compensation: Rimborso / compenso
   address:    Indirizzo di residenza
   postalcode: Codice postale
   city:       Città
@@ -17,6 +19,8 @@ it:
   speaker_arrival: Arrivo del relatore a Bologna
   speaker_departure: Partenza del relatore da Bologna
   expected_refund: Importo presunto
+  reason: Eccezionali ragioni di particolare qualificazione
+  speaker_details: Deti relativi allo speaker
   hours: ore
   time:
     am: am
