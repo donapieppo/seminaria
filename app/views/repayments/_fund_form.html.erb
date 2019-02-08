@@ -1,0 +1,25 @@
+<div class="dm-card">
+  <div class="dm-card-title">
+    Fondo <span class="float-right">
+    <%= checked_icon(repayment.object.holder_ok?) %></span>
+  </div>
+  <div class="dm-card-body">
+    <% if policy(repayment.object.seminar).edit? %>  
+      <%= repayment.association :holder, collection: Fund.holders2, label_method: :cn_militar, include_blank: true, hint: repayment_days_warning() %>
+    <% end %>
+
+    <% if policy(repayment.object).fund? %>  
+      <% if user_is_manager? %>  
+        <%= repayment.association :fund, collection: @funds, label_method: :to_s_with_holder, include_blank: false %>
+      <% else %>
+        <%= repayment.association :fund, collection: @funds, label_method: :to_s, include_blank: false %>
+      <% end %>
+    <% end %>
+
+    <% if current_user.is_manager? %>  
+      <%= repayment.input :bond_number %>
+      <%= repayment.input :bond_year, collection: [2018, 2019] %>
+    <% end %>
+  </div>
+</div>
+

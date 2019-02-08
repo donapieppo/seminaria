@@ -1,4 +1,4 @@
-class SeminarPolicy
+class FundPolicy
   attr_reader :user, :record
 
   def initialize(user, record)
@@ -7,7 +7,7 @@ class SeminarPolicy
   end
 
   def index?
-    true 
+    true
   end
 
   def show?
@@ -15,15 +15,15 @@ class SeminarPolicy
   end
 
   def new?
-    true
+    @user.is_manager?
   end
 
   def create?
-    true
+    @user.is_manager?
   end
 
   def update?
-    @user and (@user.is_admin? or record.user_id == @user.id)
+    @user.is_manager?
   end
 
   def edit?
@@ -31,14 +31,6 @@ class SeminarPolicy
   end
 
   def destroy?
-    update?
-  end
-
-  def mail_text?
-    update?
-  end
-
-  def submit_mail_text?
     update?
   end
 end

@@ -18,3 +18,12 @@
   </div>
 </div>
 
+<%= javascript_tag do %>  
+  $(function(){
+    $("#foreign_country").toggle(! $("#repayment_italy").is(':checked'));
+    $("#repayment_italy").change(function(){
+      $("#foreign_country").toggle(! $("#repayment_italy").is(':checked'));
+    });
+  });
+<% end %>
+

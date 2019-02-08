@@ -8,6 +8,10 @@ function description_field() {
   });
 }
   
+function roundToTwo(num) {    
+  return +(Math.round(num + "e+2")  + "e-2");
+};
+
 $(document).ready(function() {
   description_field();
 
@@ -18,5 +22,16 @@ $(document).ready(function() {
   $(".actions-button").click(function() { 
     $(this).next(".actions-popup").toggle();
   });
+
+  // visible if checked
+  $.fn.visibility_from = function (bool_check){
+    var visible_element = this;
+    visible_element.toggle($(bool_check).is(':checked'));
+    $(bool_check).change(function(){
+      visible_element.toggle($(bool_check).is(':checked'));
+    });
+    return visible_element;
+  }
+
 });
 

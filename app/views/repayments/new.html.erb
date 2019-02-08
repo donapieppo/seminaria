@@ -1,18 +1,4 @@
-<h1>Richiesta di rimborso / compenso</h1>
+<%= main_title("Richiesta di rimborso / compenso") %>
 
-<%= render 'seminar_brief', seminar: @seminar  %>  
-
-<% if @repayment %>  
-  <% if user_can_edit_repayment?(@repayment) %>
-    <%= render 'form' %>
-  <% else %>
-    <p class="alert alert-warning">
-      <%= t :too_late_to_modify_repayment %> 
-    </p>
-  <% end %>
-<% elsif @too_late_for_repayment %>  
-  <p class="alert alert-warning">
-    <%= t :too_late_for_repayment %> <br/> <%= repayment_days_warning %>  
-  </p>
-<% end %>
+<%= render 'form' %>
 

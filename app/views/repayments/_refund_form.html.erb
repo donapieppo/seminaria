@@ -16,3 +16,21 @@
     </div>
   </div>
 </div>
+
+<%= javascript_tag do %>  
+  $(function(){
+    $("#refund_details").visibility_from("#refund_bool");
+
+    var startDatePossibleRepayment = moment().add(<%= Rails.configuration.repayment_deadline %>, 'days');
+
+    <% if user_is_manager? %>  
+      startDatePossibleRepayment = moment(0);
+    <% end %>
+
+    console.log(startDatePossibleRepayment.format('DD/MM/YYYY'));
+
+    $('#repayment_speaker_arrival').data('datepicker').setStartDate(startDatePossibleRepayment.format('DD/MM/YYYY'));
+    $('#repayment_speaker_departure').data('datepicker').setStartDate(startDatePossibleRepayment.format('DD/MM/YYYY'));
+  });
+<% end %>
+

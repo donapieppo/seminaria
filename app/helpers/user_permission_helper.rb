@@ -39,13 +39,4 @@ module UserPermissionHelper
     redirect_to root_path, alert: "Non avete diritti sufficienti per accedere alla pagina richiesta."
   end
 
-  def user_can_edit_repayment?(repayment)
-    user_is_manager? and return true
-    user_owns?(repayment.seminar) and ! repayment.notified 
-  end
-
-  def user_can_choose_fund?(repayment)
-    user_is_manager? and return true
-    user_is_holder?(repayment)
-  end
 end

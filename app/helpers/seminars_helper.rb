@@ -59,8 +59,9 @@ module SeminarsHelper
   end
 
   def actions_tag(seminar)
+    can_update = policy(seminar).update? || user_is_holder?(seminar)
     capture do 
-      concat(content_tag(:span, icon(:bars, size: 26), class: "actions-button #{policy(seminar).update? ? 'can_update' : ''}"))
+      concat(content_tag(:span, icon(:bars, size: 26), class: "actions-button #{can_update ? 'can_update' : ''}"))
 
       concat(content_tag(:div, class: 'actions-popup') do 
         if ! seminar.past? 
@@ -76,7 +77,7 @@ module SeminarsHelper
         end 
         concat( link_to(fwicon('print') + ' pagina stampabile<br/>'.html_safe, seminar_path(seminar)) )
         if policy(seminar).destroy?
-          concat( '<br/>'.html_safe + link_to_delete(seminar_path(seminar)) + ' elimina <br/>'.html_safe )
+          concat( '<br/>'.html_safe + link_to_delete('elimina', seminar_path(seminar)) )
         end 
       end)
     end

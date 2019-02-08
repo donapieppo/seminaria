@@ -10,8 +10,11 @@ class RepaymentPolicy
     false
   end
 
+  # manager
+  # seminar owner
+  # fund honer
   def show?
-    false
+    @user and (@user.is_manager? or SeminarPolicy.new(@user, @record.seminar).update? or fund?)
   end
 
   def new?
@@ -23,7 +26,9 @@ class RepaymentPolicy
   end
 
   def update?
-    @user.is_admin? or record.user_id == @user.id
+    @user and (@user.is_manager? or 
+              ((! @record.notified) and SeminarPolicy.new(@user, @record.seminar).update?))
+    # user_owns?(repayment.seminar) and ! repayment.notified 
   end
 
   def edit?
@@ -34,11 +39,12 @@ class RepaymentPolicy
     update?
   end
 
-  def mail_text?
-    update?
+  #  fund owner
+  def fund?
+    @user and (@user.is_manager? or (@record.holder and @user == @record.holder))
   end
 
-  def submit_mail_text?
-    update?
+  def choose_fund?
+    fund?
   end
 end

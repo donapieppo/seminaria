@@ -12,6 +12,7 @@ class Repayment < ActiveRecord::Base
 
   validate :payment_limit_for_italians
   validate :speaker_arrival_departure_validation
+  validate :validate_fund_and_holder
 
   ADAPT_GROSS_VALUE       = 0.92165898
   IRAP                    = 0.085 # 85%
@@ -33,6 +34,12 @@ class Repayment < ActiveRecord::Base
     end
     if self.speaker_arrival > self.seminar.date
       self.errors.add(:speaker_arrival, "Il relatore non può arrivare a Bologna dopo la data prevista per il seminario.")
+    end
+  end
+
+  def validate_fund_and_holder
+    if self.fund
+      (self.fund.holder_id == self.holder_id) or self.errors.add(:fund, "ERRORE")
     end
   end
 
@@ -100,8 +107,7 @@ class Repayment < ActiveRecord::Base
   end
 
   def missing_payment_and_refund?
-    price = self.payment || self.expected_refund
-    price.to_i <= 0
+    ! ((self.payment.to_i > 0) || (self.expected_refund.to_i > 0))
   end
 
   def position_to_s
@@ -128,7 +134,26 @@ class Repayment < ActiveRecord::Base
   end
 
   def speaker_address_ok?
-    ! ((self.address.blank?) || (self.postalcode.nil?) || (self.city.blank?))
+    ! ((self.address.blank?) || (self.postalcode.blank?) || (self.city.blank?))
+  end
+
+  def all_ok_to_send?
+    holder_ok? && speaker_reason_ok? &&  speaker_anagrafica_ok? && speaker_role_ok? && speaker_address_ok? 
+  end
+
+  def correct_data_group?(what)
+    case what
+    when :reason
+      speaker_reason_ok?
+    when :fund
+      (self.holder_id and self.fund_id)
+    when :compensation
+      ! missing_payment_and_refund?
+    when :speaker_details
+      speaker_anagrafica_ok? and speaker_address_ok? and speaker_role_ok?
+    else
+      false
+    end
   end
 end
 

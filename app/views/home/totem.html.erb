@@ -8,7 +8,7 @@
     <meta name="author" content="Dipartimento di Matematica - Unibo">
     <%= stylesheet_link_tag "application", media: "all" %>
     <style>
-      .calendars, .links_and_documents {
+      .calendars, .links_and_documents, .actions-button {
         display: none;
       }
     </style>
@@ -16,15 +16,7 @@
 
   <body>
     <div class="container">
-      <% if @highlights.size > 0 %>  
-        <h1><%= t :highlights %></h1>
-
-        <% @highlights.each do |highlight| %>  
-          <%= render highlight %>
-        <% end %>
-      <% end %>
-
-      <h2>Prossimi seminari</h2>
+      <h1>Prossimi seminari</h1>
 
       <% @seminars.each do |seminar| %>  
         <%= render seminar %>  

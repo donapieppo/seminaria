@@ -6,7 +6,7 @@
   <%= repayment_days_warning %> 
   </p> 
 <% else %>
-  <%= dm_form_for @repayment, url: fund_repayment_path(@repayment), method: :post, title: "Scelta del Fondo" do |repayment| %>  
+  <%= dm_form_for @repayment, url: update_fund_repayment_path(@repayment), method: :post, title: "Scelta del Fondo" do |repayment| %>  
     <% if user_is_manager? %>  
       <%= repayment.association :fund, collection: @funds, label_method: :to_s_with_holder, include_blank: false %>
     <% else %>
@@ -18,9 +18,8 @@
     <% else %>
       <%= repayment.submit "Salva e approva" %>
     <% end %>
+
     - <%= link_to 'indietro', repayment_path(@repayment) %>   
   <% end %>
-
-  <%= render @repayment %>  
 <% end %>
 

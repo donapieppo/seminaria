@@ -82,10 +82,13 @@ module RepaymentsHelper
 
   def checked_icon(ok)
     if ok
-      '<i class="fas fa-check-circle" style="font-size: 24px; color: green"></i>'.html_safe
+      '<i class="fas fa-check-circle mr-3" style="font-size: 24px; color: green"></i>'.html_safe
     else
-      '<i class="fas fa-exclamation-triangle" style="font-size: 24px; color: red"></i>'.html_safe
+      '<i class="fas fa-exclamation-circle mr-3" style="font-size: 24px; color: red"></i>'.html_safe
     end
   end
 
+  def rtitle(repayment, what)
+    checked_icon(repayment.correct_data_group?(what)) + " " + I18n.t(what)
+  end
 end

@@ -5,7 +5,9 @@
 <h2>Richiesta di compenso e/o rimborso</h2>
 
 <% if @repayment %>
-  <%= link_to 'Mostra informazioni compenso e/o rimborso', repayment_path(@repayment), class: :button %>
+  <% if policy(@repayment).show? %>  
+    <%= link_to 'Mostra informazioni compenso e/o rimborso', repayment_path(@repayment), class: :button %>
+  <% end %>
 <% elsif @too_late_for_repayment %>  
   <p class="alert alert-warning">
   È troppo tardi per richiedere rimborso e/o compenso.<br/> <%= repayment_days_warning %>  

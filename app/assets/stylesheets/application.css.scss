@@ -3,13 +3,16 @@
 @import 'dm_unibo_common/date_picker';
 
 p.actions {
-	text-align: right;
+  text-align: right;
 }
-	
+
 .seminar {
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+   // box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+   // h-offset v-offset blur spread color
+  border: 1px solid #BFBFBF;
+  box-shadow: 6px 3px 3px #aaaaaa;
   @extend .card;
-  @extend .my-2;
+  @extend .my-3;
   .today {
     @extend .alert;
     @extend .bg-warning;
@@ -71,7 +74,13 @@ p.actions {
   position: absolute;
   display: none;
   z-index: 1;
-  width: 250px;
+  width: 300px;
+  margin-left: -300px;
+  @extend .list-group;
+  a {
+    @extend .list-group-item;
+    @extend .list-group-item-action;
+  }
 }
 
 dl.cycles {
@@ -112,3 +121,15 @@ table.funds {
   max-width: 1200px;
 }
 
+.repayment-show {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+  @extend .p-2;
+  @extend .my-2;
+}
+
+dl.inline {
+  display: grid;
+  grid-template-columns: 33% auto;
+  dt { grid-column-start: 1; margin-right: 10px; text-align: right;}
+  dd { grid-column-start: 2; }
+}

@@ -1,105 +1,22 @@
-<p class="alert alert-info">
-  <%= repayment_days_warning  %>
+<p class="alert alert-warning">
+  <%= big_icon("hand-point-right") %>  <%= repayment_days_warning  %>
 </p>
 
 <%= horizontal_form_for [@seminar, @repayment] do |repayment| %>  
   <%= repayment.dm_error_notification %>  
 
-  <%= render 'holder_form', repayment: repayment %>  
-  <%= render 'speaker_reason', repayment: repayment %>  
-  <div class="card-group">
-  <%= render 'speaker_anagrafica', repayment: repayment %>  
-  <%= render 'speaker_address', repayment: repayment %>  
-  </div>
-  <%= render 'speaker_role', repayment: repayment %>  
-
-  <div class="card-group">
-  <%= render 'payment_form', repayment: repayment %>
-  <%= render 'refund_form', repayment: repayment %>
-  </div>
-
-  <p>
-  <%= repayment.submit 'Salva', class: 'button' %> -
-  <% if ! @repayment.new_record? and current_user.is_admin? %>  
-    <%= link_to 'stampa', repayment_path(@repayment), class: 'button' %> -
+  <%= render('fund_form', repayment: repayment) if @what == 'fund' %>  
+  <%= render('speaker_reason', repayment: repayment) if @what == 'reason' %>  
+  <% if @what == 'speaker' %>  
+      <%= render('speaker_anagrafica', repayment: repayment) %>  
+      <%= render('speaker_address', repayment: repayment) %>  
+    <%= render('speaker_role', repayment: repayment) %>  
   <% end %>
-  <%= link_to 'torna alla home page', root_path %>   
-  </p>
+
+  <% if @what == 'compensation' %>  
+      <%= render('payment_form', repayment: repayment) %>
+      <%= render('refund_form', repayment: repayment) %>
+  <% end %>
+  <%= repayment.submit 'Salva' %> 
 <% end %>
-
-<%= javascript_tag do %>  
-  $(function(){
-    $.fn.visibility_from = function (bool_check){
-      var visible_element = this;
-      visible_element.toggle($(bool_check).is(':checked'));
-      $(bool_check).change(function(){
-        visible_element.toggle($(bool_check).is(':checked'));
-      });
-      return visible_element;
-    }
-
-    $("#foreign_country").toggle(! $("#repayment_italy").is(':checked'));
-    $("#repayment_italy").change(function(){
-      $("#foreign_country").toggle(! $("#repayment_italy").is(':checked'));
-    });
-    
-    $("#payment_amount").visibility_from("#payment_bool");
-    $("#refund_details").visibility_from("#refund_bool");
-  });
-<% end %>
-
-<%= javascript_tag do %>
-  $(function() {
-    var startDatePossibleRepayment = moment().add(<%= Rails.configuration.repayment_deadline %>, 'days');
-    <% if user_is_manager? %>  
-      startDatePossibleRepayment = moment(0);
-    <% end %>
-
-    console.log(startDatePossibleRepayment.format('DD/MM/YYYY'));
-    $('#repayment_speaker_arrival').data('datepicker').setStartDate(startDatePossibleRepayment.format('DD/MM/YYYY'));
-    $('#repayment_speaker_departure').data('datepicker').setStartDate(startDatePossibleRepayment.format('DD/MM/YYYY'));
-
-    function roundToTwo(num) {    
-      return +(Math.round(num + "e+2")  + "e-2");
-    };
-
-    function show_lordo_percipiente() {
-      italy   = $("#repayment_italy").is(':checked');
-      gross   = $("#repayment_gross_true").is(':checked'); 
-      payment = $("#repayment_payment").val();
-
-      gross_result = 0;
-      net_result   = 0;
-      irap         = <%= Repayment::IRAP %>; 
-      irpef        = italy ? <%= Repayment::IRPEF_ITALAN %> : <%= Repayment::IRPEF_FOREIGN %>; 
-      adapt_net    = italy ? <%= Repayment::ADAPT_NET_ITALIAN_VALUE %> : <%= Repayment::ADAPT_NET_FOREIGN_VALUE %>;
-      if (gross) {
-        gross_result = payment;
-        net_result   = payment * <%= Repayment::ADAPT_GROSS_VALUE %> * (1 - irpef);  
-      } else {
-        net_result   = payment;
-        gross_result = payment * adapt_net * (1 + irap);
-      }
-      $("#payment_summary").html("<strong>Lordo ente:</strong> " + roundToTwo(gross_result) + " &euro;<br/>" +
-                                 "<strong>Netto:</strong> " + roundToTwo(net_result) + " &euro;"); 
-    };
-    show_lordo_percipiente();
-    $("#repayment_italy").change(function() { show_lordo_percipiente(); });
-    $("#repayment_payment").change(function() { show_lordo_percipiente(); });
-    $("div.repayment_gross").change(function() { show_lordo_percipiente(); });
-  });
-<% end %>
-
-<%= javascript_tag do %>
-  $(function() {
-    $("#repayment_position_id").change(function() { 
-      if ($("#repayment_position_id").val() == 8) {
-        console.log($("#repayment_position_id").val());
-        alert("Ricorda di completare il campo successivo fornendo la descrizione della qualifica e/o attività del relatore");
-      }
-    });
-  });
-<% end %>
-
-
 

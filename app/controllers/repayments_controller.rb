@@ -1,13 +1,11 @@
 class RepaymentsController < ApplicationController
   before_action :user_is_manager!, only: [:index]
 
-  # richiesta su proprio seminario
-  before_action :get_seminar_and_check_seminar_permission, only: [:new, :create, :update] # edit - update aliases di new - create
   # propria richiesta o su propri fondi
-  before_action :get_repayment_and_check_permission,       only: [:show, :edit, :update, :notify, :print_decree, :print_letter, :print_proposal]
+  before_action :get_repayment_and_check_permission, only: [:show, :update, :notify, :print_decree, :print_letter, :print_proposal]
   # su propri fondi
-  before_action :get_repayment_and_check_fund_permission,  only: [:choose_fund, :fund]
-  before_action :get_and_validate_holder,                  only: [:create, :update]
+  before_action :get_repayment_and_check_fund_permission, only: [:choose_fund, :update_fund]
+  before_action :get_and_validate_holder,                 only: [:update]
 
   def index
     @year ||= (params[:year] || Date.today.year).to_i
@@ -17,15 +15,33 @@ class RepaymentsController < ApplicationController
                            .references(:seminars)
   end
 
-  # has_one, e' un new/edit
   def new
-    unless @too_late_for_repayment = user_too_late_for_repayment?(@seminar)
-      @repayment = @seminar.repayment || @seminar.build_repayment(italy: true, birth_country: "Italia", speaker_arrival: @seminar.date, speaker_departure: @seminar.date)
+    @seminar = Seminar.find(params[:seminar_id])
+    policy(@seminar).update? or raise "No access"
+    if user_too_late_for_repayment?(@seminar)
+      redirect_to seminar_path(@seminar), alert: 'Non è più possibile richiedere rimborso / compenso.'
+    else
+      @repayment = @seminar.repayment || @seminar.create_repayment(italy: true, birth_country: "Italia", speaker_arrival: @seminar.date, speaker_departure: @seminar.date)
+      render action: :show
     end
   end
 
+  def edit
+    @repayment = Repayment.find(params[:id])
+    @seminar = @repayment.seminar
+    if user_too_late_for_repayment?(@seminar)
+      redirect_to seminar_path(@seminar), alert: 'Non è più possibile richiedere rimborso / compenso.'
+      return
+    else
+      policy(@repayment).update? or raise "No access"
+      @funds = available_funds
+      @what = params[:what]
+      render layout: false if modal_page
+    end  
+  end
+
   # has_one, e' un create/update
-  def create
+  def update
     fix_payment
     fix_refund
 
@@ -53,13 +69,6 @@ class RepaymentsController < ApplicationController
     end
   end
 
-  def edit
-    @seminar = @repayment.seminar
-    render :new
-  end
-
-  alias :update :create
-
   def show
   end
 
@@ -82,10 +91,10 @@ class RepaymentsController < ApplicationController
   end
 
   # Utilizzato da user se non possiede i fondi. Invia mail al gestore dei fondi 
-  # che ha scelto. Una volta notificato non puo' piu' essere cambiato da utente
+  # che ha scelto. Una volta notificato non può più essere cambiato da utente.
   def notify
     @repayment.update_attribute(:notified, true)
-    if @repayment.fund_id.nil?
+    if ! @repayment.fund
       RepaymentMailer.notify_repayment_to_holder(@repayment).deliver
       flash[:notice] = "La richiesta di rimborso è stata inviata a #{@repayment.holder}."
     end
@@ -97,7 +106,7 @@ class RepaymentsController < ApplicationController
     @too_late_for_repayment = user_too_late_for_repayment?(@repayment.seminar)
   end
 
-  def fund
+  def update_fund
     only_manager_can_choose_late!
 
     @fund = Fund.find(params[:repayment][:fund_id])
@@ -126,18 +135,16 @@ class RepaymentsController < ApplicationController
   def repayment_params
     p = [:name, :surname, :email, :address, :postalcode, :city, :italy, :country, :birth_date, :birth_place, :birth_country, :affiliation,
          :payment, :gross, :position_id, :role, :refund, :reason, :speaker_arrival, :speaker_departure, :expected_refund]
-    p = p + [:bond_number, :bond_year] if current_user.is_admin?
+    p = p + [:bond_number, :bond_year] if current_user.is_manager?
+    p = p + [:fund_id] if policy(@repayment).fund?
     params[:repayment].permit(p)
-  end
-
-  def get_seminar_and_check_seminar_permission
-    @seminar = Seminar.find(params[:seminar_id])
-    user_is_manager? or user_owns!(@seminar) 
   end
 
   def get_repayment_and_check_permission
     @repayment = Repayment.find(params[:id])
-    user_is_manager? or user_is_holder?(@repayment.seminar) or user_owns!(@repayment.seminar)
+    @seminar = @repayment.seminar
+    policy(@repayment) or raise "No access"
+    # user_is_manager? or user_is_holder?(@repayment.seminar) or user_owns!(@repayment.seminar)
   end
 
   def get_repayment_and_check_fund_permission

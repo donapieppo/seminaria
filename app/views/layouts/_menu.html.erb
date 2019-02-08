@@ -3,7 +3,7 @@
   <%= dm_nav do  %>  
     <li><%= link_to big_icon('home', text: 'Home'), root_path %></li>
     <% if user_signed_in? %>  
-      <li><%= link_to big_icon('plus', text: 'Inserisci seminario'), new_seminar_path %></li>
+      <li><%= link_to big_icon('plus-circle', text: 'Inserisci seminario'), new_seminar_path %></li>
     <% end %>
     <li><%= link_to big_icon('list', text: 'Seminari periodici'), serials_path %></li>
     <li><%= link_to big_icon('archive', text: 'Archivio'), archive_seminars_path %></li>

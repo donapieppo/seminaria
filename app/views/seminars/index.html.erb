@@ -3,7 +3,7 @@
 <% if user_signed_in? %>
   <p class="actions">
     <% if params[:only_current_user] %>
-      <%= link_to icon('list') + " tutti i prossimi seminari", root_path, class: 'btn btn-outline-primary' %> 
+      <%= link_to icon('list') + " prossimi seminari", root_path, class: 'btn btn-outline-primary' %> 
     <% else %>
       <%= link_to icon('list') + " seminari inseriti da me", user_seminars_path, class: 'btn btn-outline-primary' %> 
     <% end %>

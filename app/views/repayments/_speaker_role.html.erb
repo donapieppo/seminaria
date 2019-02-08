@@ -12,4 +12,14 @@
   </div>
 </div>
 
+<%= javascript_tag do %>
+  $(function() {
+    $("#repayment_position_id").change(function() { 
+      if ($("#repayment_position_id").val() == 8) {
+        console.log($("#repayment_position_id").val());
+        alert("Ricorda di completare il campo successivo fornendo la descrizione della qualifica e/o attività del relatore");
+      }
+    });
+  });
+<% end %>
 
