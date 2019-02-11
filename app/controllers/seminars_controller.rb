@@ -14,7 +14,7 @@ class SeminarsController < ApplicationController
       @seminars = current_user.seminars_on_my_funds_last_year.order('seminars.date DESC')
     else
       @title = "Prossimi seminari"
-      @seminars = Seminar.order('seminars.date ASC').future
+      @seminars = current_organization.seminars.order('seminars.date ASC').future
     end
     @seminars = @seminars.includes([:documents, :arguments, :place])
     respond_to do |format|
@@ -72,6 +72,8 @@ class SeminarsController < ApplicationController
     # nel caso sia rest (post)
     @seminar.cycle_id  = params[:cycle_id] if params[:cycle_id]
     @seminar.serial_id = params[:serial_id] if params[:serial_id]
+
+    @seminar.organization_id = current_organization.id
 
     if @seminar.save
       redirect_to mail_text_seminar_path(@seminar), notice: "Il seminario è stato creato correttamente."

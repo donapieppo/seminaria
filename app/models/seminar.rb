@@ -3,6 +3,7 @@ class Seminar < ApplicationRecord
   include Calendar
 
   belongs_to :user
+  belongs_to :organization
   belongs_to :place, optional: true
   belongs_to :cycle, optional: true
   belongs_to :serial, optional: true

@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   impersonates :user
 
-  before_action :log_current_user, :redirect_unsigned_user
+  before_action :log_current_user, :get_organization, :redirect_unsigned_user
 
   # rewrite in order to force sign_in for repayments
   # (clicked in mails)
@@ -23,6 +23,21 @@ class ApplicationController < ActionController::Base
         return
       end
     end
+  end
+
+  def get_organization
+    # tmp TODO FIXME
+    session[:oid] = 1 unless session[:oid]
+
+    if session[:oid]
+      @current_organization = Organization.find(session[:oid].to_i)
+    else
+      redirect_to choose_current_organization
+    end
+  end
+
+  def current_organization
+    @current_organization
   end
 
 end
