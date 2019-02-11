@@ -11,11 +11,11 @@
 </p>
 
 <% @holders.each do |holder, funds| %>
-  <div class="dm-card my-0" style="margin: 7px !important">
-    <div class="dm-card-header my-0">
+  <div class="card my-0" style="margin: 7px !important">
+    <div class="card-header my-0">
       <%= holder.cn_militar %>
     </div>
-    <div class="dm-card-body">
+    <div class="card-body">
       <ul class="list-group list-group-flush">
       <% funds.each do |fund| %>  
         <li class="list-group-item list-group-item <%= "bg-light text-warning" unless fund.available %>  " >
@@ -34,13 +34,13 @@
 
 <%= javascript_tag do %>
   $(document).ready(function(){
-    $(".dm-card-header").css('cursor', 'pointer');
-    $(".dm-card-body").toggle();
-    $(".dm-card-footer").toggle();
-    $(".dm-card-header").click(function() {
-      $(this).css('font-weight', 'bold');
-      //$(this).next(".dm-card-body").slideToggle();
-      $(this).next(".dm-card-body").slideToggle().next(".dm-card-footer").slideToggle();
+    $(".card-header").css('cursor', 'pointer');
+    $(".card-body").toggle();
+    $(".card-footer").toggle();
+    $(".card-header").click(function() {
+      // $(this).css('font-weight', 'bold');
+      // $(this).next(".dm-card-body").slideToggle();
+      $(this).next(".card-body").slideToggle().next(".card-footer").slideToggle();
     });
   });
 <% end %>
