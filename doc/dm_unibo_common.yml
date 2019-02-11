@@ -9,6 +9,7 @@ production:
   host:                example.com
   smtp_address:        mailhost.example.com
   smtp_domain:         example.com
+  smtp_password:       <%= ENV['SEMINARIA_SMTP_PASSWORD'] %>  
   support_mail:        supportoweb@example.com
   logout_link:         https://idp.example.comt/adfs/ls/?wa=wsignout1.0
   login_icon:          dm_unibo_common/ssologo18x18.png
@@ -22,6 +23,7 @@ development:
   host:                tester.example.com
   smtp_address:        mailhost.example.com
   smtp_domain:         example.com
+  smtp_password:       <%= ENV['SEMINARIA_SMTP_PASSWORD'] %>  
   support_mail:        supportoweb@example.com
   logout_link:         https://idptest.example.com/adfs/ls/?wa=wsignout1.0
   login_icon:          dm_unibo_common/ssologo18x18.png
