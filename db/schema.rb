@@ -117,6 +117,10 @@ ActiveRecord::Schema.define(version: 2019_02_04_122930) do
     t.index ["tag_id"], name: "tag_id"
   end
 
+  create_table "organizations", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name"
+  end
+
   create_table "places", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "name"
   end
@@ -128,7 +132,7 @@ ActiveRecord::Schema.define(version: 2019_02_04_122930) do
 
   create_table "repayments", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "seminar_id", null: false, unsigned: true
-    t.integer "holder_id", null: false, unsigned: true
+    t.integer "holder_id", unsigned: true
     t.integer "fund_id", unsigned: true
     t.string "name"
     t.string "surname"
@@ -161,6 +165,7 @@ ActiveRecord::Schema.define(version: 2019_02_04_122930) do
 
   create_table "seminars", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id", unsigned: true
+    t.integer "organization_id", unsigned: true
     t.datetime "date"
     t.integer "duration"
     t.integer "place_id"
