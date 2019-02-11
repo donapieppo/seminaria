@@ -91,4 +91,8 @@ module RepaymentsHelper
   def rtitle(repayment, what)
     checked_icon(repayment.correct_data_group?(what)) + " " + I18n.t(what)
   end
+
+  def attribute_to_s(a)
+    a.blank? ? ' - ' : a
+  end
 end

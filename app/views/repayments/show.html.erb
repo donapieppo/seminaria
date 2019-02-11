@@ -71,7 +71,7 @@
         <dd><%= @repayment.speaker_with_title %></dd>
         <% for m in [:email, :affiliation, :position_to_s, :address, :postalcode, :city, :country, :birth_date, :birth_place, :birth_country] do %>  
           <dt><%= t m %></dt>
-          <dd><%= true_false_to_s @repayment.send(m) %></dd>
+          <dd><%= attribute_to_s @repayment.send(m) %></dd>
         <% end %>
         <% if user_can_edit %>  
           <dd><%= modal_link_to 'Modifica', edit_repayment_path(@repayment, what: :speaker), addclass: :button %></dd>
