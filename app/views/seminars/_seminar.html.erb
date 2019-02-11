@@ -32,6 +32,7 @@
         </div> <!-- notes -->
         <%= hour_tag(seminar, short: short) %>  
         <%= where_tag(seminar, short: short) %>  
+        <%= seminar_link_tag(seminar) %>  
       </div><!-- what -->
     </div> <!-- row -->
   </div> <!-- header -->
@@ -40,9 +41,6 @@
     <div class="content">
       <div class="abstract"><%= seminar.abstract unless short %></div>
       <div class="links_and_documents">
-        <% if ! seminar.link.blank? %>
-          <%= icon('external-link-alt') %> <a href="<%= seminar.link %>" target="_blank"><%= seminar.link_text.blank? ? seminar.link : seminar.link_text %></a> <br/>
-        <% end %>
         <% seminar.documents.each do |document| %>
           <%= icon('file') %> <%= link_to document, document.url %> <br/>
         <% end %>

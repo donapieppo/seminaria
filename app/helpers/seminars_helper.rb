@@ -21,9 +21,8 @@ module SeminarsHelper
 
   def hour_tag(seminar, short: false)
     if seminar.date >= Date.today
-      content_tag :div, class: :hour do
-        icon('clock') + "&nbsp;".html_safe +
-        I18n.t(:hours) + " " + I18n.l(seminar.date, format: :hour)
+      content_tag :div, class: "hour-tag" do
+        icon('clock') + "&nbsp;".html_safe + I18n.t(:hours) + " " + I18n.l(seminar.date, format: :hour)
       end
     end
   end
@@ -31,9 +30,18 @@ module SeminarsHelper
   def where_tag(seminar, short: false)
     # lascerei il posto fino a ieri (prima era if ! seminar.past?)
     if seminar.date >= Date.today
-      content_tag :div, class: :where do
+      content_tag :div, class: "where-tag" do
         icon('map-marker-alt') + "&nbsp;".html_safe +
         I18n.t(:place) + " " + seminar.place_to_s 
+      end
+    end
+  end
+
+  def seminar_link_tag(seminar)
+    if ! seminar.link.blank?
+      txt = seminar.link_text.blank? ? seminar.link : seminar.link_text
+      content_tag :div, class: "link-tag" do
+        icon('external-link-alt') + "&nbsp;".html_safe + link_to(txt, seminar.link, target: "_blank")
       end
     end
   end
