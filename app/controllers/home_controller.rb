@@ -3,8 +3,6 @@ class HomeController < ApplicationController
 
   def totem
     @seminars = Seminar.order('seminars.date ASC').future.includes([:documents, :arguments, :place, :repayment])
-    # @highlights = Highlight.priorized.to_a
-    @highlights = []
     render layout: nil
   end
 end
