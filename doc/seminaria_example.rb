@@ -14,6 +14,9 @@ module Seminaria
     config.header_title    = 'Seminari'
     config.header_subtitle = 'Università di Bologna'
 
+    # email from field
+    config.default_from    = 'DipMat Seminari <pippo.pluto@unibo.it>'
+
     config.dm_unibo_common.update(
       login_method:        :log_and_create,
       message_footer:      %Q{Messaggio inviato da 'Gestione Seminari e Notizie Dipartimento di Matematica'.\nNon rispondere a questo messaggio.\nPer problemi tecnici contattare testmail@example.comd},
@@ -22,6 +25,4 @@ module Seminaria
     )
   end
 end
-
-Paperclip.options[:content_type_mappings] = { pdf: [ "application/pdf", "binary/octet-stream" ] }
 
