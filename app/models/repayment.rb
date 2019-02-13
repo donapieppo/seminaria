@@ -111,7 +111,7 @@ class Repayment < ActiveRecord::Base
   end
 
   def position_to_s
-    return "" unless self.position_id
+    return " - " unless self.position_id
     self.position.code == 'other' ? self.role : self.position.name
   end
 
