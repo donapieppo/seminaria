@@ -8,9 +8,9 @@
     <li><%= link_to big_icon('list', text: 'Seminari periodici'), serials_path %></li>
     <li><%= link_to big_icon('archive', text: 'Archivio'), archive_seminars_path %></li>
     <% if user_is_manager? %>  
-      <%= dropdown_menu :amm, big_icon('euro-sign') + ' Compensi e fondi' do  %>
-        <%= link_to fwicon('euro-sign') + ' Compensi', repayments_path %>
-        <%= link_to fwicon('wallet')    + ' Fondi',    funds_path %>
+      <%= dropdown_menu :amm, big_icon('euro-sign', text: ' Compensi e fondi') do  %>
+        <%= link_to fwicon('euro-sign', text: 'Compensi'), repayments_path %>
+        <%= link_to fwicon('wallet', text: 'Fondi'), funds_path %>
       <% end %>
     <% end %>
   <% end %>
