@@ -50,6 +50,8 @@ it:
       repayment: Richiesta di rimborso
       cycle:     Ciclo seminari
       fund:      Fondo
+      place:     Luogo
+      argument:  Argomento
     attributes:
       repayment:
         name:     Nome
