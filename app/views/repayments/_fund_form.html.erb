@@ -16,7 +16,7 @@
       <% end %>
     <% end %>
 
-    <% if current_user.is_manager? %>  
+    <% if user_is_manager? %>  
       <%= repayment.input :bond_number %>
       <%= repayment.input :bond_year, collection: [2018, 2019] %>
     <% end %>

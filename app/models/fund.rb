@@ -1,4 +1,5 @@
 class Fund < ApplicationRecord
+  belongs_to :organization
   belongs_to :category
   belongs_to :holder, class_name: 'User', foreign_key: 'holder_id'
   has_many   :repayments

@@ -146,7 +146,11 @@ class Repayment < ActiveRecord::Base
     when :reason
       speaker_reason_ok?
     when :fund
-      (self.holder_id and self.fund_id)
+      if self.holder_id == self.seminar.user_id
+        (self.holder_id and self.fund_id)
+      else
+        self.holder_id
+      end
     when :compensation
       ! missing_payment_and_refund?
     when :speaker_details

@@ -1,6 +1,4 @@
 class RepaymentsController < ApplicationController
-  before_action :user_is_manager!, only: [:index]
-
   # propria richiesta o su propri fondi
   before_action :get_repayment_and_check_permission, only: [:show, :update, :notify, :print_decree, :print_letter, :print_proposal]
   # su propri fondi
@@ -12,7 +10,9 @@ class RepaymentsController < ApplicationController
     @repayments = Repayment.includes(:seminar, :fund)
                            .order('seminars.date DESC')
                            .where("YEAR(seminars.date) = ?", @year)
+                           .where("seminars.organization_id = ?", current_organization.id )
                            .references(:seminars)
+    authorize current_organization, :manage?
   end
 
   def new
@@ -135,7 +135,7 @@ class RepaymentsController < ApplicationController
   def repayment_params
     p = [:name, :surname, :email, :address, :postalcode, :city, :italy, :country, :birth_date, :birth_place, :birth_country, :affiliation,
          :payment, :gross, :position_id, :role, :refund, :reason, :speaker_arrival, :speaker_departure, :expected_refund]
-    p = p + [:bond_number, :bond_year] if current_user.is_manager?
+    p = p + [:bond_number, :bond_year] if user_is_manager?
     p = p + [:fund_id] if policy(@repayment).fund?
     params[:repayment].permit(p)
   end
@@ -143,8 +143,7 @@ class RepaymentsController < ApplicationController
   def get_repayment_and_check_permission
     @repayment = Repayment.find(params[:id])
     @seminar = @repayment.seminar
-    policy(@repayment) or raise "No access"
-    # user_is_manager? or user_is_holder?(@repayment.seminar) or user_owns!(@repayment.seminar)
+    authorize @repayment
   end
 
   def get_repayment_and_check_fund_permission

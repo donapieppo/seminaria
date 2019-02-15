@@ -1,4 +1,5 @@
 class Serial < ActiveRecord::Base
+  belongs_to :organization
   has_many :seminars
 
   scope :active, -> {where(active: 1)}

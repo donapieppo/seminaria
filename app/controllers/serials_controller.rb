@@ -1,11 +1,10 @@
 class SerialsController < ApplicationController
   skip_before_action :redirect_unsigned_user, only: [:index, :show]
 
-  before_action :user_is_admin!, except: [:index, :show]
-  before_action :get_serial,     only: [:show, :edit, :update]
+  before_action :get_serial_and_check_permission, only: [:show, :edit, :update]
 
   def index
-    @serials = Serial.order('serials.active desc, serials.title asc')
+    @serials = current_organization.serials.order('serials.active desc, serials.title asc')
   end
 
   def show
@@ -13,13 +12,15 @@ class SerialsController < ApplicationController
   end
 
   def new
-    @serial = Serial.new
+    @serial = current_organization.serials.new
+    authorize @serial
   end
 
   def create
-    @serial = Serial.new(serial_params)
+    @serial = current_organization.serials.new(serial_params)
+    authorize @serial
     if @serial.save
-      redirect_to serials_path, notice: "Serie creata correttamente"
+      redirect_to serials_path, notice: "La serie è stata creata correttamente."
     else
       render action: :new
     end
@@ -30,7 +31,7 @@ class SerialsController < ApplicationController
 
   def update
     if @serial.update_attributes(serial_params)
-      redirect_to serials_path, notice: "Serie aggiornata correttamente"
+      redirect_to serials_path, notice: "La serie è stata aggiornata correttamente."
     else
       render action: :edit
     end
@@ -38,8 +39,9 @@ class SerialsController < ApplicationController
 
   private
 
-  def get_serial
-    @serial = Serial.find(params[:id])
+  def get_serial_and_check_permission
+    @serial = current_organization.serials.find(params[:id]) 
+    authorize @serial
   end
 
   def serial_params

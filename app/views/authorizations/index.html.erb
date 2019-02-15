@@ -1,0 +1,11 @@
+<h1>Authorizations</h1>
+
+<ul>
+  <% @authorizations.each do |a|%>  
+    <li><%= a %></li>
+  <% end %>
+</ul>
+
+<p>
+<%= link_to_new new_authorization_path %>  
+</p>

@@ -1,11 +1,11 @@
 <h1>Luoghi</h1>
 
-<ul>
+<ul class="list-group mb-3">
   <% @places.each do |place| %>
-    <li><%= link_to place, edit_place_path(place) %></li>
+    <li class="list-group-item"><%= link_to place, edit_place_path(place) %></li>
   <% end %>
 </ul>
 
 <% if policy(current_organization).manage? %>  
-  <%= link_to_new new_place_path %>  
+  <p><%= link_to_new new_place_path %></p>
 <% end %>

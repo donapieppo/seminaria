@@ -1,19 +1,31 @@
 module UserPermissionHelper
-  # def user_is_manager?
-  # def user_is_admin?
-  # def user_is_publisher?
-  # def user_is_commissiner?
-  [:manager, :admin, :publisher, :commissioner].each do |m|
-    define_method "user_is_#{m}?" do
-      current_user and current_user.send("is_#{m}?")
-    end
-    define_method "user_is_#{m}!" do
-      (current_user and current_user.send("is_#{m}?")) or redirect_home_with_error
-    end
+
+  def current_organization
+    @current_organization
   end
 
-  def user_is_commissioner_or_publisher!
-    (user_is_commissioner? or user_is_publisher?) or redirect_home_with_error
+  # def current_authlevel
+  #   if current_user
+  #     @current_authlevel ||= current_user.get_authlevel(current_organization)
+  #   else
+  #     @current_authlevel = 0
+  #   end
+  # end
+
+  def user_is_manager?
+    current_user and current_user.can_manage?(current_organization)
+  end
+
+  def user_is_admin?
+    current_user and current_user.can_admin?(current_organization)
+  end
+
+  def user_is_manager!
+    user_is_admin? or raise DmUniboCommon::NoAccess
+  end
+
+  def user_is_admin!
+    user_is_manager? or raise DmUniboCommon::NoAccess
   end
 
   def user_is_holder?(what)

@@ -5,7 +5,12 @@ class SeminarsController < ApplicationController
 
   # Prossimi sono quelli a partire da tutto oggi
   def index
-    if params[:only_current_user] # see config/routes.rb
+    if params[:org]
+      o = Organization.find(params[:org])
+      session[:oid] = params[:org].to_i
+      @seminars = o.seminars.order('seminars.date ASC').future
+      @title = "Prossimi seminari presso #{o.description}"
+    elsif params[:only_current_user] # see config/routes.rb
       @title = "Seminari inseriti da #{current_user.cn}"  
       @seminars = current_user.seminars.order('seminars.date DESC')
     elsif params[:funds_current_user]
@@ -33,47 +38,49 @@ class SeminarsController < ApplicationController
 
   # archivio quelli da ieri
   def archive
+    authorize :seminar
     @year = params[:year] ? params[:year].to_i : Date.today.year
-    @seminars = Seminar.order('seminars.date DESC')
-                       .where("YEAR(date) = ? and date < NOW()", @year)
-                       .includes(:cycle, :serial, :user, :documents, :arguments, repayment: :fund)
+    @seminars = current_organization.seminars.order('seminars.date DESC')
+                                             .where("YEAR(date) = ? and date < NOW()", @year)
+                                             .includes(:cycle, :serial, :user, :documents, :arguments, repayment: :fund)
   end
 
   def choose_type
     @cycles  = current_user.cycles.all
-    @serials = Serial.active.all
+    @serials = current_organization.serials.active.all
   end
 
   def new
+    # replicate
     if params[:as]
       @as      = Seminar.find(params[:as])
       @seminar = Seminar.new(@as.attributes)
       @seminar.arguments = @as.arguments
     else
-      @seminar = Seminar.new(duration: 60,
-                             link: 'http://', 
-                             committee: current_user.cn, 
-                             date: Date.tomorrow)
+      @seminar = current_organization.seminars.new(duration: 60,
+                                                   link: 'http://', 
+                                                   committee: current_user.cn, 
+                                                   date: Date.tomorrow)
     end
     if params[:cycle_id]
-      @cycle = Cycle.find(params[:cycle_id])
+      @cycle = current_organization.cycles.find(params[:cycle_id])
       @seminar.cycle_id = @cycle.id
       @seminar.committee = @cycle.committee
     elsif params[:serial_id]
-      @serial = Serial.find(params[:serial_id])
+      @serial = current_organization.serials.find(params[:serial_id])
       @seminar.serial_id = @serial.id
     end
   end
 
   def create
     @seminar = current_user.seminars.new(seminar_params)
+    @seminar.organization_id = current_organization.id
+
     @seminar.link = nil if @seminar.link == 'http://'
 
     # nel caso sia rest (post)
     @seminar.cycle_id  = params[:cycle_id] if params[:cycle_id]
     @seminar.serial_id = params[:serial_id] if params[:serial_id]
-
-    @seminar.organization_id = current_organization.id
 
     if @seminar.save
       redirect_to mail_text_seminar_path(@seminar), notice: "Il seminario è stato creato correttamente."
@@ -138,7 +145,7 @@ class SeminarsController < ApplicationController
 
   def get_seminar_and_check_permission
     begin
-      @seminar = Seminar.find(params[:id])
+      @seminar = current_organization.seminars.find(params[:id])
       authorize @seminar
     rescue ActiveRecord::RecordNotFound
       redirect_to seminars_path, alert: 'Seminario non presente in archivio.'
@@ -148,7 +155,7 @@ class SeminarsController < ApplicationController
   def seminar_params
     params[:seminar][:date] = params[:seminar][:date] + " " + params[:seminar].delete('date(4i)') + ':' + params[:seminar].delete('date(5i)')
     p = [:date, :duration, :place_id, :place_description, :cycle_id, :serial_id, :speaker_title, :speaker, :committee, { argument_ids: [] }, :title, :abstract, :file, :link, :link_text]
-    p = p + [:user_id, :serial_id, :cycle_id] if current_user.is_admin?
+    p = p + [:user_id, :serial_id, :cycle_id] if user_is_admin?
     params[:seminar].permit(p)
   end
 

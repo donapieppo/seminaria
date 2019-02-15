@@ -18,9 +18,9 @@
   <p class="alert alert-info"><%= @serial.description %> </p>
 <% end %>
 
-<%= dm_form_for @seminar do |seminar| %>  
+<%= dm_form_for @seminar, title: "Seminario del #{current_organization.name}" do |seminar| %>  
   <%= seminar.dm_error_notification %>  
-  <% if user_admin? %>  
+  <% if user_is_admin? %>  
     <%= seminar.association :cycle %>  
     <%= seminar.association :serial, collection: Serial.active.order(:title) %>  
   <% else %>
@@ -32,14 +32,14 @@
   <%= seminar.input :duration, collection: [30,45,60,75,90,120,180].map{ |p| ["#{p} minuti", p] }, include_blank: false %>
   <%= seminar.input :speaker_title, collection: User.abbr_titles, include_blank: false %>  
   <%= seminar.input :speaker %>  
-  <%= seminar.association :place, collection: Place.all, include_blank: false %>
+  <%= seminar.association :place, collection: current_organization.places.all, include_blank: false %>
   <%= seminar.input :place_description, input_html: { cols: 50, rows: 2 } %>
   <%= seminar.input :committee %>
-  <%= seminar.association :arguments, collection: Argument.order(:name) %> 
+  <%= seminar.association :arguments, collection: current_organization.arguments.order(:name) %> 
   <%= seminar.input :abstract, input_html: { cols: 50, rows: 3 } %>
   <%= seminar.input :link %>
   <%= seminar.input :link_text %> 
-  <% if user_admin? %>  
+  <% if user_is_admin? %>  
     <%= seminar.association :user, collection: User.order('surname').to_a, label_method: :cn %>  
   <% end %>
 

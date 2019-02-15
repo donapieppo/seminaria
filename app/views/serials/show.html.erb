@@ -4,7 +4,7 @@
   <% unless @serial.link.blank? %>  
     <%= link_to icon('home', text: 'pagina web ufficiale'), @serial.link, target: "_blank" %>
   <% end %>
-  <%= link_to_edit 'modifica la serie', edit_serial_path(@serial) if user_admin? %>
+  <%= link_to_edit 'modifica la serie', edit_serial_path(@serial) if user_is_admin? %>
 </p>
 
 <% @seminars.each do |seminar| %>

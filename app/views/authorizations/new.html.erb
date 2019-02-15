@@ -1,0 +1,8 @@
+<%= dm_form_for @authorization, title: 'Nuovo amministratore' do |a| %>  
+  <%= a.association :user, collection: @users, label_method: :cn_militar %>  
+  <%= a.association :organization, collection: @organizations %>  
+  <%= a.input :authlevel, collection: (1..3) %>  
+  <%= a.submit %>  
+<% end %>
+
+

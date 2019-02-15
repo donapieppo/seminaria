@@ -1,4 +1,5 @@
 class Place < ActiveRecord::Base 
+  belongs_to :organization
   has_many :seminars
 
   default_scope -> { order("name ASC") }

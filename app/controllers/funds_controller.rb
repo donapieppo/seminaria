@@ -4,17 +4,17 @@ class FundsController < ApplicationController
 
   def index
     @all = params[:all]
-    @funds = Fund.includes(:holder, :category).order('users.surname, users.name, funds.name desc')
+    @funds = current_organization.funds.includes(:holder, :category).order('users.surname, users.name, funds.name desc')
     @funds = @funds.where(available: true) unless @all
     @holders = @funds.inject({}) {|res, fund| res[fund.holder] ||= []; res[fund.holder] << fund; res}
   end
 
   def new
-    @fund = Fund.new(available: 1)
+    @fund = current_organization.funds.new(available: 1)
   end
 
   def create
-    @fund = Fund.new(fund_params)
+    @fund = current_organization.funds.new(fund_params)
     if @fund.save
       redirect_to new_fund_path, notice: "Il fondo è stato creato correttamente."
     else

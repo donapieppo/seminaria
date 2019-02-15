@@ -1,38 +1,15 @@
 class User < ActiveRecord::Base
   include DmUniboCommon::User
 
+  has_many :authorizations
+
   has_many :seminars
   has_many :cycles
   has_many :repayments, foreign_key: :holder_id
   has_many :funds, foreign_key: "holder_id"
 
-  def is_commissioner?
-    COMMISSIONERS.include?(self.upn) or self.is_admin?
-  end
-
-  def is_publisher?
-    PUBLISHERS.include?(self.upn) or self.is_admin?
-  end
-
-  # amministrazione
-  def is_manager?
-    MANAGERS.include?(self.upn) or self.is_admin?
-  end
-
-  def is_holder?
+  def has_active_funds?
     self.funds.active.any?
-  end
-
-  def self.commissioners_mails
-    COMMISSIONERS
-  end
-   
-  def self.publishers_mails
-    PUBLISHERS
-  end
-   
-  def self.manager_mails
-    MANAGERS_MAILS
   end
 
   def self.abbr_titles
@@ -67,5 +44,26 @@ class User < ActiveRecord::Base
     Seminar.where(id: seminar_ids)
   end
 
+  def get_authlevel(organization)
+    organization_id = organization.is_a?(Integer) ? organization : organization.id
+    @auth ||= Hash.new
+    if ! @auth[organization_id]
+      _authorization = self.authorizations.where(organization_id: organization_id).order('authlevel desc').first
+      if _authorization
+        @auth[organization_id] = _authorization.authlevel
+      else
+        @auth[organization_id] = 0
+      end
+    end
+    @auth[organization_id]
+  end
+
+  def can_manage?(organization)
+    get_authlevel(organization) > 0
+  end
+
+  def can_admin?(organization)
+    get_authlevel(organization) > 1
+  end
 end
 
