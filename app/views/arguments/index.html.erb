@@ -1,0 +1,11 @@
+<h1>Topics</h1>
+
+<ul class="list-group mb-3">
+  <% @arguments.each do |argument| %>
+    <li class="list-group-item"><%= link_to argument, edit_argument_path(argument) %></li>
+  <% end %>
+</ul>
+
+<% if policy(current_organization).manage? %>  
+  <p> <%= link_to_new new_argument_path %>  </p>
+<% end %>
