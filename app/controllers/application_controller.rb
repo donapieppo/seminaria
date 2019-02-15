@@ -16,8 +16,6 @@ class ApplicationController < ActionController::Base
     if ! user_signed_in?
       if controller_name == 'repayments'
         session[:original_request] = request.fullpath
-        # redirect_to user_omniauth_authorize_path(:shibboleth) and return
-        # redirect_to omniauth_authorize_path(:user, :shibboleth) and return
         redirect_to auth_shibboleth_callback_path 
       else
         redirect_to root_path, alert: "Si prega di loggarsi per accedere alla pagina richiesta."
@@ -25,14 +23,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # no security hidden. 
+  # We set organization with params[:__org__] as organization_id in config/routes
   def set_organization
-    # tmp TODO FIXME
-    session[:oid] = 1 unless session[:oid]
-
-    if session[:oid]
-      @current_organization = Organization.find(session[:oid].to_i)
-    else
-      redirect_to choose_current_organization
-    end
+    session[:oid] = params[:__org__].to_i if params[:__org__]
+    session[:oid] ||= 1
+    @current_organization = Organization.find(session[:oid].to_i)
   end
 end
