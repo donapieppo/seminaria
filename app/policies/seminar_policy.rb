@@ -18,8 +18,12 @@ class SeminarPolicy
     true
   end
 
+  def choose_type
+    @user
+  end
+
   def new?
-    true
+    @user
   end
 
   def create?
