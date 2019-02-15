@@ -6,15 +6,15 @@ class RepaymentPolicy
     @record = record
   end
 
-  def index?
-    false
+  def index?(o)
+    @user.can_manage?(o)
   end
 
   # manager
   # seminar owner
   # fund honer
   def show?
-    @user and (@user.is_manager? or SeminarPolicy.new(@user, @record.seminar).update? or fund?)
+    @user and (SeminarPolicy.new(@user, @record.seminar).update? or fund?)
   end
 
   def new?
@@ -26,7 +26,7 @@ class RepaymentPolicy
   end
 
   def update?
-    @user and (@user.is_manager? or 
+    @user and (@user.can_manage?(@record.seminar.organization_id) or 
               ((! @record.notified) and SeminarPolicy.new(@user, @record.seminar).update?))
     # user_owns?(repayment.seminar) and ! repayment.notified 
   end
@@ -41,7 +41,7 @@ class RepaymentPolicy
 
   #  fund owner
   def fund?
-    @user and (@user.is_manager? or (@record.holder and @user == @record.holder))
+    @user and (@user.can_manage?(@record.seminar.organization_id) or (@record.holder and @user == @record.holder))
   end
 
   def choose_fund?

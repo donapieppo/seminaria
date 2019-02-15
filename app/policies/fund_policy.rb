@@ -14,16 +14,16 @@ class FundPolicy
     true
   end
 
-  def new?
-    @user.is_manager?
+  def create?
+    @user.can_manage?(@record.organization_id)
   end
 
-  def create?
-    @user.is_manager?
+  def new?
+    create?
   end
 
   def update?
-    @user.is_manager?
+    @user.can_manage?(@record.organization_id)
   end
 
   def edit?

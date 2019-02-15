@@ -1,4 +1,4 @@
-class SeminarPolicy
+class SerialPolicy
   attr_reader :user, :record
 
   def initialize(user, record)
@@ -10,20 +10,16 @@ class SeminarPolicy
     true 
   end
 
-  def archive?
-    index?
-  end
-
   def show?
     true
   end
 
-  def new?
-    true
+  def create?
+    @user and @user.can_manage?(@record.organization_id)
   end
 
-  def create?
-    true
+  def new?
+    create?
   end
 
   def update?
@@ -38,11 +34,5 @@ class SeminarPolicy
     update?
   end
 
-  def mail_text?
-    update?
-  end
-
-  def submit_mail_text?
-    update?
-  end
 end
+
