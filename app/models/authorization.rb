@@ -31,7 +31,7 @@ class Authorization < ApplicationRecord
     _user_id = _user_id.id if _user_id.is_a?(User)
     _organization_id = _organization_id.id if _organization_id.is_a?(Organization)
 
-    auths = Authorization.user_auths(_user_id)[_organization_id] 
+    auths = Authorization.user_auths(_user_id)
     auths[_organization_id] and auths[_organization_id] > 1
   end
 
