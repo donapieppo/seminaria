@@ -44,26 +44,12 @@ class User < ActiveRecord::Base
     Seminar.where(id: seminar_ids)
   end
 
-  def get_authlevel(organization)
-    organization_id = organization.is_a?(Integer) ? organization : organization.id
-    @auth ||= Hash.new
-    if ! @auth[organization_id]
-      _authorization = self.authorizations.where(organization_id: organization_id).order('authlevel desc').first
-      if _authorization
-        @auth[organization_id] = _authorization.authlevel
-      else
-        @auth[organization_id] = 0
-      end
-    end
-    @auth[organization_id]
-  end
-
   def can_manage?(organization)
-    get_authlevel(organization) > 0
+    Authorization.can_manage?(self.id, organization) 
   end
 
   def can_admin?(organization)
-    get_authlevel(organization) > 1
+    Authorization.can_admin?(self.id, organization) 
   end
 end
 
