@@ -4,7 +4,6 @@ class OrganizationPolicy
   def initialize(user, record)
     @user = user
     @record = record
-    @current_authlevel = nil
   end
 
   def manage?
