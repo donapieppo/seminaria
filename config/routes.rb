@@ -9,6 +9,12 @@ Rails.application.routes.draw do
   get 'user/cycles',     controller: 'cycles',     action: 'index',                           as: 'user_cycles'
   get 'user/highlights', controller: 'highlights', action: 'index', only_current_user: true,  as: 'user_highlights'
 
+  resources :authorizations
+
+  resources :organizations
+  resources :places
+  resources :arguments
+
   resources :seminars do
     get  :choose_type, on: :collection
     get  :mail_text,   on: :member
@@ -50,6 +56,9 @@ Rails.application.routes.draw do
     get :owners, on: :collection
     get :justifications, on: :member
   end
+
+  get 'mat',   to: "seminars#index", org: 1
+  get 'bigea', to: "seminars#index", org: 2
 
   root to: 'seminars#index'
 end
