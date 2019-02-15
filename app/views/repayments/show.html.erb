@@ -1,14 +1,14 @@
 <% user_can_edit = policy(@repayment).edit? %>  
 
-<h1>Richiesta rimborso / compenso</h1>
+<h1>Richiesta rimborso / compenso <br/>
+  <small>seminario di <%= @repayment.seminar.speaker %>  del <%= l @seminar.date %>, richiedente: <%= @repayment.seminar.user.to_s %> </small>
+</h1>
 
 <p style="text-align: right">
   <%= link_to icon('print') + ' stampa lettera',  print_letter_repayment_path(@repayment, format: :docx),   class: 'btn btn-sm btn-outline-primary' %> -
   <%= link_to icon('print') + ' stampa decreto',  print_decree_repayment_path(@repayment, format: :docx),   class: 'btn btn-sm btn-outline-primary' %> - 
   <%= link_to icon('print') + ' stampa proposta', print_proposal_repayment_path(@repayment, format: :docx), class: 'btn btn-sm btn-outline-primary' %>  
 </p>
-
-<h3>Seminario del <%= l @seminar.date %>, Richiedente: <%= @repayment.seminar.user.to_s %></h3>
 
 <%= dm_card title: rtitle(@repayment, :reason) do %>  
   <p>
