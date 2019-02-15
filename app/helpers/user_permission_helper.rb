@@ -4,14 +4,6 @@ module UserPermissionHelper
     @current_organization
   end
 
-  # def current_authlevel
-  #   if current_user
-  #     @current_authlevel ||= current_user.get_authlevel(current_organization)
-  #   else
-  #     @current_authlevel = 0
-  #   end
-  # end
-
   def user_is_manager?
     current_user and current_user.can_manage?(current_organization)
   end
