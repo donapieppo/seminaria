@@ -1,11 +1,11 @@
 <h1>Authorizations</h1>
 
-<ul>
+<ul class="list-group my-3">
   <% @authorizations.each do |a|%>  
-    <li><%= a %></li>
+    <li class="list-group-item"><%= a %><span class="float-right"><%= link_to_delete authorization_path(a) %>  </li>
   <% end %>
 </ul>
 
-<p>
+<div>
 <%= link_to_new new_authorization_path %>  
-</p>
+</div>
