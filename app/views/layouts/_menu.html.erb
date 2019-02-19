@@ -7,6 +7,9 @@
     <% end %>
     <li><%= link_to big_icon('list', text: 'Seminari periodici'), serials_path %></li>
     <li><%= link_to big_icon('archive', text: 'Archivio'), archive_seminars_path %></li>
+    <% if user_cesia? %>  
+      <li><%= link_to big_icon('users', text: 'Auths'), authorizations_path %></li>
+    <% end %>
     <% if user_is_manager? %>  
       <%= dropdown_menu :amm, big_icon('cogs', text: ' Amm.') do  %>
         <%= link_to fwicon('euro-sign', text: 'Compensi'), repayments_path %>
