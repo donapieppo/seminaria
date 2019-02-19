@@ -47,4 +47,16 @@ class RepaymentPolicy
   def choose_fund?
     fund?
   end
+
+  def print_letter?
+    show?
+  end
+
+  def print_decree?
+    show?
+  end
+
+  def print_proposal?
+    show?
+  end
 end
