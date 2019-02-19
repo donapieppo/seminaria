@@ -106,10 +106,6 @@ class Repayment < ActiveRecord::Base
     end
   end
 
-  def missing_payment_and_refund?
-    ! ((self.payment.to_i > 0) || (self.expected_refund.to_i > 0))
-  end
-
   def position_to_s
     return " - " unless self.position_id
     self.position.code == 'other' ? self.role : self.position.name
@@ -117,48 +113,52 @@ class Repayment < ActiveRecord::Base
 
   # checks
   
-  def holder_ok?
-    self.holder_id
-  end
+  # def missing_payment_and_refund?
+  #   ! ((self.payment.to_i > 0) || (self.expected_refund.to_i > 0))
+  # end
 
-  def speaker_reason_ok?
-    ! ((self.documents.empty?) || (self.reason.blank?))
-  end
+  # def holder_ok?
+  #   self.holder_id
+  # end
 
-  def speaker_anagrafica_ok?
-    ! ((self.name.blank?) || (self.surname.blank?) || (self.birth_place.blank?) || (self.birth_date.blank?))
-  end
+  # def speaker_reason_ok?
+  #   ! ((self.documents.empty?) || (self.reason.blank?))
+  # end
 
-  def speaker_role_ok?
-    ! ((self.affiliation.blank?) || (self.position_id.nil?) || (self.email.blank?))
-  end
+  # def speaker_anagrafica_ok?
+  #   ! ((self.name.blank?) || (self.surname.blank?) || (self.birth_place.blank?) || (self.birth_date.blank?))
+  # end
 
-  def speaker_address_ok?
-    ! ((self.address.blank?) || (self.postalcode.blank?) || (self.city.blank?))
-  end
+  # def speaker_role_ok?
+  #   ! ((self.affiliation.blank?) || (self.position_id.nil?) || (self.email.blank?))
+  # end
 
-  def all_ok_to_send?
-    holder_ok? && speaker_reason_ok? &&  speaker_anagrafica_ok? && speaker_role_ok? && speaker_address_ok? 
-  end
+  # def speaker_address_ok?
+  #   ! ((self.address.blank?) || (self.postalcode.blank?) || (self.city.blank?))
+  # end
 
-  def correct_data_group?(what)
-    case what
-    when :reason
-      speaker_reason_ok?
-    when :fund
-      if self.holder_id == self.seminar.user_id
-        (self.holder_id and self.fund_id)
-      else
-        self.holder_id
-      end
-    when :compensation
-      ! missing_payment_and_refund?
-    when :speaker_details
-      speaker_anagrafica_ok? and speaker_address_ok? and speaker_role_ok?
-    else
-      false
-    end
-  end
+  # def all_ok_to_send?
+  #   holder_ok? && speaker_reason_ok? &&  speaker_anagrafica_ok? && speaker_role_ok? && speaker_address_ok? 
+  # end
+
+  # def correct_data_group?(what)
+  #   case what
+  #   when :reason
+  #     speaker_reason_ok?
+  #   when :fund
+  #     if self.holder_id == self.seminar.user_id
+  #       (self.holder_id and self.fund_id)
+  #     else
+  #       self.holder_id
+  #     end
+  #   when :compensation
+  #     ! missing_payment_and_refund?
+  #   when :speaker_details
+  #     speaker_anagrafica_ok? and speaker_address_ok? and speaker_role_ok?
+  #   else
+  #     false
+  #   end
+  # end
 end
 
 
