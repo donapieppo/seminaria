@@ -5,12 +5,7 @@ class SeminarsController < ApplicationController
 
   # Prossimi sono quelli a partire da tutto oggi
   def index
-    if params[:org]
-      o = Organization.find(params[:org])
-      session[:oid] = params[:org].to_i
-      @seminars = o.seminars.order('seminars.date ASC').future
-      @title = "Prossimi seminari presso #{o.description}"
-    elsif params[:only_current_user] # see config/routes.rb
+    if params[:only_current_user] # see config/routes.rb
       @title = "Seminari inseriti da #{current_user.cn}"  
       @seminars = current_user.seminars.order('seminars.date DESC')
     elsif params[:funds_current_user]
@@ -18,10 +13,12 @@ class SeminarsController < ApplicationController
       @fund_ids = current_user.fund_ids
       @seminars = current_user.seminars_on_my_funds_last_year.order('seminars.date DESC')
     else
-      @title = "Prossimi seminari"
+      @title = "Prossimi seminari del #{current_organization.description}"
       @seminars = current_organization.seminars.order('seminars.date ASC').future
     end
     @seminars = @seminars.includes([:documents, :arguments, :place])
+    authorize @seminars
+
     respond_to do |format|
       format.html
       format.json { render json: @seminars }
@@ -46,7 +43,7 @@ class SeminarsController < ApplicationController
   end
 
   def choose_type
-    @cycles  = current_user.cycles.all
+    @cycles  = current_user.cycles.where(organization_id: current_organization.id).all
     @serials = current_organization.serials.active.all
   end
 
