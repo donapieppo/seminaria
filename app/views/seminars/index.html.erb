@@ -1,14 +1,14 @@
 <h1><%= @title %></h1>
 
 <% if user_signed_in? %>
-  <p class="actions">
+  <div class="home-filters">
     <% if params[:only_current_user] %>
-      <%= link_to icon('list') + " prossimi seminari", root_path, class: 'btn btn-outline-primary' %> 
+      <%= link_to icon('list', text: "prossimi seminari"), root_path, class: 'btn btn-outline-primary' %> 
     <% else %>
-      <%= link_to icon('list') + " seminari inseriti da me", user_seminars_path, class: 'btn btn-outline-primary' %> 
+      <%= link_to icon('list', text: "seminari inseriti da me"), user_seminars_path, class: 'btn btn-outline-primary' %> 
     <% end %>
-    <%= link_to icon('list') + " seminari sui miei fondi", funds_seminars_path, class: 'btn btn-outline-primary' %> 
-  </p>
+    <%= link_to icon('list', text: "seminari sui miei fondi"), funds_seminars_path, class: 'btn btn-outline-primary' %> 
+  </div>
 <% end %>
 
 <% @seminars.each do |seminar| %>  
