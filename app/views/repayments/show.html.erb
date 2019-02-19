@@ -1,39 +1,41 @@
 <% user_can_edit = policy(@repayment).edit? %>  
 
 <h1>Richiesta rimborso / compenso <br/>
-  <small>seminario di <%= @repayment.seminar.speaker %>  del <%= l @seminar.date %>, richiedente: <%= @repayment.seminar.user.to_s %> </small>
+  <small>seminario di <%= @repayment.seminar.speaker %>  <small>(<%= l @seminar.date %>)</small> - richiedente: <%= @repayment.seminar.user.to_s %> </small>
 </h1>
 
-<p style="text-align: right">
+<% if user_is_manager? %>  
+  <p style="text-align: right">
   <%= link_to icon('print') + ' stampa lettera',  print_letter_repayment_path(@repayment, format: :docx),   class: 'btn btn-sm btn-outline-primary' %> -
   <%= link_to icon('print') + ' stampa decreto',  print_decree_repayment_path(@repayment, format: :docx),   class: 'btn btn-sm btn-outline-primary' %> - 
   <%= link_to icon('print') + ' stampa proposta', print_proposal_repayment_path(@repayment, format: :docx), class: 'btn btn-sm btn-outline-primary' %>  
-</p>
-
-<%= dm_card title: rtitle(@repayment, :reason) do %>  
-  <p>
-    <em><%= @repayment.reason %></em>
   </p>
-  <p>
-     <strong>Curriclum vitae:</strong> 
-     <% @repayment.documents.each do |doc| %> <%= link_to_cv doc %> <% end %>
-  </p>
-<p>
-  <% if user_can_edit %>  
-    <%= modal_link_to('Modifica', edit_repayment_path(@repayment, what: :reason ), addclass: :button) %>
-  <% end %>
-</p>
 <% end %>
 
 <div class="row">
-  <div class="col-lg-6">
-    <%= dm_card title: rtitle(@repayment, :fund) do %>
+  <div class="col-lg-7">
+    <%= dm_card title: checked_title(@repayment, :reason) do %>  
+      <div><p><em><%= attribute_to_s @repayment.reason %></em></p></div>
+      <div>
+        <strong>Curriclum vitae:</strong> 
+        <% cvs = @repayment.documents.all %>  
+        <%= "-" if cvs.empty? %>  
+        <% cvs.each do |doc| %> <%= link_to_cv doc %> <% end %>
+      </div>
+      <% if user_can_edit %>  
+        <div>
+          <%= modal_link_to('Modifica', edit_repayment_path(@repayment, what: :reason ), addclass: :button) %>
+        </div>
+      <% end %>
+    <% end %>
+
+    <%= dm_card title: checked_title(@repayment, :fund) do %>
       <dl class="inline">
         <dt>Titolare del fondo</dt>
-        <dd><%= @repayment.holder.to_s %></dd>
+        <dd><%= attribute_to_s @repayment.holder.to_s %></dd>
         <dt>Fondo</dt>
         <dd>
-        <%= @repayment.fund or "Fondo ancora da stabilire" %> 
+        <%= @repayment.fund or "<span class='text-danger'>Fondo ancora da stabilire</span>".html_safe %> 
         </dd>
         <dt>Numero vincolo di costo</dt>
         <dd><%= @repayment.bond_year %>/<%= @repayment.bond_number %></dd>
@@ -43,7 +45,7 @@
       </dl> 
     <% end %>
 
-    <%= dm_card title: rtitle(@repayment, :compensation) do %>
+    <%= dm_card title: checked_title(@repayment, :compensation) do %>
       <dl class="inline">
         <dt>Compenso lordo percipiente</dt>
         <dd><%= euro @repayment.lordo_percipiente %></dd>
@@ -53,10 +55,11 @@
 
         <% if @repayment.refund %>  
           <dt>Rimborsi</dt>
-          <dd><%= t :speaker_arrival %>: <%= l(@repayment.speaker_arrival) if @repayment.speaker_arrival %></dd>
+          <dd><%= t :speaker_arrival %>:   <%= l(@repayment.speaker_arrival) if @repayment.speaker_arrival %></dd>
           <dd><%= t :speaker_departure %>: <%= l(@repayment.speaker_departure) if @repayment.speaker_departure %></dd>
-          <dd><%= t :expected_refund %>:  <%= euro @repayment.expected_refund %></dd>
+          <dd><%= t :expected_refund %>:   <%= euro @repayment.expected_refund %></dd>
         <% end %>
+
         <% if user_can_edit %>  
           <dd><%= modal_link_to 'Modifica', edit_repayment_path(@repayment, what: :compensation), addclass: :button %></dd>
         <% end %>
@@ -64,12 +67,10 @@
     <% end %>
   </div>
 
-  <div class="col-lg-6">
-    <%= dm_card title: rtitle(@repayment, :speaker_details) do %>
+  <div class="col-lg-5">
+    <%= dm_card title: checked_title(@repayment, :speaker_details) do %>
       <dl class="inline">
-        <dt>Relatore</dt>
-        <dd><%= @repayment.speaker_with_title %></dd>
-        <% for m in [:email, :affiliation, :position_to_s, :address, :postalcode, :city, :country, :birth_date, :birth_place, :birth_country] do %>  
+        <% for m in [:name, :surname, :email, :affiliation, :position_to_s, :address, :postalcode, :city, :country, :birth_date, :birth_place, :birth_country] do %>  
           <dt><%= t m %></dt>
           <dd><%= attribute_to_s @repayment.send(m) %></dd>
         <% end %>
@@ -83,11 +84,11 @@
 
 <div style="text-align: center">
   <% if ! @repayment.notified and policy(@repayment).edit? %>  
-    <% ok = @repayment.all_ok_to_send? %>  
-    <% button_class = ok ? 'btn-success' : 'btn-light disabled' %>  
+    <% ok = repayment_all_ok_to_send?(@repayment) %>  
+    <% button_class = ok ? 'btn-success' : 'btn-primary disabled' %>  
     <% unless ok %>  
       <div class="alert alert-warning m-3">
-        Per inviare la richiesta è necessario che tutti i campi siano compilati correttamente.
+        Per <strong>inviare la richiesta</strong> è necessario che tutti i campi siano compilati correttamente.
       </div>
     <% end %>
     <%= link_to 'invia richiesta', notify_repayment_path(@repayment), class: "btn btn-lg #{button_class}", method: :post %>

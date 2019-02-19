@@ -2,7 +2,7 @@
 
 <div class="dm-card">
   <div class="dm-card-title">
-    Ruolo di <%= seminar.speaker_title %> <%= seminar.speaker %> <span class="float-right"><%= checked_icon(repayment.object.speaker_role_ok?) %></span>
+    Ruolo di <%= seminar.speaker_title %> <%= seminar.speaker %> <%= checked_icon(repayment_speaker_role_ok?(repayment.object)) %>
   </div>
   <div class="dm-card-body">
     <%= repayment.input :affiliation %>
