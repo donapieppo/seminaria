@@ -1,39 +1,52 @@
-<h1>Inserisci nuovo seminario</h1>
+<h1>Inserisci nuovo seminario <br/><small>del <%= current_organization.description %></small></h1>
 
-<div class="row">
-  <div class="col-md-4">
-    <h2>Seminario singolo</h2>
-    <ul class="bordered">
-      <li><%= link_to icon('plus', text: "Singolo seminario"), new_seminar_path %></li>
-    </ul>
+<div class="choose_type_body">
+  <div class="choose_type_item">
+    <h2>Singolo seminario</h2>
+
+    <div>
+      <%= link_to "Inserisci <br/>singolo seminario".html_safe, new_seminar_path, class: 'btn btn-lg btn-primary p-3' %>
+    </div>
   </div>
 
-  <div class="col-md-4">
+  <div class="choose_type_item">
     <h2>Seminario in un ciclo</h2>
+
     <% if @cycles.empty? %>  
-      <p class="alert alert-warning">Non sono al momento presenti cicli di seminari da te organizzati.</p>
+      <div class="alert alert-warning">Non sono al momento presenti cicli di seminari da te organizzati presso <%= current_organization.description %>.</div>
     <% end %>
+
     <% @cycles.each do |cycle| %>  
-      <ul class="bordered"> 
-        <li>
-          <%= link_to icon('plus', text: "&ldquo;#{h cycle}&rdquo;".html_safe), new_cycle_seminar_path(cycle) %> 
-          <span class='float-right'><%= link_to_edit edit_cycle_path(cycle) if user_owns?(cycle)%></span>
-        </li>
-      </ul>
+      <div class="pt-3 pb-2">
+        <strong>&ldquo;
+          <% if policy(cycle).edit? %>  
+            <%= link_to cycle.to_s.upcase, edit_cycle_path(cycle) %>
+          <% else %>
+            <%= cycle.to_s.upcase %>
+          <% end %>
+          &rdquo;
+        </strong>
+        <span class='float-right'>
+          <%= link_to "Inserisci seminario".html_safe, new_cycle_seminar_path(cycle), class: 'btn btn-primary' %> 
+        </span>
+      </div>
     <% end %>
 
-    <p><%= link_to icon('plus', text: "Crea nuovo ciclo di seminari"), new_cycle_path, class: :button %></p>
+    <div class="mt-3"><%= link_to icon('plus', text: "Crea nuovo ciclo di seminari"), new_cycle_path, class: :button %></div>
   </div>
 
-  <div class="col-md-4">
+  <div class="choose_type_item">
     <h2>Seminario in una serie</h2>
-    <ul class="bordered mb-3">
-      <% @serials.each do |serial| %>  
-        <li><%= link_to icon('plus', text: "&ldquo;#{h serial}&rdquo;".html_safe), new_serial_seminar_path(serial) %></li>
-      <% end %>
-    </ul>
-    <p class="info">Per far inserire una <strong>nuova serie</strong> si prega di inviare la richiesta all'indirizzo <%= support_mail %></p>
+
+    <% @serials.each do |serial| %>  
+      <div class="pt-3 pb-2">
+        <strong>&ldquo; <%= serial.to_s.upcase %> &rdquo;</strong>
+        <span class='float-right'>
+          <%= link_to "Inserisci seminario".html_safe, new_serial_seminar_path(serial), class: 'btn btn-primary' %>
+        </span>
+      </div>
+    <% end %>
+
+    <div class="alert alert-info mt-3">Per far inserire una <strong>nuova serie</strong> si prega di inviare la richiesta all'indirizzo <%= support_mail %></div>
   </div>
-
 </div>
-
