@@ -6,7 +6,7 @@
 
 <% if @repayment %>
   <% if policy(@repayment).show? %>  
-    <%= link_to 'Mostra informazioni compenso e/o rimborso', repayment_path(@repayment), class: :button %>
+    <%= link_to 'Mostra informazioni<br/>su compenso e/o rimborso'.html_safe, repayment_path(@repayment), class: :button %>
   <% end %>
 <% elsif @too_late_for_repayment %>  
   <p class="alert alert-warning">
