@@ -21,16 +21,13 @@
   $(function(){
     $("#refund_details").visibility_from("#refund_bool");
 
-    var startDatePossibleRepayment = moment().add(<%= Rails.configuration.repayment_deadline %>, 'days');
-
     <% if user_is_manager? %>  
-      startDatePossibleRepayment = moment(0);
+      var startDatePossibleRepayment = moment(0);
+    <% else %>
+      var startDatePossibleRepayment = moment().add(<%= Rails.configuration.repayment_deadline %>, 'days');
     <% end %>
 
-    console.log(startDatePossibleRepayment.format('DD/MM/YYYY'));
-
-    $('#repayment_speaker_arrival').data('datepicker').setStartDate(startDatePossibleRepayment.format('DD/MM/YYYY'));
-    $('#repayment_speaker_departure').data('datepicker').setStartDate(startDatePossibleRepayment.format('DD/MM/YYYY'));
+    $('#repayment_speaker_arrival, #repayment_speaker_departure').data('datepicker').setStartDate(startDatePossibleRepayment.format('DD/MM/YYYY'));
   });
 <% end %>
 
