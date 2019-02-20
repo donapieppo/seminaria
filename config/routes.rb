@@ -11,7 +11,9 @@ Rails.application.routes.draw do
 
   resources :authorizations
 
-  resources :organizations
+  resources :organizations do
+    resources :authorizations
+  end
   resources :places
   resources :arguments
 
@@ -31,14 +33,6 @@ Rails.application.routes.draw do
     resources :seminars
   end
   
-  resources :highlights do
-    get :admin, on: :collection
-    put :publish, on: :member
-    put :refuse, on: :member
-    resources :approvals
-  end
-
-  resources :approvals
   resources :repayments do
     post :notify, on: :member
     get  :choose_fund, on: :member
@@ -57,8 +51,8 @@ Rails.application.routes.draw do
     get :justifications, on: :member
   end
 
-  get 'mat',   to: "seminars#index", org: 1
-  get 'bigea', to: "seminars#index", org: 2
+  get 'mat',   to: "seminars#index", __org__: 1
+  get 'bigea', to: "seminars#index", __org__: 2
 
   root to: 'seminars#index'
 end

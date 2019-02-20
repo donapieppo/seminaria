@@ -2,20 +2,20 @@ class AuthorizationsController < ApplicationController
   before_action :check_cesia!
 
   def index
-    @authorizations = Authorization.includes(:user, :organization).order('users.surname, users.name')
   end
 
   def new
+    @organization = Organization.find(params[:organization_id])
     @users = User.order('users.surname, users.name')
-    @organizations = Organization.order(:name)
-    @authorization = Authorization.new
+
+    @authorization = @organization.authorizations.new
   end
 
   def create
-    Authorization.create(user_id: params[:authorization][:user_id], 
-                         organization_id: params[:authorization][:organization_id],
-                         authlevel: params[:authorization][:authlevel])
-    redirect_to authorizations_path
+    @organization = Organization.find(params[:organization_id])
+    @organization.authorizations.create(user_id: params[:authorization][:user_id], 
+                                        authlevel: params[:authorization][:authlevel])
+    redirect_to authorizations_path, notice: 'OK'
   end
 
   def destroy

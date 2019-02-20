@@ -1,11 +1,14 @@
-<h1>Authorizations</h1>
+<h1>Amministratori</h1>
 
-<ul class="list-group my-3">
-  <% @authorizations.each do |a|%>  
-    <li class="list-group-item"><%= a %><span class="float-right"><%= link_to_delete authorization_path(a) %>  </li>
-  <% end %>
-</ul>
+<% Organization.find_each do |organization| %>  
+  <h2 class="mt-3"><%= organization %> </h2>
+  <ul class="list-group my-3">
+    <% organization.authorizations.includes(:user).each do |a|%>  
+      <li class="list-group-item"><%= a.user.cn_militar %><span class="float-right"><%= link_to_delete authorization_path(a) %>  </li>
+    <% end %>
+  </ul>
+  <div style="text-align: center">
+    <%= link_to_new 'Nuovo utente amministratore', new_organization_authorization_path(organization) %>  
+  </div>
+<% end %>
 
-<div>
-<%= link_to_new new_authorization_path %>  
-</div>
