@@ -1,12 +1,11 @@
 <div class="dm-card">
   <div class="dm-card-title">
-    Compenso onnicomprensivo (<%= repayment.object.italy ? 'per residenti in Italia' : 'per non residenti in Italia' %>)
+    Compenso onnicomprensivo
   </div>
   <div class="dm-card-body">
-      <p class="info">
-      Il <strong>compenso massimo</strong> erogabile a conferenzieri con residenza fiscale in Italia è pari 
-      a 500 &euro; lordo percipiente (400 &euro; nette; 542,50 &euro; lordo ente).
-      </p>
+    <div class="info">
+      Il <strong>compenso massimo</strong> erogabile a conferenzieri con <strong>residenza fiscale in Italia</strong> è pari a 500 &euro; lordo percipiente (400 &euro; nette; 542,50 &euro; lordo ente).
+    </div>
 
     <div class="input">
       <label>Richiedo compenso</label>
@@ -16,11 +15,9 @@
       <%= repayment.input :italy, as: :radio_buttons %>
       <%= repayment.input :payment, hint: t(:payment_hint), as: :currency_float %>
       <%= repayment.input :gross, as: :radio_buttons, collection: [['Lordo ente', true], ['Compenso netto', false]], label: "" %>  
-      <div class=row">
-        <div class="col-sm-9 col-sm-offset-3">
-          <div id="payment_summary"></div>
-        </div>
-      </div>  
+      <div class="col-sm-9 offset-sm-3">
+        <div class="alert" id="payment_summary"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -30,16 +27,17 @@
     $("#payment_amount").visibility_from("#payment_bool");
 
     function show_lordo_percipiente() {
-      italy   = $('input[name="repayment[italy]"]:checked').val();
-      console.log("changed repayment[italy]: italy=" + italy);
+      italy   = $('#repayment_italy_true').is(':checked');
       gross   = $("#repayment_gross_true").is(':checked'); 
       payment = $("#repayment_payment").val();
+
+      console.log("changed repayment[italy]: italy=" + italy + " as: " + typeof(italy));
 
       gross_result = 0;
       net_result   = 0;
       irap         = <%= Repayment::IRAP %>; 
-      irpef        = (italy == 'true') ? <%= Repayment::IRPEF_ITALAN %> : <%= Repayment::IRPEF_FOREIGN %>; 
-      adapt_net    = (italy == 'true') ? <%= Repayment::ADAPT_NET_ITALIAN_VALUE %> : <%= Repayment::ADAPT_NET_FOREIGN_VALUE %>;
+      irpef        = italy ? <%= Repayment::IRPEF_ITALAN %> : <%= Repayment::IRPEF_FOREIGN %>; 
+      adapt_net    = italy ? <%= Repayment::ADAPT_NET_ITALIAN_VALUE %> : <%= Repayment::ADAPT_NET_FOREIGN_VALUE %>;
 
       if (gross) {
         gross_result = payment;
@@ -48,18 +46,20 @@
         net_result   = payment;
         gross_result = payment * adapt_net * (1 + irap);
       }
-      $("#payment_summary").html("<strong>Lordo ente:</strong> " + roundToTwo(gross_result) + " &euro;<br/>" +
-                                 "<strong>Netto:</strong> "      + roundToTwo(net_result)   + " &euro;"); 
+
+      $("#payment_summary").html("-> <strong>Lordo ente:</strong> " + roundToTwo(gross_result) + " &euro;<br/>" +
+                                 "-> <strong>Netto:</strong> "      + roundToTwo(net_result)   + " &euro;"); 
     };
+
+    function highlight_change() {
+      $("#payment_summary").addClass("alert-info");
+    }
 
     show_lordo_percipiente();
 
-    // $("#repayment[italy]").change(function() { show_lordo_percipiente(); });
-    $("#repayment_payment").change(function() { show_lordo_percipiente(); });
-    $("div.repayment_gross").change(function() { show_lordo_percipiente(); });
-
-    $('input[name="repayment[italy]"]').change(function(){
-      show_lordo_percipiente();
+    $("#repayment_payment, .repayment_gross, input[name='repayment[italy]'] ").change(function() { 
+      highlight_change();
+      show_lordo_percipiente(); 
     });
   });
 <% end %>
