@@ -9,11 +9,7 @@ function description_field() {
 }
   
 function roundToTwo(num) {    
-  if (isNaN(num)) {
-    return (0);
-  } else {
-    return (+(Math.round(num + "e+2")  + "e-2"));
-  } 
+  return (+(Math.round(num + "e+2")  + "e-2"));
 };
 
 $(document).ready(function() {

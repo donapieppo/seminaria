@@ -29,7 +29,7 @@
     function show_lordo_percipiente() {
       italy   = $('#repayment_italy_true').is(':checked');
       gross   = $("#repayment_gross_true").is(':checked'); 
-      payment = $("#repayment_payment").val();
+      payment = $("#repayment_payment").val() || 0;
 
       console.log("changed repayment[italy]: italy=" + italy + " as: " + typeof(italy));
 
