@@ -33,18 +33,10 @@ ActiveRecord::Schema.define(version: 2019_02_04_122930) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "approvals", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "highlight_id", null: false, unsigned: true
-    t.integer "user_id", null: false, unsigned: true
-    t.string "judgment", limit: 3
-    t.text "justification"
-    t.datetime "updated_at"
-    t.index ["highlight_id"], name: "index_approvals_on_hightlight_id"
-    t.index ["user_id"], name: "index_approvals_on_user_id"
-  end
-
   create_table "arguments", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "organization_id", unsigned: true
     t.string "name", limit: 30
+    t.index ["organization_id"], name: "fk_arguments_organization"
   end
 
   create_table "arguments_seminars", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -54,17 +46,27 @@ ActiveRecord::Schema.define(version: 2019_02_04_122930) do
     t.index ["seminar_id"], name: "seminar_id"
   end
 
+  create_table "authorizations", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "user_id", null: false, unsigned: true
+    t.integer "organization_id", null: false, unsigned: true
+    t.integer "authlevel"
+    t.index ["organization_id"], name: "fk_organization_authorization"
+    t.index ["user_id"], name: "fk_user_authorization"
+  end
+
   create_table "categories", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", limit: 200
   end
 
   create_table "cycles", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id", unsigned: true
+    t.integer "organization_id", unsigned: true
     t.string "title", limit: 250
     t.text "description"
     t.string "committee", limit: 250
     t.string "link", limit: 250
     t.boolean "active"
+    t.index ["organization_id"], name: "fk_cycles_organization"
     t.index ["user_id"], name: "user_id"
   end
 
@@ -84,6 +86,7 @@ ActiveRecord::Schema.define(version: 2019_02_04_122930) do
   end
 
   create_table "funds", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "organization_id", unsigned: true
     t.string "name", limit: 200
     t.string "description"
     t.integer "category_id", null: false, unsigned: true
@@ -91,38 +94,18 @@ ActiveRecord::Schema.define(version: 2019_02_04_122930) do
     t.date "deadline"
     t.boolean "available"
     t.string "code", limit: 50
-  end
-
-  create_table "highlights", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "user_id", unsigned: true
-    t.string "proponent"
-    t.string "name", null: false
-    t.text "description"
-    t.string "link"
-    t.string "link_text"
-    t.string "priority", limit: 10
-    t.integer "position"
-    t.boolean "refused"
-    t.date "visible_from"
-    t.date "visible_to"
-    t.datetime "approved_at"
-    t.datetime "created_at", null: false
-    t.index ["user_id"], name: "index_hightlights_on_user_id"
-  end
-
-  create_table "highlights_tags", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "highlight_id", null: false, unsigned: true
-    t.integer "tag_id", null: false, unsigned: true
-    t.index ["highlight_id"], name: "highlight_id"
-    t.index ["tag_id"], name: "tag_id"
+    t.index ["organization_id"], name: "fk_funds_organization"
   end
 
   create_table "organizations", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
+    t.string "description"
   end
 
   create_table "places", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "organization_id", unsigned: true
     t.text "name"
+    t.index ["organization_id"], name: "fk_places_organization"
   end
 
   create_table "positions", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -183,16 +166,19 @@ ActiveRecord::Schema.define(version: 2019_02_04_122930) do
     t.integer "serial_id"
     t.integer "cycle_id"
     t.index ["cycle_id"], name: "index_seminars_on_cycle_id"
+    t.index ["organization_id"], name: "fk_seminars_organization"
     t.index ["serial_id"], name: "index_seminars_on_serial_id"
     t.index ["user_id"], name: "index_seminars_on_user_id"
   end
 
   create_table "serials", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "organization_id", unsigned: true
     t.string "title", limit: 250
     t.text "description"
     t.string "committee", limit: 250
     t.string "link", limit: 250
     t.boolean "active"
+    t.index ["organization_id"], name: "fk_serials_organization"
   end
 
   create_table "tags", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -210,9 +196,17 @@ ActiveRecord::Schema.define(version: 2019_02_04_122930) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "arguments", "organizations", name: "fk_arguments_organization"
+  add_foreign_key "authorizations", "organizations", name: "fk_organization_authorization"
+  add_foreign_key "authorizations", "users", name: "fk_user_authorization"
+  add_foreign_key "cycles", "organizations", name: "fk_cycles_organization"
   add_foreign_key "cycles", "users", name: "cycles_ibfk_1"
+  add_foreign_key "funds", "organizations", name: "fk_funds_organization"
+  add_foreign_key "places", "organizations", name: "fk_places_organization"
   add_foreign_key "repayments", "funds", name: "repayments_ibfk_3"
   add_foreign_key "repayments", "seminars", name: "repayments_ibfk_2"
   add_foreign_key "repayments", "users", column: "holder_id", name: "repayments_ibfk_1"
+  add_foreign_key "seminars", "organizations", name: "fk_seminars_organization"
   add_foreign_key "seminars", "users", name: "seminars_ibfk_1"
+  add_foreign_key "serials", "organizations", name: "fk_serials_organization"
 end
