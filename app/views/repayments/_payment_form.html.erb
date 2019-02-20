@@ -51,14 +51,14 @@
                                  "-> <strong>Netto:</strong> "      + roundToTwo(net_result)   + " &euro;"); 
     };
 
-    function highlight_change() {
-      $("#payment_summary").addClass("alert-info");
+    function highlight_changes() {
+      $("#payment_summary").addClass("alert-warning");
     }
 
     show_lordo_percipiente();
 
-    $("#repayment_payment, .repayment_gross, input[name='repayment[italy]'] ").change(function() { 
-      highlight_change();
+    $("#repayment_payment, .repayment_gross, input[name='repayment[italy]']").change(function() { 
+      highlight_changes();
       show_lordo_percipiente(); 
     });
   });
