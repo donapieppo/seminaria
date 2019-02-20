@@ -29,6 +29,7 @@ class RepaymentsController < ApplicationController
     end
   end
 
+  # what = [reason, fund, compensation, speaker]
   def edit
     if user_too_late_for_repayment?(@seminar)
       redirect_to seminar_path(@seminar), alert: 'Non è più possibile agire sul rimborso / compenso.'
@@ -42,7 +43,8 @@ class RepaymentsController < ApplicationController
 
   # has_one, e' un create/update
   def update
-    @what = params[:what] # hideen 
+    @what = params[:what] # hidden 
+
     if @what == 'compensation'
       fix_payment
       fix_refund
