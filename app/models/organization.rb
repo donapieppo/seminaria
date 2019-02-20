@@ -13,7 +13,7 @@ class Organization < ApplicationRecord
   end
 
   def manager_mails
-    self.authorizations.includes(:user).map{|a| a.user.upn}.tppo_a
+    self.authorizations.includes(:user).map{|a| a.user.upn}.to_a
   end
 
 end
