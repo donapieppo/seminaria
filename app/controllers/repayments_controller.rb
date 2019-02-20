@@ -42,8 +42,11 @@ class RepaymentsController < ApplicationController
 
   # has_one, e' un create/update
   def update
-    fix_payment
-    fix_refund
+    @what = params[:what] # hideen 
+    if @what == 'compensation'
+      fix_payment
+      fix_refund
+    end
 
     params[:repayment][:country] = 'Italia' if params[:repayment][:italy] == '1'
 
@@ -66,7 +69,6 @@ class RepaymentsController < ApplicationController
       redirect_to repayment_path(@repayment), message: "La richiesta è stata salvata correttamente."
     else
       @funds = available_funds
-      @what = params[:what]
       render :edit
     end
   end
