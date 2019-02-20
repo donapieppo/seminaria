@@ -23,7 +23,7 @@
           - <%= fund.name %>
           (<%= fund.category.name %>)
           <span class="float-right">
-            <%= link_to icon(:eye), fund_path(fund), title: 'mostra i rimborsi associati' %>
+            <%= modal_link_to icon(:eye), fund_path(fund) %>  
             <%= link_to_edit edit_fund_path(fund) %>
             <%= link_to_delete fund_path(fund) %>
           </span>
