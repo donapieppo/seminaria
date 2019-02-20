@@ -47,6 +47,8 @@
 
     <%= dm_card title: checked_title(@repayment, :compensation) do %>
       <dl class="inline">
+        <dt>Residenza fiscale</dt>
+        <dd><%= @repayment.italy ? 'Italia' : 'Estero' %>  
         <dt>Compenso lordo percipiente</dt>
         <dd><%= euro @repayment.lordo_percipiente %></dd>
         <dt>Compenso netto percipiente</dt>

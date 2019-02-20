@@ -5,25 +5,11 @@
     Indirizzo di residenza di <%= seminar.speaker_title %> <%= seminar.speaker %> <%= checked_icon(repayment_speaker_address_ok?(repayment.object)) %>
   </div>
   <div class="dm-card-body">
-    <div class="input">
-      <label>Residenza fiscale in Italia</label>
-      <%= repayment.input_field :italy, label: false, boolean_style: :inline %>
-    </div>
     <%= repayment.input :address %>
     <%= repayment.input :postalcode %>
     <%= repayment.input :city %>
-    <div id="foreign_country">
-      <%= repayment.input :country, as: :string, id: "foreign_country" %>
-    </div>
+    <%= repayment.input :country, as: :string, id: "foreign_country" %>
   </div>
 </div>
 
-<%= javascript_tag do %>  
-  $(function(){
-    $("#foreign_country").toggle(! $("#repayment_italy").is(':checked'));
-    $("#repayment_italy").change(function(){
-      $("#foreign_country").toggle(! $("#repayment_italy").is(':checked'));
-    });
-  });
-<% end %>
 

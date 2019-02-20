@@ -1,6 +1,6 @@
 class RepaymentsController < ApplicationController
   # propria richiesta o su propri fondi
-  before_action :get_repayment_and_check_permission, only: [:show, :update, :notify, :print_decree, :print_letter, :print_proposal]
+  before_action :get_repayment_seminar_and_check_permission, only: [:show, :edit, :update, :notify, :print_decree, :print_letter, :print_proposal]
   # su propri fondi
   before_action :get_repayment_and_check_fund_permission, only: [:choose_fund, :update_fund]
   before_action :get_and_validate_holder,                 only: [:update]
@@ -12,30 +12,30 @@ class RepaymentsController < ApplicationController
                            .where("YEAR(seminars.date) = ?", @year)
                            .where("seminars.organization_id = ?", current_organization.id )
                            .references(:seminars)
+    # FIXME 
+    # how to pass organization to pundit index?
     authorize current_organization, :manage?
   end
 
   def new
     @seminar = Seminar.find(params[:seminar_id])
-    policy(@seminar).update? or raise "No access"
+
     if user_too_late_for_repayment?(@seminar)
       redirect_to seminar_path(@seminar), alert: 'Non è più possibile richiedere rimborso / compenso.'
     else
       @repayment = @seminar.repayment || @seminar.create_repayment(italy: true, birth_country: "Italia", speaker_arrival: @seminar.date, speaker_departure: @seminar.date)
+      authorize @repayment
       render action: :show
     end
   end
 
   def edit
-    @repayment = Repayment.find(params[:id])
-    @seminar = @repayment.seminar
     if user_too_late_for_repayment?(@seminar)
-      redirect_to seminar_path(@seminar), alert: 'Non è più possibile richiedere rimborso / compenso.'
+      redirect_to seminar_path(@seminar), alert: 'Non è più possibile agire sul rimborso / compenso.'
       return
     else
-      policy(@repayment).update? or raise "No access"
       @funds = available_funds
-      @what = params[:what]
+      @what = params[:what] 
       render layout: false if modal_page
     end  
   end
@@ -65,7 +65,9 @@ class RepaymentsController < ApplicationController
       add_cv
       redirect_to repayment_path(@repayment), message: "La richiesta è stata salvata correttamente."
     else
-      render :new
+      @funds = available_funds
+      @what = params[:what]
+      render :edit
     end
   end
 
@@ -136,11 +138,11 @@ class RepaymentsController < ApplicationController
     p = [:name, :surname, :email, :address, :postalcode, :city, :italy, :country, :birth_date, :birth_place, :birth_country, :affiliation,
          :payment, :gross, :position_id, :role, :refund, :reason, :speaker_arrival, :speaker_departure, :expected_refund]
     p = p + [:bond_number, :bond_year] if user_is_manager?
-    p = p + [:fund_id] if policy(@repayment).fund?
+    p = p + [:fund_id] if policy(@repayment).update_fund?
     params[:repayment].permit(p)
   end
 
-  def get_repayment_and_check_permission
+  def get_repayment_seminar_and_check_permission
     @repayment = Repayment.find(params[:id])
     @seminar = @repayment.seminar
     authorize @repayment
@@ -148,7 +150,7 @@ class RepaymentsController < ApplicationController
 
   def get_repayment_and_check_fund_permission
     @repayment = Repayment.find(params[:id])
-    user_is_manager? or (@repayment.holder_id == current_user.id) or raise "No access."
+    authorize @repayment
   end
 
   # FIXME in model
@@ -183,18 +185,11 @@ class RepaymentsController < ApplicationController
     params[:repayment][:cv].permit(:description, :attach)
   end
 
-  def missing_cv?
-    # @repayment.payment and @repayment.documents.empty? and ! params[:repayment][:cv]
-    @repayment.documents.empty? and ! params[:repayment][:cv]
-  end
-
   def add_cv
     if params[:repayment][:cv]
       document = Document.create!(attach: params[:repayment][:cv], description: "CV", user_id: current_user.id)
       logger.info document.inspect
       @repayment.documents << document
-    else
-      logger.info "no repayment, no cv"
     end
   end
 

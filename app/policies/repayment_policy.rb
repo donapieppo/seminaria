@@ -14,11 +14,11 @@ class RepaymentPolicy
   # seminar owner
   # fund honer
   def show?
-    @user and (SeminarPolicy.new(@user, @record.seminar).update? or fund?)
+    @user and (SeminarPolicy.new(@user, @record.seminar).update? or update_fund?)
   end
 
   def new?
-    true
+    @user and SeminarPolicy.new(@user, @record.seminar).update?
   end
 
   def create?
@@ -40,12 +40,12 @@ class RepaymentPolicy
   end
 
   #  fund owner
-  def fund?
+  def update_fund?
     @user and (@user.can_manage?(@record.seminar.organization_id) or (@record.holder and @user == @record.holder))
   end
 
   def choose_fund?
-    fund?
+    update_fund?
   end
 
   def print_letter?

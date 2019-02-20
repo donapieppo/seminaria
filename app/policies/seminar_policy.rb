@@ -38,8 +38,9 @@ class SeminarPolicy
     update?
   end
 
+  # FIXME li cancella solo manager o se non e' ancora stata inviata
   def destroy?
-    update?
+    @user and (@user.can_manage?(@record.organization_id) or (@user.owns?(record) and ! record.repayment))
   end
 
   def mail_text?

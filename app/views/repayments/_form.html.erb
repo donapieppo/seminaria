@@ -4,8 +4,9 @@
   <%= big_icon("hand-point-right") %>  <%= repayment_days_warning  %>
 </p>
 
-<%= horizontal_form_for [@seminar, @repayment] do |repayment| %>  
+<%= horizontal_form_for @repayment do |repayment| %>  
   <%= repayment.dm_error_notification %>  
+  <input type="hidden" name="what" value="<%= @what %>">  
 
   <%= render('fund_form', repayment: repayment) if @what == 'fund' %>  
   <%= render('speaker_reason', repayment: repayment) if @what == 'reason' %>  
@@ -19,6 +20,6 @@
       <%= render('payment_form', repayment: repayment) %>
       <%= render('refund_form', repayment: repayment) %>
   <% end %>
-  <%= repayment.submit 'Salva' %> 
+  <%= repayment.submit 'Salva' %> - <%= link_to_back repayment_path(repayment.object) %>  
 <% end %>
 

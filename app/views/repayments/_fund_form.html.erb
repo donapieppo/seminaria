@@ -7,7 +7,7 @@
       <%= repayment.association :holder, collection: Fund.holders2, label_method: :cn_militar, include_blank: true, hint: repayment_days_warning() %>
     <% end %>
 
-    <% if policy(repayment.object).fund? %>  
+    <% if policy(repayment.object).update_fund? %>  
       <% if user_is_manager? %>  
         <%= repayment.association :fund, collection: @funds, label_method: :to_s_with_holder, include_blank: false %>
       <% else %>
