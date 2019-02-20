@@ -39,6 +39,10 @@ class RepaymentPolicy
     update?
   end
 
+  def notify?
+    update?
+  end
+
   #  fund owner
   def update_fund?
     @user and (@user.can_manage?(@record.seminar.organization_id) or (@record.holder and @user == @record.holder))
