@@ -7,17 +7,17 @@
   <div class="dm-card-body">
     <%= repayment.input :affiliation %>
     <%= repayment.association :position, hint: "Qualifica e/o attività del relatore" %>
-    <%= repayment.input :role, hint: "Dettagli sulla qualifica e/o attività del relatore. Obbligatorio nel caso abbiate scelto Altro come ruolo." %>
+    <%= repayment.input :role, hint: "Dettagli opzionali sulla qualifica e/o attività del relatore. Obbligatorio nel caso abbiate scelto \"altro\" come ruolo." %>
     <%= repayment.input :email %>
   </div>
 </div>
 
 <%= javascript_tag do %>
   $(function() {
+    ALTRO_ID = 8;
     $("#repayment_position_id").change(function() { 
-      if ($("#repayment_position_id").val() == 8) {
-        console.log($("#repayment_position_id").val());
-        alert("Ricorda di completare il campo successivo fornendo la descrizione della qualifica e/o attività del relatore");
+      if ($("#repayment_position_id").val() == ALTRO_ID) {
+        alert("Ricordarsi di completare il campo successivo fornendo la descrizione della qualifica e/o attività del relatore");
       }
     });
   });
