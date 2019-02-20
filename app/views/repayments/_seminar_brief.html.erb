@@ -1,8 +1,9 @@
-<p class="seminar-small-info">
+<div class="seminar-small-info">
+  Seminario del <%= seminar.organization.description %><br/>
+  <%= t :organized_by %> <%= seminar.committee %> <br/>
   <%= l seminar.date %> <br/>
   <%= seminar.speaker %> - <%= seminar.title %><br/>
-  <%= t :organized_by %> <%= seminar.committee %> <br/>
   <%= seminar.project %>  
-</p>
+</div>
 
 
