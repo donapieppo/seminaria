@@ -34,11 +34,11 @@
         <dt>Titolare del fondo</dt>
         <dd><%= attribute_to_s @repayment.holder.to_s %></dd>
         <dt>Fondo</dt>
-        <dd>
-        <%= @repayment.fund or "<span class='text-danger'>Fondo ancora da stabilire</span>".html_safe %> 
-        </dd>
-        <dt>Numero vincolo di costo</dt>
-        <dd><%= @repayment.bond_year %>/<%= @repayment.bond_number %></dd>
+        <dd><%= @repayment.fund or "<span class='text-danger'>Fondo ancora da stabilire</span>".html_safe %></dd>
+        <% if user_is_manager? %>  
+          <dt>Numero vincolo di costo</dt>
+          <dd><%= @repayment.bond_year %>/<%= @repayment.bond_number %></dd>
+        <% end %>
         <% if user_can_edit %>  
           <dd><%= modal_link_to 'Modifica', edit_repayment_path(@repayment, what: :fund ), addclass: :button %></dd>
         <% end %>
@@ -47,8 +47,10 @@
 
     <%= dm_card title: checked_title(@repayment, :compensation) do %>
       <dl class="inline">
-        <dt>Residenza fiscale</dt>
-        <dd><%= @repayment.italy ? 'Italia' : 'Estero' %>  
+        <% if @repayment.payment %>  
+          <dt>Residenza fiscale</dt>
+          <dd><%= @repayment.italy ? 'Italia' : 'Estero' %> </dd>
+        <% end %>
         <dt>Compenso lordo percipiente</dt>
         <dd><%= euro @repayment.lordo_percipiente %></dd>
         <dt>Compenso netto percipiente</dt>
