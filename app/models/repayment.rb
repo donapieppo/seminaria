@@ -3,19 +3,14 @@ class Repayment < ActiveRecord::Base
   belongs_to :holder, class_name: 'User', foreign_key: :holder_id, optional: true
   belongs_to :fund, optional: true
   belongs_to :position, optional: true
-  # non ci basta che sia in seminario con type=cv. Ci piace di piu' cosi'. Anche solo perche' va visto da chi vede 
-  # il seminario e questo va visto da chi vede il repayment
   has_many   :documents, dependent: :destroy
-
-  #validates :name, :surname, :email, :address, :postalcode, :city, :birth_date, :birth_place, :birth_country, :affiliation, :reason, presence: true
-  #validates :speaker_arrival, :speaker_departure, :expected_refund, presence: true, if: :refund
 
   validate :payment_limit_for_italians
   validate :speaker_arrival_departure_validation
   validate :validate_fund_and_holder
 
   ADAPT_GROSS_VALUE       = 0.92165898
-  IRAP                    = 0.085 # 85%
+  IRAP                    = 0.085 # 8,5%
   IRPEF_ITALAN            = 0.2   # 20%
   IRPEF_FOREIGN           = 0.3   # 30%
   ADAPT_NET_ITALIAN_VALUE = 1.25 
