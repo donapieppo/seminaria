@@ -47,9 +47,13 @@ module RepaymentsHelper
     "#{u}" + ((u == h) ? "" : " e #{h}")
   end
 
+  # FIXME 
   def considerations(repayment)
-    "l’art. 7 del D.Lgs. 165 del 2001, in particolare sul conferimento di incarichi di collaborazione"
-    "che le attività di partecipazione a seminari in qualità di conferenzieri svolta dai dottorandi sono da considerare attività di divulgazione scientifica ricomprese nello status degli stessi, pertanto  esulano dal campo di applicazione dell'art. 7, comma 6, del D.Lgs. 165/2001"
+    if repayment.position and repayment.position.phd?
+      "che le attività di partecipazione a seminari in qualità di conferenzieri svolta dai dottorandi sono da considerare attività di divulgazione scientifica ricomprese nello status degli stessi, pertanto  esulano dal campo di applicazione dell'art. 7, comma 6, del D.Lgs. 165/2001"
+    else
+      "l’art. 7 del D.Lgs. 165 del 2001, in particolare sul conferimento di incarichi di collaborazione"
+    end
   end
 
   def he_she_proposes(repayment)
