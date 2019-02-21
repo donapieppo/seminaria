@@ -7,5 +7,5 @@
 </ul>
 
 <% if user_is_manager? %>  
-  <p><%= link_to_new new_place_path %></p>
+  <p><%= link_to_new "Aggiungi un nuovo luogo presso #{current_organization.description}", new_place_path %></p>
 <% end %>

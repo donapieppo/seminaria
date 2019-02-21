@@ -7,5 +7,5 @@
 </ul>
 
 <% if policy(current_organization).manage? %>  
-  <p> <%= link_to_new new_argument_path %>  </p>
+  <p><%= link_to_new "Aggiungi un nuovo topic presso #{current_organization.description}", new_argument_path %></p>
 <% end %>
