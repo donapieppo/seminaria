@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'user/cycles',     controller: 'cycles',     action: 'index',                           as: 'user_cycles'
   get 'user/highlights', controller: 'highlights', action: 'index', only_current_user: true,  as: 'user_highlights'
 
+  resources :users
   resources :authorizations
 
   resources :organizations do
