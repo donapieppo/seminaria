@@ -8,14 +8,14 @@ module SeminarsHelper
   end
 
   def day_tag(seminar, short: false)
-    wday  = I18n.l(seminar.date, format: :wday)
-    month = I18n.l(seminar.date, format: :month)
-    nday  = I18n.l(seminar.date, format: :nday)
+    month  = I18n.l(seminar.date, format: :month)
+    nday   = I18n.l(seminar.date, format: :nday)
+    detail = seminar.past? ? seminar.date.year : I18n.l(seminar.date, format: :wday) # week day for future seminar or year if already done
 
     content_tag :div, class: 'date' do
       "<i class='far fa-calendar my-2' style='font-size: 24px'></i><br/>".html_safe + 
-      "<span style='font-weight: 600; font-size: 24px; line-height: 20px;'>#{h nday}<br/>#{h month}</span><br/>".html_safe +
-      (seminar.past? ? "" : "<span class='text-muted'>#{h wday}</span> <br/>".html_safe)
+      "<span class='day-and-month'>#{h nday}<br/>#{h month}</span><br/>".html_safe +
+      "<span class='text-muted'>#{h detail}</span> <br/>".html_safe
     end
   end
 
@@ -59,7 +59,6 @@ module SeminarsHelper
     end 
   end 
 
-
   def abstract_tag(seminar)
     if ! seminar.abstract.blank?  
       content_tag :div, seminar.abstract, class: 'abstract'
@@ -67,16 +66,17 @@ module SeminarsHelper
   end
 
   def actions_tag(seminar)
-    can_update = policy(seminar).update? || user_is_holder?(seminar)
+    _can_update_seminar = policy(seminar).update? 
+    _user_is_holder     = user_is_holder?(seminar)
     capture do 
-      concat(content_tag(:span, icon(:bars, size: 26), class: "actions-button #{can_update ? 'can_update' : ''}"))
+      concat(content_tag(:span, icon(:bars, size: 26), class: "actions-button #{(_can_update_seminar or _user_is_holder) ? 'can_update' : ''}"))
 
       concat(content_tag(:div, class: 'actions-popup') do 
         if ! seminar.past? 
-          if policy(seminar).update?
+          if _can_update_seminar
             concat( link_to(fwicon('edit') + ' modifica <br/>'.html_safe, edit_seminar_path(seminar) ))
           end
-          if user_is_holder?(seminar)
+          if _user_is_holder
             repayment_class = (seminar.repayment.fund ? 'fund_ok' : 'fund_missing') 
             concat( link_to(fwicon('euro-sign') + ' scelta del fondo<br/>'.html_safe, choose_fund_repayment_path(seminar.repayment)) )
           end 
