@@ -6,8 +6,8 @@ class RepaymentPolicy
     @record = record
   end
 
-  def index?(o)
-    @user.can_manage?(o)
+  def index?
+    false # we use authorize current_organization, :manage? in index
   end
 
   # manager
@@ -28,7 +28,6 @@ class RepaymentPolicy
   def update?
     @user and (@user.can_manage?(@record.seminar.organization_id) or 
               ((! @record.notified) and SeminarPolicy.new(@user, @record.seminar).update?))
-    # user_owns?(repayment.seminar) and ! repayment.notified 
   end
 
   def edit?
@@ -43,7 +42,7 @@ class RepaymentPolicy
     update?
   end
 
-  #  fund owner
+  # fund owner
   def update_fund?
     @user and (@user.can_manage?(@record.seminar.organization_id) or (@record.holder and @user == @record.holder))
   end
