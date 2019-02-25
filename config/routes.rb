@@ -48,8 +48,8 @@ Rails.application.routes.draw do
   end
 
   resources :funds do
-    get :owners, on: :collection
-    get :justifications, on: :member
+    # get :justifications, on: :member
+    # get :owners, on: :collection
   end
 
   get 'mat',   to: "seminars#index", __org__: 1
