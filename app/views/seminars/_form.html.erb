@@ -15,7 +15,9 @@
 
 <% if @serial %>  
   <h2>Seminario periodico: <%= @serial %></h2>
-  <p class="alert alert-info"><%= @serial.description %> </p>
+  <% unless @serial.description.blank? %>  
+    <div class="alert alert-info"><%= @serial.description %></div>
+  <% end %>
 <% end %>
 
 <%= dm_form_for @seminar, title: "Seminario del #{current_organization.description}" do |seminar| %>  
