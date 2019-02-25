@@ -23,7 +23,7 @@ class SerialPolicy
   end
 
   def update?
-    @user and (@user.can_manage?(@record.organization_id) or record.user_id == @user.id)
+    create?
   end
 
   def edit?
