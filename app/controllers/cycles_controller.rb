@@ -4,20 +4,26 @@ class CyclesController < ApplicationController
   before_action :get_cycle_and_check_permission, only: [:edit, :update]
 
   def index
-    @cycles = Cycle.order('id desc').includes(:seminars).all
+    @cycles = current_organization.cycles.order('id desc').includes(:seminars).all
+    authorize Cycle
   end
 
   def show
-    @cycle = Cycle.find(params[:id])
+    @cycle = current_organization.cycles.find(params[:id])
+    authorize @cycle
     @seminars = @cycle.seminars.includes(:documents, :arguments, :repayment).order('seminars.date DESC')
   end
 
   def new
-    @cycle = Cycle.new
+    @cycle = Cycle.new(organization: current_organization)
+    authorize @cycle
   end
 
   def create
     @cycle = current_user.cycles.new(cycle_params)
+    @cycle.organization = current_organization
+    authorize @cycle
+
     if @cycle.save
       redirect_to new_cycle_seminar_path(@cycle), notice: "Il ciclo di seminari è stato creato correttamente."
     else
@@ -44,7 +50,7 @@ class CyclesController < ApplicationController
 
   def get_cycle_and_check_permission
     @cycle = Cycle.find(params[:id])
-    user_owns!(@cycle) 
+    authorize @cycle
   end
 end
 
