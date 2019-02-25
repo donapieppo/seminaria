@@ -23,7 +23,7 @@ class RepaymentsController < ApplicationController
     if user_too_late_for_repayment?(@seminar)
       redirect_to seminar_path(@seminar), alert: 'Non è più possibile richiedere rimborso / compenso.'
     else
-      @repayment = @seminar.repayment || @seminar.create_repayment(italy: true, birth_country: "Italia", speaker_arrival: @seminar.date, speaker_departure: @seminar.date)
+      @repayment = @seminar.repayment || @seminar.create_repayment(italy: true, speaker_arrival: @seminar.date, speaker_departure: @seminar.date)
       authorize @repayment
       render action: :show
     end
@@ -49,8 +49,6 @@ class RepaymentsController < ApplicationController
       fix_payment
       fix_refund
     end
-
-    params[:repayment][:country] = 'Italia' if params[:repayment][:italy] == '1'
 
     if @repayment = @seminar.repayment # edit. FIXME pensare se con too late non puo' modificare
       @repayment.assign_attributes(repayment_params)
@@ -103,6 +101,9 @@ class RepaymentsController < ApplicationController
     if ! @repayment.fund
       RepaymentMailer.notify_repayment_to_holder(@repayment).deliver
       flash[:notice] = "La richiesta di rimborso è stata inviata a #{@repayment.holder}."
+    else
+      RepaymentMailer.notify_fund(@repayment).deliver
+      flash[:notice] = "La richiesta di rimborso è stata inviata all'amministrazione."
     end
     redirect_to root_path
   end
