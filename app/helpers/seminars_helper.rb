@@ -91,6 +91,17 @@ module SeminarsHelper
     end
   end
 
+  def arguments_tag(seminar)
+    a = seminar.arguments
+    a.empty? and return ""
+    content_tag :p do
+      if a.first.name == 'interdisciplinare'
+        "seminario interdisciplinare"
+      else
+        "seminario di " + a.to_a.join(", ")
+      end
+    end
+  end
 
   def repayment_days_warning
     "La richiesta di compenso / rimborso spese deve essere conclusa con <strong>l'autorizzazione del titolare del fondo</strong> almeno 

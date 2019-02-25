@@ -44,16 +44,6 @@ class Seminar < ApplicationRecord
     end
   end
 
-  def arguments_string
-    a = self.arguments
-    a.empty? and return ""
-    if a.first.name == 'interdisciplinare'
-      "seminario interdisciplinare"
-    else
-      ("seminario di " + a.to_a.join(", ")).html_safe
-    end
-  end
-
   def to_s
     self.title
   end
