@@ -16,21 +16,23 @@
       <div class="alert alert-warning">Non sono al momento presenti cicli di seminari da te organizzati presso <%= current_organization.description %>.</div>
     <% end %>
 
-    <% @cycles.each do |cycle| %>  
-      <div class="pt-3 pb-2">
-        <strong>&ldquo;
-          <% if policy(cycle).edit? %>  
-            <%= link_to cycle.to_s.upcase, edit_cycle_path(cycle) %>
-          <% else %>
-            <%= cycle.to_s.upcase %>
-          <% end %>
-          &rdquo;
-        </strong>
-        <span class='float-right'>
+    <div class="row">
+      <% @cycles.each do |cycle| %>  
+        <div class="col-md-9 p-2" style="text-align: right">
+          <strong>&ldquo;
+            <% if policy(cycle).edit? %>  
+              <%= link_to cycle.to_s.upcase, edit_cycle_path(cycle) %>
+            <% else %>
+              <%= cycle.to_s.upcase %>
+            <% end %>
+            &rdquo;
+          </strong>
+        </div>
+        <div class='col-md-3 p-2'>
           <%= link_to "Inserisci seminario".html_safe, new_cycle_seminar_path(cycle), class: 'btn btn-primary' %> 
-        </span>
-      </div>
-    <% end %>
+        </div>
+      <% end %>
+    </div>
 
     <div class="mt-3"><%= link_to icon('plus', text: "Crea nuovo ciclo di seminari"), new_cycle_path, class: :button %></div>
   </div>
@@ -38,14 +40,16 @@
   <div class="choose_type_item">
     <h2>Seminario in una serie</h2>
 
-    <% @serials.each do |serial| %>  
-      <div class="pt-3 pb-2">
-        <strong>&ldquo; <%= serial.to_s.upcase %> &rdquo;</strong>
-        <span class='float-right'>
+    <div class="row">
+      <% @serials.each do |serial| %>  
+        <div class="col-md-9 p-2" style="text-align: right">
+          <strong>&ldquo; <%= serial.to_s.upcase %> &rdquo;</strong>
+        </div>
+        <div class="col-md-3 p-2">
           <%= link_to "Inserisci seminario".html_safe, new_serial_seminar_path(serial), class: 'btn btn-primary' %>
-        </span>
-      </div>
-    <% end %>
+        </div>
+      <% end %>
+    </div>
 
     <div class="alert alert-info mt-3">Per far inserire una <strong>nuova serie</strong> si prega di inviare la richiesta all'indirizzo <%= support_mail %></div>
   </div>
