@@ -1,14 +1,17 @@
 <% if @cycle %>  
+  <% other_seminars_same_cycle = @cycle.seminars.order('id desc').to_a %>  
   <div class="alert alert-info">
     <p>
-      <strong>Ciclo: <%= @cycle %></strong>
-      <% unless @cycle.description.blank? %>  
-        <br/><i><%= @cycle.description %></i>
-      <% end %>
+    <strong>Ciclo: <%= @cycle %></strong>
+    <% unless @cycle.description.blank? %>  
+      <br/><i><%= @cycle.description %></i>
+    <% end %>
     </p>
-    È possibile recuperare parte dei dati da uno dei seguenti seminario precedente dello stesso ciclo: <br/>
-    <% @cycle.seminars.order('id desc').each do |s| %>
-      <%= link_to "#{I18n.l(s.date)}", new_cycle_seminar_path(@cycle, as: s.id), class: 'btn btn-outline-primary my-1' %>
+    <% if other_seminars_same_cycle.any? %>  
+      È possibile recuperare parte dei dati da uno dei seguenti seminario precedente dello stesso ciclo: <br/>
+      <% @cycle.seminars.order('id desc').each do |s| %>
+        <%= link_to "#{I18n.l(s.date)}", new_cycle_seminar_path(@cycle, as: s.id), class: 'btn btn-outline-primary my-1' %>
+      <% end %>
     <% end %>
   </div>
 <% end %>
