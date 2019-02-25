@@ -1,14 +1,16 @@
 <h1>Elenco seminari del ciclo di seminari <br/><small>``<%= @cycle.to_s.upcase %>''</small></h1>
 
-<div class="alert alert-info">
-  <%= @cycle.description %>
-</div> 
+<% unless @cycle.description.blank? %>  
+  <div class="alert alert-info">
+    <%= @cycle.description %>
+  </div> 
+<% end %>
 
 <% @seminars.each do |seminar| %>  
   <%= render seminar %>  
 <% end %>
 
-<% if user_owns?(@cycle) %>  
+<% if policy(@cycle).update? %>  
   <%= link_to icon('edit', text: 'modifica il ciclo'), edit_cycle_path(@cycle), class: :button %> 
   <%= link_to icon('plus', text: 'aggiungi seminario al ciclo'), new_cycle_seminar_path(@cycle), class: :button %>  
 <% end %>
