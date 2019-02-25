@@ -5,9 +5,7 @@
     <%= clock_tag(seminar) %>  
     <div class="row">
       <div class="when col-md-2">
-
-      <%= day_tag(seminar, short: short) %>  
-
+        <%= day_tag seminar %>  
       </div> <!-- when -->
 
       <div class="col">
@@ -22,12 +20,10 @@
         <div class="notes"><%= seminar.arguments_string %>
         <%# se in una serie ma non stiamo vedendo proprio la serie %>
         <% if seminar.serial_id and !@serial %>
-          nell'ambito della serie<br/>
-          <strong><%= link_to seminar.serial, serial_path(seminar.serial_id) %></strong>
+          <br/>nell'ambito della serie: <strong><%= link_to seminar.serial.to_s.upcase, serial_path(seminar.serial_id) %></strong>
         <% end %>
         <% if seminar.cycle_id and !@cycle %>
-          nel ciclo di seminari<br/>
-          <%= link_to seminar.cycle, cycle_path(seminar.cycle_id) %>
+          <br/>nel ciclo di seminari: <strong><%= link_to seminar.cycle.to_s.upcase, cycle_path(seminar.cycle_id) %></strong>
         <% end %>
         </div> <!-- notes -->
         <%= hour_tag(seminar, short: short) %>  
