@@ -15,7 +15,7 @@ class CyclePolicy
   end
 
   def create?
-    @user and (@user.can_manage?(@record.organization_id) or (record.seminar_id and record.seminar.user_id == @user.id))
+    @user 
   end
 
   def new?
