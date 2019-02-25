@@ -16,7 +16,7 @@ class FundsController < ApplicationController
   def create
     @fund = current_organization.funds.new(fund_params)
     if @fund.save
-      redirect_to new_fund_path, notice: "Il fondo è stato creato correttamente."
+      redirect_to funds_path, notice: "Il fondo è stato creato correttamente."
     else
       render action: 'new'
     end
@@ -47,20 +47,10 @@ class FundsController < ApplicationController
     end
   end
 
+  # old jsons
   # def owners
   #   respond_to do |format|
   #     format.json { render json: Fund.holders2.to_json }
-  #   end
-  # end
-  #
-  # def index
-  #   @funds = Fund.active.includes(:category)
-  #   if params[:user_id]
-  #     holder = User.find(params[:user_id])
-  #     @funds = @funds.where(holder_id: holder.id).include(:category)
-  #   end
-  #   respond_to do |format|
-  #     format.json { render json: @funds }
   #   end
   # end
   #
