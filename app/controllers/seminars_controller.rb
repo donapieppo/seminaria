@@ -44,7 +44,7 @@ class SeminarsController < ApplicationController
 
   def choose_type
     @cycles  = current_user.cycles.where(organization_id: current_organization.id).all
-    @serials = current_organization.serials.active.all
+    @serials = current_organization.serials.order('title asc').active.all
   end
 
   def new
