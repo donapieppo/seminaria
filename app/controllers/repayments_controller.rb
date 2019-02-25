@@ -155,7 +155,11 @@ class RepaymentsController < ApplicationController
 
   def get_repayment_and_check_fund_permission
     @repayment = Repayment.find(params[:id])
-    authorize @repayment
+    begin
+      authorize @repayment
+    rescue Pundit::NotAuthorizedError
+      redirect_to seminars_path, alert: "Solo il titolare può modificare il fondo."
+    end
   end
 
   # FIXME in model
