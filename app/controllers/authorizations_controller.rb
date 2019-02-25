@@ -19,6 +19,12 @@ class AuthorizationsController < ApplicationController
   end
 
   def destroy
+    if Authorization.find(params[:id]).destroy
+      flash[:notice] = "OK."
+    else
+      flash[:error] = "Non è stato possibile eliminare l'autorizzazione."
+    end
+    redirect_to authorizations_path
   end
 
   private
