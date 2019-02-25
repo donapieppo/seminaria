@@ -1,6 +1,8 @@
-<h1>Elenco seminari del ciclo ``<%= @cycle %>''</h1>
+<h1>Elenco seminari del ciclo di seminari <br/><small>``<%= @cycle.to_s.upcase %>''</small></h1>
 
-<div class="well"><%= @cycle.description %></div> 
+<div class="alert alert-info">
+  <%= @cycle.description %>
+</div> 
 
 <% @seminars.each do |seminar| %>  
   <%= render seminar %>  
