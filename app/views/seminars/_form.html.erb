@@ -1,5 +1,6 @@
 <% if @cycle %>  
-  <% other_seminars_same_cycle = @cycle.seminars.order('id desc').to_a %>  
+  <%# other except itsself (of nil in new_record) %>
+  <% other_seminars_same_cycle = @cycle.seminars.where('id != ?', @seminar.id).order('id desc').to_a %>  
   <div class="alert alert-info">
     <p>
     <strong>Ciclo: <%= @cycle %></strong>
