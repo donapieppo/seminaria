@@ -1,11 +1,14 @@
-<h1><%= serial_image(@serial) %> <%= @serial %></h1>
+<h1>
+  <small>Seminari periodici <%= current_organization.description.upcase %></small><br/>
+  <%= serial_image(@serial) %> <%= @serial %>
+</h1>
 
-<p class="centered_action">
+<div class="centered_action">
   <% unless @serial.link.blank? %>  
     <%= link_to icon('home', text: 'pagina web ufficiale'), @serial.link, target: "_blank" %>
   <% end %>
-  <%= link_to_edit 'modifica la serie', edit_serial_path(@serial) if user_is_admin? %>
-</p>
+  <%= link_to_edit 'modifica la serie', edit_serial_path(@serial) if policy(@serial).edit? %>
+</div>
 
 <% @seminars.each do |seminar| %>
   <%= render seminar %>
