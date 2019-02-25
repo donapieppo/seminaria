@@ -15,17 +15,20 @@
 <div class="row">
   <div class="col-lg-7">
     <%= dm_card title: checked_title(@repayment, :reason) do %>  
-      <div><p><em><%= attribute_to_s @repayment.reason %></em></p></div>
-      <div>
-        <strong>Curriclum vitae:</strong> 
+      <% if @repayment.reason.blank? %>  
+        <p class="alert alert-warning"><%= t :reason_long_version %>.</p>
+      <% else %>
+        <p><em><%= attribute_to_s @repayment.reason %></em></p>
+      <% end %>
+      <dl class="inline">
+        <dt>Curriclum vitae:</dt>
+        <dd>
         <% cvs = @repayment.documents.all %>  
-        <%= "-" if cvs.empty? %>  
+        <%= "è necessario inserire il CV del relatore" if cvs.empty? %>  
         <% cvs.each do |doc| %> <%= link_to_cv doc %> <% end %>
-      </div>
+        </dd>
       <% if user_can_edit %>  
-        <div>
-          <%= modal_link_to('Modifica', edit_repayment_path(@repayment, what: :reason ), addclass: :button) %>
-        </div>
+        <dd><%= modal_link_to('Modifica', edit_repayment_path(@repayment, what: :reason ), addclass: :button) %></dd>
       <% end %>
     <% end %>
 
@@ -34,7 +37,7 @@
         <dt>Titolare del fondo</dt>
         <dd><%= attribute_to_s @repayment.holder.to_s %></dd>
         <dt>Fondo</dt>
-        <dd><%= @repayment.fund or "<span class='text-danger'>Fondo ancora da stabilire</span>".html_safe %></dd>
+        <dd><%= @repayment.fund or "Fondo ancora da stabilire".html_safe %></dd>
         <% if user_is_manager? %>  
           <dt>Numero vincolo di costo</dt>
           <dd><%= @repayment.bond_year %>/<%= @repayment.bond_number %></dd>
