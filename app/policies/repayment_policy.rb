@@ -17,14 +17,17 @@ class RepaymentPolicy
     @user and (SeminarPolicy.new(@user, @record.seminar).update? or update_fund?)
   end
 
+  # in controller we check data restrains
   def new?
     @user and SeminarPolicy.new(@user, @record.seminar).update?
   end
 
+  # there's actually no create in controller. the new method (I know, :get and not a :post) acts like a create.
   def create?
-    true
+    new?
   end
 
+  # simple user can update until notified
   def update?
     @user and (@user.can_manage?(@record.seminar.organization_id) or 
               ((! @record.notified) and SeminarPolicy.new(@user, @record.seminar).update?))
