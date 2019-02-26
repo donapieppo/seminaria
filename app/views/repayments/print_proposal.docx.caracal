@@ -52,9 +52,13 @@ docx.p '(Residenti e non residenti)', align: :center
 
 docx.p ""
 
-docx.p "Il sottoscritto #{@repayment.fund.holder} propone #{he_she_proposes(@repayment)} a favore di #{@repayment.speaker_with_title} in qualità di #{@repayment.position} presso #{@repayment.affiliation}, che si dichiara non essere componente del progetto di ricerca/didattica nell’ambito del quale viene resa la prestazione e su cui graverà la spesa per SEMINARIO “#{@repayment.seminar.title}” del #{@repayment.seminar.date.strftime("%d/%m/%Y")} e colloqui scientifici per ricerca in collaborazione - periodo #{I18n.l(@repayment.speaker_arrival) if @repayment.speaker_arrival} - #{I18n.l(@repayment.speaker_departure) if @repayment.speaker_departure} nell’ambito del seguente progetto di ricerca/didattica, su cui graverà la spesa:"
-docx.p "progetto: #{@repayment.fund} titolare prof. #{@repayment.holder}."
+docx.p "Il sottoscritto #{@repayment.fund.holder} propone #{he_she_proposes(@repayment)} a favore di #{@repayment.speaker_with_title.upcase} in qualità di #{@repayment.position} presso #{@repayment.affiliation}, che si dichiara non essere componente del progetto di ricerca/didattica nell’ambito del quale viene resa la prestazione e su cui graverà la spesa per"
+docx.p 
 
+docx.p "SEMINARIO “#{@repayment.seminar.title}” del #{@repayment.seminar.date.strftime("%d/%m/%Y")} e colloqui scientifici per ricerca in collaborazione - periodo #{I18n.l(@repayment.speaker_arrival) if @repayment.speaker_arrival} - #{I18n.l(@repayment.speaker_departure) if @repayment.speaker_departure} nell’ambito del seguente progetto di ricerca/didattica, su cui graverà la spesa:"
+docx.p 
+
+docx.p "progetto: #{@repayment.fund} titolare prof. #{@repayment.holder}."
 docx.p
 
 docx.p "I sottoscritti dichiarano altresì che l’iniziativa è attinente al progetto su menzionato, poiché essa tratta  metodi, tecniche e problematiche direttamente connessi alle tematiche in esso sviluppate, e che la scelta del relatore è giustificata dalla riconosciuta qualifica di esperto scientifico della materia"
