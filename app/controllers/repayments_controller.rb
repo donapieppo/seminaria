@@ -16,6 +16,7 @@ class RepaymentsController < ApplicationController
     authorize current_organization, :manage?
   end
 
+  # is actually a create 
   def new
     @seminar = Seminar.find(params[:seminar_id])
 
@@ -100,15 +101,19 @@ class RepaymentsController < ApplicationController
   # Utilizzato da user se non possiede i fondi. Invia mail al gestore dei fondi 
   # che ha scelto. Una volta notificato non può più essere cambiato da utente.
   def notify
-    @repayment.update_attribute(:notified, true)
-    if ! @repayment.fund
-      RepaymentMailer.notify_repayment_to_holder(@repayment).deliver
-      flash[:notice] = "La richiesta di rimborso è stata inviata a #{@repayment.holder}."
+    if user_too_late_for_repayment?(@seminar)
+      redirect_to seminar_path(@seminar), alert: 'Non è più possibile richiedere rimborso / compenso.'
     else
-      RepaymentMailer.notify_fund(@repayment).deliver
-      flash[:notice] = "La richiesta di rimborso è stata inviata all'amministrazione."
+      @repayment.update_attribute(:notified, true)
+      if ! @repayment.fund
+        RepaymentMailer.notify_repayment_to_holder(@repayment).deliver
+        flash[:notice] = "La richiesta di rimborso è stata inviata a #{@repayment.holder}."
+      else
+        RepaymentMailer.notify_fund(@repayment).deliver
+        flash[:notice] = "La richiesta di rimborso è stata inviata all'amministrazione."
+      end
+      redirect_to root_path
     end
-    redirect_to root_path
   end
 
   def choose_fund
