@@ -1,6 +1,6 @@
 class RepaymentsController < ApplicationController
   # propria richiesta o su propri fondi
-  before_action :get_repayment_seminar_and_check_permission, only: [:show, :edit, :update, :notify, :print_decree, :print_letter, :print_proposal]
+  before_action :get_repayment_and_seminar_and_check_permission, only: [:show, :edit, :update, :notify, :print_decree, :print_letter, :print_proposal]
   # su propri fondi
   before_action :get_repayment_and_check_fund_permission, only: [:choose_fund, :update_fund]
   before_action :get_and_validate_holder,                 only: [:update]
@@ -147,7 +147,7 @@ class RepaymentsController < ApplicationController
     params[:repayment].permit(p)
   end
 
-  def get_repayment_seminar_and_check_permission
+  def get_repayment_and_seminar_and_check_permission
     @repayment = Repayment.find(params[:id])
     @seminar = @repayment.seminar
     authorize @repayment
