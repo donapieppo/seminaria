@@ -12,7 +12,7 @@ col_left = Caracal::Core::Models::TableCellModel.new do
   if repayment.payment
     p "LORDO ENTE: € #{repayment.lordo_ente}", size: 16
     p "LORDO PERCIPIENTE: € #{repayment.lordo_percipiente}", size: 16
-    p "NETTO: € #{repayment.payment}", size: 16
+    p "NETTO PERCIPIENTE: € #{repayment.netto_percipiente}", size: 16
   elsif repayment.expected_refund
     p "NETTO: € #{repayment.expected_refund}", size: 16
   end
