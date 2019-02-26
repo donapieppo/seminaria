@@ -12,6 +12,7 @@
       <span class="font-weight-bold mr-3"><%= l(repayment.seminar.date, format: :date) %></span> 
       <%= repayment.seminar.speaker %>
       <span class="float-right"><small>
+      richiedente <%= repayment.seminar.user %> -  
       <% if repayment.notified %>  
         <%= repayment.fund %>
       <% else %>
