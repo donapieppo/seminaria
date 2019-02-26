@@ -1,6 +1,10 @@
 <h2>Allegati</h2>
 
 <div class="attachs">
+  <p>
+  Questi allegati (per esempo locandine, slides, etc.) sono <strong>pubblici</strong>. 
+  Nel caso di un rimborso/compenso dovrete inserire il curriculum vitae del relatore (in questo caso visibile solo all'amministrazione) in un altro form.
+  </p>
   <% if @documents.any? %>  
     <ul>
       <% @documents.each do |document| %>
@@ -8,7 +12,7 @@
       <% end %>
     </ul>
   <% else %>
-    <p>Non sono ancora stati inseriti allegati a questo seminario</p>
+    <p>Non sono ancora stati inseriti allegati a questo seminario.</p>
   <% end %>
 
   <%= dm_form_for @document, url: seminar_documents_path(@seminar), html: { multipart: true } do |document| %>
