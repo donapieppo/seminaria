@@ -75,6 +75,9 @@ class Seminar < ApplicationRecord
     end
   end
 
+  # too late if:
+  # - seminar start in less than repayment_deadline days (see configuration)
+  # - the repayment has a speaker_arrival and the arrival is before repayment_deadline days
   def too_late_for_repayment?
     startDatePossibleRepayment = Date.today + Rails.configuration.repayment_deadline.days
     (self.date < startDatePossibleRepayment) and return true

@@ -2,18 +2,17 @@ class RepaymentsController < ApplicationController
   # propria richiesta o su propri fondi
   before_action :get_repayment_and_seminar_and_check_permission, only: [:show, :edit, :update, :notify, :print_decree, :print_letter, :print_proposal]
   # su propri fondi
-  before_action :get_repayment_and_check_fund_permission, only: [:choose_fund, :update_fund]
+  before_action :get_repayment_and_check_permission, only: [:choose_fund, :update_fund]
   before_action :get_and_validate_holder,                 only: [:update]
 
   def index
     @year ||= (params[:year] || Date.today.year).to_i
-    @repayments = Repayment.includes(:seminar, :fund)
+    @repayments = Repayment.includes(seminar: :user, fund: [:category, :holder])
                            .order('seminars.date DESC')
                            .where("YEAR(seminars.date) = ?", @year)
                            .where("seminars.organization_id = ?", current_organization.id )
                            .references(:seminars)
-    # FIXME 
-    # how to pass organization to pundit index?
+    # FIXME: how to pass organization to pundit index?
     authorize current_organization, :manage?
   end
 
@@ -23,9 +22,13 @@ class RepaymentsController < ApplicationController
     if user_too_late_for_repayment?(@seminar)
       redirect_to seminar_path(@seminar), alert: 'Non è più possibile richiedere rimborso / compenso.'
     else
-      @repayment = @seminar.repayment || @seminar.create_repayment(italy: true, speaker_arrival: @seminar.date, speaker_departure: @seminar.date)
+      @repayment = @seminar.repayment || @seminar.build_repayment(speaker_arrival: @seminar.date, speaker_departure: @seminar.date)
       authorize @repayment
-      render action: :show
+      if @repayment.save
+        render action: :show
+      else
+        redirect_to seminar_path(@seminar), alert: 'Non è più possibile richiedere rimborso / compenso.'
+      end
     end
   end
 
@@ -153,7 +156,7 @@ class RepaymentsController < ApplicationController
     authorize @repayment
   end
 
-  def get_repayment_and_check_fund_permission
+  def get_repayment_and_check_permission
     @repayment = Repayment.find(params[:id])
     begin
       authorize @repayment
