@@ -25,10 +25,12 @@ div.home-filters {
   }
   .seminar-body {
     @extend .card-body;
+    @extend .pb-1;
   }
   .seminar-footer {
     @extend .card-body;
     @extend .text-muted;
+    @extend .pt-1;
   }
 
   .when {
