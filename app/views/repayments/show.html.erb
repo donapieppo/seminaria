@@ -1,15 +1,20 @@
 <% user_can_edit = policy(@repayment).edit? %>  
+<% ok_to_send    = repayment_all_ok_to_send?(@repayment) %>  
 
 <h1>Richiesta rimborso / compenso <br/>
   <small>seminario di <%= @repayment.seminar.speaker %>  <small>(<%= l @seminar.date %>)</small> - richiedente: <%= @repayment.seminar.user.to_s %> </small>
 </h1>
 
 <% if user_is_manager? %>  
-  <p style="text-align: right">
-  <%= link_to icon('print') + ' stampa lettera',  print_letter_repayment_path(@repayment, format: :docx),   class: 'btn btn-sm btn-outline-primary' %> -
-  <%= link_to icon('print') + ' stampa decreto',  print_decree_repayment_path(@repayment, format: :docx),   class: 'btn btn-sm btn-outline-primary' %> - 
-  <%= link_to icon('print') + ' stampa proposta', print_proposal_repayment_path(@repayment, format: :docx), class: 'btn btn-sm btn-outline-primary' %>  
-  </p>
+  <div style="text-align: right">
+    <% if ok_to_send %>  
+      <%= link_to icon('print') + ' stampa lettera',  print_letter_repayment_path(@repayment, format: :docx),   class: 'btn btn-sm btn-outline-primary' %> -
+      <%= link_to icon('print') + ' stampa decreto',  print_decree_repayment_path(@repayment, format: :docx),   class: 'btn btn-sm btn-outline-primary' %> - 
+      <%= link_to icon('print') + ' stampa proposta', print_proposal_repayment_path(@repayment, format: :docx), class: 'btn btn-sm btn-outline-primary' %>  
+    <% else %>
+      I documenti saranno disponibili solo dopo che tutti i dati richiesti saranno compilati.
+    <% end %>
+  </div>
 <% end %>
 
 <div class="row">
@@ -91,9 +96,8 @@
 
 <div style="text-align: center">
   <% if ! @repayment.notified and policy(@repayment).edit? %>  
-    <% ok = repayment_all_ok_to_send?(@repayment) %>  
-    <% button_class = ok ? 'btn-success' : 'btn-primary disabled' %>  
-    <% unless ok %>  
+    <% button_class = ok_to_send ? 'btn-success' : 'btn-primary disabled' %>  
+    <% unless ok_to_send %>  
       <div class="alert alert-warning m-3">
         Per <strong>inviare la richiesta</strong> è necessario che tutti i campi siano compilati correttamente.
       </div>
