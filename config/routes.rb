@@ -1,13 +1,11 @@
 Rails.application.routes.draw do
   get 'seminars/archive/(:year)',   controller: 'seminars',   action: 'archive', as: 'archive_seminars'
-  get 'highlights/archive/(:year)', controller: 'highlights', action: 'archive', as: 'archive_highlights'
 
   get 'totem', controller: 'home', action: 'totem', as: 'totem'
 
   get 'user/seminars',   controller: 'seminars',   action: 'index', only_current_user: true,  as: 'user_seminars'
   get 'funds/seminars',  controller: 'seminars',   action: 'index', funds_current_user: true, as: 'funds_seminars'
   get 'user/cycles',     controller: 'cycles',     action: 'index',                           as: 'user_cycles'
-  get 'user/highlights', controller: 'highlights', action: 'index', only_current_user: true,  as: 'user_highlights'
 
   resources :users
   resources :authorizations
