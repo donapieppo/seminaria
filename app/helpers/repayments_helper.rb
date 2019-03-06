@@ -13,14 +13,6 @@ module RepaymentsHelper
     end
   end
 
-  def corresponsione(repayment)
-    if @repayment.payment
-      "di un compenso per prestazione occasionale pari a € #{@repayment.payment} lordo percipiente"
-    else
-      "del mero rimborso spese"
-    end
-  end
-
   def repayment_header(docx)
     logopath = "#{Rails.root}/app/assets/images/sigillo1.png"
     docx.img logopath do
@@ -31,6 +23,14 @@ module RepaymentsHelper
     
     docx.p "ALMA MATER STUDIORUM - UNIVERSITÀ DI BOLOGNA", align: :center, bold: true
     docx.p "Dipartimento di Matematica", align: :center, bold: true
+  end
+
+  def corresponsione(repayment)
+    if repayment.payment
+      "di un compenso per prestazione occasionale pari a € #{repayment.lordo_percipiente} lordo percipiente"
+    else
+      "del mero rimborso spese"
+    end
   end
 
   def decree_spending(repayment)
