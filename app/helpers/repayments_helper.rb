@@ -27,7 +27,7 @@ module RepaymentsHelper
 
   def corresponsione(repayment)
     if repayment.payment
-      "di un compenso per prestazione occasionale pari a € #{repayment.lordo_percipiente} lordo percipiente"
+      "di un compenso per prestazione occasionale pari a € #{repayment.lordo_ente} lordo ente"
     else
       "del mero rimborso spese"
     end
