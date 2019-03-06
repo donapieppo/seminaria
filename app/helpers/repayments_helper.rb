@@ -58,7 +58,7 @@ module RepaymentsHelper
 
   def he_she_proposes(repayment)
     if repayment.payment
-      "compenso lordo/netto di euro #{repayment.payment}"
+      "compenso lordo di euro #{repayment.lordo_ente}"
     else
       "rimborso spese di viaggio e/o vitto e/o alloggio, in conformità ai massimali di spesa e alla disciplina di cui al Regolamento Missioni" # :   □ Gruppo A  □ Gruppo B (1) (2)"
     end
