@@ -1,12 +1,11 @@
 class DocumentsController < ApplicationController
   before_action :get_seminar_and_check_permission, except: [:destroy]
 
-  def new
-  end
-
   def create
     document = @seminar.documents.new(document_params)
     document.user_id = current_user.id
+
+    authorize(document)
 
     logger.info document.inspect
 
@@ -21,9 +20,7 @@ class DocumentsController < ApplicationController
 
   def destroy
     document = Document.find(params[:id])
-    if user_admin? or document.user_id == current_user.id
-      document.destroy
-    end
+    authorize(document)
     redirect_to document.seminar_id ? edit_seminar_path(document.seminar_id) : repayment_path(document.repayment_id)
   end
 
@@ -31,7 +28,6 @@ class DocumentsController < ApplicationController
 
   def get_seminar_and_check_permission
     @seminar = Seminar.find(params[:seminar_id])
-    user_owns!(@seminar)
   end
 
   def document_params

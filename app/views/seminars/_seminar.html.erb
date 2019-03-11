@@ -41,7 +41,7 @@
     </div>
     <div class="links_and_documents">
       <% seminar.documents.each do |document| %>
-        <%= icon('file') %> <%= link_to document, document.url %> <br/>
+        <%= link_to_download(url_for(document.attach), document.description) %>
       <% end %>
     </div>
   </div>
