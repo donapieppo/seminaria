@@ -1,11 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'dm_unibo_common',      git: 'https://github.com/donapieppo/dm_unibo_common.git',      ref: 'master', branch: 'master'
-gem 'dm_unibo_user_search', git: 'https://github.com/donapieppo/dm_unibo_user_search.git', ref: 'master', branch: 'master'
-
+gem 'dm_unibo_common', git: 'https://github.com/donapieppo/dm_unibo_common.git',      ref: 'master', branch: 'master'
 #gem 'dm_unibo_common', path: '/home/rails/gems/dm_unibo_common/'
-#gem 'dm_unibo_common',      '= 2.0.1'
-#gem 'dm_unibo_user_search', '= 0.1.1'
+#gem 'dm_unibo_common', '= 2.0.1'
+gem 'dm_unibo_user_search', git: 'https://github.com/donapieppo/dm_unibo_user_search.git', ref: 'master', branch: 'master'
 
 gem "paperclip"
 gem "prawn"
@@ -22,6 +20,8 @@ gem 'roo-xls'
 
 gem 'mini_racer'
 gem 'sdoc', '~> 0.4.0', group: :doc
+
+gem 'listen'
 
 group :development, :test do
   gem 'rspec-rails'
