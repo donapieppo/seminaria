@@ -11,7 +11,8 @@ class Seminar < ApplicationRecord
   has_one    :repayment, dependent: :destroy
   has_and_belongs_to_many :arguments
 
-  scope :future, -> { where("date > DATE_ADD(NOW(), INTERVAL -2 hour)") }
+  scope :future, -> { where("seminars.date > DATE_ADD(NOW(), INTERVAL -2 hour)") }
+  scope :date_today, -> { where("DATE(seminars.date)=CURDATE()") }
 
   before_save :manage_place_choice, :date_in_future
 
