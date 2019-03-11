@@ -10,7 +10,7 @@
     <% if user_cesia? %>  
       <li><%= link_to big_icon('users', text: 'Auths'), authorizations_path %></li>
     <% end %>
-    <% if user_is_manager? %>  
+    <% if policy(@current_organization).manage? %>  
       <%= dropdown_menu :amm, big_icon('cogs', text: ' Amm.') do  %>
         <%= link_to fwicon('euro-sign', text: 'Compensi'), repayments_path %>
         <%= link_to fwicon('wallet', text: 'Fondi'), funds_path %>
@@ -18,6 +18,8 @@
         <%= link_to fwicon('map-marker', text: 'Luoghi'), places_path %>
         <%= link_to fwicon('comment', text: 'Topics'), arguments_path %>
       <% end %>
+    <% elsif policy(@current_organization).see? %>
+      <li><%= link_to big_icon('euro-sign', text: 'Compensi'), repayments_path %></li>
     <% end %>
   <% end %>
 <% end %>
