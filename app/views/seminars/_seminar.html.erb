@@ -1,4 +1,5 @@
 <% short ||= false %>  
+
 <%= content_tag :div, class: css_classes(seminar) do %>
 
   <div class="seminar-header">
@@ -35,24 +36,22 @@
   </div> <!-- header -->
 
   <div class="seminar-body">
-    <div class="content">
-      <div class="abstract"><%= seminar.abstract unless short %></div>
-      <div class="links_and_documents">
-        <% seminar.documents.each do |document| %>
-          <%= icon('file') %> <%= link_to document, document.url %> <br/>
-        <% end %>
-      </div><!-- links_and_documents -->
-    </div><!-- content -->
-  </div><!-- body -->
+    <div class="abstract">
+      <%= seminar.abstract %>
+    </div>
+    <div class="links_and_documents">
+      <% seminar.documents.each do |document| %>
+        <%= icon('file') %> <%= link_to document, document.url %> <br/>
+      <% end %>
+    </div>
+  </div>
 
-  <% if ! short %>
-    <div class="seminar-footer">
-      <span class="committee">
-        <hr/>
-        <%= t :organized_by %> <%= seminar.committee %> <br/>
-        <%= seminar.project %>  
-      </span>
-    </div><!-- footer -->
-  <% end %>
+  <div class="seminar-footer">
+    <span class="committee">
+      <hr/>
+      <%= t :organized_by %> <%= seminar.committee %> <br/>
+      <%= seminar.project %>  
+    </span>
+  </div><!-- footer -->
 <% end %><!-- seminar -->
 
