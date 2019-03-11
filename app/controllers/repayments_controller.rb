@@ -13,7 +13,7 @@ class RepaymentsController < ApplicationController
                            .where("seminars.organization_id = ?", current_organization.id )
                            .references(:seminars)
     # FIXME: how to pass organization to pundit index?
-    authorize current_organization, :manage?
+    authorize(current_organization, :see?)
   end
 
   # is actually a create 
