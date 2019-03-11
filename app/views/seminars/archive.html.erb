@@ -8,7 +8,8 @@
   </ul>
 </div>
 
-<% @seminars.each do |seminar| %>  
-  <%= render seminar, short: true %>  
+<% cache 'archive_#{@year}' do %>
+  <% @seminars.each do |seminar| %>  
+    <%= render seminar, short: true %>  
+  <% end %>
 <% end %>
-
