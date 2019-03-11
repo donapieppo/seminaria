@@ -14,7 +14,9 @@ class Authorization < ApplicationRecord
     @@_auths = nil
   end
 
-  def self.can_manage?(_user_id, _organization_id)
+  def self.can_see?(_user_id, _organization_id)
+    (_user_id && _organization_id) or return false
+
     _user_id = _user_id.id if _user_id.is_a?(User)
     _organization_id = _organization_id.id if _organization_id.is_a?(Organization)
 
@@ -22,12 +24,35 @@ class Authorization < ApplicationRecord
     auths[_organization_id] and auths[_organization_id] > 0
   end
 
-  def self.can_admin?(_user_id, _organization_id)
+  def self.can_manage?(_user_id, _organization_id)
+    (_user_id && _organization_id) or return false
+
     _user_id = _user_id.id if _user_id.is_a?(User)
     _organization_id = _organization_id.id if _organization_id.is_a?(Organization)
 
     auths = user_auths_cache(_user_id)
     auths[_organization_id] and auths[_organization_id] > 1
+  end
+
+  def self.can_admin?(_user_id, _organization_id)
+    (_user_id && _organization_id) or return false
+
+    _user_id = _user_id.id if _user_id.is_a?(User)
+    _organization_id = _organization_id.id if _organization_id.is_a?(Organization)
+
+    auths = user_auths_cache(_user_id)
+    auths[_organization_id] and auths[_organization_id] > 2
+  end
+
+  def authlevel_string
+    case self.authlevel
+    when 1
+      'lettore'
+    when 2
+      'amministratore'
+    when 3
+      '???'
+    end
   end
 
   private 
