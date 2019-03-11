@@ -44,6 +44,10 @@ class User < ActiveRecord::Base
     Seminar.where(id: seminar_ids)
   end
 
+  def can_see?(organization)
+    Authorization.can_see?(self.id, organization)
+  end
+
   def can_manage?(organization)
     Authorization.can_manage?(self.id, organization) 
   end
