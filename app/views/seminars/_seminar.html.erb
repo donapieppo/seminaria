@@ -31,6 +31,11 @@
         <%= hour_tag(seminar, short: short) %>  
         <%= where_tag(seminar, short: short) %>  
         <%= seminar_link_tag(seminar) %>  
+        <div>
+        <% seminar.documents.each do |document| %>
+          <%= document_tag(document) %>
+        <% end %>
+        </div>
       </div><!-- what -->
     </div> <!-- row -->
   </div> <!-- header -->
@@ -38,11 +43,6 @@
   <div class="seminar-body">
     <div class="abstract">
       <%= seminar.abstract %>
-    </div>
-    <div class="links_and_documents">
-      <% seminar.documents.each do |document| %>
-        <%= link_to_download(url_for(document.attach), document.description) %>
-      <% end %>
     </div>
   </div>
 
