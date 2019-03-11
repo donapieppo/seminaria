@@ -1,12 +1,14 @@
 <h1>Archivio <%= @year %></h1>
 
-<ul class="pagination justify-content-center">
-<% (2003..Date.today.year).each do |year| %>  
-  <li class="page-item <%= 'active' if (@year == year) %>"><%= link_to year, archive_seminars_path(year), class: 'page-link' %></li>
-<% end %>
-</ul>
+<div>
+  <ul class="pagination justify-content-center">
+    <% (2003..Date.today.year).each do |year| %>  
+      <li class="page-item <%= 'active' if (@year == year) %>"><%= link_to year, archive_seminars_path(year), class: 'page-link' %></li>
+    <% end %>
+  </ul>
+</div>
 
 <% @seminars.each do |seminar| %>  
-  <%= render seminar %>  
+  <%= render seminar, short: true %>  
 <% end %>
 
