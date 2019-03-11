@@ -5,7 +5,7 @@
   <small>seminario di <%= @repayment.seminar.speaker %>  <small>(<%= l @seminar.date %>)</small> - richiedente: <%= @repayment.seminar.user.to_s %> </small>
 </h1>
 
-<% if user_is_manager? %>  
+<% if policy(current_organization).see? %>  
   <div style="text-align: right">
     <% if ok_to_send %>  
       <%= link_to icon('print') + ' stampa lettera',  print_letter_repayment_path(@repayment, format: :docx),   class: 'btn btn-sm btn-outline-primary' %> -
@@ -105,7 +105,7 @@
     <%= link_to 'invia richiesta', notify_repayment_path(@repayment), class: "btn btn-lg #{button_class}", method: :post %>
   <% end %>
   <% if ! user_can_edit %>  
-    <div class="alert alert-info">Non è possibile mdificare i dati relativi al rimborso / compenso.</div>
+    <div class="alert alert-info">Non è possibile modificare i dati relativi al rimborso / compenso.</div>
   <% end %>
 </div>
 
