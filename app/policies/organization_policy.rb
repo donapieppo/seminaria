@@ -6,6 +6,10 @@ class OrganizationPolicy
     @record = record
   end
 
+  def see?
+    @user and @user.can_see?(@record)
+  end
+
   def manage?
     @user and @user.can_manage?(@record)
   end
