@@ -46,6 +46,12 @@ module SeminarsHelper
     end
   end
 
+  def document_tag(document, short: false)
+    content_tag :div do
+      icon('download') + "&nbsp;".html_safe + link_to(document.description, url_for(document.attach))
+    end
+  end
+
   def clock_tag(seminar, short: false)
     if seminar.date.today? and !short
       content_tag :div, class: :today do 
