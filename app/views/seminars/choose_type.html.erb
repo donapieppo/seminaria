@@ -5,7 +5,7 @@
     <h2>Singolo seminario</h2>
 
     <div>
-      <%= link_to "Inserisci <br/>singolo seminario".html_safe, new_seminar_path, class: 'btn btn-lg btn-primary p-3 m-3' %>
+      <%= link_to "INSERISCI <br/>SINGOLO SEMINARIO".html_safe, new_seminar_path, class: 'btn btn-lg btn-outline-primary p-3 m-3' %>
     </div>
   </div>
 
@@ -29,7 +29,7 @@
           </strong>
         </div>
         <div class='col-md-3 p-2'>
-          <%= link_to "Inserisci seminario".html_safe, new_cycle_seminar_path(cycle), class: 'btn btn-primary' %> 
+          <%= link_to "INSERISCI SEMINARIO".html_safe, new_cycle_seminar_path(cycle), class: 'btn btn-outline-primary' %> 
         </div>
       <% end %>
     </div>
@@ -46,7 +46,7 @@
           <strong>&ldquo; <%= serial.to_s.upcase %> &rdquo;</strong>
         </div>
         <div class="col-md-3 p-2">
-          <%= link_to "Inserisci seminario".html_safe, new_serial_seminar_path(serial), class: 'btn btn-primary' %>
+          <%= link_to "INSERISCI SEMINARIO".html_safe, new_serial_seminar_path(serial), class: 'btn btn-outline-primary' %>
         </div>
       <% end %>
     </div>
