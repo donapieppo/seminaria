@@ -3,7 +3,7 @@ class RepaymentsController < ApplicationController
   before_action :get_repayment_and_seminar_and_check_permission, only: [:show, :edit, :update, :notify, :print_decree, :print_letter, :print_proposal]
   # su propri fondi
   before_action :get_repayment_and_check_permission, only: [:choose_fund, :update_fund]
-  before_action :get_and_validate_holder,                 only: [:update]
+  before_action :get_and_validate_holder,            only: [:update]
 
   def index
     @year ||= (params[:year] || Date.today.year).to_i
@@ -106,13 +106,13 @@ class RepaymentsController < ApplicationController
     else
       @repayment.update_attribute(:notified, true)
       if ! @repayment.fund
+        # notify who has to choose the fund
         RepaymentMailer.notify_repayment_to_holder(@repayment).deliver
         flash[:notice] = "La richiesta di rimborso è stata inviata a #{@repayment.holder}."
       else
         RepaymentMailer.notify_fund(@repayment).deliver
         flash[:notice] = "La richiesta di rimborso è stata inviata all'amministrazione."
       end
-      redirect_to root_path
     end
   end
 
