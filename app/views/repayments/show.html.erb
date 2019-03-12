@@ -1,7 +1,7 @@
 <% user_can_edit = policy(@repayment).edit? %>  
 <% ok_to_send    = repayment_all_ok_to_send?(@repayment) %>  
 
-<h1>Richiesta rimborso / compenso <br/>
+<h1>Richiesta di rimborso / compenso <br/>
   <small>seminario di <%= @repayment.seminar.speaker %>  <small>(<%= l @seminar.date %>)</small> - richiedente: <%= @repayment.seminar.user.to_s %> </small>
 </h1>
 
