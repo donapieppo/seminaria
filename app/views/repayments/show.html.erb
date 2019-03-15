@@ -5,17 +5,7 @@
   <small>seminario di <%= @repayment.seminar.speaker %>  <small>(<%= l @seminar.date %>)</small> - richiedente: <%= @repayment.seminar.user.to_s %> </small>
 </h1>
 
-<% if policy(current_organization).see? %>  
-  <div style="text-align: right">
-    <% if ok_to_send %>  
-      <%= link_to icon('print') + ' stampa lettera',  print_letter_repayment_path(@repayment, format: :docx),   class: 'btn btn-sm btn-outline-primary' %> -
-      <%= link_to icon('print') + ' stampa decreto',  print_decree_repayment_path(@repayment, format: :docx),   class: 'btn btn-sm btn-outline-primary' %> - 
-      <%= link_to icon('print') + ' stampa proposta', print_proposal_repayment_path(@repayment, format: :docx), class: 'btn btn-sm btn-outline-primary' %>  
-    <% else %>
-      I documenti saranno disponibili solo dopo che tutti i dati richiesti saranno compilati.
-    <% end %>
-  </div>
-<% end %>
+<%= render partial: 'print_operations', locals: { repayment: @repayment, ok_to_send: ok_to_send } %>  
 
 <div class="row">
   <div class="col-lg-7">
@@ -82,7 +72,7 @@
   <div class="col-lg-5">
     <%= dm_card title: checked_title(@repayment, :speaker_details) do %>
       <dl class="inline">
-        <% for m in [:name, :surname, :email, :affiliation, :position_to_s, :address, :postalcode, :city, :country, :birth_date, :birth_place, :birth_country] do %>  
+        <% for m in [:name, :surname, :email, :affiliation, :position_to_s, :address, :postalcode, :city, :country, :birth_date, :birth_place, :birth_country, :taxid] do %>  
           <dt><%= t m %></dt>
           <dd><%= attribute_to_s @repayment.send(m) %></dd>
         <% end %>
@@ -91,6 +81,15 @@
         <% end %>
       </dl>
     <% end %>
+    <%= dm_card title: 'Coordinate Bancarie' do %>
+      <dl class="inline">
+        <dt>Iban</dt><dd><%= @repayment.iban %></dd>
+        <dt>Swift</dt><dd><%= @repayment.swift %></dd>
+        <dt>Aba</dt><dd><%= @repayment.aba %></dd>
+        <dd><%= modal_link_to 'Modifica', edit_repayment_path(@repayment, what: :bank), addclass: :button %></dd>
+      </dl>
+    <% end %>
+
   </div>
 </div>
 
