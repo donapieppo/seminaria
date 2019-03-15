@@ -8,6 +8,7 @@
   <%= repayment.dm_error_notification %>  
   <input type="hidden" name="what" value="<%= @what %>">  
 
+  <%= render('bank_form', repayment: repayment) if @what == 'bank' %>  
   <%= render('fund_form', repayment: repayment) if @what == 'fund' %>  
   <%= render('speaker_reason', repayment: repayment) if @what == 'reason' %>  
   <% if @what == 'speaker' %>  
