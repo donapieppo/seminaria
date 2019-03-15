@@ -1,0 +1,14 @@
+<div class="dm-card">
+  <div class="dm-card-title">
+    Coordinate bancarie
+  </div>
+  <div class="dm-card-body">
+    <% if policy(repayment.object.seminar).edit? %>  
+      <%= repayment.input :iban %>
+      <%= repayment.input :swift %>
+      <%= repayment.input :aba %>
+    <% end %>
+  </div>
+</div>
+
+

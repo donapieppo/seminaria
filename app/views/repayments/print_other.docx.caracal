@@ -1,0 +1,42 @@
+letter_defaults(docx)
+
+repayment_header(docx) 
+repayment = @repayment
+
+docx.p
+
+docx.p "L’Ateneo di Bologna, sulla base delle disposizioni contenute nel D. Lgs. 33/2013, è tenuto a pubblicare  e  aggiornare le informazioni relative ai titolari di incarichi  amministrativi  di  vertice  e  di incarichi dirigenziali, a  qualsiasi  titolo  conferiti,  nonché  di collaborazione o consulenza.", italic: true
+docx.p "In particolare, con riguardo alle indicazione contenute nell’art. 15 co. 1 lett. c), Le chiediamo di compilare quanto di seguito riportato.", italic: true
+
+docx.p
+docx.p "Il/La sottoscritto/a  #{@repayment.name} #{@repayment.surname}, nat#{@repayment.seminar.female_speaker? ? 'a' : 'o'} a #{@repayment.birth_place} (#{@repayment.birth_country}), il #{@repayment.birth_date}"
+docx.p 
+docx.p "dichiara", bold: true, align: :center
+docx.p 
+docx.ul do
+  li "di non svolgere incarichi e né di avere titolarità di cariche in enti di diritto privato regolati o finanziati dalla pubblica amministrazione o lo svolgimento di attività professionali;"
+  li "di svolgere incarichi e/o avere titolarità di cariche in enti di diritto privato regolati o finanziati dalla pubblica amministrazione e/o lo svolgimento di attività professionali. In tal caso specificare nell’apposita tabella di seguito riportata:"
+end
+docx.p            
+docx.p            
+docx.table [['Cariche/incarichi/attività professionali','Ente/società', 'Data di inizio', 'Data di fine'],
+            ['', '', '', ''],
+            ['', '', '', ''],
+            ['', '', '', ''],
+            ['', '', '', ''],
+            ['', '', '', ''],
+            ['', '', '', ''],
+            ['', '', '', '']] do
+  border_color   '666666'   # sets the border color. defaults to 'auto'.
+  border_line    :single    # sets the border style. defaults to :single. see OOXML docs for details.
+  border_size    4          # sets the border width. defaults to 0. units in twips.
+  border_spacing 4          # sets the spacing around the border. defaults to 0. units in twips.
+  cell_style cols[2], width: 1600
+  cell_style cols[3], width: 1600
+end
+
+docx.p            
+docx.p            
+docx.p "Bologna,"
+docx.p "                                                          Firma"
+

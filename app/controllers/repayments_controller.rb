@@ -1,19 +1,20 @@
 class RepaymentsController < ApplicationController
   # propria richiesta o su propri fondi
-  before_action :get_repayment_and_seminar_and_check_permission, only: [:show, :edit, :update, :notify, :print_decree, :print_letter, :print_proposal]
+  before_action :get_repayment_and_seminar_and_check_permission, only: [:show, :edit, :update, :notify, 
+                                                                        :print_decree, :print_letter, :print_proposal, :print_repayment, :print_refund, :print_other]
   # su propri fondi
   before_action :get_repayment_and_check_permission, only: [:choose_fund, :update_fund]
   before_action :get_and_validate_holder,            only: [:update]
 
   def index
+    authorize :repayment
+
     @year ||= (params[:year] || Date.today.year).to_i
     @repayments = Repayment.includes(seminar: :user, fund: [:category, :holder])
                            .order('seminars.date DESC')
                            .where("YEAR(seminars.date) = ?", @year)
                            .where("seminars.organization_id = ?", current_organization.id )
                            .references(:seminars)
-    # FIXME: how to pass organization to pundit index?
-    authorize(current_organization, :see?)
   end
 
   # is actually a create 
@@ -80,6 +81,8 @@ class RepaymentsController < ApplicationController
   def show
   end
 
+  # MODULISTICA 
+
   def print_letter
     respond_to do |format|
       format.docx { headers["Content-Disposition"] = "attachment; filename=\"#{@repayment.letter_filename_docx('lettera_di_incarico')}\"" }
@@ -95,6 +98,24 @@ class RepaymentsController < ApplicationController
   def print_proposal
     respond_to do |format|
       format.docx { headers["Content-Disposition"] = "attachment; filename=\"#{@repayment.letter_filename_docx('proposta_di_compenso_o_rimborso')}\"" }
+    end
+  end
+
+  def print_repayment
+    respond_to do |format|
+      format.docx { headers["Content-Disposition"] = "attachment; filename=\"#{@repayment.letter_filename_docx('dati_anagrafici_e_modalita_pagamento')}\"" }
+    end
+  end
+
+  def print_refund
+    respond_to do |format|
+      format.docx { headers["Content-Disposition"] = "attachment; filename=\"#{@repayment.letter_filename_docx('nota_spese_trasferta')}\"" }
+    end
+  end
+
+  def print_other
+    respond_to do |format|
+      format.docx { headers["Content-Disposition"] = "attachment; filename=\"#{@repayment.letter_filename_docx('nota_spese_trasferta')}\"" }
     end
   end
 
@@ -149,7 +170,7 @@ class RepaymentsController < ApplicationController
 
   def repayment_params
     p = [:name, :surname, :email, :address, :postalcode, :city, :italy, :country, :birth_date, :birth_place, :birth_country, :affiliation,
-         :payment, :gross, :position_id, :role, :refund, :reason, :speaker_arrival, :speaker_departure, :expected_refund]
+         :payment, :gross, :position_id, :role, :refund, :reason, :speaker_arrival, :speaker_departure, :expected_refund, :taxid, :iban, :swift, :aba]
     p = p + [:bond_number, :bond_year] if user_is_manager?
     p = p + [:fund_id] if policy(@repayment).update_fund?
     params[:repayment].permit(p)

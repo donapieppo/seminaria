@@ -36,9 +36,13 @@ Rails.application.routes.draw do
     post :notify, on: :member
     get  :choose_fund, on: :member
     post :update_fund, on: :member
-    get  :print_letter, on: :member
-    get  :print_decree, on: :member
-    get  :print_proposal, on: :member
+
+    get  :print_letter,    on: :member
+    get  :print_decree,    on: :member
+    get  :print_proposal,  on: :member
+    get  :print_repayment, on: :member
+    get  :print_refund,    on: :member
+    get  :print_other,     on: :member
   end
 
   resources :documents do

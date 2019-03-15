@@ -1,0 +1,47 @@
+letter_defaults(docx)
+
+repayment_header(docx) 
+repayment = @repayment
+
+docx.p
+docx.p
+
+docx.p "DATI ANAGRAFICI E MODALITÀ DI PAGAMENTO", align: :center, bold: true
+docx.p
+docx.p
+docx.p "Il/La sottoscritto/a"
+docx.p
+docx.p "  #{@repayment.name} #{@repayment.surname},"
+docx.p "  nat#{@repayment.seminar.female_speaker? ? 'a' : 'o'} a #{@repayment.birth_place} (#{@repayment.birth_country}), il #{@repayment.birth_date},"
+docx.p "  codice fiscale #{@repayment.taxid.to_s.upcase}"
+docx.p "  residente in #{@repayment.address} – #{@repayment.postalcode}, #{@repayment.city} (#{@repayment.country}),"
+docx.p 
+docx.p "  in qualità di #{@repayment.position_to_s} presso #{@repayment.affiliation}"
+docx.p 
+docx.p "Chiede che il pagamento del compenso venga effettuato", align: :center, bold: true
+docx.p
+docx.p "mediante versamento su c/c bancario/bancoposta/Carta prepagata"
+docx.p "con le seguenti coordinate IBAN: #{ @repayment.iban.to_s.upcase}"
+docx.p
+docx.p "AVVERTENZA:  il c/c deve essere intestato o cointestato al dichiarante", align: :center
+unless @repayment.italy
+  docx.p "AVVERTENZA: i titolari di c/c europei ed extra-europei devono indicare anche:", align: :center
+  docx.p "Codice BIC/SWIFT: #{@repayment.swift.to_s.upcase}"
+  docx.p "Codice ABA/ROUTING NUMBER: #{@repayment.aba.to_s.upcase}"
+end
+docx.p "I shall prompty notify to the same office of the University of Bologna any change of residence to another Country", align: :center
+docx.p "Io sottoscritto mi impegno a comunicare tempestivamente ogni eventuale variazione dei dati dichiarati.", align: :center
+docx.p 
+docx.p 
+docx.p 
+docx.p "Data:  ___________"
+docx.p
+docx.p "Firma: ________________________"
+docx.p
+docx.p
+docx.p 
+docx.p 
+docx.p "* Importante: allegare sempre, alla presente dichiarazione sostitutiva, la copia di un documento di identità in corso di validità.", align: :center
+docx.p
+docx.p "INFORMATIVA AI FINI DELLA PRIVACY", align: :center, bold: true
+docx.p "S’informa che, ai sensi del D.Lgs 196/2003 e D.Lgs. 101/2018 sulla tutela dei dati personali, i dati raccolti con la presente dichiarazione saranno trattati in modo lecito e secondo correttezza per le finalità connesse all’erogazione dei compensi nonché per gli adempimenti imposti dalla legge."
