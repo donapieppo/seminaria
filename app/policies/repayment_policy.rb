@@ -7,7 +7,7 @@ class RepaymentPolicy
   end
 
   def index?
-    false # we use authorize current_organization, :manage? in index
+    @user and @user.current_organization and OrganizationPolicy.new(@user, @user.current_organization).see?
   end
 
   # manager
@@ -63,6 +63,18 @@ class RepaymentPolicy
   end
 
   def print_proposal?
+    show?
+  end
+
+  def print_repayment?
+    show?
+  end
+
+  def print_refund?
+    show?
+  end
+
+  def print_other?
     show?
   end
 end
