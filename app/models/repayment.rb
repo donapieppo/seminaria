@@ -5,6 +5,9 @@ class Repayment < ActiveRecord::Base
   belongs_to :position, optional: true
   has_many   :documents, dependent: :destroy
 
+  validates :taxid, format: { with: /\A[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]\z/i, message: 'Controllare il formato del codice fiscale' }, allow_nil: true
+  validates :iban, length: { is: 27 }, allow_nil: true
+
   validate :payment_limit_for_italians
   validate :speaker_arrival_departure_validation
   validate :validate_fund_and_holder
