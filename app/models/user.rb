@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   has_many :repayments, foreign_key: :holder_id
   has_many :funds, foreign_key: "holder_id"
 
+  attr_accessor :current_organization
+
   def has_active_funds?
     self.funds.active.any?
   end

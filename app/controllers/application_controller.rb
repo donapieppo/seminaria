@@ -29,5 +29,8 @@ class ApplicationController < ActionController::Base
     session[:oid] = params[:__org__].to_i if params[:__org__]
     session[:oid] ||= 1
     @current_organization = Organization.find(session[:oid].to_i)
+    if current_user
+      current_user.current_organization = @current_organization
+    end
   end
 end
