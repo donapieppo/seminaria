@@ -1,6 +1,7 @@
 it:
   name: Nome
   surname: Cognome
+  taxid: Codice fiscale
   repayment: Richiesta di rimborso
   fund: Fondo
   compensation: Rimborso / compenso
@@ -59,6 +60,7 @@ it:
       repayment:
         name:     Nome
         surname:  Cognome
+        taxid:    Codice fiscale
         email:    Indirizzo mail
         holder:   Titolare del fondo
         italy:    Residenza fiscale in italia
@@ -124,7 +126,10 @@ it:
   simple_form:
     hints:
       repayment:
-        reason: Descrizione dettagliata delle eccezionali ragioni di particolare qualificazione, abilità e conoscenze possedute dal conferenziere che motivano la deroga alla procedura comparativa pubblica con assegnazione diretta dell’incarico
+        reason: Descrizione dettagliata delle eccezionali ragioni di particolare qualificazione, abilità e conoscenze possedute dal conferenziere che motivano la deroga alla procedura comparativa pubblica con assegnazione diretta dell’incarico.
+        taxid: Inserire se disponibile. Non bloccante per l'invio all'amministrazione.
+        iban: 27 caratteri numerici o alfabetici, senza barre o virgole
+
 
   payment_hint: Compenso + eventuale quota forfettaria di rimborso spese da non giustificare, entrambi tassati.
   dlgs33_2013: Si prega di inserire il curriculum vitae. Obbligatorio in caso di compenso ai sensi del D.Lgs. 33/2013 in materia di collaborazioni ed incarichi.
