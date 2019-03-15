@@ -5,6 +5,7 @@ class SeminarsController < ApplicationController
 
   # Prossimi sono quelli a partire da tutto oggi
   def index
+    authorize :seminar
     if params[:only_current_user] # see config/routes.rb
       @title = "Seminari inseriti da #{current_user.cn}"  
       @seminars = current_user.seminars.order('seminars.date DESC')
@@ -17,7 +18,6 @@ class SeminarsController < ApplicationController
       @seminars = current_organization.seminars.order('seminars.date ASC').future
     end
     @seminars = @seminars.includes([:documents, :arguments, :place])
-    authorize @seminars
 
     respond_to do |format|
       format.html
