@@ -5,7 +5,7 @@ repayment = @repayment
 
 docx.p "DECRETO - REPERTORIO N."
 docx.p "Protocollo n.           del"
-docx.p "TIT. VII CL. 16 FASC. 13"
+docx.p "TIT. VII CL. 16 FASC. 1"
 
 docx.p
 docx.p "IL DIRETTORE", align: :center

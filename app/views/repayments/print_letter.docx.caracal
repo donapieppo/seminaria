@@ -48,7 +48,7 @@ docx.p "Distinti saluti."
 docx.p
 
 col_delega = Caracal::Core::Models::TableCellModel.new do
-  p "Per delega della Giunta di Dipartimento del 23.06.2015", size: 16
+  p "Per delega della Giunta di Dipartimento del 21.05.2018", size: 16
   p "Il Direttore", size: 16
   p "Prof. Giovanni Dore" 
   p "_________________________________"
