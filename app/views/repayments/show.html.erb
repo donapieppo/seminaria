@@ -2,7 +2,7 @@
 <% ok_to_send    = repayment_all_ok_to_send?(@repayment) %>  
 
 <h1>Richiesta di rimborso / compenso <br/>
-  <small>seminario di <%= @repayment.seminar.speaker %>  <small>(<%= l @seminar.date %>)</small> - richiedente: <%= @repayment.seminar.user.to_s %> </small>
+  <small>seminario di <%= @repayment.seminar.speaker %>  <small>(<%= l @repayment.seminar.date %>)</small> - richiedente: <%= @repayment.seminar.user.to_s %> </small>
 </h1>
 
 <%= render partial: 'print_operations', locals: { repayment: @repayment, ok_to_send: ok_to_send } %>  
