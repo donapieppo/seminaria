@@ -9,12 +9,12 @@ docx.p
 docx.p "DATI ANAGRAFICI E MODALITÀ DI PAGAMENTO", align: :center, bold: true
 docx.p
 docx.p
-docx.p "Il/La sottoscritto/a"
+docx.p I18n.t :i_declare
 docx.p
 docx.p "  #{@repayment.name} #{@repayment.surname},"
-docx.p "  nat#{@repayment.seminar.female_speaker? ? 'a' : 'o'} a #{@repayment.birth_place} (#{@repayment.birth_country}), il #{@repayment.birth_date},"
-docx.p "  codice fiscale #{@repayment.taxid.to_s.upcase}"
-docx.p "  residente in #{@repayment.address} – #{@repayment.postalcode}, #{@repayment.city} (#{@repayment.country}),"
+docx.p "  #{I18n.t :born_in} #{@repayment.birth_place} (#{@repayment.birth_country}), #{I18n.t :born_at} #{@repayment.birth_date},"
+docx.p "  #{I18n.t :tax_id} #{@repayment.taxid.to_s.upcase}"
+docx.p "  #{I18n.t :resident_at}: #{@repayment.address} – #{@repayment.postalcode}, #{@repayment.city} (#{@repayment.country}),"
 docx.p 
 docx.p "  in qualità di #{@repayment.position_to_s} presso #{@repayment.affiliation}"
 docx.p 
@@ -23,20 +23,21 @@ docx.p
 docx.p "mediante versamento su c/c bancario/bancoposta/Carta prepagata"
 docx.p "con le seguenti coordinate IBAN: #{ @repayment.iban.to_s.upcase}"
 docx.p
-docx.p "AVVERTENZA:  il c/c deve essere intestato o cointestato al dichiarante", align: :center
+docx.p "AVVERTENZA:", align: :center
+docx.p "il c/c deve essere intestato o cointestato al dichiarante", align: :center
 unless @repayment.italy
   docx.p "AVVERTENZA: i titolari di c/c europei ed extra-europei devono indicare anche:", align: :center
   docx.p "Codice BIC/SWIFT: #{@repayment.swift.to_s.upcase}"
   docx.p "Codice ABA/ROUTING NUMBER: #{@repayment.aba.to_s.upcase}"
 end
-docx.p "I shall prompty notify to the same office of the University of Bologna any change of residence to another Country", align: :center
-docx.p "Io sottoscritto mi impegno a comunicare tempestivamente ogni eventuale variazione dei dati dichiarati.", align: :center
-docx.p 
-docx.p 
-docx.p 
-docx.p "Data:  ___________"
 docx.p
-docx.p "Firma: ________________________"
+docx.p I18n.t :i_notify
+docx.p 
+docx.p 
+docx.p 
+docx.p I18n.t(:letter_date).inspect #+ ":  ___________"
+docx.p
+docx.p I18n.t(:letter_signature) + ": ________________________"
 docx.p
 docx.p
 docx.p 
