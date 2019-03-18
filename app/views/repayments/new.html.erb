@@ -1,4 +1,14 @@
 <%= main_title("Richiesta di rimborso / compenso") %>
 
-<%= render 'form' %>
+<div class="info info-alert">
+  Primi dati relativi al relatore del seminario "<%= @seminar.title %>" di cui si richiede rimborso / compenso. <br/>
+  Nella pagina successiva sarà possibile completare la richiesta con i restanti dati richiesti.
+</div>
+
+<%= dm_form_for [@seminar, @repayment], title: "Primi dati del relatore #{@seminar.speaker_with_title}" do |repayment| %>
+  <%= repayment.input :name %>  
+  <%= repayment.input :surname %>  
+  <%= repayment.input :email %>  
+  <%= repayment.submit "Salva" %>  
+<% end %>
 

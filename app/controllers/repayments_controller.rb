@@ -17,17 +17,33 @@ class RepaymentsController < ApplicationController
                            .references(:seminars)
   end
 
-  # is actually a create 
   def new
+    @seminar = Seminar.find(params[:seminar_id])
+    if @seminar.repayment
+      redirect_to repayment_path(@seminar.repayment)
+      return
+    end
+    if user_too_late_for_repayment?(@seminar)
+      redirect_to seminar_path(@seminar), alert: 'Non è più possibile richiedere rimborso / compenso.'
+      return
+    end
+    @repayment = @seminar.build_repayment
+    authorize @repayment
+  end
+
+  def create
     @seminar = Seminar.find(params[:seminar_id])
 
     if user_too_late_for_repayment?(@seminar)
       redirect_to seminar_path(@seminar), alert: 'Non è più possibile richiedere rimborso / compenso.'
     else
-      @repayment = @seminar.repayment || @seminar.build_repayment(speaker_arrival: @seminar.date, speaker_departure: @seminar.date)
+      @repayment = @seminar.build_repayment(name:    params[:repayment][:name],
+                                            surname: params[:repayment][:surname],
+                                            email:   params[:repayment][:email], 
+                                            speaker_arrival: @seminar.date, speaker_departure: @seminar.date)
       authorize @repayment
       if @repayment.save
-        render action: :show
+        redirect_to repayment_path(@repayment)
       else
         redirect_to seminar_path(@seminar), alert: 'Non è più possibile richiedere rimborso / compenso.'
       end
