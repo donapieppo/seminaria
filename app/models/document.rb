@@ -1,4 +1,4 @@
-class Document < ActiveRecord::Base
+class Document < ApplicationRecord
   belongs_to :seminar, optional: true
   belongs_to :repayment, optional: true
 
@@ -8,9 +8,8 @@ class Document < ActiveRecord::Base
     self.description.blank? ? self.attach_file_name : self.description
   end
 
-  def url
-    # rails_blob_path(attach, disposition: "attachment")
-    # "/seminari" + self.attach
-  end
+  #def url
+  #end
+
 end
 
