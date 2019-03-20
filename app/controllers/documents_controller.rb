@@ -21,6 +21,7 @@ class DocumentsController < ApplicationController
   def destroy
     document = Document.find(params[:id])
     authorize(document)
+    document.destroy
     redirect_to document.seminar_id ? edit_seminar_path(document.seminar_id) : repayment_path(document.repayment_id)
   end
 
