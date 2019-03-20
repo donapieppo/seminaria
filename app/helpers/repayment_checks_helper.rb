@@ -20,7 +20,7 @@ module RepaymentChecksHelper
     when :reason
       repayment_speaker_reason_ok?(repayment)
     when :fund
-      if repayment.holder_id == repayment.seminar.user_id
+      if (repayment.holder_id == repayment.seminar.user_id) or user_is_manager?
         (repayment.holder_id and repayment.fund_id)
       else
         repayment.holder_id
