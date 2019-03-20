@@ -1,0 +1,51 @@
+<% I18n.locale = :en %>  
+
+<div class="alert alert-info">
+  <p>Dear <%= @repayment.name %> <%= @repayment.surname %>, in order to recive repayment / refund for your seminar in Bologna</p>
+  <p class="font-weight-bold">(<%= l @repayment.seminar.date, format: :short %>) <%= @repayment.seminar.title %></p>
+  <p>please fill out the form below with also a copy of your ID Card</p>
+</div>
+
+<%= dm_form_for [:speaker, @repayment], url: speaker_repayment_path(@repayment.spkr_token), title: 'Data required for repayment / refund ' do |repayment| %>
+  <% id_cards = repayment.object.id_cards.all %>  
+  <%= repayment.input :id_card, as: :file %>
+   <% if id_cards.any? %>  
+      <div class=row">
+        <div class="col-sm-9 offset-sm-3">
+          <% id_cards.each do |doc| %>  
+            <%= link_to_id_card doc %> 
+            <%= link_to_delete document_path(doc) %><br/>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+  <hr/>
+  <%= repayment.input :name %>
+  <%= repayment.input :surname %>
+  <%= repayment.input :birth_date %>
+  <%= repayment.input :birth_place %>
+  <%= repayment.input :birth_country, as: :string %>
+  <%= repayment.input :taxid, hint: 'Italian Fiscal Code / Tax Identification Number' %>
+
+  <hr/>
+
+  <%= repayment.input :affiliation %>
+  <%= repayment.association :position, label_method: -> (a) { I18n.t(a.code) } %>
+
+  <hr/>
+  <%= repayment.input :italy, hint: 'tax residency in Italy' %>
+  <%= repayment.input :address, hint: 'tax residency address' %>
+  <%= repayment.input :postalcode %>
+  <%= repayment.input :city %>
+  <%= repayment.input :country, as: :string %>
+
+  <hr/>
+
+  <%= repayment.input :iban %>
+  <%= repayment.input :swift %>
+  <%= repayment.input :aba %>
+
+  <%= repayment.submit "Save" %>  - <%= link_to 'End submission', speaker_repayment_path(@repayment.spkr_token), class: 'btn btn-success' %>  
+<% end %>
+
