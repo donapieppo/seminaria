@@ -8,7 +8,11 @@ class ApplicationController < ActionController::Base
 
   impersonates :user
 
-  before_action :log_current_user, :set_organization, :redirect_unsigned_user
+  before_action :log_current_user, :set_locale, :set_organization, :redirect_unsigned_user
+
+  def set_locale
+    I18n.locale = :it
+  end
 
   # rewrite in order to force sign_in for repayments
   # (clicked in mails)
