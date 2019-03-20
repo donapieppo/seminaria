@@ -4,13 +4,17 @@ class Repayment < ActiveRecord::Base
   belongs_to :fund, optional: true
   belongs_to :position, optional: true
   has_many   :documents, dependent: :destroy
+  has_many   :curricula_vitae, dependent: :destroy
+  has_many   :id_cards, dependent: :destroy
 
-  validates :taxid, format: { with: /\A[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]\z/i, message: 'Controllare il formato del codice fiscale' }, allow_nil: true
-  validates :iban, length: { is: 27 }, allow_nil: true
+  validates :taxid, format: { with: /\A[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]\z/i, message: 'Controllare il formato del codice fiscale' }, allow_nil: true, allow_blank: true
+  validates :iban, length: { is: 27 }, allow_nil: true, allow_blank: true
 
   validate :payment_limit_for_italians
   validate :speaker_arrival_departure_validation
   validate :validate_fund_and_holder
+
+  after_create :create_spkr_token
 
   ADAPT_GROSS_VALUE       = 0.92165898
   IRAP                    = 0.085 # 8,5%
@@ -109,7 +113,11 @@ class Repayment < ActiveRecord::Base
     self.position.code == 'other' ? self.role : self.position.name
   end
 
-  # checks
+  def create_spkr_token
+    unless self.spkr_token
+      self.update_attribute(:spkr_token, SecureRandom.urlsafe_base64(50))
+    end
+  end
   
   # def missing_payment_and_refund?
   #   ! ((self.payment.to_i > 0) || (self.expected_refund.to_i > 0))
