@@ -26,3 +26,12 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
+app/assets/images/serial_10.png
+app/assets/images/sigillo1.png
+doc/update_ctags
+doc/PRECOMPILE
+doc/changes.sql
+doc/recreate
+config/dm_unibo_common.yml
+config/initializers/seminaria.rb
+tags
