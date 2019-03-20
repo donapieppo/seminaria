@@ -10,6 +10,14 @@ it:
   and_in_quality_of: e in qualità di 
   at: presso
   ask_payment: e chiede che il pagamento del compenso venga effettuato
+  declare: DICHIARA
+  that_i_hold_no_position: di non svolgere incarichi e né di avere titolarità di cariche in enti di diritto privato regolati o finanziati dalla pubblica amministrazione o lo svolgimento di attività professionali;
+  that_i_hold_position:    di svolgere incarichi e/o avere titolarità di cariche in enti di diritto privato regolati o finanziati dalla pubblica amministrazione e/o lo svolgimento di attività professionali. In tal caso specificare nell’apposita tabella di seguito riportata
+  professional_activities: Cariche/incarichi/attività professionali
+  corporation: Ente/società
+  professional_begin_date: Data di inizio
+  professional_end_date: Data di fine
+  
 
 en:
   i_declare: I undersigned, under penalties of perjury, hereby declare the following to be true
@@ -23,4 +31,11 @@ en:
   and_in_quality_of: and in quality of 
   at: at
   ask_payment: and asks the payment to the on the following bank account 
+  declare: DECLARE
+  that_i_hold_no_position: that I hold no position nor the entitlement to any position in a private corporation that is publicly controlled or financed, or work as a professional 
+  that_i_hold_position:    that I hold a position and/or have the entitlement to a position in a private corporation that is publicly controlled or financed and/or work as a professional. In that case, indicate in the specific table shown below
+  professional_activities: Positions/appointments/professional work
+  corporation: Corporation/company
+  professional_begin_date: Start date
+  professional_end_date: End date
 

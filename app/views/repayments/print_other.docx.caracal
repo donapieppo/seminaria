@@ -3,21 +3,32 @@ letter_defaults(docx)
 repayment_header(docx) 
 repayment = @repayment
 
-docx.p
-
-docx.p "L’Ateneo di Bologna, sulla base delle disposizioni contenute nel D. Lgs. 33/2013, è tenuto a pubblicare  e  aggiornare le informazioni relative ai titolari di incarichi  amministrativi  di  vertice  e  di incarichi dirigenziali, a  qualsiasi  titolo  conferiti,  nonché  di collaborazione o consulenza.", italic: true
-docx.p "In particolare, con riguardo alle indicazione contenute nell’art. 15 co. 1 lett. c), Le chiediamo di compilare quanto di seguito riportato.", italic: true
+I18n.locale = @repayment.italy ? :it : :en 
 
 docx.p
-docx.p "Il/La sottoscritto/a  #{@repayment.name} #{@repayment.surname}, nat#{@repayment.seminar.female_speaker? ? 'a' : 'o'} a #{@repayment.birth_place} (#{@repayment.birth_country}), il #{@repayment.birth_date}"
+
+if @repayment.italy  
+  docx.p "L’Ateneo di Bologna, sulla base delle disposizioni contenute nel D. Lgs. 33/2013, è tenuto a pubblicare  e  aggiornare le informazioni relative ai titolari di incarichi  amministrativi  di  vertice  e  di incarichi dirigenziali, a  qualsiasi  titolo  conferiti,  nonché  di collaborazione o consulenza.", italic: true
+  docx.p "In particolare, con riguardo alle indicazione contenute nell’art. 15 co. 1 lett. c), Le chiediamo di compilare quanto di seguito riportato.", italic: true
+else
+  docx.p "As stipulated in Italian Legislative Decree 33/2013, the University of Bologna is obliged to publish and update any information relating to all holders of top administrative and managerial posts, as well as collaboration and consultancy positions."
+  docx.p "More specifically, with regard to art. 15 clause 1 letter c), we ask you to fill out the following."
+end
+
+docx.p
+if @repayment.italy
+ docx.p "Il/La sottoscritto/a  #{@repayment.name} #{@repayment.surname}, nat#{@repayment.seminar.female_speaker? ? 'a' : 'o'} a #{@repayment.birth_place} (#{@repayment.birth_country}), il #{@repayment.birth_date}"
+else
+ docx.p "I #{@repayment.name} #{@repayment.surname}, born in #{@repayment.birth_place} (#{@repayment.birth_country}), on #{@repayment.birth_date}"
+end
 docx.p 
-docx.p "dichiara", bold: true, align: :center
+docx.p I18n.t(:declare), bold: true, align: :center
 docx.p 
-docx.p " □ di non svolgere incarichi e né di avere titolarità di cariche in enti di diritto privato regolati o finanziati dalla pubblica amministrazione o lo svolgimento di attività professionali;"
-docx.p " □ di svolgere incarichi e/o avere titolarità di cariche in enti di diritto privato regolati o finanziati dalla pubblica amministrazione e/o lo svolgimento di attività professionali. In tal caso specificare nell’apposita tabella di seguito riportata:"
+docx.p " □ #{I18n.t :that_i_hold_no_position};"
+docx.p " □ #{I18n.t :that_i_hold_position}:"
 docx.p            
 docx.p            
-docx.table [['Cariche/incarichi/attività professionali', 'Ente/società', 'Data di inizio', 'Data di fine'],
+docx.table [[I18n.t(:professional_activities), I18n.t(:corporation), I18n.t(:professional_begin_date), I18n.t(:professional_end_date)],
             [' ', ' ', ' ', ' '],
             [' ', ' ', ' ', ' '],
             [' ', ' ', ' ', ' '],
@@ -37,5 +48,5 @@ end
 docx.p            
 docx.p            
 docx.p "Bologna,"
-docx.p "                                                          Firma"
+docx.p "                                                          #{I18n.t :letter_signature}"
 
