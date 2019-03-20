@@ -3,6 +3,8 @@ letter_defaults(docx)
 repayment_header(docx) 
 repayment = @repayment
 
+I18n.locale = @repayment.italy ? :it : :en 
+
 docx.p
 docx.p
 
@@ -16,9 +18,9 @@ docx.p "  #{I18n.t :born_in} #{@repayment.birth_place} (#{@repayment.birth_count
 docx.p "  #{I18n.t :tax_id} #{@repayment.taxid.to_s.upcase}"
 docx.p "  #{I18n.t :resident_at}: #{@repayment.address} – #{@repayment.postalcode}, #{@repayment.city} (#{@repayment.country}),"
 docx.p 
-docx.p "  in qualità di #{@repayment.position_to_s} presso #{@repayment.affiliation}"
+docx.p "  #{I18n.t :and_in_quality_of} #{@repayment.position_to_s} #{I18n.t :at} #{@repayment.affiliation}"
 docx.p 
-docx.p "Chiede che il pagamento del compenso venga effettuato", align: :center, bold: true
+docx.p "", align: :center, bold: true
 docx.p
 docx.p "mediante versamento su c/c bancario/bancoposta/Carta prepagata"
 docx.p "con le seguenti coordinate IBAN: #{ @repayment.iban.to_s.upcase}"
@@ -27,15 +29,14 @@ docx.p "AVVERTENZA:", align: :center
 docx.p "il c/c deve essere intestato o cointestato al dichiarante", align: :center
 unless @repayment.italy
   docx.p "AVVERTENZA: i titolari di c/c europei ed extra-europei devono indicare anche:", align: :center
-  docx.p "Codice BIC/SWIFT: #{@repayment.swift.to_s.upcase}"
-  docx.p "Codice ABA/ROUTING NUMBER: #{@repayment.aba.to_s.upcase}"
+  docx.p "BIC/SWIFT: #{@repayment.swift.to_s.upcase}"
+  docx.p "ABA/ROUTING NUMBER: #{@repayment.aba.to_s.upcase}"
 end
 docx.p
 docx.p I18n.t :i_notify
 docx.p 
 docx.p 
-docx.p 
-docx.p I18n.t(:letter_date).inspect #+ ":  ___________"
+docx.p I18n.t(:letter_date) + ":  ___________"
 docx.p
 docx.p I18n.t(:letter_signature) + ": ________________________"
 docx.p
