@@ -1,0 +1,20 @@
+it:
+  i_declare: io sottoscritto/a dichiaro sotto la mia personale responsabilità che i seguenti dati sono veritieri
+  born_in: nato/a a
+  born_at: il
+  tax_id: Codice Fiscale Italiano
+  resident_at: indirizzo di residenza
+  i_notify: Io sottoscritto mi impegno a comunicare tempestivamente ogni eventuale variazione dei dati dichiarati
+  letter_date: Data
+  letter_signature: Firma
+
+us:
+  i_declare: I undersigned, under penalties of perjury, hereby declare the following to be true
+  born_in: born in 
+  born_at: on the date
+  tax_id: Italian Fiscal Code 
+  resident_at: residential address
+  i_notify: I shall prompty notify to the same office of the University of Bologna any change of residence to another Country
+  letter_date: Date
+  letter_signature: Signature
+

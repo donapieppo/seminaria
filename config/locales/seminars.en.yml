@@ -1,0 +1,30 @@
+en:
+  taxid: Italian Fiscal Code / Tax Identification Number 
+  repayment: repayment request
+  position_to_s: Position
+
+  activerecord:
+    models:
+      repayment: Repayment request
+
+  simple_form:
+    hints:
+      repayment:
+        taxid: If available.
+        iban: 27 characters (numeric and alphanumeric), no bars or commas
+        swift: BIC / SWIFT international bank code
+        aba: Also known as routing number or routing transfer number. Sequence of nine numeric characters used by banks to identify specific financial institutions within the United States.
+
+        id_card: Please provide a copy of your document id (one or more files)
+
+  po:  Full Professor
+  pa:  Associate Professor
+  ri:  Researcher
+  ass: Research fellow
+  phd: Pdh Doctor
+  phdstudent: PhD Student
+  emeritus: Professor Emeritus
+  other: Other
+  
+
+
