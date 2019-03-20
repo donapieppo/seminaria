@@ -1,0 +1,3 @@
+class IdCard < Document
+
+end
