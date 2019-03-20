@@ -34,7 +34,7 @@ class Speaker::RepaymentsController < ApplicationController
   private
 
   def get_repayment_from_token_and_check_permission
-    @repayment = Repayment.where(spkr_token: params[:id]).first or raise "NO"
+    @repayment = Repayment.where(spkr_token: params[:id]).first or raise "Uncorrect tkn."
     seminar = @repayment.seminar
     if user_too_late_for_repayment?(seminar)
       redirect_to root_path, alert: "Too late to modify data. Please contact the organizer of the seminar."
