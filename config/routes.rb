@@ -56,6 +56,7 @@ Rails.application.routes.draw do
 
   namespace(:speaker) do
     resources :repayments do
+      get  :accept,              on: :member
       get  :data_request,        on: :member
       post :submit_data_request, on: :member
     end
