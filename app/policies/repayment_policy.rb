@@ -77,4 +77,12 @@ class RepaymentPolicy
   def print_other?
     show?
   end
+
+  def data_request?
+    update?
+  end
+
+  def submit_data_request?
+    update?
+  end
 end
