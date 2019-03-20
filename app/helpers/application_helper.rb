@@ -4,6 +4,10 @@ module ApplicationHelper
     #link_to_download(rails_blob_url(doc.attach, disposition: "attachment"), doc.description) 
   end
 
+  def link_to_id_card(doc)
+    link_to_download(url_for(doc.attach), doc.description)
+  end
+
   def current_organization
     @current_organization
   end
