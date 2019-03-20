@@ -7,8 +7,11 @@ it:
   i_notify: Io sottoscritto mi impegno a comunicare tempestivamente ogni eventuale variazione dei dati dichiarati
   letter_date: Data
   letter_signature: Firma
+  and_in_quality_of: e in qualità di 
+  at: presso
+  ask_payment: e chiede che il pagamento del compenso venga effettuato
 
-us:
+en:
   i_declare: I undersigned, under penalties of perjury, hereby declare the following to be true
   born_in: born in 
   born_at: on the date
@@ -17,4 +20,7 @@ us:
   i_notify: I shall prompty notify to the same office of the University of Bologna any change of residence to another Country
   letter_date: Date
   letter_signature: Signature
+  and_in_quality_of: and in quality of 
+  at: at
+  ask_payment: and asks the payment to the on the following bank account 
 
