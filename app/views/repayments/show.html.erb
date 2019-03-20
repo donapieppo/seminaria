@@ -2,7 +2,9 @@
 <% ok_to_send    = repayment_all_ok_to_send?(@repayment) %>  
 
 <h1>Richiesta di rimborso / compenso <br/>
-  <small>seminario di <%= @repayment.seminar.speaker %>  <small>(<%= l @repayment.seminar.date %>)</small> - richiedente: <%= @repayment.seminar.user.to_s %> </small>
+  <small>seminario di <%= @repayment.seminar.speaker %> 
+         <small>(<%= l @repayment.seminar.date %> - richiedente: <%= @repayment.seminar.user.to_s %>)</small>
+  </small>
 </h1>
 
 <%= render partial: 'print_operations', locals: { repayment: @repayment, ok_to_send: ok_to_send } %>  
@@ -18,7 +20,7 @@
       <dl class="inline">
         <dt>Curriclum vitae:</dt>
         <dd>
-        <% cvs = @repayment.documents.all %>  
+        <% cvs = @repayment.curricula_vitae.all %>  
         <%= "è necessario inserire il CV del relatore" if cvs.empty? %>  
         <% cvs.each do |doc| %> <%= link_to_cv doc %> <% end %>
         </dd>
@@ -63,7 +65,7 @@
         <% end %>
 
         <% if user_can_edit %>  
-          <dd><%= modal_link_to 'Modifica', edit_repayment_path(@repayment, what: :compensation), addclass: :button %></dd>
+          <dd><%= link_to 'Modifica', edit_repayment_path(@repayment, what: :compensation), class: :button %></dd>
         <% end %>
       </dl>
     <% end %>
@@ -80,8 +82,11 @@
           <dd><%= modal_link_to 'Modifica', edit_repayment_path(@repayment, what: :speaker), addclass: :button %></dd>
         <% end %>
       </dl>
+      <% if false and user_can_edit %>  
+        <p style="text-align: right"><%= link_to big_icon('envelope', text: 'Testo della mail da inviare al relatore per richiedere da parte sua la compilazione dei dati anagrafici e bancari.'), data_request_speaker_repayment_path(@repayment) %></p>
+      <% end %>
     <% end %>
-    <%= dm_card title: 'Coordinate Bancarie' do %>
+    <%= dm_card title: "Coordinate Bancarie <small>(dati non bloccanti)</small> #{checked_icon(true)}".html_safe do %>
       <dl class="inline">
         <dt>Iban</dt><dd><%= @repayment.iban %></dd>
         <dt>Swift</dt><dd><%= @repayment.swift %></dd>
@@ -94,7 +99,7 @@
 </div>
 
 <div style="text-align: center">
-  <% if ! @repayment.notified and policy(@repayment).edit? %>  
+  <% if ! @repayment.notified and user_can_edit %>  
     <% button_class = ok_to_send ? 'btn-success' : 'btn-primary disabled' %>  
     <% unless ok_to_send %>  
       <div class="alert alert-warning m-3">
