@@ -1,7 +1,7 @@
 # :spkr_token
 class Speaker::RepaymentsController < ApplicationController
-  skip_before_action :redirect_unsigned_user, only: [:edit, :update, :end_data_request]
-  before_action :get_repayment_from_token, only: [:show, :edit, :update, :end_data_request]
+  skip_before_action :redirect_unsigned_user, only: [:show, :edit, :update]
+  before_action :get_repayment_from_token_and_check_permission, only: [:show, :edit, :update]
 
   def data_request
     @repayment = Repayment.find(params[:id])
@@ -30,8 +30,12 @@ class Speaker::RepaymentsController < ApplicationController
 
   private
 
-  def get_repayment_from_token
+  def get_repayment_from_token_and_check_permission
     @repayment = Repayment.where(spkr_token: params[:id]).first or raise "NO"
+    seminar = @repayment.seminar
+    if user_too_late_for_repayment?(seminar)
+      redirect_to root_path, alert: "Too late to modify data. Please contact the organizer of the seminar"
+    end
   end
 
   def speaker_repayment_attributes
@@ -44,7 +48,6 @@ class Speaker::RepaymentsController < ApplicationController
   def add_id_card
     if params[:repayment][:id_card]
       document = @repayment.id_cards.create!(attach: params[:repayment][:id_card], description: "Id Card")
-      logger.info document.inspect
     end
   end
 
