@@ -54,6 +54,13 @@ Rails.application.routes.draw do
     # get :owners, on: :collection
   end
 
+  namespace(:speaker) do
+    resources :repayments do
+      get  :data_request,        on: :member
+      post :submit_data_request, on: :member
+    end
+  end
+
   get 'mat',   to: "seminars#index", __org__: 1
   get 'bigea', to: "seminars#index", __org__: 2
 
