@@ -1,7 +1,7 @@
 # :spkr_token
 class Speaker::RepaymentsController < ApplicationController
-  skip_before_action :redirect_unsigned_user, only: [:show, :edit, :update]
-  before_action :get_repayment_from_token_and_check_permission, only: [:show, :edit, :update]
+  skip_before_action :redirect_unsigned_user, only: [:accept, :show, :edit, :update]
+  before_action :get_repayment_from_token_and_check_permission, only: [:accept, :show, :edit, :update]
 
   def data_request
     @repayment = Repayment.find(params[:id])
@@ -11,6 +11,9 @@ class Speaker::RepaymentsController < ApplicationController
   def submit_data_request
     @repayment = Repayment.find(params[:id])
     authorize @repayment
+  end
+
+  def accept
   end
 
   def show
@@ -34,7 +37,7 @@ class Speaker::RepaymentsController < ApplicationController
     @repayment = Repayment.where(spkr_token: params[:id]).first or raise "NO"
     seminar = @repayment.seminar
     if user_too_late_for_repayment?(seminar)
-      redirect_to root_path, alert: "Too late to modify data. Please contact the organizer of the seminar"
+      redirect_to root_path, alert: "Too late to modify data. Please contact the organizer of the seminar."
     end
   end
 
