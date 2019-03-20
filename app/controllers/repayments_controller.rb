@@ -2,6 +2,7 @@ class RepaymentsController < ApplicationController
   # propria richiesta o su propri fondi
   before_action :get_repayment_and_seminar_and_check_permission, only: [:show, :edit, :update, :notify, 
                                                                         :print_decree, :print_letter, :print_proposal, :print_repayment, :print_refund, :print_other]
+  before_action :get_seminar, only: [:new, :create]
   # su propri fondi
   before_action :get_repayment_and_check_permission, only: [:choose_fund, :update_fund]
   before_action :get_and_validate_holder,            only: [:update]
@@ -18,23 +19,17 @@ class RepaymentsController < ApplicationController
   end
 
   def new
-    @seminar = Seminar.find(params[:seminar_id])
-    if @seminar.repayment
-      redirect_to repayment_path(@seminar.repayment)
-      return
+    if @seminar.repayment or user_too_late_for_repayment?(@seminar)
+      redirect_to(seminar_path(@seminar), alert: 'Non è più possibile richiedere rimborso / compenso.') and return
+    else
+      @repayment = @seminar.build_repayment
+      authorize @repayment
     end
-    if user_too_late_for_repayment?(@seminar)
-      redirect_to seminar_path(@seminar), alert: 'Non è più possibile richiedere rimborso / compenso.'
-      return
-    end
-    @repayment = @seminar.build_repayment
-    authorize @repayment
   end
 
+  # only the basic data
   def create
-    @seminar = Seminar.find(params[:seminar_id])
-
-    if user_too_late_for_repayment?(@seminar)
+    if @seminar.repayment or user_too_late_for_repayment?(@seminar)
       redirect_to seminar_path(@seminar), alert: 'Non è più possibile richiedere rimborso / compenso.'
     else
       @repayment = @seminar.build_repayment(name:    params[:repayment][:name],
@@ -45,7 +40,7 @@ class RepaymentsController < ApplicationController
       if @repayment.save
         redirect_to repayment_path(@repayment)
       else
-        redirect_to seminar_path(@seminar), alert: 'Non è più possibile richiedere rimborso / compenso.'
+        redirect_to seminar_path(@seminar), alert: 'Non è stato possibile richiedere rimborso / compenso.'
       end
     end
   end
@@ -53,8 +48,7 @@ class RepaymentsController < ApplicationController
   # what = [reason, fund, compensation, speaker]
   def edit
     if user_too_late_for_repayment?(@seminar)
-      redirect_to seminar_path(@seminar), alert: 'Non è più possibile agire sul rimborso / compenso.'
-      return
+      redirect_to(seminar_path(@seminar), alert: 'Non è più possibile agire sul rimborso / compenso.') and return
     else
       @funds = available_funds
       @what = params[:what] 
@@ -67,16 +61,15 @@ class RepaymentsController < ApplicationController
     @what = params[:what] # hidden 
 
     if @what == 'compensation'
-      fix_payment
-      fix_refund
+      fix_payment_params
+      fix_refund_params
     end
 
     if @repayment = @seminar.repayment # edit. FIXME pensare se con too late non puo' modificare
       @repayment.assign_attributes(repayment_params)
     else                               # new
       if @too_late_for_repayment = user_too_late_for_repayment?(@seminar)
-        redirect_to edit_seminar_path(seminar), alert: "È troppo tardi per richiedere rimborso e/o compenso."
-        return
+        redirect_to(edit_seminar_path(seminar), alert: "È troppo tardi per richiedere rimborso e/o compenso.") and return
       end
       @repayment = @seminar.build_repayment(repayment_params)
     end
@@ -162,7 +155,6 @@ class RepaymentsController < ApplicationController
     only_manager_can_choose_late!
 
     @fund = Fund.find(params[:repayment][:fund_id])
-    (@fund.holder_id == current_user.id or user_is_manager?) or raise "NO PERMISSION"
 
     # amministrazione può cambiare fondo e proprietario
     if @fund.holder_id != @repayment.holder_id
@@ -174,11 +166,8 @@ class RepaymentsController < ApplicationController
     end
 
     @repayment.update_attribute(:fund_id, @fund.id)
-    RepaymentMailer.notify_fund(@repayment).deliver unless user_is_manager?
-    # se proprietario e richiedente coincidono e' come fare notify
-    if user_owns?(@repayment.seminar) 
-      @repayment.update_attribute(:notified, true)
-    end
+
+    RepaymentMailer.notify_fund(@repayment).deliver unless (user_is_manager? or user_owns?(@repayment.seminar))
     redirect_to root_path, notice: "È stato selezionato il fondo #{@fund.to_s}."
   end
 
@@ -190,6 +179,10 @@ class RepaymentsController < ApplicationController
     p = p + [:bond_number, :bond_year] if user_is_manager?
     p = p + [:fund_id] if policy(@repayment).update_fund?
     params[:repayment].permit(p)
+  end
+
+  def get_seminar
+    @seminar = Seminar.find(params[:seminar_id])
   end
 
   def get_repayment_and_seminar_and_check_permission
@@ -217,10 +210,10 @@ class RepaymentsController < ApplicationController
     user_is_manager? ? Fund.active.includes(:holder, :category).order('users.surname, users.name').references(:user) : current_user.funds.active
   end
 
-  def fix_payment
-    # params[:payment_bool] e' nil o on
-    if (! params[:payment_bool]) or (params[:repayment][:payment].blank?)
-      # non delete perche' deve sovrascrivere 
+  def fix_payment_params
+    # params[:payment_bool] e' "0" o "1"
+    # se non selezionato sovrascriviamo con nil i vecchi valori
+    if params[:payment_bool] == "0"
       params[:repayment][:payment] = params[:repayment][:gross] = nil
     else 
       # virgola in cifra => punto
@@ -228,22 +221,18 @@ class RepaymentsController < ApplicationController
     end
   end
   
-  def fix_refund
+  def fix_refund_params
     # params[:repayment][:refund] e' "0" o "1"
     if params[:repayment][:refund] == "0" 
       params[:repayment][:expected_refund] = params[:repayment][:speaker_arrival] = params[:repayment][:speaker_departure] = nil
     end
   end
 
-  def cv_params
-    params[:repayment][:cv].permit(:description, :attach)
-  end
-
   def add_cv
     if params[:repayment][:cv]
-      document = Document.create!(attach: params[:repayment][:cv], description: "CV", user_id: current_user.id)
+      document = @repayment.curricula_vitae.create!(attach: params[:repayment][:cv], description: "CV", user_id: current_user.id)
       logger.info document.inspect
-      @repayment.documents << document
+      # @repayment.documents << document
     end
   end
 
