@@ -9,7 +9,8 @@
 
     <div class="input">
       <label>Richiedo compenso</label>
-      <input type="checkbox" name="payment_bool" id="payment_bool" <%= 'checked="checked"' if repayment.object.payment %>/>
+      <input type="hidden" value="0" name="payment_bool">
+      <input type="checkbox" value="1" name="payment_bool" id="payment_bool" <%= 'checked="checked"' if repayment.object.payment %>/>
     </div>
     <div id="payment_amount">
       <%= repayment.input :italy, as: :radio_buttons %>
