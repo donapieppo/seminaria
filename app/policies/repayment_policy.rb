@@ -79,10 +79,10 @@ class RepaymentPolicy
   end
 
   def data_request?
-    update?
+    update? and (! @record.notified)
   end
 
   def submit_data_request?
-    update?
+    update? and (! @record.notified)
   end
 end
