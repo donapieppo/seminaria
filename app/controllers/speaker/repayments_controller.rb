@@ -1,7 +1,7 @@
 # :spkr_token
 class Speaker::RepaymentsController < ApplicationController
   skip_before_action :redirect_unsigned_user, only: [:accept, :show, :edit, :update]
-  before_action :get_repayment_from_token_and_check_permission, only: [:accept, :show, :edit, :update]
+  before_action :get_repayment_from_token, only: [:accept, :show, :edit, :update]
 
   def data_request
     @repayment = Repayment.find(params[:id])
@@ -14,16 +14,27 @@ class Speaker::RepaymentsController < ApplicationController
   end
 
   def accept
+    if @repayment.notified
+      redirect_to(root_path, alert: "Too late to modify data. Please contact the organizer of the seminar.") and return
+    end
   end
 
   def show
+    if @repayment.notified
+      redirect_to(root_path, alert: "Too late to modify data. Please contact the organizer of the seminar.") and return
+    end
   end
 
   def edit
+    if @repayment.notified
+      redirect_to(root_path, alert: "Too late to modify data. Please contact the organizer of the seminar.") and return
+    end
   end
 
   def update
-    if @repayment.update_attributes(speaker_repayment_attributes) 
+    if @repayment.notified
+      redirect_to(root_path, alert: "Too late to modify data. Please contact the organizer of the seminar.") and return
+    elsif @repayment.update_attributes(speaker_repayment_attributes) 
       add_id_card
       redirect_to edit_speaker_repayment_path(@repayment.spkr_token), notice: 'The data have been saved.'
     else
@@ -33,12 +44,8 @@ class Speaker::RepaymentsController < ApplicationController
 
   private
 
-  def get_repayment_from_token_and_check_permission
+  def get_repayment_from_token
     @repayment = Repayment.where(spkr_token: params[:id]).first or raise "Uncorrect tkn."
-    seminar = @repayment.seminar
-    if user_too_late_for_repayment?(seminar)
-      redirect_to root_path, alert: "Too late to modify data. Please contact the organizer of the seminar."
-    end
   end
 
   def speaker_repayment_attributes
