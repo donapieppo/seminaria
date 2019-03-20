@@ -6,6 +6,10 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+ActiveSupport::Inflector.inflections(:en) do |inflect|
+  inflect.irregular 'curriculum_vitae', 'curricula_vitae'
+end
+
 module Seminaria
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
