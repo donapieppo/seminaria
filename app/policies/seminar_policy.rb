@@ -31,7 +31,7 @@ class SeminarPolicy
   end
 
   def update?
-    @user and (@user.can_manage?(@record.organization_id) or record.user_id == @user.id)
+    @user and (@user.can_manage?(@record.organization_id) or @record.user_id == @user.id)
   end
 
   def edit?
@@ -40,7 +40,7 @@ class SeminarPolicy
 
   # FIXME li cancella solo manager o se non e' ancora stata inviata
   def destroy?
-    @user and (@user.can_manage?(@record.organization_id) or (@user.owns?(record) and ! record.repayment))
+    @user and (@user.can_manage?(@record.organization_id) or (@user.owns?(@record) and ! @record.repayment))
   end
 
   def mail_text?
