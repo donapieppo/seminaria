@@ -8,18 +8,19 @@ docx.p
 docx.p "TRASFERTA - PERSONALE ESTERNO", align: :center, bold: true
 docx.p
 docx.p "Il/La sottoscritto/a"
-docx.p "  #{@repayment.name} #{@repayment.surname}, nat#{@repayment.seminar.female_speaker? ? 'a' : 'o'} a #{@repayment.birth_place} (#{@repayment.birth_country}), il #{@repayment.birth_date}, residente in #{@repayment.address} – #{@repayment.postalcode}, #{@repayment.city} (#{@repayment.country}), codice fiscale #{@repayment.taxid.to_s.upcase}"
-docx.p "in qualità di #{@repayment.position_to_s} presso #{@repayment.affiliation}"
+docx.p "  #{@repayment.name} #{@repayment.surname}, nat#{@repayment.seminar.female_speaker? ? 'a' : 'o'} a #{@repayment.birth_place} (#{@repayment.birth_country}), il #{@repayment.birth_date}, residente in #{@repayment.address} – #{@repayment.postalcode}, #{@repayment.city} (#{@repayment.country}), codice fiscale #{@repayment.taxid.to_s.upcase} in qualità di #{@repayment.position_to_s} presso #{@repayment.affiliation}"
 docx.p 
-docx.p "Attività svolta  Rep _______________  del ________________ "
+docx.p "Attività svolta ____________________________________________________ Rep ______  del ________________ "
 docx.p 
 docx.p "Partita IVA ________________________"
 docx.p
 docx.p "IBAN _______________________"
 docx.p
 if @repayment.speaker_arrival and @repayment.speaker_departure
-  docx.p "Arrivo del conferenziere: #{@repayment.speaker_arrival}" 
-  docx.p "Partenza del conferenziere: #{@repayment.speaker_arrival}" 
+  docx.p "Arrivo del conferenziere: #{I18n.l @repayment.speaker_arrival} da __________________________________" 
+  docx.p
+  docx.p "Partenza del conferenziere: #{I18n.l @repayment.speaker_departure} a __________________________________" 
+  docx.p
 end
 
 docx.table [['Descrizione','Importo richiesto', 'Importo ammesso al rimborso'],
@@ -49,10 +50,11 @@ docx.table [['Descrizione','Importo richiesto', 'Importo ammesso al rimborso'],
   border_size    2          # sets the border width. defaults to 0. units in twips.
   border_spacing 2          # sets the spacing around the border. defaults to 0. units in twips.
   cell_style cols[0], width: 5000
-  cell_style cells, margins: { top: 10, bottom: 10, left: 100, right: 100 }
+  cell_style cells, margins: { top: 20, bottom: 20, left: 100, right: 100 }
 end
 
-docx.p
+docx.page 
+
 docx.p "Dichiara di essersi avvalso di uno dei seguenti mezzi di trasporto straordinari:"
 docx.p "     □ TAXI             □ MEZZO A NOLEGGIO              □ AUTO PROPRIA *"
 docx.p " □ * dichiara di sollevare l'Università di Bologna da qualsiasi responsabilità diretta o indiretta circa l'uso di tale mezzo"
@@ -79,13 +81,14 @@ docx.table [['Viaggio\n(auto propria o a noleggio)',
   border_line    :single    # sets the border style. defaults to :single. see OOXML docs for details.
   border_size    2          # sets the border width. defaults to 0. units in twips.
   border_spacing 2          # sets the spacing around the border. defaults to 0. units in twips.
-  cell_style cells, margins: { top: 10, bottom: 10, left: 100, right: 100 }
+  cell_style cells, margins: { top: 20, bottom: 20, left: 100, right: 100 }
 end
 
 
 docx.p
 docx.p "Il sottoscritto allega n°___________ giustificativi dei pagamenti effettuati ai fini del rimborso come sopradescritto "
-docx.p "Appone una marca da bollo da euro 2 nel caso in cui il totale del rimborso richiesto si superiore ad euro 77,47"
+docx.p 
+docx.p "Appone una marca da bollo da euro 2 nel caso in cui il totale del rimborso richiesto si superiore ad euro 77,47", bold: true
 docx.p
 docx.p "IL RICHIEDENTE                         ___________________________", bold: true
 docx.p
@@ -93,16 +96,9 @@ docx.p "Si attesta che le spese indicate sono inerenti e  necessarie allo svolgi
 docx.p
 docx.p "Rep. ________ Prot., __________"
 docx.p
-docx.p "IL REFERENTE CONTRATTUALE              ___________________________", bold: true
+docx.p "IL REFERENTE CONTRATTUALE ___________________________", bold: true
 docx.p
-docx.p "Si autorizza la liquidazione della spesa complessiva sui seguenti fondi"
-docx.p
-docx.p "CDR                   PROGETTO                       PRENOTAZIONE"
-docx.p "                      F.S.                           IMPEGNO"
-docx.p
-docx.p "IL RESPONSABILE DEI FONDI/PROGETTO     ___________________________", bold: true
-docx.p
-docx.p "IL DIRETTORE                           ___________________________", bold: true
+docx.p "IL DIRETTORE ___________________________", bold: true
 
 
 

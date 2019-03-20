@@ -13,20 +13,19 @@ docx.p "Il/La sottoscritto/a  #{@repayment.name} #{@repayment.surname}, nat#{@re
 docx.p 
 docx.p "dichiara", bold: true, align: :center
 docx.p 
-docx.ul do
-  li "di non svolgere incarichi e né di avere titolarità di cariche in enti di diritto privato regolati o finanziati dalla pubblica amministrazione o lo svolgimento di attività professionali;"
-  li "di svolgere incarichi e/o avere titolarità di cariche in enti di diritto privato regolati o finanziati dalla pubblica amministrazione e/o lo svolgimento di attività professionali. In tal caso specificare nell’apposita tabella di seguito riportata:"
-end
+docx.p " □ di non svolgere incarichi e né di avere titolarità di cariche in enti di diritto privato regolati o finanziati dalla pubblica amministrazione o lo svolgimento di attività professionali;"
+docx.p " □ di svolgere incarichi e/o avere titolarità di cariche in enti di diritto privato regolati o finanziati dalla pubblica amministrazione e/o lo svolgimento di attività professionali. In tal caso specificare nell’apposita tabella di seguito riportata:"
 docx.p            
 docx.p            
-docx.table [['Cariche/incarichi/attività professionali','Ente/società', 'Data di inizio', 'Data di fine'],
-            ['', '', '', ''],
-            ['', '', '', ''],
-            ['', '', '', ''],
-            ['', '', '', ''],
-            ['', '', '', ''],
-            ['', '', '', ''],
-            ['', '', '', '']] do
+docx.table [['Cariche/incarichi/attività professionali', 'Ente/società', 'Data di inizio', 'Data di fine'],
+            [' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' '],
+            [' ', ' ', ' ', ' ']] do
   border_color   '666666'   # sets the border color. defaults to 'auto'.
   border_line    :single    # sets the border style. defaults to :single. see OOXML docs for details.
   border_size    4          # sets the border width. defaults to 0. units in twips.
