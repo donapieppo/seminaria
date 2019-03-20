@@ -1,0 +1,21 @@
+<% I18n.locale = :en %>  
+
+<h1>Conditions of use and privacy</h1>
+
+<div class="alert alert-info">
+  <p><strong>I declare to be <%= @repayment.name %> <%= @repayment.surname %></strong></p>
+
+  <p>
+  and in order to simplify the procedure to recive repayment / refund for my seminar in Bologna on <%= l @repayment.seminar.date, format: :short %>
+  I accept to use this software and provide personal data to the Department of Mathematics of Bologna.
+  </p>
+
+</div>
+
+<p class="text-center">
+<%= link_to "I, #{@repayment.name} #{@repayment.surname}, accept the conditions and want to proceed", edit_speaker_repayment_path(@repayment.spkr_token), class: 'btn btn-lg btn-primary' %> <br/>
+</p>
+<p class="text-center">
+  <%= link_to 'NOT ITERESTED', root_path, class: 'btn btn-lg btn-danger' %>  
+</p>
+
