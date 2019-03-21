@@ -45,20 +45,14 @@ Rails.application.routes.draw do
     get  :print_other,     on: :member
   end
 
-  resources :documents do
-    get :download, on: :member
-  end
-
-  resources :funds do
-    # get :justifications, on: :member
-    # get :owners, on: :collection
-  end
+  resources :funds 
 
   namespace(:speaker) do
     resources :repayments do
       get  :accept,              on: :member
       get  :data_request,        on: :member
       post :submit_data_request, on: :member
+      resources :id_cards
     end
   end
 
