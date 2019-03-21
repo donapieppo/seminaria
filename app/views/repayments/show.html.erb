@@ -82,7 +82,7 @@
           <dd><%= modal_link_to 'Modifica', edit_repayment_path(@repayment, what: :speaker), addclass: :button %></dd>
         <% end %>
       </dl>
-      <% if user_can_edit and (! @repayment.notified) %>  
+      <% if false and user_can_edit and (! @repayment.notified) %>  
         <p style="text-align: right"><%= link_to big_icon('envelope', text: 'Testo della mail da inviare al relatore per richiedere da parte sua la compilazione dei dati anagrafici e bancari.'), data_request_speaker_repayment_path(@repayment) %></p>
       <% end %>
     <% end %>
