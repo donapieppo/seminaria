@@ -7,9 +7,9 @@
     </p>
   <% else %>
     <% if @seminar.repayment %>  
-      <%= link_to 'Mostra informazioni compenso e/o rimborso', repayment_path(@seminar.repayment), class: 'button m-3' %>
+      <%= link_to 'Mostra informazioni compenso e/o rimborso', repayment_path(@seminar.repayment), class: 'btn btn-primary btn-lg m-3' %>
     <% else %>
-      <%= link_to 'Richiedi compenso e/o rimborso', new_seminar_repayment_path(@seminar), class: 'button m-3' %>
+      <%= link_to 'Richiedi compenso e/o rimborso', new_seminar_repayment_path(@seminar), class: 'btn btn-primary btn-lg m-3' %>
     <% end %>
   <% end %>
 <% end %>
