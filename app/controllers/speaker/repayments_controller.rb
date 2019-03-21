@@ -35,7 +35,6 @@ class Speaker::RepaymentsController < ApplicationController
     if @repayment.notified
       redirect_to(root_path, alert: "Too late to modify data. Please contact the organizer of the seminar.") and return
     elsif @repayment.update_attributes(speaker_repayment_attributes) 
-      add_id_card
       redirect_to edit_speaker_repayment_path(@repayment.spkr_token), notice: 'The data have been saved.'
     else
       render :edit
@@ -53,12 +52,6 @@ class Speaker::RepaymentsController < ApplicationController
                               :italy, :address, :postalcode, :city, :country, 
                               :affiliation, :position_id, 
                               :iban, :swift, :aba)
-  end
-
-  def add_id_card
-    if params[:repayment][:id_card]
-      document = @repayment.id_cards.create!(attach: params[:repayment][:id_card], description: "Id Card")
-    end
   end
 
 end
