@@ -151,12 +151,14 @@ dl.inline {
   h2 {
     @extend .my-2;
   }
+
   .choose_type_item {
     @extend .col-md-8;
     @extend .offset-md-2;
     @extend .p-3;
     @extend .my-3;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    // box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 1px 1px 2px 2px #aaaaaa;
   }
 }
 
