@@ -8,8 +8,5 @@ class Document < ApplicationRecord
     self.description.blank? ? self.attach_file_name : self.description
   end
 
-  #def url
-  #end
-
 end
 
