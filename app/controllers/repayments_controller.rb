@@ -1,5 +1,4 @@
 class RepaymentsController < ApplicationController
-  # propria richiesta o su propri fondi
   before_action :get_repayment_and_seminar_and_check_permission, only: [:show, :edit, :update, :notify, 
                                                                         :print_decree, :print_letter, :print_proposal, :print_repayment, :print_refund, :print_other]
   before_action :get_seminar, only: [:new, :create]
@@ -231,8 +230,6 @@ class RepaymentsController < ApplicationController
   def add_cv
     if params[:repayment][:cv]
       document = @repayment.curricula_vitae.create!(attach: params[:repayment][:cv], description: "CV", user_id: current_user.id)
-      logger.info document.inspect
-      # @repayment.documents << document
     end
   end
 
