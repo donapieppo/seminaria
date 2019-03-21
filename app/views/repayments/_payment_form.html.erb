@@ -1,5 +1,13 @@
 <div class="dm-card">
   <div class="dm-card-title">
+    Residenza fiscale <span class="text-danger float-right">Importante, da qusta scelta dipendono vari conteggi.</span>
+  </div>
+  <div class="dm-card-body">
+    <%= repayment.input :italy, as: :radio_buttons %>
+  </div>
+</div>
+<div class="dm-card">
+  <div class="dm-card-title">
     Compenso onnicomprensivo
   </div>
   <div class="dm-card-body">
@@ -13,7 +21,6 @@
       <input type="checkbox" value="1" name="payment_bool" id="payment_bool" <%= 'checked="checked"' if repayment.object.payment %>/>
     </div>
     <div id="payment_amount">
-      <%= repayment.input :italy, as: :radio_buttons %>
       <%= repayment.input :payment, hint: t(:payment_hint), as: :currency_float %>
       <%= repayment.input :gross, as: :radio_buttons, collection: [['Lordo ente', true], ['Compenso netto', false]], label: "" %>  
       <div class="col-sm-9 offset-sm-3">
