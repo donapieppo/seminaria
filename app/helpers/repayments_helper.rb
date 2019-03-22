@@ -84,4 +84,9 @@ module RepaymentsHelper
     end
   end
 
+  def field_or_underscores(s, size: 20)
+    s.blank? ? ('_' * size) : s
+  end
+
+
 end
