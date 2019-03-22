@@ -71,15 +71,12 @@ ActiveRecord::Schema.define(version: 2019_02_04_122930) do
   end
 
   create_table "documents", id: :integer, unsigned: true, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "type", limit: 100
     t.integer "user_id", unsigned: true
     t.integer "seminar_id", unsigned: true
     t.integer "repayment_id", unsigned: true
     t.string "description", limit: 200
     t.datetime "created_at"
-    t.string "attach_file_name", limit: 200
-    t.string "attach_content_type", limit: 100
-    t.integer "attach_file_size", unsigned: true
-    t.datetime "attach_updated_at"
     t.index ["repayment_id"], name: "repayment_id"
     t.index ["seminar_id"], name: "seminar_id"
     t.index ["user_id"], name: "user_id"
@@ -145,9 +142,11 @@ ActiveRecord::Schema.define(version: 2019_02_04_122930) do
     t.integer "bond_year", unsigned: true
     t.integer "bond_number", unsigned: true
     t.boolean "notified"
+    t.string "spkr_token", limit: 250
     t.index ["fund_id"], name: "fund_id"
     t.index ["holder_id"], name: "index_repayments_on_holder_id"
     t.index ["seminar_id"], name: "index_repayments_on_seminar_id"
+    t.index ["spkr_token"], name: "spkr_token_on_repayments"
   end
 
   create_table "seminars", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
