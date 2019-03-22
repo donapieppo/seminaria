@@ -11,7 +11,7 @@
           <% cvs.each do |doc| %>  
             <strong>allegato:</strong> 
             <%= link_to_cv doc %> 
-            <%= link_to_delete document_path(doc) %><br/>
+            <%= link_to_delete repayment_curriculum_vitae_path(repayment.object, doc) %><br/>
           <% end %>
         </div>
       </div>

@@ -6,5 +6,8 @@ class CurriculumVitaePolicy < DocumentPolicy
     @record = record
   end
 
+  def destroy?
+    @user and RepaymentPolicy.new(@user, @record.repayment).update?
+  end
 end
 

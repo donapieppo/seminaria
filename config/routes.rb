@@ -43,6 +43,8 @@ Rails.application.routes.draw do
     get  :print_repayment, on: :member
     get  :print_refund,    on: :member
     get  :print_other,     on: :member
+
+    resources :curricula_vitae
   end
 
   resources :funds 
