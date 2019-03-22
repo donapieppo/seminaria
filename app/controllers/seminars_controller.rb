@@ -94,8 +94,6 @@ class SeminarsController < ApplicationController
     @serial    = @seminar.serial 
     @cycle     = @seminar.cycle
     @documents = @seminar.documents
-
-    @document  = Document.new
   end
 
   def update
