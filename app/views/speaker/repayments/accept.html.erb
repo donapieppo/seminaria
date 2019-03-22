@@ -5,8 +5,8 @@
 <p>
 To simplify the data collection procedure of your personal data for your seminar
 </p>
-<p class="font-weight-bold">
-&ldquo;<%= @repayment.seminar.title %>&rdquo;  in Bologna on <%= l @repayment.seminar.date, format: :short %>
+<p style="font-size: 120%">
+<strong>&ldquo;<%= @repayment.seminar.title %>&rdquo;</strong>  in Bologna on <%= l @repayment.seminar.date, format: :short %>
 </p>
 <p>
 we ask you to accept the following:
@@ -14,10 +14,8 @@ we ask you to accept the following:
 
 <div class="alert alert-info">
   <p><%= icon("angle-double-right") %> I declare to be <%= @repayment.name %> <%= @repayment.surname %></strong></p>
-  <p><%= icon("angle-double-right") %> In order to simplify the procedure to recive repayment / refund for my 
-  <strong>seminar in Bologna on <%= l @repayment.seminar.date, format: :short %></strong> I agree to 
-  to use this software and provide personal data to the Department of Mathematics of Bologna in 
-  respsect of privacy Italian rules (D.Lgs. 196/2003 – D.Lgs. 101/2018).
+  <p><%= icon("angle-double-right") %> I agree to use this software and provide personal data to the Department of Mathematics of Bologna in 
+  respect of privacy Italian rules (D.Lgs. 196/2003 – D.Lgs. 101/2018).
   </p>
 </div>
 
