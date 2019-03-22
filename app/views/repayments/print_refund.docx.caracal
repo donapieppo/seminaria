@@ -8,13 +8,15 @@ docx.p
 docx.p "TRASFERTA - PERSONALE ESTERNO", align: :center, bold: true
 docx.p
 docx.p "Il/La sottoscritto/a"
-docx.p "  #{@repayment.name} #{@repayment.surname}, nat#{@repayment.seminar.female_speaker? ? 'a' : 'o'} a #{@repayment.birth_place} (#{@repayment.birth_country}), il #{@repayment.birth_date}, residente in #{@repayment.address} – #{@repayment.postalcode}, #{@repayment.city} (#{@repayment.country}), codice fiscale #{@repayment.taxid.to_s.upcase} in qualità di #{@repayment.position_to_s} presso #{@repayment.affiliation}"
+docx.p "  #{@repayment.name} #{@repayment.surname}, nato/a a #{@repayment.birth_place} (#{@repayment.birth_country}), il #{@repayment.birth_date}, residente in #{@repayment.address} – #{@repayment.postalcode}, #{@repayment.city} (#{@repayment.country}), codice fiscale #{field_or_underscores @repayment.taxid.to_s.upcase, size: 50} in qualità di #{@repayment.position_to_s} presso #{@repayment.affiliation}"
 docx.p 
 docx.p "Attività svolta ____________________________________________________ Rep ______  del ________________ "
 docx.p 
 docx.p "Partita IVA ________________________"
 docx.p
-docx.p "IBAN _______________________"
+docx.p "IBAN: #{field_or_underscores @repayment.iban}"
+docx.p
+docx.p "SWIFT: #{field_or_underscores @repayment.swift}"
 docx.p
 if @repayment.speaker_arrival and @repayment.speaker_departure
   docx.p "Arrivo del conferenziere: #{I18n.l @repayment.speaker_arrival} da __________________________________" 
