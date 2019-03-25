@@ -81,6 +81,12 @@
           <dt><%= t m %></dt>
           <dd><%= attribute_to_s @repayment.send(m) %></dd>
         <% end %>
+        <% if (id_cards = @repayment.id_cards).any? %>  
+          <dt>ID</dt>
+          <% id_cards.each do |id_card| %>
+            <dd><%= link_to_id_card id_card %></dd>
+          <% end %>
+        <% end %>
         <% if user_can_edit %>  
           <dd><%= modal_link_to 'Modifica', edit_repayment_path(@repayment, what: :speaker), addclass: :button %></dd>
         <% end %>
