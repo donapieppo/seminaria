@@ -3,7 +3,7 @@
 <div class="alert alert-info">
   <p>Dear <%= @repayment.name %> <%= @repayment.surname %>, in order to recive repayment / refund for your seminar in Bologna</p>
   <p class="font-weight-bold">(<%= l @repayment.seminar.date, format: :short %>) <%= @repayment.seminar.title %></p>
-  <p>please fill out the form below with also a copy of your ID Card</p>
+  <p>please fill out the form below and provide a copy of an ID document.</p>
 </div>
 
 <%= dm_form_for [:speaker, @repayment, IdCard.new], url: speaker_repayment_id_cards_path(@repayment.spkr_token), title: 'Id Document ' do |form| %>
