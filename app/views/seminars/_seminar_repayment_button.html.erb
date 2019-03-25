@@ -1,15 +1,17 @@
+<% seminar_repayment = @seminar.repayment %>  
+
 <%= dm_card title: big_icon('euro-sign', text: 'Richiesta di compenso e/o rimborso').html_safe do %>
-  <% if @repayment %>
-    <% if policy(@repayment).show? %>  
-      <p class="text-center">
-      <%= link_to 'Mostra informazioni<br/>su compenso e/o rimborso'.html_safe, repayment_path(@repayment), class: 'btn btn-primary btn-lg' %>
-      </p>
+  <% if seminar_repayment %>
+    <% if policy(seminar_repayment).show? %>  
+      <div class="text-center">
+        <%= link_to 'Mostra informazioni<br/>su compenso e/o rimborso'.html_safe, repayment_path(seminar_repayment), class: 'btn btn-primary btn-lg' %>
+      </div>
     <% end %>
-  <% elsif @too_late_for_repayment %>  
-    <p class="alert alert-warning">
-    È troppo tardi per richiedere rimborso e/o compenso.<br/> <%= repayment_days_warning %>  
-    </p>
-  <% else %>
+  <% elsif user_too_late_for_repayment?(@seminar) %>
+    <div class="alert alert-warning">
+      È troppo tardi per richiedere rimborso e/o compenso.<br/> <%= repayment_days_warning %>  
+    </div>
+  <% elsif policy(@seminar).edit?  %>
     <div class="alert alert-info">
       È possibile richiedere compenso e/o rimborso. <br/> <%= repayment_days_warning %><br/>
       Per richedere il compenso e/o rimborso le verranno chieste le seguenti cose:
@@ -20,9 +22,9 @@
         <li style="list-style-type: circle"><strong>dati anagrafici</strong> e <strong>residenza</strong> del conferenziere.</li>
       </ul>
     </div>
-    <p class="text-center">
-    <%= link_to 'Richiedi compenso e/o rimborso', new_seminar_repayment_path(@seminar), class: 'btn btn-primary btn-lg' %>  
-    </p>
+    <div class="text-center">
+      <%= link_to 'Richiedi compenso e/o rimborso', new_seminar_repayment_path(@seminar), class: 'btn btn-primary btn-lg' %>  
+    </div>
   <% end %>
 <% end %>
 

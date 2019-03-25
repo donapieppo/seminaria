@@ -1,15 +1,12 @@
 <%= render @seminar %>  
 
 <% if policy(@seminar).update? %>  
-  <% if @too_late_for_repayment %>  
-    <p class="alert alert-warning my-3">
-    <%= big_icon('exclamation-circle') %>  <%= t :too_late_for_repayment %> <br/> <%= repayment_days_warning %>  
-    </p>
-  <% else %>
-    <% if @seminar.repayment %>  
-      <%= link_to 'Mostra informazioni compenso e/o rimborso', repayment_path(@seminar.repayment), class: 'btn btn-primary btn-lg m-3' %>
-    <% else %>
-      <%= link_to 'Richiedi compenso e/o rimborso', new_seminar_repayment_path(@seminar), class: 'btn btn-primary btn-lg m-3' %>
-    <% end %>
-  <% end %>
+  <div class="row">
+    <div class="col-md-6">
+      <%= render 'seminar_documents_form' %>
+    </div>
+    <div class="col-md-6">
+      <%= render 'seminar_repayment_button' %>  
+    </div>
+  </div>
 <% end %>

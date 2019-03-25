@@ -3,9 +3,9 @@
     Questi allegati (per esempo locandine, slides, etc.) sono <strong>pubblici</strong>. 
     Nel caso di un rimborso/compenso dovrete inserire il curriculum vitae del relatore (in questo caso visibile solo all'amministrazione) <strong>in un altro form</strong>.
   </div>
-  <% if @documents.any? %>  
+  <% if @seminar.documents.any? %>  
     <ul>
-      <% @documents.each do |document| %>
+      <% @seminar.documents.each do |document| %>
         <li>
           <%= icon('download') + "&nbsp;".html_safe + link_to(document.description, url_for(document.attach)) %> - 
           <%= link_to_delete seminar_document_path(@seminar, document) %>

@@ -73,6 +73,9 @@
 
   <div class="col-lg-5">
     <%= dm_card title: checked_title(@repayment, :speaker_details) do %>
+      <% if user_can_edit and (! @repayment.notified) %>  
+        <p style="text-align: right"><%= link_to big_icon('envelope', text: 'Testo della mail da inviare al relatore per richiedere la compilazione dei dati anagrafici e bancari.'), data_request_speaker_repayment_path(@repayment) %></p>
+      <% end %>
       <dl class="inline">
         <% for m in [:name, :surname, :email, :affiliation, :position_to_s, :address, :postalcode, :city, :country, :birth_date, :birth_place, :birth_country, :taxid] do %>  
           <dt><%= t m %></dt>
@@ -82,9 +85,6 @@
           <dd><%= modal_link_to 'Modifica', edit_repayment_path(@repayment, what: :speaker), addclass: :button %></dd>
         <% end %>
       </dl>
-      <% if false and user_can_edit and (! @repayment.notified) %>  
-        <p style="text-align: right"><%= link_to big_icon('envelope', text: 'Testo della mail da inviare al relatore per richiedere da parte sua la compilazione dei dati anagrafici e bancari.'), data_request_speaker_repayment_path(@repayment) %></p>
-      <% end %>
     <% end %>
     <%= dm_card title: "Coordinate Bancarie <small>(dati non bloccanti)</small> #{checked_icon(true)}".html_safe do %>
       <dl class="inline">
