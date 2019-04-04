@@ -20,10 +20,7 @@ docx.p "  #{I18n.t :resident_at}: #{@repayment.address} – #{@repayment.postalc
 docx.p 
 docx.p "  #{I18n.t :and_in_quality_of} #{@repayment.position_to_s} #{I18n.t :at} #{@repayment.affiliation}"
 docx.p 
-docx.p "", align: :center, bold: true
-docx.p
-docx.p "mediante versamento su c/c bancario/bancoposta/Carta prepagata"
-docx.p "con le seguenti coordinate IBAN: #{ @repayment.iban.to_s.upcase}"
+docx.p "Chiede che il pagamento venga effettuato mediante versamento su c/c bancario/bancoposta/carta prepagata con le seguenti coordinate IBAN: #{field_or_underscores(@repayment.iban.to_s.upcase, size: 40)}"
 docx.p
 docx.p "AVVERTENZA:", align: :center
 docx.p "il c/c deve essere intestato o cointestato al dichiarante", align: :center
