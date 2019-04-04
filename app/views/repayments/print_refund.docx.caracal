@@ -26,6 +26,7 @@ if @repayment.speaker_arrival and @repayment.speaker_departure
 end
 
 docx.table [['Descrizione','Importo richiesto', 'Importo ammesso al rimborso'],
+            ['Spese di viaggio', '', ''],
             ['Taxi', '', ''],
             ['Mezzi a noleggio', '', ''],
             ['Autobus/Metro', '', ''],
