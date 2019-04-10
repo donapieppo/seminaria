@@ -3,12 +3,15 @@ letter_defaults(docx)
 repayment_header(docx) 
 repayment = @repayment
 
+I18n.locale = @repayment.italy ? :it : :en 
+
 docx.p
 
-docx.p "TRASFERTA - PERSONALE ESTERNO", align: :center, bold: true
+docx.p t(:refund_title), align: :center, bold: true
 docx.p
-docx.p "Il/La sottoscritto/a"
-docx.p "  #{@repayment.name} #{@repayment.surname}, nato/a a #{@repayment.birth_place} (#{@repayment.birth_country}), il #{@repayment.birth_date}, residente in #{@repayment.address} – #{@repayment.postalcode}, #{@repayment.city} (#{@repayment.country}), codice fiscale #{field_or_underscores @repayment.taxid.to_s.upcase, size: 50} in qualità di #{@repayment.position_to_s} presso #{@repayment.affiliation}"
+docx.p I18n.t :i_declare
+docx.p
+docx.p "  #{@repayment.name} #{@repayment.surname}, #{t :born_in} #{@repayment.birth_place} (#{@repayment.birth_country}), #{t :born_at} #{@repayment.birth_date}, #{I18n.t :resident_at} #{@repayment.address} – #{@repayment.postalcode}, #{@repayment.city} (#{@repayment.country}), #{I18n.t :tax_id} #{field_or_underscores @repayment.taxid.to_s.upcase, size: 50} #{I18n.t :and_in_quality_of} #{@repayment.position_to_s} #{I18n.t :at} #{@repayment.affiliation}"
 docx.p 
 docx.p "Attività svolta ____________________________________________________ Rep ______  del ________________ "
 docx.p 
@@ -19,34 +22,34 @@ docx.p
 docx.p "SWIFT: #{field_or_underscores @repayment.swift}"
 docx.p
 if @repayment.speaker_arrival and @repayment.speaker_departure
-  docx.p "Arrivo del conferenziere: #{I18n.l @repayment.speaker_arrival} da __________________________________" 
+  docx.p "#{t :speaker_arrival}: #{I18n.l @repayment.speaker_arrival} #{t :arrival_from} __________________________________" 
   docx.p
-  docx.p "Partenza del conferenziere: #{I18n.l @repayment.speaker_departure} a __________________________________" 
+  docx.p "#{t :speaker_departure}: #{I18n.l @repayment.speaker_departure} #{t :departure_to} __________________________________" 
   docx.p
 end
 
-docx.table [['Descrizione','Importo richiesto', 'Importo ammesso al rimborso'],
-            ['Spese di viaggio', '', ''],
-            ['Taxi', '', ''],
-            ['Mezzi a noleggio', '', ''],
-            ['Autobus/Metro', '', ''],
-            ['Spese di alloggio', '', ''],
-            ['Spese per vitto', '', ''],
-            ['Indennità KM', '', ''],
-            ['Pedaggi autostradali', '', ''],
-            ['Parcheggi', '', ''],
-            ['Spese per visti consolari', '', ''],
-            ['Tasse di soggiorno', '', ''],
-            ['Spese per vaccinazioni obbligatorie e profilassi', '', ''],
-            ['Assicurazioni sanitarie', '', ''],
-            ['Altre assicurazioni', '', ''],
-            ['Mance obbligatorie', '', ''],
-            ['Deposito bagagli', '', ''],
-            ["Ingressi a musei (inerenti l'oggetto della trasferta)", '', ''],
-            ['Fotocopie, stampe, poster dispense opuscoli', '', ''],
-            ['Iscrizione a convegni', '', ''],
-            ['Altro (specificare)', '', ''], 
-            ['Totale da rimborsare', '', '']] do
+docx.table [[t(:description), t(:required_import), t(:accepted_import)],
+            [t(:travel_costs), '', ''],
+            [t(:taxi), '', ''],
+            [t(:rentals), '', ''],
+            [t(:bus_or_metro), '', ''],
+            [t(:accomodation), '', ''],
+            [t(:meals), '', ''],
+            [t(:km), '', ''],
+            [t(:motorway_tolls), '', ''],
+            [t(:parking), '', ''],
+            [t(:visas), '', ''],
+            [t(:taxes), '', ''],
+            [t(:vaccinations_and_prophylaxes), '', ''],
+            [t(:health_insurances), '', ''],
+            [t(:other_insurances), '', ''],
+            [t(:tips), '', ''],
+            [t(:luggage_storage), '', ''],
+            [t(:museums), '', ''],
+            [t(:prints), '', ''],
+            [t(:registrations), '', ''],
+            [t(:other), '', ''], 
+            [t(:total_to_refund), '', '']] do
   cell_style rows[0], background: '3366cc', color: 'ffffff', bold: true, align: :center
   border_color   '666666'   # sets the border color. defaults to 'auto'.
   border_line    :single    # sets the border style. defaults to :single. see OOXML docs for details.

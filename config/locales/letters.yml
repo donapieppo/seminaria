@@ -17,7 +17,38 @@ it:
   corporation: Ente/società
   professional_begin_date: Data di inizio
   professional_end_date: Data di fine
-  
+
+  refund_title: TRASFERTA - PERSONALE ESTERNO
+  speaker_arrival: Arrivo del conferenziere
+  arrival_from: da
+  speaker_departure: Partenza del conferenziere 
+  departure_to: a 
+  description: descrizione
+  required_import: Importo richiesto
+  accepted_import: Importo ammesso al rimborso
+
+  travel_costs: Spese di viaggio
+  taxi: Taxi
+  rentals: Mezzi a noleggio
+  bus_or_metro: Autobus/Metro
+  accomodation: Spese di alloggio
+  meals: Spese per vitto
+  km: Indennità KM
+  motorway_tolls: Pedaggi autostradali
+  parking: Parcheggi
+  visas: Spese per visti consolari
+  taxes: Tasse di soggiorno
+  vaccinations_and_prophylaxes: Spese per vaccinazioni obbligatorie e profilassi
+  health_insurances: Assicurazioni sanitarie
+  other_insurances: Altre assicurazioni
+  tips: Mance obbligatorie
+  luggage_storage: Deposito bagagli
+  museums: Ingressi a musei (inerenti l'oggetto della trasferta)
+  prints: Fotocopie, stampe, poster dispense opuscoli
+  internet: Internet
+  registrations: Iscrizione a convegni
+  other: Altro (specificare)
+  total_to_refund: Totale da rimborsare
 
 en:
   i_declare: I undersigned, under penalties of perjury, hereby declare the following to be true
@@ -38,4 +69,38 @@ en:
   corporation: Corporation/company
   professional_begin_date: Start date
   professional_end_date: End date
+
+  refund_title: BILL OF COSTS - COSTS CLAIM
+  speaker_arrival: Speaker arrival
+  arrival_from: from
+  speaker_departure: Speaker departure
+  departure_to: to
+  description: Description of costs incurred
+  required_import: Amount claimed
+  accepted_import: Amount admitted to reimbursement
+
+  travel_costs: Travel costs
+  taxi: Taxi
+  rentals: Rentals
+  bus_or_metro: Bus or metro
+  accomodation: Accomodation
+  meals: Meals
+  km: Number of Km. (in case of use of personal car)
+  motorway_tolls: Pedaggi autostradali
+  parking: Parcheggi
+  visas: Spese per visti consolari
+  taxes: Tasse di soggiorno
+  vaccinations_and_prophylaxes: Spese per vaccinazioni obbligatorie e profilassi
+  health_insurances: Assicurazioni sanitarie
+  other_insurances: Altre assicurazioni
+  tips: Mance obbligatorie
+  luggage_storage: Deposito bagagli
+  museums: Entrance fees to museums (pertaining to the subject of the transfer)
+  other: Orther (please specify)
+  prints: Photocopies, prints, posters, brochures
+  internet: Internet
+  registrations: Registration at conferences
+  total_to_refund: Totale to refund
+
+
 
