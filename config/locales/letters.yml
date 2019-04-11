@@ -26,6 +26,10 @@ it:
   description: descrizione
   required_import: Importo richiesto
   accepted_import: Importo ammesso al rimborso
+  vat: Partita IVA
+  owned_car: Auto propria
+  extra_traqnsport: Dichiara di essersi avvalso di uno dei seguenti mezzi di trasporto straordinari
+  only_responsable: I declare that I am the only responsible for the use of the above means of trasport and discharge the University of Bologna from any liability
 
   travel_costs: Spese di viaggio
   taxi: Taxi
@@ -49,6 +53,14 @@ it:
   registrations: Iscrizione a convegni
   other: Altro (specificare)
   total_to_refund: Totale da rimborsare
+
+  i_attach: Il sottoscritto allega n°___________ giustificativi dei pagamenti effettuati ai fini del rimborso come sopradescritto
+  stamp: Appone una marca da bollo da euro 2 nel caso in cui il totale del rimborso richiesto si superiore ad euro 77,47
+  performance: Attività svolta 
+  it_certifies: Si attesta che le spese indicate sono inerenti e  necessarie allo svolgimento della prestazione oggetto dell'incarico
+  the_applicant: IL RICHIEDENTE 
+  the_referent: IL REFERENTE CONTRATTUALE 
+  the_director: IL DIRETTORE
 
 en:
   i_declare: I undersigned, under penalties of perjury, hereby declare the following to be true
@@ -78,6 +90,10 @@ en:
   description: Description of costs incurred
   required_import: Amount claimed
   accepted_import: Amount admitted to reimbursement
+  vat: VAT
+  owned_car: Owned car
+  extra_traqnsport: I declare that I used one of the following non-ordinary means of transport
+  only_responsable: I declare that I am the only responsible for the use of the above means of trasport and discharge the University of Bologna from any liability
 
   travel_costs: Travel costs
   taxi: Taxi
@@ -102,5 +118,12 @@ en:
   registrations: Registration at conferences
   total_to_refund: Totale to refund
 
+  i_attach: I attach nr_____  receipts for the purpose of reimbursement as described above
+  stamp: the cost statement must be accompanied by a stamp of € 2 if the amount of the expenses for which reimbursement is requested is greater than € 77.47. 
+  performance: Performance
+  it_certifies: It certifies that the costs given are relevant and necessary to accomplish the object of the performance
+  the_applicant: THE APPLICANT
+  the_referent: THE CONTRACTUAL'S REFERENT
+  the_director: THE DIRECTOR
 
 
