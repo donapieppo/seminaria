@@ -6,6 +6,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Organization.create(name: "Dip Math Universal", description: "Best of the universe", city: "Bologna", home_page: "https://www.dm.unibo.it", logo_image: "pippo.png")
+Organization.create(name: "Dip Math Universal", description: "Best of the universe")
 
 
