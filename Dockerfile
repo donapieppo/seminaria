@@ -4,7 +4,7 @@ MAINTAINER Donapieppo <donapieppo@yahoo.it>
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update \
-    && apt-get install -y -y --no-install-recommends mysql-client libmariadbclient18 git apt-transport-https 
+    && apt-get install -y -y --no-install-recommends mysql-client libmariadbclient18 git apt-transport-https vim
 RUN echo 'deb https://dl.yarnpkg.com/debian/ stable main' > /etc/apt/sources.list.d/yarn.list
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN apt-get update \
