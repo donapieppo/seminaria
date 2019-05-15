@@ -17,7 +17,7 @@ RUN bundle install
 COPY . .
 
 # configuration
-RUN ["/bin/cp", "doc/docker_database.yml",        "config/database.yml.sample"]
+RUN ["/bin/cp", "doc/docker_database.yml",        "config/database.yml"]
 RUN ["/bin/cp", "doc/dm_unibo_common_docker.yml", "config/dm_unibo_common.yml"]
 RUN ["/bin/cp", "doc/seminaria_example.rb",       "config/initializers/seminaria.rb"]
 RUN ["/bin/cp", "doc/docker_seeds.rb",            "db/seeds.rb"]
