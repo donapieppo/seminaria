@@ -7,5 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Organization.create(name: "Dip Math Universal", description: "Best of the universe")
+User.crate(upn: "user.example@example.com", name: "Nome", surname: "Cognome", email: "user.example@example.com") 
+
 
 
