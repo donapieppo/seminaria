@@ -51,7 +51,7 @@ class Authorization < ApplicationRecord
     when 2
       'amministratore'
     when 3
-      '???'
+      'super'
     end
   end
 
