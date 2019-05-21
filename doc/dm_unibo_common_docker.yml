@@ -17,7 +17,7 @@ production:
   logo_image:          dm_unibo_common/unibo.png 
 
 development:
-  omniauth_provider:   :shibboleth 
+  omniauth_provider:   :developer
   searchable_provider: false
   host:                tester.example.com
   smtp_address:        mailhost.example.com
