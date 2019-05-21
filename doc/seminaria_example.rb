@@ -13,10 +13,12 @@ CESIA_UPN = ['admin.name@example.com']
 
 module Seminaria
   class Application < Rails::Application
-    config.domain_name     = 'example.it'
-    config.header_icon     = 'microphone'
-    config.header_title    = 'Seminari'
-    config.header_subtitle = 'Università di Bologna'
+    config.domain_name        = 'example.it'
+
+    config.header_icon        = 'microphone'
+    config.header_title       = 'Seminari'
+    config.header_subtitle    = 'Università di Bologna'
+    config.repayment_deadline = 14 # 8 days for working on repayment/refund before speaker arrival
 
     # email from field
     config.default_from    = 'DipMat Seminari <pippo.pluto@example.com>'
