@@ -8,7 +8,7 @@ class Repayment < ActiveRecord::Base
   has_many   :id_cards, dependent: :destroy
 
   # validates :taxid, format: { with: /\A[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]\z/i, message: 'Controllare il formato del codice fiscale' }, allow_nil: true, allow_blank: true
-  validates :iban, length: { is: 27 }, allow_nil: true, allow_blank: true
+  # validates :iban, length: { is: 27 }, allow_nil: true, allow_blank: true
 
   validate :payment_limit_for_italians
   validate :speaker_arrival_departure_validation
