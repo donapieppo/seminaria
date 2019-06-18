@@ -47,8 +47,10 @@ module SeminarsHelper
   end
 
   def document_tag(document, short: false)
-    content_tag :div do
-      icon('download') + "&nbsp;".html_safe + link_to(document.description, url_for(document.attach))
+    if document.attach.attached?
+      content_tag :div do
+        icon('download') + "&nbsp;".html_safe + link_to(document.description, url_for(document.attach))
+      end
     end
   end
 
