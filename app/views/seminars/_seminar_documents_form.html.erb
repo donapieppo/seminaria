@@ -7,8 +7,10 @@
     <ul>
       <% @seminar.documents.each do |document| %>
         <li>
-          <%= icon('download') + "&nbsp;".html_safe + link_to(document.description, url_for(document.attach)) %> - 
-          <%= link_to_delete seminar_document_path(@seminar, document) %>
+          <% if document.attach.attached? %>  
+            <%= icon('download') + "&nbsp;".html_safe + link_to(document.description, url_for(document.attach)) %> - 
+            <%= link_to_delete seminar_document_path(@seminar, document) %>
+          <% end %>
         </li>
       <% end %>
     </ul>
