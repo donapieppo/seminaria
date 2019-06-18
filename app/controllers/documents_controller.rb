@@ -9,10 +9,12 @@ class DocumentsController < ApplicationController
 
     logger.info document.inspect
 
-    if document.save
+    if !document.attach.attached? 
+      flash[:error] = "Non è stato allegato il file."
+    elsif document.save
       flash[:notice] = "L'allegato è stato salvato."
     else
-      flash[:error] = "Non è stato possibile salvere l'allegato. #{document.errors.first.inspect}."
+      flash[:error] = "Non è stato possibile salvare l'allegato. #{document.errors.first.inspect}."
     end
 
     redirect_to edit_seminar_path(@seminar)
