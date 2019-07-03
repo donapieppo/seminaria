@@ -85,6 +85,7 @@ it:
         cv: Curriculum Vitae
         bond_number: Vincolo di costo (numero)
         bond_year: Vincolo di costo (anno)
+        iban:    Iban (Bank Account)
       seminar:
         title:      Titolo
         date:       Giorno e ora
@@ -128,7 +129,6 @@ it:
       repayment:
         reason: Descrizione dettagliata delle eccezionali ragioni di particolare qualificazione, abilità e conoscenze possedute dal conferenziere che motivano la deroga alla procedura comparativa pubblica con assegnazione diretta dell’incarico.
         taxid: Inserire se disponibile. Non bloccante per l'invio all'amministrazione.
-        iban: 27 caratteri numerici o alfabetici, senza barre o virgole
         swift: BIC / SWIFT international bank code
         aba: Anche detto 'routing number' o 'routing transfer number'. 9 caratteri numerici usati per identificare istituzioni finanziarie negli Stati Uniti.
 

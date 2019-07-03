@@ -6,12 +6,14 @@ en:
   activerecord:
     models:
       repayment: Repayment request
+    attributes:
+      repayment:
+        iban:    Iban / Bank Account
 
   simple_form:
     hints:
       repayment:
         taxid: If available.
-        iban: 27 characters (numeric and alphanumeric), no bars or commas
         swift: BIC / SWIFT international bank code
         aba: Also known as routing number or routing transfer number. Sequence of nine numeric characters used by banks to identify specific financial institutions within the United States.
 
