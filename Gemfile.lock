@@ -1,35 +1,36 @@
 GIT
   remote: https://github.com/donapieppo/dm_unibo_common.git
-  revision: 45673bfe403e5061ed7133c193eacf79e033bded
+  revision: 390f054070ca22afa756eab7dbe2f376d1769579
   ref: master
   branch: master
   specs:
-    dm_unibo_common (2.0.2)
+    dm_unibo_common (2.1.0)
       bootsnap
       bootstrap (~> 4)
       coffee-rails
       font-awesome-sass
       jbuilder
       jquery-rails
-      listen (~> 3.0.5)
+      listen (~> 3)
       mini_magick
       mysql2
       omniauth
       omniauth-google-oauth2
       omniauth-shibboleth
       pretender
-      rails (~> 5.2.0)
+      rails (~> 5.2)
       sassc-rails
       simple_form (~> 4)
       uglifier
 
 GIT
   remote: https://github.com/donapieppo/dm_unibo_user_search.git
-  revision: 47323de20512360848d2a7ecffdbab4334288844
+  revision: a62701d6597a047acc6458244ce4d844ad51753e
   ref: master
   branch: master
   specs:
-    dm_unibo_user_search (0.1.1)
+    dm_unibo_user_search (0.2.0)
+      rails
       savon
 
 GEM
@@ -80,7 +81,7 @@ GEM
       gyoku (>= 0.4.0)
       nokogiri
     arel (9.0.0)
-    autoprefixer-rails (9.6.0)
+    autoprefixer-rails (9.6.1)
       execjs
     bootsnap (1.4.4)
       msgpack (~> 1.0)
@@ -116,7 +117,7 @@ GEM
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
     ffi (1.11.1)
-    font-awesome-sass (5.8.1)
+    font-awesome-sass (5.9.0)
       sassc (>= 1.11)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -137,9 +138,10 @@ GEM
     json (1.8.6)
     jwt (2.2.1)
     libv8 (7.3.492.27.1)
-    listen (3.0.8)
+    listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
+      ruby_dep (~> 1.2)
     loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -150,8 +152,8 @@ GEM
     metaclass (0.0.4)
     method_source (0.9.2)
     mimemagic (0.3.3)
-    mini_magick (4.9.3)
-    mini_mime (1.0.1)
+    mini_magick (4.9.4)
+    mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     mini_racer (0.2.6)
       libv8 (>= 6.9.411)
@@ -165,7 +167,7 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.1.1)
     mysql2 (0.5.2)
-    nio4r (2.3.1)
+    nio4r (2.4.0)
     nokogiri (1.10.3)
       mini_portile2 (~> 2.4.0)
     nori (2.6.0)
@@ -237,7 +239,7 @@ GEM
       nokogiri
       roo (>= 2.0.0, < 3)
       spreadsheet (> 0.9.0)
-    rspec-core (3.8.1)
+    rspec-core (3.8.2)
       rspec-support (~> 3.8.0)
     rspec-expectations (3.8.4)
       diff-lcs (>= 1.2.0, < 2.0)
@@ -255,6 +257,7 @@ GEM
       rspec-support (~> 3.8.0)
     rspec-support (3.8.2)
     ruby-ole (1.2.12.2)
+    ruby_dep (1.5.0)
     rubyzip (1.2.3)
     sassc (2.0.1)
       ffi (~> 1.9)
