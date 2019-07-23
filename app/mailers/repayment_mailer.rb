@@ -1,7 +1,5 @@
 # messo oscar in bcc perche' se in to insieme ad admin non riceve
 class RepaymentMailer < ApplicationMailer
-  default from: Rails.configuration.default_from
-
   def notify_repayment_to_holder(repayment)
     @repayment = repayment
     @seminar   = @repayment.seminar

@@ -1,6 +1,4 @@
 class SeminarMailer < ApplicationMailer
-  default from: Rails.configuration.default_from
-
   def notify_seminar(seminar, to, subject, text)
     @seminar = seminar
     @to      = to
