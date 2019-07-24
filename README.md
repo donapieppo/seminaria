@@ -48,9 +48,12 @@ docker-compose run web
 
 the configuration in docker comes from 
 
-    - `doc/dm_unibo_common_docker.yml` that sets the omniauth_provider as :developer
-    - `doc/docker_seeds.rb` where two organizations (Math and Chimica) and two users (admin.name@example.com and user.example@example.com) are created
-    - `doc/seminaria_example.rb` where user admin.name@example.com is configured ad main administrator.
+  - `doc/dm_unibo_common_docker.yml` that sets the omniauth_provider as :developer so that you are logged ad first user (see [https://github.com/donapieppo/dm_unibo_common] and [https://github.com/donapieppo/dm_unibo_common/blob/master/app/controllers/logins_controller.rb] for details on developer mode).
+  - `doc/docker_seeds.rb` where two organizations (Math and Chimica) and two users (admin.name@example.com and user.example@example.com) are created
+  - `doc/seminaria_example.rb` where user admin.name@example.com is configured ad main administrator.
+
+In production of course you have to configure a correct omniauth provider.
+
 
 
 
