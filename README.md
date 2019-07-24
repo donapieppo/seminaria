@@ -42,7 +42,7 @@ settings in `config/database.yml` file)
 
 ```bash
 docker-compose build
-docker-compose run --rm web bundle exec bin/setup
+docker-compose run --rm web bundle exec bin/docker_setup
 docker-compose run web
 ```
 
