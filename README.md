@@ -38,11 +38,19 @@ Then
 to load che db schema (default with mysql but you can change db
 settings in `config/database.yml` file)
 
-## Docker as alternative
+## Docker for first try
 
 ```bash
 docker-compose build
 docker-compose run --rm web bundle exec bin/setup
 docker-compose run web
 ```
+
+the configuration in docker comes from 
+
+    - `doc/dm_unibo_common_docker.yml` that sets the omniauth_provider as :developer
+    - `doc/docker_seeds.rb` where two organizations (Math and Chimica) and two users (admin.name@example.com and user.example@example.com) are created
+    - `doc/seminaria_example.rb` where user admin.name@example.com is configured ad main administrator.
+
+
 
