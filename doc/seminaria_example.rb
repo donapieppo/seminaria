@@ -1,4 +1,4 @@
-CESIA_UPN = ['admin.name@example.com']
+CESIA_UPN = ['administrator@example.com']
 
 module Seminaria
   class Application < Rails::Application
@@ -16,7 +16,7 @@ module Seminaria
     config.dm_unibo_common.update(
       login_method:        :log_and_create,
       message_footer:      %Q{Messaggio inviato da 'Gestione Seminari Dipartimento di Matematica'.\nNon rispondere a questo messaggio.\nPer problemi tecnici contattare testmail@example.comd},
-      impersonate_admins:  ['name.surname@examplexample.com'],
+      impersonate_admins:  ['administrator@example.com'],
       interceptor_mails:   ['name.surname2@examplexample.com'], 
     )
   end

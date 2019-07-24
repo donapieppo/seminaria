@@ -8,10 +8,11 @@
 
 Organization.create(name: "Dip Math", description: "Dipartimento di Matematica di test")
 Organization.create(name: "Dip Chimica", description: "Dipartimento di Chimica di test")
-User.create(id: 1, upn: "admin.name@example.com", name: "MyName", surname: "AdminUser", email: "admin.name@example.com") 
-User.create(id: 2, upn: "user.example@example.com", name: "Nome", surname: "Cognome", email: "user.example@example.com") 
-Argument.create(id: 1, organization_id: 1, name: 'Algebra')
-Argument.create(id: 2, organization_id: 1, name: 'Geometria')
+User.create(upn: "administrator@example.com", name: "Name", surname: "Administrator", email: "administrator@example.com") 
+User.create(upn: "manager@example.com", name: "Name", surname: "Manager", email: "manager@example.com") 
+User.create(upn: "user@example.com", name: "Name", surname: "Surname", email: "user@example.com") 
+Argument.create(organization_id: 1, name: 'Algebra')
+Argument.create(organization_id: 1, name: 'Geometria')
 
 
 
