@@ -1,14 +1,3 @@
-if Rails.configuration.dm_unibo_common[:smtp_password] 
-  ActionMailer::Base.smtp_settings = {
-    address:        'example.it',
-    port:           587,
-    user_name:      'notifica.invio@example.it',
-    password:       Rails.configuration.dm_unibo_common[:smtp_password],
-    authentication: :login,
-    enable_starttls_auto: true
-  }
-end
-
 CESIA_UPN = ['admin.name@example.com']
 
 module Seminaria
