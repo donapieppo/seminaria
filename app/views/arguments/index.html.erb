@@ -1,10 +1,10 @@
 <h1>Topics</h1>
 
-<ul class="list-group mb-3">
+<div class="list-group mb-3">
   <% @arguments.each do |argument| %>
-    <li class="list-group-item"><%= link_to argument, edit_argument_path(argument) %></li>
+    <%= link_to argument, edit_argument_path(argument), class: "list-group-item list-group-item-action" %>
   <% end %>
-</ul>
+</div>
 
 <% if policy(current_organization).manage? %>  
   <p><%= link_to_new "Aggiungi un nuovo topic presso #{current_organization.description}", new_argument_path %></p>
