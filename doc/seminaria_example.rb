@@ -4,6 +4,8 @@ module Seminaria
   class Application < Rails::Application
     config.domain_name        = 'example.it'
 
+    config.organizations_urls = { 'math'   => 1
+                                  'chmica' => 2 }
     config.header_icon        = 'microphone'
     config.header_title       = 'Seminari'
     config.header_subtitle    = 'Università di Bologna'

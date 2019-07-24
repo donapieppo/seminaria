@@ -58,8 +58,9 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'mat',   to: "seminars#index", __org__: 1
-  get 'bigea', to: "seminars#index", __org__: 2
+  Rails.configuration.organizations_urls.each do |org, num|
+    get org, to: "seminars#index", __org__: num
+  end
 
   root to: 'seminars#index'
 end
