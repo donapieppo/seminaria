@@ -5,8 +5,9 @@ module Seminaria
     config.domain_name        = 'example.it'
 
     # exammple: with https://example.it/math your session is on Organization.find(1)
-    config.organizations_urls = { 'math'    => 1,
-                                  'chimica' => 2 }
+    config.organizations_urls = { 'math'      => 1,
+                                  'chemistry' => 2,
+                                  'disi'      => 3 }
 
     config.header_icon        = 'microphone'
     config.header_title       = 'Seminari'
