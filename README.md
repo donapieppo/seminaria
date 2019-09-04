@@ -9,11 +9,10 @@ Internal users (professors, phd students etc.) can promote seminars and ask for 
 The seminars shedule is public with many different views 
 (possibile aggregation by location, arguments, organization...).
 
-
 ## Requirements
 
 *  Rails 5
-*  Ruby 2.3+
+*  Ruby 2.6+
 
 ## Installation
 
@@ -42,8 +41,8 @@ settings in `config/database.yml` file)
 
 ```bash
 docker-compose build
-docker-compose run --rm web bundle exec bin/docker_setup
-docker-compose run web
+docker-compose run web bundle exec bin/docker_setup
+docker-compose up
 ```
 
 the configuration in docker comes from 
@@ -54,6 +53,8 @@ the configuration in docker comes from
 
 In production of course you have to configure a correct omniauth provider.
 
+When connected to http://127.0.0.1:3000/ you are logged as administrator@example.com on the first organization (Math).
 
+You ca change 
 
 
