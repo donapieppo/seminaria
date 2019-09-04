@@ -13,7 +13,8 @@ end
 module Seminaria
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
+    config.load_defaults 6.0
+    config.hosts << "tester.dm.unibo.it"
 
     config.autoload_paths += %W(#{Rails.root}/app/pdfs)
     config.time_zone = 'Rome'
