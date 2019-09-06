@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   include Pundit
-  after_action :verify_authorized
+  after_action :verify_authorized, except: [:who_impersonate, :impersonate, :stop_impersonating]
 
   include DmUniboCommon::Controllers::Helpers
   include UserPermissionHelper # current_organization
