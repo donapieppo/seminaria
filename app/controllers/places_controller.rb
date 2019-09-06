@@ -6,6 +6,12 @@ class PlacesController < ApplicationController
     authorize Place
   end
 
+  def show
+    @place = Place.find(params[:id])
+    authorize @place
+    @seminars = @place.seminars.this_year.order('date desc').includes(:organization)
+  end
+
   def new
     @place = current_organization.places.new
     authorize @place
