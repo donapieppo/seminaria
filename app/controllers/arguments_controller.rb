@@ -6,6 +6,12 @@ class ArgumentsController < ApplicationController
     authorize Argument
   end
 
+  def show
+    @argument = Argument.find(params[:id])
+    @seminars = @argument.seminars.this_year.order('date desc').includes(:organization)
+    authorize @argument
+  end
+
   def new
     @argument = current_organization.arguments.new
     authorize @argument

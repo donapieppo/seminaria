@@ -2,7 +2,12 @@
 
 <div class="list-group mb-3">
   <% @arguments.each do |argument| %>
-    <%= link_to argument, edit_argument_path(argument), class: "list-group-item list-group-item-action" %>
+    <div class="list-group-item">
+      <%= link_to argument, argument_path(argument) %>
+      <% if policy(argument).edit? %>  
+        <%= link_to_edit edit_argument_path(argument) %>
+      <% end %>
+    </div>
   <% end %>
 </div>
 
