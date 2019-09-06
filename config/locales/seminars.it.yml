@@ -1,4 +1,7 @@
 it:
+  can_read: può leggere
+  can_manage: può amministrare
+  is_cesia: superuser
   name: Nome
   surname: Cognome
   taxid: Codice fiscale

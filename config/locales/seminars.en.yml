@@ -1,4 +1,7 @@
 en:
+  can_read: can read
+  can_manage: is admin
+  is_cesia: superuser
   taxid: Italian Fiscal Code / Tax Identification Number 
   repayment: repayment request
   position_to_s: Position
