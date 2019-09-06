@@ -3,12 +3,16 @@ class PlacePolicy < ApplicationPolicy
     true 
   end
 
+  def show?
+    true
+  end
+
   def create?
-    @user and @user.authorization.can_manage?(@record.organization_id) 
+    organization_manager?
   end
 
   def update?
-    @user and @user.authorization.can_manage?(@record.organization_id) 
+    organization_manager?
   end
 
   def destroy?

@@ -1,18 +1,16 @@
 class FundPolicy < ApplicationPolicy
-  def index?
-    true
-  end
-
   def show?
-    true
+    owner_or_organization_manager?
   end
 
+  # only manager
   def create?
-    @user.authorization.can_manage?(@record.organization_id)
+    organization_manager?
   end
 
+  # only manager
   def update?
-    @user.authorization.can_manage?(@record.organization_id)
+    create?
   end
 
   def destroy?

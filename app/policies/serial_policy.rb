@@ -8,7 +8,7 @@ class SerialPolicy < ApplicationPolicy
   end
 
   def create?
-    @user and @user.authorization.can_manage?(@record.organization_id)
+    organization_manager?
   end
 
   def update?

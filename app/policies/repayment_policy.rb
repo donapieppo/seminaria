@@ -7,7 +7,7 @@ class RepaymentPolicy < ApplicationPolicy
   # seminar owner
   # fund honer
   def show?
-    @user and (SeminarPolicy.new(@user, @record.seminar).update? or @user.authorization.can_see?(@record.seminar.organization_id) or (@record.holder and @user == @record.holder))
+    @user and (SeminarPolicy.new(@user, @record.seminar).update? or @user.authorization.can_read?(@record.seminar.organization_id) or (@record.holder and @user == @record.holder))
   end
 
   # in controller we check data restrains

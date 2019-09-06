@@ -1,14 +1,14 @@
 class OrganizationPolicy < ApplicationPolicy
   # FIXME
   def see?
-    @user and @user.authorization.can_manage?(@record)
+    @user and @user.is_cesia?
   end
 
   def manage?
-    @user and @user.authorization.can_manage?(@record)
+    @user and @user.is_cesia?
   end
 
   def admin?
-    @user and @user.authorization.can_admin?(@record)
+    @user and @user.is_cesia?
   end
 end
