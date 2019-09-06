@@ -1,11 +1,4 @@
-class CyclePolicy
-  attr_reader :user, :record
-
-  def initialize(user, record)
-    @user = user
-    @record = record
-  end
-
+class CyclePolicy < ApplicationPolicy
   def index?
     true 
   end
@@ -18,21 +11,12 @@ class CyclePolicy
     @user 
   end
 
-  def new?
-    create?
-  end
-
   def update?
-    @user and (@user.can_manage?(@record.organization_id) or record.user_id == @user.id)
-  end
-
-  def edit?
-    update?
+    @user and (@user.authorization.can_manage?(@record.organization_id) or record.user_id == @user.id)
   end
 
   def destroy?
     update?
   end
-
 end
 

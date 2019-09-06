@@ -1,11 +1,4 @@
-class SerialPolicy
-  attr_reader :user, :record
-
-  def initialize(user, record)
-    @user = user
-    @record = record
-  end
-
+class SerialPolicy < ApplicationPolicy
   def index?
     true 
   end
@@ -15,24 +8,15 @@ class SerialPolicy
   end
 
   def create?
-    @user and @user.can_manage?(@record.organization_id)
-  end
-
-  def new?
-    create?
+    @user and @user.authorization.can_manage?(@record.organization_id)
   end
 
   def update?
     create?
   end
 
-  def edit?
-    update?
-  end
-
   def destroy?
     update?
   end
-
 end
 

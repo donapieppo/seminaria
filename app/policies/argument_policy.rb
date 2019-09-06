@@ -1,29 +1,18 @@
-class ArgumentPolicy
-  attr_reader :user, :record
-
-  def initialize(user, record)
-    @user = user
-    @record = record
-  end
-
+class ArgumentPolicy < ApplicationPolicy
   def index?
     true 
   end
 
-  def create?
-    @user and @user.can_manage?(@record.organization_id) 
+  def show?
+    true
   end
 
-  def new?
-    create?
+  def create?
+    @user and @user.authorization.can_manage?(@record.organization_id) 
   end
 
   def update?
-    @user and @user.can_manage?(@record.organization_id) 
-  end
-
-  def edit?
-    update?
+    @user and @user.authorization.can_manage?(@record.organization_id) 
   end
 
   def destroy?

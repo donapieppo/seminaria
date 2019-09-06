@@ -1,11 +1,4 @@
-class RepaymentPolicy
-  attr_reader :user, :record
-
-  def initialize(user, record)
-    @user = user
-    @record = record
-  end
-
+class RepaymentPolicy < ApplicationPolicy
   def index?
     @user and @user.current_organization and OrganizationPolicy.new(@user, @user.current_organization).see?
   end
@@ -14,7 +7,7 @@ class RepaymentPolicy
   # seminar owner
   # fund honer
   def show?
-    @user and (SeminarPolicy.new(@user, @record.seminar).update? or @user.can_see?(@record.seminar.organization_id) or (@record.holder and @user == @record.holder))
+    @user and (SeminarPolicy.new(@user, @record.seminar).update? or @user.authorization.can_see?(@record.seminar.organization_id) or (@record.holder and @user == @record.holder))
   end
 
   # in controller we check data restrains
@@ -29,12 +22,8 @@ class RepaymentPolicy
 
   # simple user can update until notified
   def update?
-    @user and (@user.can_manage?(@record.seminar.organization_id) or 
+    @user and (@user.authorization.can_manage?(@record.seminar.organization_id) or 
               ((! @record.notified) and SeminarPolicy.new(@user, @record.seminar).update?))
-  end
-
-  def edit?
-    update?
   end
 
   def destroy?
@@ -47,7 +36,7 @@ class RepaymentPolicy
 
   # fund owner
   def update_fund?
-    @user and (@user.can_manage?(@record.seminar.organization_id) or (@record.holder and @user == @record.holder))
+    @user and (@user.authorization.can_manage?(@record.seminar.organization_id) or (@record.holder and @user == @record.holder))
   end
 
   def choose_fund?

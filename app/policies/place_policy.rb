@@ -1,29 +1,14 @@
-class PlacePolicy
-  attr_reader :user, :record
-
-  def initialize(user, record)
-    @user = user
-    @record = record
-  end
-
+class PlacePolicy < ApplicationPolicy
   def index?
     true 
   end
 
   def create?
-    @user and @user.can_manage?(@record.organization_id) 
-  end
-
-  def new?
-    create?
+    @user and @user.authorization.can_manage?(@record.organization_id) 
   end
 
   def update?
-    @user and @user.can_manage?(@record.organization_id) 
-  end
-
-  def edit?
-    update?
+    @user and @user.authorization.can_manage?(@record.organization_id) 
   end
 
   def destroy?

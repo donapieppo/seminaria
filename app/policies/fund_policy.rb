@@ -1,11 +1,4 @@
-class FundPolicy
-  attr_reader :user, :record
-
-  def initialize(user, record)
-    @user = user
-    @record = record
-  end
-
+class FundPolicy < ApplicationPolicy
   def index?
     true
   end
@@ -15,19 +8,11 @@ class FundPolicy
   end
 
   def create?
-    @user.can_manage?(@record.organization_id)
-  end
-
-  def new?
-    create?
+    @user.authorization.can_manage?(@record.organization_id)
   end
 
   def update?
-    @user.can_manage?(@record.organization_id)
-  end
-
-  def edit?
-    update?
+    @user.authorization.can_manage?(@record.organization_id)
   end
 
   def destroy?

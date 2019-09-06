@@ -1,11 +1,4 @@
-class SeminarPolicy
-  attr_reader :user, :record
-
-  def initialize(user, record)
-    @user = user
-    @record = record
-  end
-
+class SeminarPolicy < ApplicationPolicy
   def index?
     true 
   end
@@ -18,7 +11,7 @@ class SeminarPolicy
     true
   end
 
-  def choose_type
+  def choose_type?
     @user
   end
 
@@ -31,16 +24,12 @@ class SeminarPolicy
   end
 
   def update?
-    @user and (@user.can_manage?(@record.organization_id) or @record.user_id == @user.id)
-  end
-
-  def edit?
-    update?
+    @user and (@user.authorization.can_manage?(@record.organization_id) or @record.user_id == @user.id)
   end
 
   # FIXME li cancella solo manager o se non e' ancora stata inviata
   def destroy?
-    @user and (@user.can_manage?(@record.organization_id) or (@user.owns?(@record) and ! @record.repayment))
+    @user and (@user.authorization.can_manage?(@record.organization_id) or (@user.owns?(@record) and ! @record.repayment))
   end
 
   def mail_text?
