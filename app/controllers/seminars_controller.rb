@@ -45,6 +45,7 @@ class SeminarsController < ApplicationController
   def choose_type
     @cycles  = current_user.cycles.where(organization_id: current_organization.id).all
     @serials = current_organization.serials.order('title asc').active.all
+    authorize :seminar
   end
 
   def new
@@ -67,6 +68,7 @@ class SeminarsController < ApplicationController
       @serial = current_organization.serials.find(params[:serial_id])
       @seminar.serial_id = @serial.id
     end
+    authorize @seminar
   end
 
   def create
@@ -78,6 +80,8 @@ class SeminarsController < ApplicationController
     # nel caso sia rest (post)
     @seminar.cycle_id  = params[:cycle_id] if params[:cycle_id]
     @seminar.serial_id = params[:serial_id] if params[:serial_id]
+
+    authorize @seminar
 
     if @seminar.save
       redirect_to mail_text_seminar_path(@seminar), notice: "Il seminario è stato creato correttamente."
