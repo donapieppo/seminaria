@@ -4,8 +4,9 @@ class Authorization
   # means that seld.user can admin organization with id=46
   attr_reader :authlevels
 
-  TO_ADMIN  = 40
-  TO_CESIA  = 100
+  TO_READ   = 1
+  TO_MANAGE = 2
+  TO_CESIA  = 3
 
   # Authorization depends on client ip and user
   def initialize(client_ip, user)
@@ -31,12 +32,6 @@ class Authorization
   def multi_organizations?
     @authlevels and @authlevels.size > 1 
   end
-  alias :multi_organizations :multi_organizations?
-
-  # puo' accedere al programma?
-  def has_authorization?
-    @authlevels.size > 0
-  end
 
   def get_authlevel_for_organization(organization)
     @authlevels[organization.id]
@@ -46,54 +41,35 @@ class Authorization
     @authlevels.keys.first
   end
 
-  # non c'e' cesia che si mette a mano
-  def self.admin_level_list
-    [TO_READ,TO_ORDER,TO_BOOK,TO_UNLOAD,TO_GIVE,TO_ADMIN,TO_EDIT]
-  end
-
-  def self.all_level_list
-    [TO_READ,TO_ORDER,TO_BOOK,TO_UNLOAD,TO_GIVE,TO_ADMIN,TO_EDIT,TO_CESIA]
-  end
-
-  def self.admin_form_level_list
-    admin_level_list.map {|x| [Authorization.level_description(x), x] }
-  end
-
   # per visualizzazione livelli di autorizzazione
   def self.level_description(level, html=1)
     case level
       when TO_READ
         I18n.t(:can_read)
-      when TO_BOOK 
-        I18n.t(:can_book)
-      when TO_UNLOAD
-        I18n.t(:can_unload)
-      when TO_GIVE
-        I18n.t(:can_give)
-      when TO_ADMIN
-        I18n.t(:can_admin)
-      when TO_EDIT
-        I18n.t(:can_edit)
+      when TO_MANAGE
+        I18n.t(:can_manage)
       when TO_CESIA
         I18n.t(:is_cesia)
     end
   end
 
-  # FIXME
-  def can_see?(oid)
+  def self.all_level_list
+    [TO_READ, TO_MANAGE]
+  end
+
+  def can_read?(oid)
     return true
     oid = oid.id if oid.is_a?(Organization)
-    @authlevels[oid] && @authlevels[oid] >= TO_ADMIN
+    @authlevels[oid] && @authlevels[oid] >= TO_READ
   end
 
   def can_manage?(oid)
     oid = oid.id if oid.is_a?(Organization)
-    @authlevels[oid] && @authlevels[oid] >= TO_ADMIN
+    @authlevels[oid] && @authlevels[oid] >= TO_MANAGE
   end
 
-  def can_admin?(organization)
-    oid = oid.id if oid.is_a?(Organization)
-    @authlevels[oid] && @authlevels[oid] >= TO_CESIA
+  def is_cesia?
+    @is_cesia
   end
 
   private 
@@ -112,14 +88,13 @@ class Authorization
   # un user puo' essere in diverse organizations con diversi authlevels
   # se si trova nel database admin sovrascrivo authlevel di update_authlevels_by_network
   def update_authlevels_by_user(user)
-    user.admins.each do |admin|
+    user.permissions.each do |permission|
       if @is_cesia
-        @authlevels[admin.organization_id] = TO_CESIA
+        @authlevels[permission.organization_id] = TO_CESIA
       else
-        @authlevels[admin.organization_id] = admin.authlevel.to_i
+        @authlevels[permission.organization_id] = permission.authlevel.to_i
       end
     end
   end
-
 end
 

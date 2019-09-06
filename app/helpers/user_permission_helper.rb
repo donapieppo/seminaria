@@ -4,19 +4,12 @@ module UserPermissionHelper
     @current_organization
   end
 
+  # see app/policies/application_policy.rb
   def user_is_manager?
     current_user and current_user.authorization.can_manage?(current_organization)
   end
 
-  def user_is_admin?
-    current_user and current_user.authorization.can_admin?(current_organization)
-  end
-
   def user_is_manager!
-    user_is_admin? or raise DmUniboCommon::NoAccess
-  end
-
-  def user_is_admin!
     user_is_manager? or raise DmUniboCommon::NoAccess
   end
 

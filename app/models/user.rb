@@ -1,8 +1,7 @@
 class User < ActiveRecord::Base
   include DmUniboCommon::User
 
-  has_many :admins
-
+  has_many :permissions
   has_many :seminars
   has_many :cycles
   has_many :repayments, foreign_key: :holder_id
@@ -47,6 +46,5 @@ class User < ActiveRecord::Base
     seminar_ids = self.repayments.map(&:seminar_id)
     Seminar.where(id: seminar_ids)
   end
-
 end
 

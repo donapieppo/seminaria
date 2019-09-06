@@ -8,7 +8,7 @@
     <li><%= link_to big_dmicon('list', text: 'Seminari periodici'), serials_path %></li>
     <li><%= link_to big_dmicon('archive', text: 'Archivio'), archive_seminars_path %></li>
     <% if user_cesia? %>  
-      <li><%= link_to big_dmicon('users', text: 'Auths'), admins_path %></li>
+      <li><%= link_to big_dmicon('users', text: 'Auths'), permissions_path %></li>
     <% end %>
     <% if policy(@current_organization).manage? %>  
       <%= dropdown_menu :amm, big_dmicon('cogs', text: ' Amm.') do  %>

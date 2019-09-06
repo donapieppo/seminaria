@@ -1,5 +1,5 @@
 class Organization < ApplicationRecord
-  has_many :admins
+  has_many :permissions
 
   has_many :seminars
   has_many :funds
@@ -13,7 +13,7 @@ class Organization < ApplicationRecord
   end
 
   def manager_mails
-    self.admins.includes(:user).map{|a| a.user.upn}.to_a
+    self.permissions.includes(:user).map{|a| a.user.upn}.to_a
   end
 end
 

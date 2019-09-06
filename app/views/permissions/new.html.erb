@@ -1,0 +1,10 @@
+
+<%= dm_form_for [@organization, @permission], title: 'Nuovo amministratore' do |p| %>  
+  <%= p.association :user, collection: @users, label_method: :cn_militar %>  
+  <% collection = Authorization.all_level_list.map {|x| [Authorization.level_description(x), x] } %>
+  <%= p.input :authlevel, as: :radio_buttons, collection: collection %>  
+
+  <%= p.submit %>  
+<% end %>
+
+

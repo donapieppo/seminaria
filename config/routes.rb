@@ -8,10 +8,10 @@ Rails.application.routes.draw do
   get 'user/cycles',     controller: 'cycles',     action: 'index',                           as: 'user_cycles'
 
   resources :users
-  resources :admins
+  resources :permissions
 
   resources :organizations do
-    resources :admins
+    resources :permissions
   end
   resources :places
   resources :arguments

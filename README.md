@@ -59,7 +59,7 @@ When connected to http://127.0.0.1:3000/ you are logged as administrator@example
 
 #### Authorizations
 
-The table is *admins*
+The table is *permissions*
 
 ```sql
 +-----------------+------------------+------+-----+---------+----------------+
