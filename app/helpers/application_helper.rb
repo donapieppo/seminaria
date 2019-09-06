@@ -1,3 +1,5 @@
+include DmUniboCommonHelper
+
 module ApplicationHelper
   def link_to_cv(doc)
     link_to_download(url_for(doc.attach), doc.description) 
@@ -10,6 +12,5 @@ module ApplicationHelper
   def current_organization
     @current_organization
   end
-
 end
 
