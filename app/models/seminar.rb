@@ -12,6 +12,7 @@ class Seminar < ApplicationRecord
   has_and_belongs_to_many :arguments
 
   scope :future, -> { where("seminars.date > DATE_ADD(NOW(), INTERVAL -2 hour)") }
+  scope :this_year, -> { where("YEAR(seminars.date) = YEAR(NOW())") }
   scope :date_today, -> { where("DATE(seminars.date)=CURDATE()") }
 
   before_save :manage_place_choice, :date_in_future
