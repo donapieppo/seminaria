@@ -55,6 +55,21 @@ In production of course you have to configure a correct omniauth provider.
 
 When connected to http://127.0.0.1:3000/ you are logged as administrator@example.com on the first organization (Math).
 
-You ca change 
+### For developers
+
+#### Authorizations
+
+The table is *admins*
+
+```sql
++-----------------+------------------+------+-----+---------+----------------+
+| Field           | Type             | Null | Key | Default | Extra          |
++-----------------+------------------+------+-----+---------+----------------+
+| id              | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| user_id         | int(10) unsigned | NO   | MUL | NULL    |                |
+| organization_id | int(10) unsigned | NO   | MUL | NULL    |                |
+| authlevel       | int(2)           | YES  |     | NULL    |                |
++-----------------+------------------+------+-----+---------+----------------+
+```
 
 
