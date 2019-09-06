@@ -22,7 +22,7 @@ module SeminarsHelper
   def hour_tag(seminar, short: false)
     if seminar.date >= Date.today
       content_tag :div, class: "hour-tag" do
-        icon('clock') + "&nbsp;".html_safe + I18n.t(:hours) + " " + I18n.l(seminar.date, format: :hour)
+        dmicon('clock') + "&nbsp;".html_safe + I18n.t(:hours) + " " + I18n.l(seminar.date, format: :hour)
       end
     end
   end
@@ -31,7 +31,7 @@ module SeminarsHelper
     # lascerei il posto fino a ieri (prima era if ! seminar.past?)
     if seminar.date >= Date.today
       content_tag :div, class: "where-tag" do
-        icon('map-marker-alt') + "&nbsp;".html_safe +
+        dmicon('map-marker-alt') + "&nbsp;".html_safe +
         I18n.t(:place) + " " + seminar.place_to_s 
       end
     end
@@ -41,7 +41,7 @@ module SeminarsHelper
     if ! seminar.link.blank?
       txt = seminar.link_text.blank? ? seminar.link : seminar.link_text
       content_tag :div, class: "link-tag" do
-        icon('external-link-alt') + "&nbsp;".html_safe + link_to(txt, seminar.link, target: "_blank")
+        dmicon('external-link-alt') + "&nbsp;".html_safe + link_to(txt, seminar.link, target: "_blank")
       end
     end
   end
@@ -49,7 +49,7 @@ module SeminarsHelper
   def document_tag(document, short: false)
     if document.attach.attached?
       content_tag :div do
-        icon('download') + "&nbsp;".html_safe + link_to(document.description, url_for(document.attach))
+        dmicon('download') + "&nbsp;".html_safe + link_to(document.description, url_for(document.attach))
       end
     end
   end
@@ -57,7 +57,7 @@ module SeminarsHelper
   def clock_tag(seminar, short: false)
     if seminar.date.today? and !short
       content_tag :div, class: :today do 
-        concat(big_icon('clock', prefix: 'far')) 
+        concat(big_dmicon('clock', prefix: 'far')) 
         concat( 
           content_tag(:span, class: 'ml-2') do
             ((seminar.date < Time.now) ? 'iniziato da ' :  'tra ') + time_ago_in_words(seminar.date) 
@@ -77,21 +77,21 @@ module SeminarsHelper
     _can_update_seminar = policy(seminar).update? 
     _user_is_holder     = user_is_holder?(seminar)
     capture do 
-      concat(content_tag(:span, icon(:bars, size: 26), class: "actions-button #{(_can_update_seminar or _user_is_holder) ? 'can_update' : ''}"))
+      concat(content_tag(:span, dmicon(:bars, size: 26), class: "actions-button #{(_can_update_seminar or _user_is_holder) ? 'can_update' : ''}"))
 
       concat(content_tag(:div, class: 'actions-popup') do 
         if ! seminar.past? 
           if _can_update_seminar
-            concat( link_to(fwicon('edit') + ' modifica <br/>'.html_safe, edit_seminar_path(seminar) ))
+            concat( link_to(fwdmicon('edit') + ' modifica <br/>'.html_safe, edit_seminar_path(seminar) ))
           end
           if _user_is_holder
             repayment_class = (seminar.repayment.fund ? 'fund_ok' : 'fund_missing') 
-            concat( link_to(fwicon('euro-sign') + ' scelta del fondo<br/>'.html_safe, choose_fund_repayment_path(seminar.repayment)) )
+            concat( link_to(fwdmicon('euro-sign') + ' scelta del fondo<br/>'.html_safe, choose_fund_repayment_path(seminar.repayment)) )
           end 
-          concat ( link_to(fwicon('google', prefix: 'fab') + 'aggiungi a Google Calendar<br/>'.html_safe, seminar.google_url, target: :new) )
-          concat ( link_to(fwicon('calendar-plus') + 'aggiungi a iCal<br/>'.html_safe, seminar_url(seminar, format: :ics)) )
+          concat ( link_to(fwdmicon('google', prefix: 'fab') + 'aggiungi a Google Calendar<br/>'.html_safe, seminar.google_url, target: :new) )
+          concat ( link_to(fwdmicon('calendar-plus') + 'aggiungi a iCal<br/>'.html_safe, seminar_url(seminar, format: :ics)) )
         end 
-        concat( link_to(fwicon('print') + ' pagina stampabile<br/>'.html_safe, seminar_path(seminar)) )
+        concat( link_to(fwdmicon('print') + ' pagina stampabile<br/>'.html_safe, seminar_path(seminar)) )
         if policy(seminar).destroy?
           concat( '<br/>'.html_safe + link_to_delete('elimina', seminar_path(seminar)) )
         end 
