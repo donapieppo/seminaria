@@ -1,13 +1,15 @@
 class User < ActiveRecord::Base
   include DmUniboCommon::User
 
-  has_many :authorizations
+  has_many :admins
 
   has_many :seminars
   has_many :cycles
   has_many :repayments, foreign_key: :holder_id
   has_many :funds, foreign_key: "holder_id"
 
+  # livello di accesso (integer definito in Authentication)
+  attr_accessor :authorization 
   attr_accessor :current_organization
 
   def has_active_funds?
@@ -46,16 +48,5 @@ class User < ActiveRecord::Base
     Seminar.where(id: seminar_ids)
   end
 
-  def can_see?(organization)
-    Authorization.can_see?(self.id, organization)
-  end
-
-  def can_manage?(organization)
-    Authorization.can_manage?(self.id, organization) 
-  end
-
-  def can_admin?(organization)
-    Authorization.can_admin?(self.id, organization) 
-  end
 end
 

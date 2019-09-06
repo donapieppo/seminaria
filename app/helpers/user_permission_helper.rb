@@ -5,11 +5,11 @@ module UserPermissionHelper
   end
 
   def user_is_manager?
-    current_user and current_user.can_manage?(current_organization)
+    current_user and current_user.authorization.can_manage?(current_organization)
   end
 
   def user_is_admin?
-    current_user and current_user.can_admin?(current_organization)
+    current_user and current_user.authorization.can_admin?(current_organization)
   end
 
   def user_is_manager!
