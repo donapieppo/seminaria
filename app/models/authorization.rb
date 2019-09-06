@@ -1,91 +1,125 @@
-class Authorization < ApplicationRecord
-  belongs_to :organization
-  belongs_to :user
+class Authorization
+  # authlevels: hash with organization_id as key e authlevel as value.
+  # @authlevel[46] = Authorization::TO_ADMIN 
+  # means that seld.user can admin organization with id=46
+  attr_reader :authlevels
 
-  after_save    :clear_cache
-  after_destroy :clear_cache
+  TO_ADMIN  = 40
+  TO_CESIA  = 100
 
-  def to_s
-    "#{self.authlevel} #{self.user} on #{self.organization}"
-  end
+  # Authorization depends on client ip and user
+  def initialize(client_ip, user)
+    @user      = user
+    @client_ip = client_ip
+    @is_cesia  = CESIA_UPN.include?(@user.upn) 
 
-  def clear_cache
-    Rails.logger.info("Cleared Authorization cache")
-    @@_auths = nil
-  end
+    @authlevels = Hash.new
 
-  def self.can_see?(_user_id, _organization_id)
-    (_user_id && _organization_id) or return false
+    update_authlevels_by_user(@user)
 
-    _user_id = _user_id.id if _user_id.is_a?(User)
-    _organization_id = _organization_id.id if _organization_id.is_a?(Organization)
-
-    auths = user_auths_cache(_user_id)
-    auths[_organization_id] and auths[_organization_id] > 0
-  end
-
-  def self.can_manage?(_user_id, _organization_id)
-    (_user_id && _organization_id) or return false
-
-    _user_id = _user_id.id if _user_id.is_a?(User)
-    _organization_id = _organization_id.id if _organization_id.is_a?(Organization)
-
-    auths = user_auths_cache(_user_id)
-    auths[_organization_id] and auths[_organization_id] > 1
-  end
-
-  def self.can_admin?(_user_id, _organization_id)
-    (_user_id && _organization_id) or return false
-
-    _user_id = _user_id.id if _user_id.is_a?(User)
-    _organization_id = _organization_id.id if _organization_id.is_a?(Organization)
-
-    auths = user_auths_cache(_user_id)
-    auths[_organization_id] and auths[_organization_id] > 2
-  end
-
-  def authlevel_string
-    case self.authlevel
-    when 1
-      'lettore'
-    when 2
-      'amministratore'
-    when 3
-      'super'
+    if @is_cesia and o = Organization.first
+      @authlevels[o.id] = TO_CESIA
     end
+  end
+
+  def organizations
+    Organization.order(:name).find(@authlevels.keys)
+  end
+
+  # multi_organizations e' false/true se l'utente
+  # ha accesso ad una sola struttura o a piu' 
+  def multi_organizations?
+    @authlevels and @authlevels.size > 1 
+  end
+  alias :multi_organizations :multi_organizations?
+
+  # puo' accedere al programma?
+  def has_authorization?
+    @authlevels.size > 0
+  end
+
+  def get_authlevel_for_organization(organization)
+    @authlevels[organization.id]
+  end
+
+  def first_organization_id
+    @authlevels.keys.first
+  end
+
+  # non c'e' cesia che si mette a mano
+  def self.admin_level_list
+    [TO_READ,TO_ORDER,TO_BOOK,TO_UNLOAD,TO_GIVE,TO_ADMIN,TO_EDIT]
+  end
+
+  def self.all_level_list
+    [TO_READ,TO_ORDER,TO_BOOK,TO_UNLOAD,TO_GIVE,TO_ADMIN,TO_EDIT,TO_CESIA]
+  end
+
+  def self.admin_form_level_list
+    admin_level_list.map {|x| [Authorization.level_description(x), x] }
+  end
+
+  # per visualizzazione livelli di autorizzazione
+  def self.level_description(level, html=1)
+    case level
+      when TO_READ
+        I18n.t(:can_read)
+      when TO_BOOK 
+        I18n.t(:can_book)
+      when TO_UNLOAD
+        I18n.t(:can_unload)
+      when TO_GIVE
+        I18n.t(:can_give)
+      when TO_ADMIN
+        I18n.t(:can_admin)
+      when TO_EDIT
+        I18n.t(:can_edit)
+      when TO_CESIA
+        I18n.t(:is_cesia)
+    end
+  end
+
+  # FIXME
+  def can_see?(oid)
+    return true
+    oid = oid.id if oid.is_a?(Organization)
+    @authlevels[oid] && @authlevels[oid] >= TO_ADMIN
+  end
+
+  def can_manage?(oid)
+    oid = oid.id if oid.is_a?(Organization)
+    @authlevels[oid] && @authlevels[oid] >= TO_ADMIN
+  end
+
+  def can_admin?(organization)
+    oid = oid.id if oid.is_a?(Organization)
+    @authlevels[oid] && @authlevels[oid] >= TO_CESIA
   end
 
   private 
 
-  # get all the authorizations for the user
-  # @@_auth[user_id][organization_id] = 2 
-  def Authorization.user_auths_cache(user_id)
-    @@_auths ||= Hash.new
-    if ! @@_auths[user_id]
-      @@_auths[user_id] = Hash.new
-      Authorization.order('authlevel asc').where(user_id: user_id).each do |auth| # order to get the higher
-        @@_auths[user_id][auth.organization_id] = auth.authlevel
-      end
-    end
-    @@_auths[user_id]
+  # vince sempre il net piu' specifico (tra 137.204.134.0 e 137.204.0.0 vince il primo)
+  # per quanto riguarda la stessa struttura
+  #
+  # aggiorna @authlevels in base all'ip
+  def update_authlevels_by_ip(client_ip)
   end
 
-  # version without cache
-  # def self.can_manage?(_user_id, _organization_id)
-  #   _user_id = _user_id.id if _user_id.is_a?(User)
-  #   _organization_id = _organization_id.id if _organization_id.is_a?(Organization)
+  # se c'e' la rete nel database allora aggiorno con quello che trovo
+  def update_authlevels_by_network(net)
+  end
 
-  #   @@_auths[_user_id] ||= Hash.new
-  #   @@_auths[_user_id] 
-  #   Authorization.where(user_id: _user_id).where(organization_id: _organization_id).where('authlevel > 0').any?
-  # end
-
-  # def self.can_admin?(_user_id, _organization_id)
-  #   _user_id = _user_id.id if _user_id.is_a?(User)
-  #   _organization_id = _organization_id.id if _organization_id.is_a?(Organization)
-
-  #   Authorization.where(user_id: _user_id).where(organization_id: _organization_id).where('authlevel > 1').any?
-  # end
+  # un user puo' essere in diverse organizations con diversi authlevels
+  # se si trova nel database admin sovrascrivo authlevel di update_authlevels_by_network
+  def update_authlevels_by_user(user)
+    user.admins.each do |admin|
+      if @is_cesia
+        @authlevels[admin.organization_id] = TO_CESIA
+      else
+        @authlevels[admin.organization_id] = admin.authlevel.to_i
+      end
+    end
+  end
 
 end
 
