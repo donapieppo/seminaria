@@ -4,6 +4,7 @@ class SerialsController < ApplicationController
   before_action :get_serial_and_check_permission, only: [:show, :edit, :update]
 
   def index
+    authorize :serial
     @serials = current_organization.serials.order('serials.active desc, serials.title asc')
   end
 
