@@ -1,4 +1,4 @@
-<%= dm_form_for Document.new, url: seminar_documents_path(@seminar), title: big_icon('paperclip', text: 'Allegati').html_safe, html: { multipart: true } do |document| %>
+<%= dm_form_for Document.new, url: seminar_documents_path(@seminar), title: big_dmicon('paperclip', text: 'Allegati').html_safe, html: { multipart: true } do |document| %>
   <div class="alert alert-info">
     Questi allegati (per esempo locandine, slides, etc.) sono <strong>pubblici</strong>. 
     Nel caso di un rimborso/compenso dovrete inserire il curriculum vitae del relatore (in questo caso visibile solo all'amministrazione) <strong>in un altro form</strong>.
@@ -8,7 +8,7 @@
       <% @seminar.documents.each do |document| %>
         <li>
           <% if document.attach.attached? %>  
-            <%= icon('download') + "&nbsp;".html_safe + link_to(document.description, url_for(document.attach)) %> - 
+            <%= dmicon('download') + "&nbsp;".html_safe + link_to(document.description, url_for(document.attach)) %> - 
             <%= link_to_delete seminar_document_path(@seminar, document) %>
           <% end %>
         </li>

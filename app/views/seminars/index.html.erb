@@ -3,11 +3,11 @@
 <% if user_signed_in? %>
   <div class="home-filters">
     <% if params[:only_current_user] %>
-      <%= link_to icon('list', text: "prossimi seminari"), root_path, class: 'btn btn-outline-primary' %> 
+      <%= link_to dmicon('list', text: "prossimi seminari"), root_path, class: 'btn btn-outline-primary' %> 
     <% else %>
-      <%= link_to icon('list', text: "seminari inseriti da me"), user_seminars_path, class: 'btn btn-outline-primary' %> 
+      <%= link_to dmicon('list', text: "seminari inseriti da me"), user_seminars_path, class: 'btn btn-outline-primary' %> 
     <% end %>
-    <%= link_to icon('list', text: "seminari sui miei fondi"), funds_seminars_path, class: 'btn btn-outline-primary' %> 
+    <%= link_to dmicon('list', text: "seminari sui miei fondi"), funds_seminars_path, class: 'btn btn-outline-primary' %> 
   </div>
 <% end %>
 

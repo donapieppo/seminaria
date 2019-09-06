@@ -8,8 +8,8 @@
       <%= serial %>
       <%= "(serie conclusa)" unless serial.active %>
       <span class="float-right">
-        <%= link_to(fwicon('plus', text: "nuovo seminario"), new_serial_seminar_path(serial)) if (user_signed_in? and serial.active) %>
-        <%= link_to(fwicon('home', text: 'pagina web ufficiale'), serial.link, target: "_blank") unless serial.link.blank? %> 
+        <%= link_to(fwdmicon('plus', text: "nuovo seminario"), new_serial_seminar_path(serial)) if (user_signed_in? and serial.active) %>
+        <%= link_to(fwdmicon('home', text: 'pagina web ufficiale'), serial.link, target: "_blank") unless serial.link.blank? %> 
         <%= link_to_edit('modifica', edit_serial_path(serial.id)) if user_is_admin? %>
       </span>
     </div><!-- title -->
@@ -19,7 +19,7 @@
         <p class="alert alert-success my-3"><%= serial.seminars.future.count %> seminari ancora da svolgersi.</p>
       <% end %>
       <div class="mt-2 mx-3">
-        <%= link_to fwicon('list', text: 'elenco seminari'), serial_path(serial) %> 
+        <%= link_to fwdmicon('list', text: 'elenco seminari'), serial_path(serial) %> 
       </div>
 
     </div><!-- body -->

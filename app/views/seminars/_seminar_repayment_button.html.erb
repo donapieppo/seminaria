@@ -1,6 +1,6 @@
 <% seminar_repayment = @seminar.repayment %>  
 
-<%= dm_card title: big_icon('euro-sign', text: 'Richiesta di compenso e/o rimborso').html_safe do %>
+<%= dm_card title: big_dmicon('euro-sign', text: 'Richiesta di compenso e/o rimborso').html_safe do %>
   <% if seminar_repayment %>
     <% if policy(seminar_repayment).show? %>  
       <div class="text-center">

@@ -5,7 +5,7 @@
 
 <div class="centered_action">
   <% unless @serial.link.blank? %>  
-    <%= link_to icon('home', text: 'pagina web ufficiale'), @serial.link, target: "_blank" %>
+    <%= link_to dmicon('home', text: 'pagina web ufficiale'), @serial.link, target: "_blank" %>
   <% end %>
   <%= link_to_edit 'modifica la serie', edit_serial_path(@serial) if policy(@serial).edit? %>
 </div>
