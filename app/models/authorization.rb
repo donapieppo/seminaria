@@ -58,7 +58,6 @@ class Authorization
   end
 
   def can_read?(oid)
-    return true
     oid = oid.id if oid.is_a?(Organization)
     @authlevels[oid] && @authlevels[oid] >= TO_READ
   end
