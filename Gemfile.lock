@@ -1,17 +1,9 @@
 GIT
-  remote: https://github.com/donapieppo/dm_unibo_user_search.git
-  revision: a62701d6597a047acc6458244ce4d844ad51753e
-  ref: master
-  branch: master
+  remote: https://github.com/donapieppo/dm_unibo_common.git
+  revision: 8b0e58913ba6fdf3845163519a46cdb3559bca9c
+  branch: ver.3
   specs:
-    dm_unibo_user_search (0.2.0)
-      rails
-      savon
-
-PATH
-  remote: /home/rails/gems/dm_unibo_common
-  specs:
-    dm_unibo_common (3.0.1)
+    dm_unibo_common (2.1.0)
       bootsnap (>= 1.4.2)
       bootstrap (~> 4)
       font-awesome-sass
@@ -30,6 +22,15 @@ PATH
       simple_form (~> 4)
       uglifier
       webpacker (~> 4.0)
+
+GIT
+  remote: https://github.com/donapieppo/dm_unibo_user_search.git
+  revision: a62701d6597a047acc6458244ce4d844ad51753e
+  branch: master
+  specs:
+    dm_unibo_user_search (0.2.0)
+      rails
+      savon
 
 GEM
   remote: https://rubygems.org/
@@ -266,7 +267,7 @@ GEM
     rspec-support (3.8.2)
     ruby-ole (1.2.12.2)
     ruby_dep (1.5.0)
-    rubyzip (1.2.3)
+    rubyzip (1.2.4)
     sassc (2.2.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
@@ -318,7 +319,7 @@ GEM
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
-    zeitwerk (2.1.9)
+    zeitwerk (2.1.10)
 
 PLATFORMS
   ruby
