@@ -1,5 +1,5 @@
 class FundsController < ApplicationController
-  before_action :user_is_admin!
+  before_action :user_is_manager!
   before_action :set_fund_and_check_permission, only: [:edit, :update, :show, :destroy]
 
   def index

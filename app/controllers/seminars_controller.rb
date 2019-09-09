@@ -154,7 +154,7 @@ class SeminarsController < ApplicationController
   def seminar_params
     params[:seminar][:date] = params[:seminar][:date] + " " + params[:seminar].delete('date(4i)') + ':' + params[:seminar].delete('date(5i)')
     p = [:date, :duration, :place_id, :place_description, :cycle_id, :serial_id, :speaker_title, :speaker, :committee, { argument_ids: [] }, :title, :abstract, :file, :link, :link_text]
-    p = p + [:user_id, :serial_id, :cycle_id] if user_is_admin?
+    p = p + [:user_id, :serial_id, :cycle_id] if user_is_manager?
     params[:seminar].permit(p)
   end
 

@@ -10,7 +10,7 @@
       <span class="float-right">
         <%= link_to(fwdmicon('plus', text: "nuovo seminario"), new_serial_seminar_path(serial)) if (user_signed_in? and serial.active) %>
         <%= link_to(fwdmicon('home', text: 'pagina web ufficiale'), serial.link, target: "_blank") unless serial.link.blank? %> 
-        <%= link_to_edit('modifica', edit_serial_path(serial.id)) if user_is_admin? %>
+        <%= link_to_edit('modifica', edit_serial_path(serial.id)) if policy(serial).edit? %>
       </span>
     </div><!-- title -->
     <div class="dm-card-body">
@@ -26,7 +26,7 @@
   </div><!-- card -->
 <% end %>
 
-<% if user_is_admin? %>
+<% if user_is_manager? %>
   <p><%= link_to 'nuova serie', new_serial_path, class: :button %> </p>
 <% elsif user_signed_in? %>
   <p class="alert alert-info">

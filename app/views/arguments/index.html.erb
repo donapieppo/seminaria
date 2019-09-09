@@ -11,6 +11,6 @@
   <% end %>
 </div>
 
-<% if policy(current_organization).manage? %>  
+<% if user_is_manager? %>  
   <p><%= link_to_new "Aggiungi un nuovo topic presso #{current_organization.description}", new_argument_path %></p>
 <% end %>
