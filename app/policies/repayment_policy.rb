@@ -1,6 +1,6 @@
 class RepaymentPolicy < ApplicationPolicy
   def index?
-    @user and @user.current_organization and OrganizationPolicy.new(@user, @user.current_organization).see?
+    @user and @user.current_organization and OrganizationPolicy.new(@user, @user.current_organization).read?
   end
 
   # manager
