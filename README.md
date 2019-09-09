@@ -59,7 +59,7 @@ When connected to http://127.0.0.1:3000/ you are logged as administrator@example
 
 #### Authorizations
 
-The table is *permissions*
+The table is *permissions* (class Permission < ApplicationRecord)
 
 ```sql
 +-----------------+------------------+------+-----+---------+----------------+
@@ -71,5 +71,19 @@ The table is *permissions*
 | authlevel       | int(2)           | YES  |     | NULL    |                |
 +-----------------+------------------+------+-----+---------+----------------+
 ```
+
+and the "interpretation of the permissions" is class Authorization.
+
+Current user (current_user as usual for omniauth and devide) 
+has an authorization attribute (see app/controller/application_controller.rb in 
+before_action :retrive_authlevels).
+
+Actually there are 3 authorization levels.
+
+  - TO_READ   = 1
+  - TO_MANAGE = 2
+  - TO_CESIA  = 3
+
+
 
 
