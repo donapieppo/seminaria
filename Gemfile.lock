@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/donapieppo/dm_unibo_common.git
-  revision: 8b0e58913ba6fdf3845163519a46cdb3559bca9c
+  revision: 0f694b9119e6a400e131394ddf47267d59d9bda8
   branch: ver.3
   specs:
-    dm_unibo_common (2.1.0)
+    dm_unibo_common (3.0.1)
       bootsnap (>= 1.4.2)
       bootstrap (~> 4)
       font-awesome-sass
