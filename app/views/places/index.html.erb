@@ -1,10 +1,15 @@
 <h1>Luoghi</h1>
 
-<ul class="list-group mb-3">
+<div class="list-group mb-3">
   <% @places.each do |place| %>
-    <li class="list-group-item"><%= link_to place, edit_place_path(place) %></li>
+    <div class="list-group-item">
+      <%= link_to place, place_path(place) %>
+      <% if policy(place).edit? %>  
+        <%= link_to_edit edit_place_path(place) %>
+      <% end %>
+    </div>
   <% end %>
-</ul>
+</div>
 
 <% if user_is_manager? %>  
   <p><%= link_to_new "Aggiungi un nuovo luogo presso #{current_organization.description}", new_place_path %></p>
