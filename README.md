@@ -78,7 +78,7 @@ Current user (current_user as usual for omniauth and devide)
 has an authorization attribute (see app/controller/application_controller.rb in 
 before_action :retrive_authlevels).
 
-Actually there are 3 authorization levels.
+At the moment there are 3 authorization levels.
 
   - TO_READ   = 1
   - TO_MANAGE = 2
