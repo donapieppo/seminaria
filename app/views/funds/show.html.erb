@@ -2,10 +2,14 @@
 
 <h2>Elenco compensi sul fondo</h2>
 
-<div class="list-group">
-  <% @repayments.each do |repayment| %>  
-     <%= link_to repayment.seminar.to_long_s, edit_seminar_path(repayment.seminar), class: "list-group-item list-group-item-action" %>
-  <% end %>
-</div>
+<% if @repayments.any? %>  
+  <div class="list-group">
+    <% @repayments.each do |repayment| %>  
+      <%= link_to repayment.seminar.to_long_s, edit_seminar_path(repayment.seminar), class: "list-group-item list-group-item-action" %>
+    <% end %>
+  </div>
+<% else %>
+  <p class="alert alert-warning">Non sono stati pagati seminari su questo fondo.</p>
+<% end %>
 
 
