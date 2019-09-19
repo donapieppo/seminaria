@@ -4,6 +4,6 @@ class OrganizationPolicy < ApplicationPolicy
   end
 
   def manage?
-    @user and @user.authorization.can_manag?(@record)
+    @user and @user.authorization.can_manage?(@record)
   end
 end
