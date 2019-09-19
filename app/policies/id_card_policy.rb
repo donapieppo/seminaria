@@ -1,4 +1,4 @@
-class IdCardPolicy < DocumentPolicy
+class IdCardPolicy < ApplicationPolicy
   def destroy?
     true
   end
