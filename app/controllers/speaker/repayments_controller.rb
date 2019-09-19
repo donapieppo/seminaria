@@ -5,12 +5,12 @@ class Speaker::RepaymentsController < ApplicationController
 
   def data_request
     @repayment = Repayment.find(params[:id])
-    authorize @repayment
+    authorize [:speaker, @repayment]
   end
 
   def submit_data_request
     @repayment = Repayment.find(params[:id])
-    authorize @repayment
+    authorize [:speaker, @repayment]
   end
 
   def accept
@@ -45,6 +45,7 @@ class Speaker::RepaymentsController < ApplicationController
 
   def get_repayment_from_token
     @repayment = Repayment.where(spkr_token: params[:id]).first or raise "Uncorrect tkn."
+    authorize [:speaker, @repayment]
   end
 
   def speaker_repayment_attributes
