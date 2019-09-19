@@ -24,12 +24,12 @@ class SeminarPolicy < ApplicationPolicy
   end
 
   def update?
-    @user and (@user.authorization.can_manage?(@record.organization_id) or @record.user_id == @user.id)
+    owner_or_organization_manager?
   end
 
   # FIXME li cancella solo manager o se non e' ancora stata inviata
   def destroy?
-    @user and (@user.authorization.can_manage?(@record.organization_id) or (@user.owns?(@record) and ! @record.repayment))
+    organization_manager? || (record_owner? && ! @record.repayment)
   end
 
   def mail_text?

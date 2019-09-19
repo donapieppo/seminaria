@@ -12,7 +12,7 @@ class CyclePolicy < ApplicationPolicy
   end
 
   def update?
-    @user and (@user.authorization.can_manage?(@record.organization_id) or record.user_id == @user.id)
+    owner_or_organization_manager?
   end
 
   def destroy?

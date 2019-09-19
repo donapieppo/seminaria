@@ -1,29 +1,28 @@
 class RepaymentPolicy < ApplicationPolicy
   def index?
-    @user and @user.current_organization and OrganizationPolicy.new(@user, @user.current_organization).read?
+    @user && @user.current_organization && OrganizationPolicy.new(@user, @user.current_organization).read?
   end
 
-  # manager
-  # seminar owner
-  # fund honer
+  # can update seminar
+  # user can read all organization (Greta)
+  # fund owner
   def show?
-    @user and (SeminarPolicy.new(@user, @record.seminar).update? or @user.authorization.can_read?(@record.seminar.organization_id) or (@record.holder and @user == @record.holder))
-  end
-
-  # in controller we check data restrains
-  def new?
-    @user and SeminarPolicy.new(@user, @record.seminar).update?
+    @user && (SeminarPolicy.new(@user, @record.seminar).update? || @user.authorization.can_read?(@record.seminar.organization_id) || @record.holder_id == @user.id)
   end
 
   # there's actually no create in controller. the new method (I know, :get and not a :post) acts like a create.
+  # manager
+  # can update seminar and is on time
   def create?
-    new?
+    (@user && (@user.authorization.can_manage?(@record.seminar.organization_id))) ||
+    (@user && (! @record.seminar.too_late_for_repayment?) && SeminarPolicy.new(@user, @record.seminar).update?)
   end
 
-  # simple user can update until notified
+  # manager
+  # simple user can update until notified and in time if can update seminar
   def update?
-    @user and (@user.authorization.can_manage?(@record.seminar.organization_id) or 
-              ((! @record.notified) and SeminarPolicy.new(@user, @record.seminar).update?))
+    (@user && (@user.authorization.can_manage?(@record.seminar.organization_id))) ||
+    (@user && (! @record.notified) && (! @record.seminar.too_late_for_repayment?) && SeminarPolicy.new(@user, @record.seminar).update?)
   end
 
   def destroy?
@@ -34,9 +33,10 @@ class RepaymentPolicy < ApplicationPolicy
     update?
   end
 
+  # manager
   # fund owner
   def update_fund?
-    @user and (@user.authorization.can_manage?(@record.seminar.organization_id) or (@record.holder and @user == @record.holder))
+    @user && (@user.authorization.can_manage?(@record.seminar.organization_id) || (@record.holder_id == @user.id))
   end
 
   def choose_fund?
@@ -65,13 +65,5 @@ class RepaymentPolicy < ApplicationPolicy
 
   def print_other?
     show?
-  end
-
-  def data_request?
-    update? and (! @record.notified)
-  end
-
-  def submit_data_request?
-    update? and (! @record.notified)
   end
 end
