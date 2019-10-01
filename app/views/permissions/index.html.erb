@@ -5,7 +5,7 @@
   <ul class="list-group my-3">
     <% organization.permissions.includes(:user).each do |a|%>  
       <li class="list-group-item">
-        <strong><%= a.user.cn_militar %></strong>
+        <strong><%= mail_to a.user.upn, a.user.cn_militar %></strong>
         (<%= a.authlevel_string %>)
         <span class="float-right"><%= link_to_delete permission_path(a) %>  
       </li>
