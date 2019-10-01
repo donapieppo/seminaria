@@ -1,4 +1,4 @@
-<% if policy(current_organization).read? %>  
+<% if policy(repayment).show? %>   
   <div style="text-align: right">
     <% if ok_to_send %>  
       <div class="my-2">
@@ -25,4 +25,3 @@
     <% end %>
   </div>
 <% end %>
-
