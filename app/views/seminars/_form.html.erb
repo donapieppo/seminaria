@@ -41,7 +41,7 @@
   <%= seminar.association :place, collection: current_organization.places.all, include_blank: false %>
   <%= seminar.input :place_description, input_html: { cols: 50, rows: 2 } %>
   <%= seminar.input :committee %>
-  <%= seminar.association :arguments, collection: current_organization.arguments.order(:name) %> 
+  <%= seminar.association :arguments, collection: current_organization.arguments.order(:name), hint: I18n.t('new_arguments', reply_to: Rails.configuration.reply_to) %>
   <%= seminar.input :abstract, input_html: { cols: 50, rows: 3 } %>
   <%= seminar.input :link %>
   <%= seminar.input :link_text %> 

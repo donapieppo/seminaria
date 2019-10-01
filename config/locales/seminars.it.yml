@@ -1,4 +1,5 @@
 it:
+  new_arguments: "Per aggiungere nuovi argomenti scrivere a %{reply_to}"
   can_read: può leggere
   can_manage: può amministrare
   is_cesia: superuser

@@ -1,4 +1,5 @@
 en:
+  new_arguments: "To add new arguments write to %{reply_to}"
   can_read: can read
   can_manage: is admin
   is_cesia: superuser
