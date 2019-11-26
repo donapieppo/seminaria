@@ -17,7 +17,7 @@ class DocumentsController < ApplicationController
       flash[:error] = "Non è stato possibile salvare l'allegato. #{document.errors.first.inspect}."
     end
 
-    redirect_to edit_seminar_path(@seminar)
+    redirect_to seminar_path(@seminar)
   end
 
   def destroy
