@@ -10,8 +10,6 @@
       <%= repayment.input_field :refund, boolean_style: :inline, id: 'refund_bool' %>
     </div>
     <div id="refund_details">
-      <%= repayment.input :speaker_arrival,   as: :date_picker, hint: repayment_days_warning %>
-      <%= repayment.input :speaker_departure, as: :date_picker %>
       <%= repayment.input :expected_refund,   as: :currency %>
     </div>
   </div>
@@ -20,14 +18,6 @@
 <%= javascript_tag do %>  
   $(function(){
     $("#refund_details").visibility_from("#refund_bool");
-
-    <% if user_is_manager? %>  
-      var startDatePossibleRepayment = moment(0);
-    <% else %>
-      var startDatePossibleRepayment = moment().add(<%= Rails.configuration.repayment_deadline %>, 'days');
-    <% end %>
-
-    $('#repayment_speaker_arrival, #repayment_speaker_departure').data('datepicker').setStartDate(startDatePossibleRepayment.format('DD/MM/YYYY'));
   });
 <% end %>
 
