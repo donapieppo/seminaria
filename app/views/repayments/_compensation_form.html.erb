@@ -1,0 +1,26 @@
+<% repayment.object.speaker_arrival   ||= repayment.object.seminar.date %>
+<% repayment.object.speaker_departure ||= repayment.object.seminar.date %>
+
+<div class="dm-card">
+  <div class="dm-card-title">
+    Residenza fiscale <span class="text-danger font-weight-bold float-right">Importante, da questa scelta dipendono vari conteggi.</span>
+  </div>
+  <div class="dm-card-body">
+    <%= repayment.input :italy, as: :radio_buttons %>
+    <%= repayment.input :speaker_arrival,   as: :date_picker, hint: repayment_days_warning %>
+    <%= repayment.input :speaker_departure, as: :date_picker %>
+  </div>
+</div>
+
+<%= javascript_tag do %>  
+  $(function(){
+    <% if user_is_manager? %>  
+      var startDatePossibleRepayment = moment(0);
+    <% else %>
+      var startDatePossibleRepayment = moment().add(<%= Rails.configuration.repayment_deadline %>, 'days');
+    <% end %>
+
+    $('#repayment_speaker_arrival, #repayment_speaker_departure').data('datepicker').setStartDate(startDatePossibleRepayment.format('DD/MM/YYYY'));
+  });
+<% end %>
+
