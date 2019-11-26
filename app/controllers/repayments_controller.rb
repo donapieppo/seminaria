@@ -33,8 +33,8 @@ class RepaymentsController < ApplicationController
     else
       @repayment = @seminar.build_repayment(name:    params[:repayment][:name],
                                             surname: params[:repayment][:surname],
-                                            email:   params[:repayment][:email], 
-                                            speaker_arrival: @seminar.date, speaker_departure: @seminar.date)
+                                            email:   params[:repayment][:email]) 
+                                            # speaker_arrival: @seminar.date, speaker_departure: @seminar.date)
       authorize @repayment
       if @repayment.save
         redirect_to repayment_path(@repayment)
@@ -61,7 +61,7 @@ class RepaymentsController < ApplicationController
 
     if @what == 'compensation'
       fix_payment_params
-      fix_refund_params
+      # fix_refund_params
     end
 
     if @repayment = @seminar.repayment # edit. FIXME pensare se con too late non puo' modificare
@@ -123,7 +123,7 @@ class RepaymentsController < ApplicationController
 
   def print_other
     respond_to do |format|
-      format.docx { headers["Content-Disposition"] = "attachment; filename=\"#{@repayment.letter_filename_docx('nota_spese_trasferta')}\"" }
+      format.docx { headers["Content-Disposition"] = "attachment; filename=\"#{@repayment.letter_filename_docx('altri_incarichi_trasferta')}\"" }
     end
   end
 
@@ -221,10 +221,11 @@ class RepaymentsController < ApplicationController
   end
   
   def fix_refund_params
+    # non piu'
     # params[:repayment][:refund] e' "0" o "1"
-    if params[:repayment][:refund] == "0" 
-      params[:repayment][:expected_refund] = params[:repayment][:speaker_arrival] = params[:repayment][:speaker_departure] = nil
-    end
+    #if params[:repayment][:refund] == "0" 
+    #  params[:repayment][:expected_refund] = params[:repayment][:speaker_arrival] = params[:repayment][:speaker_departure] = nil
+    #end
   end
 
   def add_cv
