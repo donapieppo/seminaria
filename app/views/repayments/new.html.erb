@@ -3,8 +3,8 @@
 <div class="info info-alert">
   <p>Primi dati relativi al relatore del seminario "<%= @seminar.title %>" di cui si richiede rimborso / compenso.</p>
   <p>Nella pagina successiva sarà possibile completare la richiesta con i restanti dati richiesti. <br/>
-  È inoltre attivo un servizio ancora sperimentale per permettere al relatore di compilare lui stesso, da remoto, 
-  i suoi dati anagrafici e bancari. Troverete nella pagina successiva il testo della mail da inviare al relatore con le istruzioni.</p>
+  È anche possibile permettere al relatore di compilare lui stesso, da remoto, i suoi dati anagrafici e bancari. 
+  Troverete nella pagina successiva il testo della mail da inviare al relatore con le istruzioni.</p>
 </div>
 
 <%= dm_form_for [@seminar, @repayment], title: "Primi dati del relatore #{@seminar.speaker_with_title}" do |repayment| %>
