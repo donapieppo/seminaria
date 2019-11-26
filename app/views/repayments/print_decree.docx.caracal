@@ -15,7 +15,7 @@ docx.p "VISTA   \t\tla richiesta pervenuta #{proponent_and_holder(@repayment.sem
 
 docx.p "CONSIDERATO \t#{considerations(@repayment)};"
 
-docx.p "TENUTO CONTO \tdella giurisprudenza della Corte dei conti pronunciatasi sugli atti di spesa relativi a collaborazioni, consulenze, studi e ricerche e sulle modalità di conferimento di esse;"
+docx.p "TENUTO CONTO \tdella giurisprudenza della Corte dei conti pronunciatasi sugli atti di spesa relativi a collaborazioni, consulenze, studi e ricerche e sulle modalità di conferimento di esse, nonché delle \"Linee guida visiting\" adottate dall’Università di Bologna con Delibera del Senato Accademico del 24.09.2019;"
 
 docx.p "RILEVATO CHE \t#{@repayment.reason};"
 
