@@ -29,12 +29,21 @@ class Repayment < ActiveRecord::Base
   end
 
   def speaker_arrival_departure_validation
-    return true unless self.refund
-    if self.speaker_departure < self.speaker_arrival
-      self.errors.add(:speaker_departure, "La partenza non può essere precedente all'arrivo.")
+    return true unless ( self.refund || self.payment )
+
+    if self.speaker_departure.blank?
+      self.errors.add(:speaker_departure, "È necessario inserire la data di partenza da Bologna del relatore")
     end
-    if self.speaker_arrival > self.seminar.date
-      self.errors.add(:speaker_arrival, "Il relatore non può arrivare a Bologna dopo la data prevista per il seminario.")
+    if self.speaker_arrival.blank?
+      self.errors.add(:speaker_arrival, "È necessario inserire la data di arrivo a Bologna del relatore")
+    end
+    if self.speaker_arrival.present? && self.speaker_departure.present?
+      if self.speaker_departure < self.speaker_arrival
+        self.errors.add(:speaker_departure, "La partenza non può essere precedente all'arrivo.")
+      end
+      if self.speaker_arrival > self.seminar.date
+        self.errors.add(:speaker_arrival, "Il relatore non può arrivare a Bologna dopo la data prevista per il seminario.")
+      end
     end
   end
 
