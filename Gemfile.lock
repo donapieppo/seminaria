@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/donapieppo/dm_unibo_common.git
-  revision: 2f320141be6d7fc1fe86da1e0edaee00a759cb6e
+  revision: a32aff1701afd9557b90c3566ce0b2e447865b98
   branch: ver.3
   specs:
     dm_unibo_common (3.0.1)
