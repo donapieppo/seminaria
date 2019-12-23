@@ -21,6 +21,11 @@ docx.p "IBAN: #{field_or_underscores @repayment.iban}"
 docx.p
 docx.p "SWIFT: #{field_or_underscores @repayment.swift}"
 docx.p
+docx.p "BANK NAME: #{field_or_underscores @repayment.bank_name}"
+docx.p
+docx.p "BANK ADDRESS: #{field_or_underscores @repayment.bank_address}"
+docx.p
+
 if @repayment.speaker_arrival and @repayment.speaker_departure
   docx.p "#{t :speaker_arrival}: #{I18n.l @repayment.speaker_arrival} #{t :arrival_from} __________________________________" 
   docx.p

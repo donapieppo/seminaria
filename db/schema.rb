@@ -139,6 +139,8 @@ ActiveRecord::Schema.define(version: 2019_02_04_122930) do
     t.string "iban", limit: 150
     t.string "swift", limit: 150
     t.string "aba", limit: 150
+    t.string "bank_name"
+    t.string "bank_address"
     t.integer "bond_year", unsigned: true
     t.integer "bond_number", unsigned: true
     t.boolean "notified"

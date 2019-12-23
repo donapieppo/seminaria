@@ -90,6 +90,8 @@ it:
         bond_number: Vincolo di costo (numero)
         bond_year: Vincolo di costo (anno)
         iban:    Iban (Bank Account)
+        bank_name:    Bank name
+        bank_address: Bank Address
       seminar:
         title:      Titolo
         date:       Giorno e ora
