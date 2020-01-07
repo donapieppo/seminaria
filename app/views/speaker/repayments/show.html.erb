@@ -10,7 +10,7 @@
     <% for m in [:name, :surname, :email, :birth_date, :birth_place, :birth_country, 
                  :affiliation, :position_to_s, 
                  :address, :postalcode, :city, :country, :taxid,
-                 :iban, :swift, :aba] do %>  
+                 :iban, :swift, :aba, :bank_name, :bank_address] do %>  
       <dt><%= t m %></dt>
       <dd><%= attribute_to_s @repayment.send(m) %></dd>
     <% end %>

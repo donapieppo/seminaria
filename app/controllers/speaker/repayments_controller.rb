@@ -52,7 +52,7 @@ class Speaker::RepaymentsController < ApplicationController
     params[:repayment].permit(:name, :surname, :email, :birth_date, :birth_place, :birth_country, :taxid, 
                               :italy, :address, :postalcode, :city, :country, 
                               :affiliation, :position_id, 
-                              :iban, :swift, :aba)
+                              :iban, :swift, :aba, :bank_name, :bank_address)
   end
 
 end
