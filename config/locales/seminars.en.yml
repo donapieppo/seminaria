@@ -20,7 +20,8 @@ en:
         taxid: If available.
         swift: BIC / SWIFT international bank code
         aba: Also known as routing number or routing transfer number. Sequence of nine numeric characters used by banks to identify specific financial institutions within the United States.
-
+        bank_name: Required only for extra UE
+        bank_address: Required only for extra UE
         id_card: Please provide a copy of your document id (one or more files)
 
   po:  Full Professor

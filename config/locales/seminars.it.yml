@@ -137,6 +137,10 @@ it:
         taxid: Inserire se disponibile. Non bloccante per l'invio all'amministrazione.
         swift: BIC / SWIFT international bank code
         aba: Anche detto 'routing number' o 'routing transfer number'. 9 caratteri numerici usati per identificare istituzioni finanziarie negli Stati Uniti.
+        bank_name: Required only for extra UE
+        bank_address: Required only for extra UE
+
+
 
   payment_hint: Compenso + eventuale quota forfettaria di rimborso spese da non giustificare, entrambi tassati.
   dlgs33_2013: Si prega di inserire il curriculum vitae. Obbligatorio in caso di compenso ai sensi del D.Lgs. 33/2013 in materia di collaborazioni ed incarichi.
