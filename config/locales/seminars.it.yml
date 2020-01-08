@@ -29,6 +29,9 @@ it:
   reason: Eccezionali ragioni di particolare qualificazione
   reason_long_version: È necessario inserire una descrizione dettagliata delle eccezionali ragioni di particolare qualificazione, abilità e conoscenze possedute dal conferenziere che motivano la deroga alla procedura comparativa pubblica con assegnazione diretta dell’incarico
   speaker_details: Deti relativi al relatore
+  bank_name:    Nome della banca
+  bank_address: Indirizzo della banca
+
   hours: ore
   time:
     am: am
@@ -90,8 +93,8 @@ it:
         bond_number: Vincolo di costo (numero)
         bond_year: Vincolo di costo (anno)
         iban:    Iban (Bank Account)
-        bank_name:    Bank name
-        bank_address: Bank Address
+        bank_name:    Nome della banca
+        bank_address: Indirizzo della banca
       seminar:
         title:      Titolo
         date:       Giorno e ora

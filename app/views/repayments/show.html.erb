@@ -97,8 +97,8 @@
         <dt>Iban</dt><dd><%= @repayment.iban %></dd>
         <dt>Swift</dt><dd><%= @repayment.swift %></dd>
         <dt>Aba</dt><dd><%= @repayment.aba %></dd>
-        <dt>Bank name</dt><dd><%= @repayment.bank_name %></dd>
-        <dt>Bank address</dt><dd><%= @repayment.bank_address %></dd>
+        <dt><%= t :bank_name %></dt><dd><%= @repayment.bank_name %></dd>
+        <dt><%= t :bank_address %></dt><dd><%= @repayment.bank_address %></dd>
         <% if user_can_edit %>
           <dd><%= modal_link_to 'Modifica', edit_repayment_path(@repayment, what: :bank), addclass: :button %></dd>
         <% end %>
