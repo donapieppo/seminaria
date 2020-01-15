@@ -1,8 +1,10 @@
 class UsersController < ApplicationController
   def new
+    authorize :user
   end
 
   def create
+    authorize :user
     if r = /\A(\w+\.\w+)(@unibo.it)?\z/.match(params[:upn])
       upn = r[1] + '@unibo.it'
       begin
