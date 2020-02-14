@@ -30,7 +30,7 @@ docx.p "Con la presente si dà incarico #{@repayment.seminar.female_speaker? ? '
 
 docx.p
 
-docx.p "Seminario “#{@repayment.seminar.title}” del #{@repayment.seminar.date.strftime("%d/%m/%Y")}, organizzato dal prof. #{@repayment.seminar.committee}, nell'ambito del Progetto #{@repayment.fund} del prof. #{@repayment.holder}."  
+docx.p "Seminario “#{@repayment.seminar.title}” del #{@repayment.seminar.date.strftime("%d/%m/%Y")} e attività di ricerca scientifica in collaborazione, organizzati dal prof. #{@repayment.seminar.committee}, nell'ambito del Progetto #{@repayment.fund} del prof. #{@repayment.holder}."  
 
 docx.p 
 
