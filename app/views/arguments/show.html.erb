@@ -1,4 +1,4 @@
-Seminari relativi a <%= @argument %>  
+<h1>Seminari relativi a <%= @argument %> <%= link_to_edit(edit_argument_path(@argument)) if policy(@argument).edit? %> </h1>
 
 <% @seminars.each do |seminar| %>  
   <%= render seminar %>  
