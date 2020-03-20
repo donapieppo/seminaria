@@ -1,5 +1,7 @@
 class Organization < ApplicationRecord
-  has_many :permissions
+  include DmUniboCommon::Organization
+
+  has_many :permissions, class_name: "DmUniboCommon::Permission"
 
   has_many :seminars
   has_many :funds
@@ -7,10 +9,6 @@ class Organization < ApplicationRecord
   has_many :cycles
   has_many :places
   has_many :arguments
-
-  def to_s
-    self.name
-  end
 
   def manager_mails
     self.permissions.includes(:user).map{|a| a.user.upn}.to_a
