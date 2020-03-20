@@ -7,12 +7,6 @@ Rails.application.routes.draw do
   get 'funds/seminars',  controller: 'seminars',   action: 'index', funds_current_user: true, as: 'funds_seminars'
   get 'user/cycles',     controller: 'cycles',     action: 'index',                           as: 'user_cycles'
 
-  resources :users
-  resources :permissions
-
-  resources :organizations do
-    resources :permissions
-  end
   resources :places
   resources :arguments
 
