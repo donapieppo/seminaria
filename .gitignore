@@ -35,3 +35,10 @@ doc/recreate
 config/dm_unibo_common.yml
 config/initializers/seminaria.rb
 tags
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
