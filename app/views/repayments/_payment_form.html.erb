@@ -12,7 +12,13 @@
       <input type="hidden" value="0" name="payment_bool">
       <input type="checkbox" value="1" name="payment_bool" id="payment_bool" <%= 'checked="checked"' if repayment.object.payment %>/>
     </div>
-    <div id="payment_amount">
+    <div id="payment_amount" data-irap="<%= Repayment::IRAP %>" 
+                             data-irpef-italian="<%= Repayment::IRPEF_ITALIAN %>" 
+                             data-irpef-foreign="<%= Repayment::IRPEF_FOREIGN %>"
+                             data-adapt-net-italian-value="<%= Repayment::ADAPT_NET_ITALIAN_VALUE %>"
+                             data-adapt-net-foreign-value="<%= Repayment::ADAPT_NET_FOREIGN_VALUE %>"
+                             data-adapt-gross-value="<%= Repayment::ADAPT_GROSS_VALUE %>">
+
       <%= repayment.input :payment, hint: t(:payment_hint), as: :currency_float %>
       <%= repayment.input :gross, as: :radio_buttons, collection: [['Lordo ente', true], ['Compenso netto', false]], label: "" %>  
       <div class="col-sm-9 offset-sm-3">
@@ -22,44 +28,3 @@
   </div>
 </div>
 
-<%= javascript_tag do %>  
-  $(function(){
-    $("#payment_amount").visibility_from("#payment_bool");
-
-    function show_lordo_percipiente() {
-      italy   = $('#repayment_italy_true').is(':checked');
-      gross   = $("#repayment_gross_true").is(':checked'); 
-      payment = $("#repayment_payment").val() || 0;
-
-      console.log("changed repayment[italy]: italy=" + italy + " as: " + typeof(italy));
-
-      gross_result = 0;
-      net_result   = 0;
-      irap         = <%= Repayment::IRAP %>; 
-      irpef        = italy ? <%= Repayment::IRPEF_ITALAN %> : <%= Repayment::IRPEF_FOREIGN %>; 
-      adapt_net    = italy ? <%= Repayment::ADAPT_NET_ITALIAN_VALUE %> : <%= Repayment::ADAPT_NET_FOREIGN_VALUE %>;
-
-      if (gross) {
-        gross_result = payment;
-        net_result   = payment * <%= Repayment::ADAPT_GROSS_VALUE %> * (1 - irpef);  
-      } else {
-        net_result   = payment;
-        gross_result = payment * adapt_net * (1 + irap);
-      }
-
-      $("#payment_summary").html("-> <strong>Lordo ente:</strong> " + roundToTwo(gross_result) + " &euro;<br/>" +
-                                 "-> <strong>Netto:</strong> "      + roundToTwo(net_result)   + " &euro;"); 
-    };
-
-    function highlight_changes() {
-      $("#payment_summary").addClass("alert-warning");
-    }
-
-    show_lordo_percipiente();
-
-    $("#repayment_payment, .repayment_gross, input[name='repayment[italy]']").change(function() { 
-      highlight_changes();
-      show_lordo_percipiente(); 
-    });
-  });
-<% end %>
