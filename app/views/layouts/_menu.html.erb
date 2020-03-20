@@ -19,7 +19,7 @@
           <%= link_to fwdmicon('users', text: 'Auths'), permissions_path %>
         <% end %>
       <% end %>
-    <% elsif policy(@current_organization).read? %>
+    <% elsif policy([:dm_unibo_common, @current_organization]).read? %>
       <li><%= link_to big_dmicon('euro-sign', text: 'Compensi'), repayments_path %></li>
     <% end %>
   <% end %>
