@@ -17,7 +17,7 @@ class Repayment < ActiveRecord::Base
 
   ADAPT_GROSS_VALUE       = 0.92165898
   IRAP                    = 0.085 # 8,5%
-  IRPEF_ITALAN            = 0.2   # 20%
+  IRPEF_ITALIAN           = 0.2   # 20%
   IRPEF_FOREIGN           = 0.3   # 30%
   ADAPT_NET_ITALIAN_VALUE = 1.25 
   ADAPT_NET_FOREIGN_VALUE = 1.42858142
@@ -84,7 +84,7 @@ class Repayment < ActiveRecord::Base
     self.gross or return self.payment.round(2)
     lordo_percipiente = self.payment * 0.92165898
     if self.italy
-      (lordo_percipiente - lordo_percipiente * IRPEF_ITALAN).round(2)
+      (lordo_percipiente - lordo_percipiente * IRPEF_ITALIAN).round(2)
     else
       (lordo_percipiente - lordo_percipiente * IRPEF_FOREIGN).round(2)
     end
