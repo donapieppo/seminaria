@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   include Pundit
+  # skip_authorization
   after_action :verify_authorized, except: [:who_impersonate, :impersonate, :stop_impersonating]
 
   include DmUniboCommon::Controllers::Helpers
@@ -28,30 +29,10 @@ class ApplicationController < ActionController::Base
 
   impersonates :user
 
-  before_action :log_current_user, :set_locale, :set_organization, :redirect_unsigned_user, :retrive_authlevels
+  before_action :log_current_user, :set_locale, :set_organization, :redirect_unsigned_user, :update_current_user_authlevels
 
   def set_locale
     I18n.locale = :it
   end
 
-  # no security hidden. 
-  # We set organization with params[:__org__] as organization_id in config/routes
-  def set_organization
-    if params[:__org__]
-      session[:oid] = params[:__org__].to_i 
-    end
-    # fallback to default organization
-    session[:oid] ||= 1
-
-    @current_organization = Organization.find(session[:oid].to_i)
-    if current_user
-      current_user.current_organization = @current_organization
-    end
-  end
-
-  def retrive_authlevels
-    if current_user
-      current_user.authorization = Authorization.new(request.remote_ip, current_user)
-    end
-  end
 end
