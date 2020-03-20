@@ -25,3 +25,6 @@
   <%= repayment.submit 'Salva' %> - <%= link_to_back repayment_path(repayment.object) %>  
 <% end %>
 
+<%= javascript_tag do %>  
+  <%= render 'js.js', type: :js %>  
+<% end %>
