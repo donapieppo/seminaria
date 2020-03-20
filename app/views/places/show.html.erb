@@ -1,4 +1,4 @@
-Seminari presso a <%= @place %>  
+<h1>Seminari presso a <%= @place %> <%= link_to_edit(edit_place_path(@place)) if policy(@place).edit? %></h1>
 
 <% @seminars.each do |seminar| %>  
   <%= render seminar %>  
