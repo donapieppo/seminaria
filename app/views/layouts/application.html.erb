@@ -9,9 +9,11 @@
     <meta name="author" content="Dipartimento di Matematica - Unibo">
     <title>Seminari del Dipartimento di Matematica</title>
 
-    <%= stylesheet_link_tag    "application", media: "all" %>
-    <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_pack_tag 'application' %>
+    <%= javascript_pack_tag 'application' %>
   </head>
   <body>
     <%= render partial: 'layouts/menu' %>
