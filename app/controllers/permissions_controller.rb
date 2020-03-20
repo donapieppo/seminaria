@@ -1,9 +1,5 @@
-class PermissionsController < ApplicationController
+class PermissionsController < DmUniboCommon::PermissionsController
   before_action :check_cesia!
-
-  def index
-    skip_authorization
-  end
 
   def new
     @organization = Organization.find(params[:organization_id])
