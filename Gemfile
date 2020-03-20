@@ -1,20 +1,21 @@
 source 'https://rubygems.org'
 
-gem 'dm_unibo_common', git: 'https://github.com/donapieppo/dm_unibo_common.git',           branch: 'ver.3'
-gem 'dm_unibo_user_search', git: 'https://github.com/donapieppo/dm_unibo_user_search.git', branch: 'master'
+#gem 'dm_unibo_common', git: 'https://github.com/donapieppo/dm_unibo_common.git',           branch: 'ver.3'
+gem 'dm_unibo_user_search', git: 'https://github.com/donapieppo/dm_unibo_user_search.git', ref: 'master', branch: 'master'
+gem 'dm_unibo_common',          path: '/home/rails/gems/dm_unibo_common/'
+# gem 'dm_unibo_user_search', '= 0.1.1'
+
+gem 'webpacker', '~> 4.0'
 
 gem "prawn"
 gem "prawn-table"
 gem "caracal"
 gem 'caracal-rails'
 
-gem 'momentjs-rails'
-
 gem 'roo'
 gem 'roo-xls'
 
 gem 'mini_racer'
-gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'listen'
 
