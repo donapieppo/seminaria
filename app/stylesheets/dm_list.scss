@@ -1,0 +1,39 @@
+ul > li { list-style-type: none; }
+ul.all_clickable {
+  @extend .list-group;
+  @extend .list-group-item-action;
+  a {
+    @extend .list-group-item;
+    @extend .list-group-item-action;
+    span { @extend .float-right; }
+  }
+}
+ul.bordered {
+  @extend .list-group;
+  li { @extend .list-group-item; }
+}
+span.actions {
+  @extend .float-right;
+}
+
+dl.dl-horizontal {
+  @extend .row;
+  dt {
+    @extend .col-sm-3;
+    text-align: right;
+  }
+  dd {
+    @extend .col-sm-9;
+    @extend .mb-0;
+  }
+  dd + dd {
+    @extend .offset-sm-3;
+  }
+  @media (max-width: 576px) {
+    dt {
+      text-align: left;
+    }
+  }
+}
+
+
