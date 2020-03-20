@@ -2,12 +2,7 @@
 
 <div class="list-group mb-3">
   <% @places.each do |place| %>
-    <div class="list-group-item">
-      <%= link_to place, place_path(place) %>
-      <% if policy(place).edit? %>  
-        <%= link_to_edit edit_place_path(place) %>
-      <% end %>
-    </div>
+    <%= link_to place, place_path(place), class: "list-group-item list-group-item-action" %>
   <% end %>
 </div>
 
