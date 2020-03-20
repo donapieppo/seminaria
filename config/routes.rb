@@ -52,10 +52,5 @@ Rails.application.routes.draw do
     end
   end
 
-  # see config/initializers/seminaria.rb
-  Rails.configuration.organizations_urls.each do |org, num|
-    get org, to: "seminars#index", __org__: num
-  end
-
   root to: 'seminars#index'
 end
