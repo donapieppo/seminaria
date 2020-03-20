@@ -34,7 +34,7 @@
     <%= seminar.input :cycle_id,  as: :hidden %>  
   <% end %>
   <%= seminar.input :title %>  
-  <%= seminar.input :date, as: :datetime_picker2 %>
+  <%= seminar.input :date, as: :datetime_html5 %>
   <%= seminar.input :duration, collection: [30,45,60,75,90,120,180].map{ |p| ["#{p} minuti", p] }, include_blank: false %>
   <%= seminar.input :speaker_title, collection: User.abbr_titles, include_blank: false %>  
   <%= seminar.input :speaker %>  
@@ -52,4 +52,6 @@
   <%= seminar.submit %> - <%= link_to 'indietro', root_path %>   
 <% end %>
 
-
+<%= javascript_tag do %>  
+  <%= render 'js.js', type: :js %>
+<% end %>
