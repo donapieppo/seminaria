@@ -46,7 +46,7 @@
       </div>
     <% end %>
 
-    <% if policy(current_organization).manage? %>  
+    <% if policy(current_user.current_organization).manage? %>  
       <%= link_to 'nuova serie', new_serial_path, class: 'btn btn-primary my-3' %>  
       <%= link_to 'tutte le serie', serials_path, class: 'btn btn-primary my-3' %>  
     <% else %>

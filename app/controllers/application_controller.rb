@@ -35,4 +35,7 @@ class ApplicationController < ActionController::Base
     I18n.locale = :it
   end
 
+  def default_url_options(_options={})
+    { __org__:  current_organization.code }
+  end
 end
