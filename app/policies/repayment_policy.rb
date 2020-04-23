@@ -1,5 +1,7 @@
+# FIXME
 class RepaymentPolicy < ApplicationPolicy
   def index?
+    raise "FIXME"
     @user && @user.current_organization && OrganizationPolicy.new(@user, @user.current_organization).read?
   end
 

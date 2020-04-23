@@ -8,11 +8,11 @@ class PlacePolicy < ApplicationPolicy
   end
 
   def create?
-    organization_manager?
+    record_organization_manager?
   end
 
   def update?
-    organization_manager?
+    record_organization_manager?
   end
 
   def destroy?

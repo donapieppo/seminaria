@@ -1,11 +1,11 @@
 class FundPolicy < ApplicationPolicy
   def show?
-    owner_or_organization_manager?
+    owner_or_record_organization_manager?
   end
 
   # only manager
   def create?
-    organization_manager?
+    record_organization_manager?
   end
 
   # only manager

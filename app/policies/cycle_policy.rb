@@ -12,7 +12,7 @@ class CyclePolicy < ApplicationPolicy
   end
 
   def update?
-    owner_or_organization_manager?
+    owner_or_record_organization_manager?
   end
 
   def destroy?
