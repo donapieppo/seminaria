@@ -14,12 +14,12 @@
         <div class="dropdown-divider"></div>
         <%= link_to fwdmicon('map-marker', text: 'Luoghi'), main_app.places_path %>
         <%= link_to fwdmicon('comment', text: 'Topics'), main_app.arguments_path %>
-        <% if user_cesia? %>  
+        <% if current_user_cesia? %>  
           <div class="dropdown-divider"></div>
           <%= link_to fwdmicon('users', text: 'Auths'), dm_unibo_common.permissions_path %>
         <% end %>
       <% end %>
-    <% elsif policy([:dm_unibo_common, @current_organization]).read? %>
+    <% elsif policy([:dm_unibo_common, current_organization]).read? %>
       <li><%= link_to big_dmicon('euro-sign', text: 'Compensi'), main_app.repayments_path %></li>
     <% end %>
   <% end %>
