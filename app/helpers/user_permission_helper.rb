@@ -1,9 +1,5 @@
 module UserPermissionHelper
 
-  def current_organization
-    @current_organization
-  end
-
   # see app/policies/application_policy.rb
   def user_is_manager?
     current_user and current_user.authorization.can_manage?(current_organization)
@@ -35,5 +31,4 @@ module UserPermissionHelper
   def redirect_home_with_error
     redirect_to root_path, alert: "Non avete diritti sufficienti per accedere alla pagina richiesta."
   end
-
 end
