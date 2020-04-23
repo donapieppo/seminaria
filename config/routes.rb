@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   mount DmUniboCommon::Engine => "/dm_unibo_common"
-  # mount DmUniboCommon::Engine, at: '/', as: "dm_unibo_common222"
 
   scope ":__org__" do
     get 'seminars/archive/(:year)',   controller: 'seminars',   action: 'archive', as: 'archive_seminars'
@@ -56,6 +55,7 @@ Rails.application.routes.draw do
       end
     end
 
-    root to: 'seminars#index'
+    get '/', to: 'seminars#index', as: 'current_organization_root'
   end
+  root to: 'seminars#index'
 end
