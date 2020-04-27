@@ -19,7 +19,7 @@ col_left = Caracal::Core::Models::TableCellModel.new do
 end
 
 col_center = Caracal::Core::Models::TableCellModel.new do
-  logopath = "#{Rails.root}/app/assets/images/sigillo1.png"
+  logopath = "#{Rails.root}/app/javascript/images/sigillo1.png"
   img logopath do
     width  50
     height 50
