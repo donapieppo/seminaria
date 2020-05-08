@@ -1,4 +1,4 @@
-class Serial < ActiveRecord::Base
+class Serial < ApplicationRecord
   belongs_to :organization
   has_many :seminars
 

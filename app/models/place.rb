@@ -1,4 +1,4 @@
-class Place < ActiveRecord::Base 
+class Place < ApplicationRecord
   belongs_to :organization
   has_many :seminars
 

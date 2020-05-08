@@ -1,4 +1,4 @@
-class Repayment < ActiveRecord::Base
+class Repayment < ApplicationRecord
   belongs_to :seminar
   belongs_to :holder, class_name: 'User', foreign_key: :holder_id, optional: true
   belongs_to :fund, optional: true
