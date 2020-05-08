@@ -23,7 +23,6 @@ class ApplicationController < ActionController::Base
   include Pundit
 
   include DmUniboCommon::Controllers::Helpers
-  include UserPermissionHelper # current_organization
 
   impersonates :user
 
