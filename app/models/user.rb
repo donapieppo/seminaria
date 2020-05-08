@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   include DmUniboCommon::User
 
   has_many :seminars
