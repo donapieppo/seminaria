@@ -6,16 +6,18 @@ class SeminarsController < ApplicationController
   # Prossimi sono quelli a partire da tutto oggi
   def index
     authorize :seminar
-    if params[:only_current_user] # see config/routes.rb
+    if params[:only_current_user] && current_user # see config/routes.rb
       @title = "Seminari inseriti da #{current_user.cn}"  
       @seminars = current_user.seminars.order('seminars.date DESC')
-    elsif params[:funds_current_user]
+    elsif params[:funds_current_user] && current_user
       @title = "Seminari sui miei fondi"
       @fund_ids = current_user.fund_ids
       @seminars = current_user.seminars_on_my_funds_last_year.order('seminars.date DESC')
-    else
+    elsif current_organization
       @title = "Prossimi seminari del #{current_organization.description}"
       @seminars = current_organization.seminars.order('seminars.date ASC').future
+    else
+      redirect_to choose_organization_path and return
     end
     @seminars = @seminars.includes([:documents, :arguments, :place])
 
