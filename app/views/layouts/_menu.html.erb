@@ -2,25 +2,27 @@
   <%= dm_header(dm_header_subtitle: (current_organization ? current_organization.description : '')) %>
   <%= dm_nav do  %>  
     <li><%= link_to big_dmicon('home', text: 'Home'), main_app.root_path %></li>
-    <% if user_signed_in? %>  
-      <li><%= link_to big_dmicon('plus-circle', text: 'Inserisci seminario'), main_app.choose_type_seminars_path %></li>
-    <% end %>
-    <li><%= link_to big_dmicon('list', text: 'Seminari periodici'), main_app.serials_path %></li>
-    <li><%= link_to big_dmicon('archive', text: 'Archivio'), main_app.archive_seminars_path %></li>
-    <% if user_is_manager? %>  
-      <%= dropdown_menu :amm, big_dmicon('cogs', text: ' Amm.') do  %>
-        <%= link_to fwdmicon('euro-sign', text: 'Compensi'), main_app.repayments_path %>
-        <%= link_to fwdmicon('wallet', text: 'Fondi'), main_app.funds_path %>
-        <div class="dropdown-divider"></div>
-        <%= link_to fwdmicon('map-marker', text: 'Luoghi'), main_app.places_path %>
-        <%= link_to fwdmicon('comment', text: 'Topics'), main_app.arguments_path %>
-        <% if current_user_cesia? %>  
-          <div class="dropdown-divider"></div>
-          <%= link_to fwdmicon('users', text: 'Auths'), dm_unibo_common.permissions_path %>
-        <% end %>
+    <% if current_organization %>
+      <% if user_signed_in? %>  
+        <li><%= link_to big_dmicon('plus-circle', text: 'Inserisci seminario'), main_app.choose_type_seminars_path %></li>
       <% end %>
-    <% elsif policy([:dm_unibo_common, current_organization]).read? %>
-      <li><%= link_to big_dmicon('euro-sign', text: 'Compensi'), main_app.repayments_path %></li>
+      <li><%= link_to big_dmicon('list', text: 'Seminari periodici'), main_app.serials_path %></li>
+      <li><%= link_to big_dmicon('archive', text: 'Archivio'), main_app.archive_seminars_path %></li>
+      <% if user_is_manager? %>  
+        <%= dropdown_menu :amm, big_dmicon('cogs', text: ' Amm.') do  %>
+          <%= link_to fwdmicon('euro-sign', text: 'Compensi'), main_app.repayments_path %>
+          <%= link_to fwdmicon('wallet', text: 'Fondi'), main_app.funds_path %>
+          <div class="dropdown-divider"></div>
+          <%= link_to fwdmicon('map-marker', text: 'Luoghi'), main_app.places_path %>
+          <%= link_to fwdmicon('comment', text: 'Topics'), main_app.arguments_path %>
+          <% if current_user_cesia? %>  
+            <div class="dropdown-divider"></div>
+            <%= link_to fwdmicon('users', text: 'Auths'), dm_unibo_common.permissions_path %>
+          <% end %>
+        <% end %>
+      <% elsif policy([:dm_unibo_common, current_organization]).read? %>
+        <li><%= link_to big_dmicon('euro-sign', text: 'Compensi'), main_app.repayments_path %></li>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>
