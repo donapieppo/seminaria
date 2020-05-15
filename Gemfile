@@ -19,6 +19,9 @@ gem 'mini_racer'
 
 gem 'listen'
 
+# for zoom
+gem 'oauth2', git: 'https://github.com/oauth-xx/oauth2'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'
