@@ -13,7 +13,7 @@ module SeminarsHelper
     detail = seminar.past? ? seminar.date.year : I18n.l(seminar.date, format: :wday) # week day for future seminar or year if already done
 
     content_tag :div, class: 'date' do
-      "<i class='far fa-calendar my-2' style='font-size: 24px'></i><br/>".html_safe + 
+      "<i class='fas fa-calendar my-2' style='font-size: 24px'></i><br/>".html_safe + 
       "<span class='day-and-month'>#{h nday}<br/>#{h month}</span><br/>".html_safe +
       "<span class='text-muted'>#{h detail}</span> <br/>".html_safe
     end
