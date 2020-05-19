@@ -19,7 +19,7 @@ class SeminarsController < ApplicationController
     else
       redirect_to choose_organization_path and return
     end
-    @seminars = @seminars.includes([:documents, :arguments, :place])
+    @seminars = @seminars.includes([:documents, :arguments, :place, :zoom_meeting])
 
     respond_to do |format|
       format.html
@@ -79,14 +79,13 @@ class SeminarsController < ApplicationController
 
     @seminar.link = nil if @seminar.link == 'http://'
 
-    # nel caso sia rest (post)
     @seminar.cycle_id  = params[:cycle_id] if params[:cycle_id]
     @seminar.serial_id = params[:serial_id] if params[:serial_id]
 
     authorize @seminar
 
     if @seminar.save
-      redirect_to mail_text_seminar_path(@seminar), notice: "Il seminario è stato creato correttamente."
+      redirect_to edit_seminar_path(@seminar), notice: "Il seminario è stato creato correttamente."
     else
       render action: :new
     end
@@ -104,7 +103,7 @@ class SeminarsController < ApplicationController
 
   def update
     if @seminar.update_attributes(seminar_params)
-      redirect_to mail_text_seminar_path(@seminar), notice: "Il seminario è stato aggiornato."
+      redirect_to edit_seminar_path(@seminar), notice: "Il seminario è stato aggiornato."
     else
       # TO REFACTOR
       @repayment = @seminar.repayment
@@ -154,9 +153,11 @@ class SeminarsController < ApplicationController
   end
 
   def seminar_params
-    params[:seminar][:date] = params[:seminar][:date] + " " + params[:seminar].delete('date(4i)') + ':' + params[:seminar].delete('date(5i)')
-    p = [:date, :duration, :place_id, :place_description, :cycle_id, :serial_id, :speaker_title, :speaker, :committee, { argument_ids: [] }, :title, :abstract, :file, :link, :link_text]
-    p = p + [:user_id, :serial_id, :cycle_id] if user_is_manager?
+    if params[:seminar][:date]
+      params[:seminar][:date] = params[:seminar][:date] + " " + params[:seminar].delete('date(4i)') + ':' + params[:seminar].delete('date(5i)')
+    end
+    p = [:date, :duration, :on_line, :meeting_url, :place_id, :place_description, :cycle_id, :serial_id, :speaker_title, :speaker, :committee, { argument_ids: [] }, :title, :abstract, :file, :link, :link_text]
+    p = p + [:user_id, :serial_id, :cycle_id] if policy(current_organization).manage?
     params[:seminar].permit(p)
   end
 
