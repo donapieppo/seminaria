@@ -24,8 +24,11 @@ class ZoomController < ApplicationController
     if params[:code] && params[:state]
       if params[:state] =~/\A\d+\z/
         seminar = Seminar.find(params[:state])
+
+        seminar.update(on_line: true)
+
         zoom_meeting = @zoom.create_meeting(params[:code], seminar)
-        redirect_to seminar_path(seminar, __org__: seminar.organization_id) and return
+        redirect_to seminar_path(seminar, __org__: seminar.organization.code) and return
       else
         case params[:state]
         when 'show'

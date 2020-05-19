@@ -1,14 +1,21 @@
 Rails.application.routes.draw do
   mount DmUniboCommon::Engine => "/dm_unibo_common"
 
+  get '/choose_organization', to: "home#choose_organization"
+  # https://tester.dm.unibo.it/seminars/zoom-oauth
+  get '/zoom-oauth',    to: "zoom#oauth"
+  get '/zoom/show',     to: "zoom#new"
+  get '/zoom/user',     to: "zoom#user"
+  get '/zoom/list',     to: "zoom#list"
+
   scope ":__org__" do
     get 'seminars/archive/(:year)',   controller: 'seminars',   action: 'archive', as: 'archive_seminars'
 
     get 'totem', controller: 'home', action: 'totem', as: 'totem'
 
-    get 'user/seminars',   controller: 'seminars',   action: 'index', only_current_user: true,  as: 'user_seminars'
-    get 'funds/seminars',  controller: 'seminars',   action: 'index', funds_current_user: true, as: 'funds_seminars'
-    get 'user/cycles',     controller: 'cycles',     action: 'index',                           as: 'user_cycles'
+    get 'user/seminars',  controller: 'seminars', action: 'index', only_current_user: true,  as: 'user_seminars'
+    get 'funds/seminars', controller: 'seminars', action: 'index', funds_current_user: true, as: 'funds_seminars'
+    get 'user/cycles',    controller: 'cycles',   action: 'index',                           as: 'user_cycles'
 
     resources :places
     resources :arguments
@@ -19,6 +26,10 @@ Rails.application.routes.draw do
       post :submit_mail_text, on: :member
       resources :documents
       resources :repayments
+      resources :registrations
+
+      # seminar_zoom_create  -> /:__org__/seminars/:seminar_id/zoom/create(.:format)
+      get '/zoom/create', to: "zoom#create", as: :zoom_create
     end
 
     resources :serials do
@@ -54,6 +65,8 @@ Rails.application.routes.draw do
         resources :id_cards
       end
     end
+
+    resources :registrations
 
     get '/', to: 'seminars#index', as: 'current_organization_root'
   end

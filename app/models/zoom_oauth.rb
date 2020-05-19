@@ -18,7 +18,7 @@ class ZoomOauth
   end
 
   def get_token(code)
-    @client.auth_code.get_token(code, redirect_uri: ENV.fetch('SEMINARIA_ZOOM_REDIRECT_URI')
+    @client.auth_code.get_token(code, redirect_uri: ENV.fetch('SEMINARIA_ZOOM_REDIRECT_URI'))
   end
 
   def get_meetings(code)

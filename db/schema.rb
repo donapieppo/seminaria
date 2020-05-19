@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 2020_02_11_081644) do
   end
 
   create_table "organizations", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "code", limit: 250
     t.string "name"
     t.string "description"
   end
@@ -108,6 +109,19 @@ ActiveRecord::Schema.define(version: 2020_02_11_081644) do
   create_table "positions", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "code", limit: 50
     t.string "name"
+  end
+
+  create_table "registrations", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "seminar_id", unsigned: true
+    t.integer "user_id", unsigned: true
+    t.string "email", limit: 250
+    t.string "name", limit: 250
+    t.string "surname", limit: 250
+    t.string "affiliation", limit: 250
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["seminar_id"], name: "fk_seminars_registrations"
+    t.index ["user_id"], name: "fk_users_registrations"
   end
 
   create_table "repayments", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -158,6 +172,8 @@ ActiveRecord::Schema.define(version: 2020_02_11_081644) do
     t.integer "duration"
     t.integer "place_id"
     t.text "place_description"
+    t.boolean "on_line"
+    t.string "meeting_url", limit: 250
     t.string "speaker", limit: 250
     t.string "speaker_title", limit: 20
     t.string "committee", limit: 200
@@ -200,6 +216,14 @@ ActiveRecord::Schema.define(version: 2020_02_11_081644) do
     t.index ["upn"], name: "index_upn_on_users"
   end
 
+  create_table "zoom_meetings", id: :bigint, unsigned: true, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "uuid", limit: 200
+    t.text "start_url"
+    t.text "join_url"
+    t.integer "seminar_id", unsigned: true
+    t.index ["seminar_id"], name: "fk_seminars_zoom_meetings"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "arguments", "organizations", name: "fk_arguments_organization"
   add_foreign_key "cycles", "organizations", name: "fk_cycles_organization"
@@ -208,10 +232,13 @@ ActiveRecord::Schema.define(version: 2020_02_11_081644) do
   add_foreign_key "permissions", "organizations", name: "fk_organization_authorization"
   add_foreign_key "permissions", "users", name: "fk_user_authorization"
   add_foreign_key "places", "organizations", name: "fk_places_organization"
+  add_foreign_key "registrations", "seminars", name: "fk_seminars_registrations", on_delete: :cascade
+  add_foreign_key "registrations", "users", name: "fk_users_registrations", on_delete: :cascade
   add_foreign_key "repayments", "funds", name: "repayments_ibfk_3"
   add_foreign_key "repayments", "seminars", name: "repayments_ibfk_2"
   add_foreign_key "repayments", "users", column: "holder_id", name: "repayments_ibfk_1"
   add_foreign_key "seminars", "organizations", name: "fk_seminars_organization"
   add_foreign_key "seminars", "users", name: "seminars_ibfk_1"
   add_foreign_key "serials", "organizations", name: "fk_serials_organization"
+  add_foreign_key "zoom_meetings", "seminars", name: "fk_seminars_zoom_meetings", on_delete: :cascade
 end
