@@ -26,11 +26,11 @@
   </div><!-- card -->
 <% end %>
 
-<% if user_is_manager? %>
+<% if current_organization && policy(current_organization.serials.new).create? %>
   <p><%= link_to 'nuova serie', new_serial_path, class: :button %> </p>
 <% elsif user_signed_in? %>
   <p class="alert alert-info">
-  Per l'inserimento di una nuova serie occorre inviare una richiesta all'indirizzo <%= support_mail %>
+    Per l'inserimento di una nuova serie occorre inviare una richiesta all'indirizzo <%= support_mail %>
   </p>
 <% end %>
 

@@ -176,7 +176,7 @@ class RepaymentsController < ApplicationController
     p = [:name, :surname, :email, :address, :postalcode, :city, :italy, :country, :birth_date, :birth_place, :birth_country, :affiliation,
          :payment, :gross, :position_id, :role, :refund, :reason, :speaker_arrival, :speaker_departure, :expected_refund, :taxid, 
          :iban, :swift, :aba, :bank_name, :bank_address]
-    p = p + [:bond_number, :bond_year] if user_is_manager?
+    p = p + [:bond_number, :bond_year] if policy(@repayment).update_bond?
     p = p + [:fund_id] if policy(@repayment).update_fund?
     params[:repayment].permit(p)
   end
