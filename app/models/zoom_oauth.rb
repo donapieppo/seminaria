@@ -1,6 +1,6 @@
 require 'oauth2'
 
-ENV['OAUTH_DEBUG'] = 'true'
+# ENV['OAUTH_DEBUG'] = 'true'
 
 class ZoomOauth
 
@@ -8,9 +8,9 @@ class ZoomOauth
   def initialize
     @client = OAuth2::Client.new(ENV.fetch('SEMINARIA_ZOOM_CLIENT_ID'), 
                                  ENV.fetch('SEMINARIA_ZOOM_CLIENT_SECRET'),
-                                 site: 'https://api.zoom.us',
-                                 authorize_url: 'https://zoom.us/oauth/authorize', 
-                                 token_url: 'https://zoom.us/oauth/token')
+                                 site: ENV.fetch('SEMINARIA_ZOOM_SITE'),
+                                 authorize_url: ENV.fetch('SEMINARIA_ZOOM_AUTHORIZE_URL'),
+                                 token_url: ENV.fetch('SEMINARIA_ZOOM_TOKEN_URL'))
   end
 
   def authorize_url(state=nil)
@@ -40,11 +40,11 @@ class ZoomOauth
   #   "approval_type": 2, "audio": "both", "enforce_login": false, "host_video": false, "join_before_host": true, 
   #   "mute_upon_entry": false, "waiting_room": false ....
   def create_meeting(code, seminar)
-    body = { 'type'       => 2,
-             'topic'      => seminar.zoom_topic, 
-             'start_time' => seminar.start_time.to_formatted_s(:iso8601), 
-             'duration'   => seminar.duration,
-             'timezone'   => 'Europe/Rome' }
+    body = { type: 2,
+             topic: seminar.zoom_topic, 
+             start_time: seminar.start_time.to_formatted_s(:iso8601), 
+             duration: seminar.duration,
+             timezone: 'Europe/Rome' }
     token = get_token(code)
     Rails.logger.info(body.to_json)
     Rails.logger.info("-------------------------------")
