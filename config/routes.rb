@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get '/zoom/user',     to: "zoom#user"
   get '/zoom/list',     to: "zoom#list"
 
+  get '/logins/logout', to: 'dm_unibo_common/logins#logout'
+
   scope ":__org__" do
     get 'seminars/archive/(:year)',   controller: 'seminars',   action: 'archive', as: 'archive_seminars'
 
