@@ -1,0 +1,47 @@
+<h2>Dove si svolge</h2>
+
+<%= dm_form_for @seminar, title: "Dove si tiene il seminario?" do |s| %>  
+  <%= s.dm_error_notification %>  
+  <%= s.input :on_line, class: 'mt-3' %>  
+  <div id="on_line_seminar">
+    <% if zm = @seminar.zoom_meeting %>  
+      Il seminario si terrà nella stanza Zoom (con id <%= zm.id %>).<br/>
+      Per collegarsi i partecipanti dovranno usare l'indirizzo <%= link_to 'join_url', zm.join_url %>.<br/>
+      Per verificare i dati collegarsi al sito <%= link_to 'Zoom meetings unibo', 'https://unibo.zoom.us/meeting' %>. 
+    <% else %>
+      <%= s.input :meeting_url %>  
+      <div style="text-align: center; font-size: 120%" class="mt-3"> 
+        --- oppure --- <br/>
+        <%= image_pack_tag 'ZoomLogo.png', width: 120 %> <%= link_to 'Crea automaticamente un meeting su Zoom', seminar_zoom_create_path(@seminar), class: 'btn btn-primary ml-5' %>  
+      </div>
+    <% end %>
+  </div>
+  <div id="in_presence_seminar">
+    <%= s.association :place, collection: current_organization.places.all, include_blank: false %>
+    <%= s.input :place_description, input_html: { cols: 50, rows: 2 } %> 
+  </div>
+  <%= s.submit 'Salva', class: 'mt-3' %>  
+<% end %>
+
+<%= javascript_tag do %>  
+  function toggle_on_line (onLineBool, on_line_seminar_div, in_presence_seminar_div) {
+    if (onLineBool.checked) {
+      on_line_seminar_div.style.display = 'block';
+      in_presence_seminar_div.style.display = 'none';
+    } else {
+      on_line_seminar_div.style.display = 'none';
+      in_presence_seminar_div.style.display = 'block';
+    }
+  };
+
+  const onLineBool = document.querySelector("#seminar_on_line");
+  const on_line_seminar_div = document.querySelector("#on_line_seminar");
+  const in_presence_seminar_div = document.querySelector("#in_presence_seminar");
+  
+  toggle_on_line(onLineBool, on_line_seminar_div, in_presence_seminar_div);
+
+  onLineBool.addEventListener('change', function() { 
+    console.log(onLineBool.checked);
+    toggle_on_line(onLineBool, on_line_seminar_div, in_presence_seminar_div);
+  });
+<% end %>

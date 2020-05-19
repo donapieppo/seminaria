@@ -2,7 +2,7 @@
 class RepaymentPolicy < ApplicationPolicy
   def index?
     raise "FIXME"
-    @user && @user.current_organization && OrganizationPolicy.new(@user, @user.current_organization).read?
+    @user && OrganizationPolicy.new(@user, @record.seminar.organization).read?
   end
 
   # can update seminar
@@ -39,6 +39,10 @@ class RepaymentPolicy < ApplicationPolicy
   # fund owner
   def update_fund?
     @user && (@user.authorization.can_manage?(@record.seminar.organization_id) || (@record.holder_id == @user.id))
+  end
+
+  def update_bond?
+    @user && @user.authorization.can_manage?(@record.seminar.organization_id)
   end
 
   def choose_fund?
