@@ -1,4 +1,5 @@
 <% short ||= false %>  
+<% past = seminar.past? %>  
 
 <%= content_tag :div, class: css_classes(seminar) do %>
 
@@ -28,13 +29,13 @@
           <% end %>
           <%= arguments_tag(seminar) %>
         </div> <!-- notes -->
-        <%= hour_tag(seminar, short: short) %>  
-        <%= where_tag(seminar, short: short) %>  
+        <%= hour_tag(seminar, short: short) unless past %>  
+        <%= where_tag(seminar, short: short) unless past %>  
         <%= seminar_link_tag(seminar) %>  
         <div>
-        <% seminar.documents.each do |document| %>
-          <%= document_tag(document) %>
-        <% end %>
+          <% seminar.documents.each do |document| %>
+            <%= document_tag(document) %>
+          <% end %>
         </div>
       </div><!-- what -->
     </div> <!-- row -->
@@ -52,6 +53,8 @@
       <%= t :organized_by %> <%= seminar.committee %> <br/>
       <%= seminar.project %>  
     </span>
+
+    <%= on_line_tag(seminar) unless past %>  
   </div><!-- footer -->
 <% end %><!-- seminar -->
 
