@@ -14,25 +14,26 @@ module SeminarsHelper
 
     content_tag :div, class: 'date' do
       "<i class='fas fa-calendar my-2' style='font-size: 24px'></i><br/>".html_safe + 
-      "<span class='day-and-month'>#{h nday}<br/>#{h month}</span><br/>".html_safe +
-      "<span class='text-muted'>#{h detail}</span> <br/>".html_safe
+        "<span class='day-and-month'>#{h nday}<br/>#{h month}</span><br/>".html_safe +
+        "<span class='text-muted'>#{h detail}</span> <br/>".html_safe
     end
   end
 
   def hour_tag(seminar, short: false)
-    if seminar.date >= Date.today
-      content_tag :div, class: "hour-tag" do
-        dmicon('clock') + "&nbsp;".html_safe + I18n.t(:hours) + " " + I18n.l(seminar.date, format: :hour)
-      end
+    content_tag :div, class: "hour-tag" do
+      dmicon('clock') + "&nbsp;".html_safe + I18n.t(:hours) + " " + I18n.l(seminar.date, format: :hour)
     end
   end
 
   def where_tag(seminar, short: false)
     # lascerei il posto fino a ieri (prima era if ! seminar.past?)
-    if seminar.date >= Date.today
-      content_tag :div, class: "where-tag" do
+    content_tag :div, class: "where-tag" do
+      if seminar.on_line
+        dmicon('cloud') + " on line " + 
+          (seminar.meeting_url.blank? ? ' url da comunicare ' : link_to(seminar.meeting_url, seminar.meeting_url))
+      else
         dmicon('map-marker-alt') + "&nbsp;".html_safe +
-        I18n.t(:place) + " " + seminar.place_to_s 
+          I18n.t(:place) + " " + seminar.place_to_s 
       end
     end
   end
@@ -59,10 +60,10 @@ module SeminarsHelper
       content_tag :div, class: :today do 
         concat(big_dmicon('clock', prefix: 'far')) 
         concat( 
-          content_tag(:span, class: 'ml-2') do
-            ((seminar.date < Time.now) ? 'iniziato da ' :  'tra ') + time_ago_in_words(seminar.date) 
-          end
-        )
+               content_tag(:span, class: 'ml-2') do
+                 ((seminar.date < Time.now) ? 'iniziato da ' :  'tra ') + time_ago_in_words(seminar.date) 
+               end
+              )
       end 
     end 
   end 
@@ -114,6 +115,20 @@ module SeminarsHelper
   def repayment_days_warning
     "La richiesta di compenso / rimborso spese deve essere conclusa con <strong>l'autorizzazione del titolare del fondo</strong> almeno 
     <strong>#{Rails.configuration.repayment_deadline} giorni </strong> prima della data di arrivo dell'ospite.".html_safe
+  end
+
+  def on_line_tag(seminar)
+    if seminar.on_line  
+      if (current_user && current_user.registered?(seminar))  || session[Registration.session_name(seminar)]
+        content_tag :span, class: "registration-link float-right text-success" do
+          dmicon("check-square") + ' registrato al seminario (riceverà istruzioni per partecipare)'
+        end
+      elsif ! (current_user && current_user.owns?(seminar)) 
+        content_tag :span, class: "registration-link float-right" do
+          link_to 'I want to register and get more informations', new_seminar_registration_path(seminar), class: 'btn btn-primary' 
+        end
+      end
+    end
   end
 end
 
