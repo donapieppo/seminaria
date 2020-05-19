@@ -30,7 +30,7 @@ module SeminarsHelper
     content_tag :div, class: "where-tag" do
       if seminar.on_line
         dmicon('cloud') + " on line " + 
-          (seminar.meeting_url.blank? ? ' url da comunicare ' : link_to(seminar.meeting_url, seminar.meeting_url))
+          (seminar.meeting_url.blank? ? " - l'indirizzo verrà inviato via mail agli iscritti prima del seminario" : link_to(seminar.meeting_url, seminar.meeting_url))
       else
         dmicon('map-marker-alt') + "&nbsp;".html_safe +
           I18n.t(:place) + " " + seminar.place_to_s 
@@ -84,6 +84,7 @@ module SeminarsHelper
         if ! seminar.past? 
           if _can_update_seminar
             concat( link_to(fwdmicon('edit') + ' modifica <br/>'.html_safe, edit_seminar_path(seminar) ))
+            concat( link_to(fwdmicon('user-check') + ' registrazioni <br/>'.html_safe, seminar_registrations_path(seminar) ))
           end
           if _user_is_holder
             repayment_class = (seminar.repayment.fund ? 'fund_ok' : 'fund_missing') 
@@ -125,7 +126,7 @@ module SeminarsHelper
         end
       elsif ! (current_user && current_user.owns?(seminar)) 
         content_tag :span, class: "registration-link float-right" do
-          link_to 'I want to register and get more informations', new_seminar_registration_path(seminar), class: 'btn btn-primary' 
+          link_to t(:register_and_be_notified), new_seminar_registration_path(seminar), class: 'btn btn-primary' 
         end
       end
     end
