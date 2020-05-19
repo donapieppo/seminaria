@@ -4,6 +4,7 @@ class RegistrationsController < ApplicationController
 
   def index
     @registrations = @seminar.registrations
+    @url = @seminar.zoom_meeting ? @seminar.zoom_meeting.join_url : @seminar.meeting_url
     authorize @seminar, :update?
   end
 
