@@ -1,0 +1,18 @@
+<%= render @seminar %>  
+
+<h1>Iscrizioni</h1>
+
+<div class="list-group">
+  <% @registrations.each do |registration| %>  
+    <% unibo_user = registration.user %>  
+    <div class="list-group-item">
+      <%= unibo_user ? unibo_user.name : registration.name %>  
+      <%= unibo_user ? unibo_user.surname : registration.surname %>  
+      <%= unibo_user ? 'UNIBO' : registration.affiliation %>  
+      (<%= unibo_user ? unibo_user.upn : registration.email %>) 
+    </div>
+  <% end %>
+</div>
+
+
+

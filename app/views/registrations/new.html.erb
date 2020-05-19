@@ -1,0 +1,19 @@
+<h1>Registrazione</h1>
+
+<div class="alert alert-info">
+  È possibile registrarsi al seminario <%= @seminar.title %> in modo da ricevere prima dell'inizio del seminario 
+  l'indirizzo a cui collegarsi.
+</div>
+
+<%= dm_form_for [@seminar, @registration] do |r| %>  
+  <% if current_user %>  
+    ???
+  <% else %>
+    <%= r.input :email %>  
+    <%= r.input :name %>  
+    <%= r.input :surname %>  
+  <% end %>
+   <%= r.submit %>  
+<% end %>
+
+

@@ -10,6 +10,8 @@ class Seminar < ApplicationRecord
   has_many   :documents, dependent: :destroy
   has_one    :repayment, dependent: :destroy
   has_and_belongs_to_many :arguments
+  has_one    :zoom_meeting
+  has_many   :registrations
 
   scope :future, -> { where("seminars.date > DATE_ADD(NOW(), INTERVAL -2 hour)") }
   scope :this_year, -> { where("YEAR(seminars.date) = YEAR(NOW())") }
@@ -36,13 +38,17 @@ class Seminar < ApplicationRecord
   end
 
   def place_to_s
-    case self.place_id
-    when 2
-      self.place_description
-    when nil
-      'Non definita'
+    if self.on_line
+      ""
     else
-      self.place.to_s
+      case self.place_id
+      when 2
+        self.place_description
+      when nil
+        'Non definita'
+      else
+        self.place.to_s
+      end
     end
   end
 
@@ -52,6 +58,10 @@ class Seminar < ApplicationRecord
 
   def to_long_s
     "#{self.date.strftime("%d/%m/%Y")}: #{self.speaker} (#{self.title})"
+  end
+
+  def zoom_topic
+    "#{self.speaker_title} #{self.speaker}: #{self.title}"
   end
 
   def female_speaker?
@@ -97,6 +107,10 @@ class Seminar < ApplicationRecord
 
   def minute
     self.date.min
+  end
+
+  def start_time
+    self.date
   end
 end
 

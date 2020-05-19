@@ -16,6 +16,8 @@ en:
 
   simple_form:
     hints:
+      seminar:
+        meeting_url: Address of Zoom / Teams / Skype room.
       repayment:
         taxid: If available.
         swift: BIC / SWIFT international bank code

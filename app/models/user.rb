@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_many :cycles
   has_many :repayments, foreign_key: :holder_id
   has_many :funds, foreign_key: "holder_id"
+  has_many :registrations
 
   def has_active_funds?
     self.funds.active.any?
@@ -41,5 +42,10 @@ class User < ApplicationRecord
     seminar_ids = self.repayments.map(&:seminar_id)
     Seminar.where(id: seminar_ids)
   end
+
+  def registered?(seminar)
+    self.registrations.where(seminar_id: seminar.id).any?
+  end
+
 end
 
