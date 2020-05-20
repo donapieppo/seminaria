@@ -1,27 +1,29 @@
 <%# I's a modal popup and shows one part of the form one at a time with @what%>
 
 <p class="alert alert-warning">
-  <%= big_dmicon("hand-point-right") %>  <%= repayment_days_warning  %>
+  <%= big_dmicon("hand-point-right") %>  <%= repayment_days_warning(@repayment.seminar) %>
 </p>
 
 <%= horizontal_form_for @repayment do |repayment| %>  
   <%= repayment.dm_error_notification %>  
   <input type="hidden" name="what" value="<%= @what %>">  
 
-  <%= render('bank_form', repayment: repayment) if @what == 'bank' %>  
-  <%= render('fund_form', repayment: repayment) if @what == 'fund' %>  
   <%= render('speaker_reason', repayment: repayment) if @what == 'reason' %>  
+  <%= render('fund_form', repayment: repayment) if @what == 'fund' %>  
+
+  <% if @what == 'compensation' %>  
+    <%= render('compensation_form', repayment: repayment) %>
+    <%= render('payment_form', repayment: repayment) %>
+    <%= render('refund_form', repayment: repayment) %>
+  <% end %>
+
   <% if @what == 'speaker' %>  
-      <%= render('speaker_anagrafica', repayment: repayment) %>  
-      <%= render('speaker_address', repayment: repayment) %>  
+    <%= render('speaker_anagrafica', repayment: repayment) %>  
+    <%= render('speaker_address', repayment: repayment) %>  
     <%= render('speaker_role', repayment: repayment) %>  
   <% end %>
 
-  <% if @what == 'compensation' %>  
-      <%= render('compensation_form', repayment: repayment) %>
-      <%= render('payment_form', repayment: repayment) %>
-      <%= render('refund_form', repayment: repayment) %>
-  <% end %>
+  <%= render('bank_form', repayment: repayment) if @what == 'bank' %>  
   <%= repayment.submit 'Salva' %> - <%= link_to_back repayment_path(repayment.object) %>  
 <% end %>
 
