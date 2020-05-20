@@ -83,8 +83,8 @@ module SeminarsHelper
       concat(content_tag(:div, class: 'actions-popup') do 
         if ! seminar.past? 
           if _can_update_seminar
-            concat( link_to(fwdmicon('edit') + ' modifica <br/>'.html_safe, edit_seminar_path(seminar) ))
-            concat( link_to(fwdmicon('user-check') + ' registrazioni <br/>'.html_safe, seminar_registrations_path(seminar) ))
+            concat( link_to(fwdmicon('edit') + ' modifica<br/>'.html_safe, edit_seminar_path(seminar) ))
+            concat( link_to(fwdmicon('user-check') + ' iscrizioni<br/>'.html_safe, seminar_registrations_path(seminar) ))
           end
           if _user_is_holder
             repayment_class = (seminar.repayment.fund ? 'fund_ok' : 'fund_missing') 
