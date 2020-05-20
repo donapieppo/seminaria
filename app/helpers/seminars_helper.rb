@@ -113,9 +113,14 @@ module SeminarsHelper
     end
   end
 
-  def repayment_days_warning
-    "La richiesta di compenso / rimborso spese deve essere conclusa con <strong>l'autorizzazione del titolare del fondo</strong> almeno 
-    <strong>#{Rails.configuration.repayment_deadline} giorni </strong> prima della data di arrivo dell'ospite.".html_safe
+  def repayment_days_warning(seminar=nil)
+    if seminar && seminar.on_line
+      "La richiesta di compenso / rimborso spese deve essere conclusa con <strong>l'autorizzazione del titolare del fondo</strong> almeno 
+      <strong>#{Rails.configuration.on_line_repayment_deadline} giorni </strong> prima della giunta e <strong>15 giorni</strong> prima della data del seminario.".html_safe
+    else
+      "La richiesta di compenso / rimborso spese deve essere conclusa con <strong>l'autorizzazione del titolare del fondo</strong> almeno 
+      <strong>#{Rails.configuration.repayment_deadline} giorni </strong> prima della data di arrivo dell'ospite.".html_safe
+    end
   end
 
   def on_line_tag(seminar)
