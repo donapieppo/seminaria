@@ -29,6 +29,7 @@ class Repayment < ApplicationRecord
   end
 
   def speaker_arrival_departure_validation
+    return true if self.seminar.on_line
     return true unless ( self.refund || self.payment )
 
     if self.speaker_departure.blank?
