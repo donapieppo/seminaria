@@ -4,7 +4,7 @@
   </div>
   <div class="dm-card-body">
     <% if policy(repayment.object.seminar).edit? %>  
-      <%= repayment.association :holder, collection: Fund.holders2, label_method: :cn_militar, include_blank: true, hint: repayment_days_warning() %>
+      <%= repayment.association :holder, collection: Fund.holders2, label_method: :cn_militar, include_blank: true, hint: repayment_days_warning(repayment.object.seminar) %>
     <% end %>
 
     <% if policy(repayment.object).update_fund? %>  

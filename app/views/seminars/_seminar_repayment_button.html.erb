@@ -1,6 +1,11 @@
 <% seminar_repayment = @seminar.repayment %>  
 
 <%= dm_card title: big_dmicon('euro-sign', text: 'Richiesta di compenso e/o rimborso').html_safe do %>
+  <% if @seminar.on_line %>  
+    <div class="alert alert-danger">
+      <%= dmicon('exclamation-circle') %>  Si avvisa che la procedura per l’autorizzazione di seminari on-line che prevedono compenso è in fase di ridefinizione. La richiesta dovrà essere approvata dalla Giunta di Dipartimento. Si invita, prima di inserire una nuova richiesta, a prendere contatto con la Direzione del Dipartimento per verificare la fattibilità dell’iniziativa e rispettare le nuove modalità di predisposizione della pratica.
+    </div>
+  <% end %>
   <% if seminar_repayment %>
     <% if policy(seminar_repayment).show? %>  
       <div class="text-center">
@@ -9,11 +14,11 @@
     <% end %>
   <% elsif user_too_late_for_repayment?(@seminar) %>
     <div class="alert alert-warning">
-      È troppo tardi per richiedere rimborso e/o compenso.<br/> <%= repayment_days_warning %>  
+      È troppo tardi per richiedere rimborso e/o compenso.<br/> <%= repayment_days_warning(@seminar) %>  
     </div>
   <% elsif policy(@seminar).edit?  %>
     <div class="alert alert-info">
-      È possibile richiedere compenso e/o rimborso. <br/> <%= repayment_days_warning %><br/>
+      È possibile richiedere compenso e/o rimborso. <br/> <%= repayment_days_warning(@seminar) %><br/>
       Per richedere il compenso e/o rimborso le verranno chieste le seguenti cose:
       <ul>
         <li style="list-style-type: circle"><strong>curriculum vitae</strong> del conferenziere;</li>
