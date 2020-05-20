@@ -9,10 +9,12 @@
   </div>
   <div class="dm-card-body">
     <%= repayment.input :italy, as: :radio_buttons %>
-    <%= repayment.input :speaker_arrival,   as: :date, html5: true, hint: repayment_days_warning, 
-                                            input_html: { min: l(startDatePossibleRepayment, format: :date_picker_html5) } %>
-    <%= repayment.input :speaker_departure, as: :date, html5: true, 
-                                            input_html: { min: l(startDatePossibleRepayment, format: :date_picker_html5) } %>
+    <% unless repayment.object.seminar.on_line %>  
+      <%= repayment.input :speaker_arrival,   as: :date, html5: true, hint: repayment_days_warning, 
+                                              input_html: { min: l(startDatePossibleRepayment, format: :date_html5) } %>
+      <%= repayment.input :speaker_departure, as: :date, html5: true, 
+                                              input_html: { min: l(startDatePossibleRepayment, format: :date_html5) } %>
+    <% end %>
   </div>
 </div>
 
