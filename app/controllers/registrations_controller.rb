@@ -38,7 +38,7 @@ class RegistrationsController < ApplicationController
   private
 
   def registration_params
-    params[:registration].permit(:email, :name, :surname)
+    params[:registration].permit(:email, :name, :surname, :affiliation)
   end
 
   def get_seminar
