@@ -1,0 +1,25 @@
+<%= dm_card title: checked_title(repayment, :compensation) do %>
+  <dl class="inline">
+    <dt>Residenza fiscale</dt>
+    <dd><%= repayment.italy ? 'Italia' : 'Estero' %> </dd>
+    <dt>Arrivo a Bologna</dt>
+    <dd><%= l(repayment.speaker_arrival) if repayment.speaker_arrival %></dd>
+    <dt>Partenza da Bologna</dt>
+    <dd><%= l(repayment.speaker_departure) if repayment.speaker_departure %></dd>
+    <dt>Compenso lordo percipiente</dt>
+    <dd><%= euro repayment.lordo_percipiente %></dd>
+    <dt>Compenso netto percipiente</dt>
+    <dd><%= euro repayment.netto_percipiente %></dd>
+    <dt>Compenso lordo ente</dt><dd><%= euro repayment.lordo_ente %></dd>
+
+    <% if repayment.refund %>  
+      <dt>Rimborsi</dt>
+      <dd><%= t :expected_refund %>:   <%= euro repayment.expected_refund %></dd>
+    <% end %>
+
+    <% if user_can_edit %>  
+      <dd><%= link_to 'Modifica', edit_repayment_path(repayment, what: :compensation), class: :button %></dd>
+    <% end %>
+  </dl>
+<% end %>
+

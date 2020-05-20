@@ -1,0 +1,16 @@
+<%= dm_card title: checked_title(repayment, :fund) do %>
+  <dl class="inline">
+    <dt>Titolare del fondo</dt>
+    <dd><%= attribute_to_s repayment.holder.to_s %></dd>
+    <dt>Fondo</dt>
+    <dd><%= repayment.fund or "Fondo ancora da stabilire".html_safe %></dd>
+    <% if user_is_manager? %>  
+      <dt>Numero vincolo di costo</dt>
+      <dd><%= repayment.bond_year %>/<%= repayment.bond_number %></dd>
+    <% end %>
+    <% if user_can_edit %>  
+      <dd><%= modal_link_to 'Modifica', edit_repayment_path(repayment, what: :fund ), addclass: :button %></dd>
+    <% end %>
+  </dl> 
+<% end %>
+

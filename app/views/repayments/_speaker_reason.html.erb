@@ -1,24 +1,18 @@
-<div class="dm-card">
-  <div class="dm-card-title">
-    Scelta conferenziere <span class="float-right"><%= checked_icon(repayment_speaker_reason_ok?(repayment.object)) %></span>
-  </div>
-  <div class="dm-card-body">
-    <%= repayment.input :reason, input_html: {rows: 6} %>  
-    <% cvs = repayment.object.curricula_vitae.all %>  
-    <% if cvs.any? %>  
-      <div class=row">
-        <div class="col-sm-9 offset-sm-3">
-          <% cvs.each do |doc| %>  
-            <strong>allegato:</strong> 
-            <%= link_to_cv doc %> 
-            <%= link_to_delete repayment_curriculum_vitae_path(repayment.object, doc) %><br/>
-          <% end %>
-        </div>
-      </div>
-    <% else %>
-      <%= repayment.input :cv, as: :file, hint: t(:dlgs33_2013) %>
+<%= dm_card title: checked_title(repayment, :reason) do %>  
+  <% if repayment.reason.blank? %>  
+    <p class="alert alert-warning"><%= t :reason_long_version %>.</p>
+  <% else %>
+    <p><em><%= attribute_to_s repayment.reason %></em></p>
+  <% end %>
+  <dl class="inline">
+    <dt>Curriclum vitae:</dt>
+    <dd>
+    <% cvs = repayment.curricula_vitae.all %>  
+    <%= "è necessario inserire il CV del relatore" if cvs.empty? %>  
+    <% cvs.each do |doc| %> <%= link_to_cv doc %> <% end %>
+    </dd>
+    <% if user_can_edit %>  
+      <dd><%= modal_link_to('Modifica', edit_repayment_path(repayment, what: :reason ), addclass: :button) %></dd>
     <% end %>
-  </div>
-</div>
-
-
+  </dl>
+<% end %>

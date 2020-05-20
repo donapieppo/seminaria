@@ -1,0 +1,21 @@
+<%= dm_card title: checked_title(repayment, :speaker_details) do %>
+  <% if user_can_edit and (! repayment.email.blank?) and (! repayment.notified) %>  
+    <p style="text-align: right"><%= link_to big_dmicon('envelope', text: 'Testo della mail da inviare al relatore per richiedere la compilazione dei dati anagrafici e bancari.'), data_request_speaker_repayment_path(repayment) %></p>
+  <% end %>
+  <dl class="inline">
+    <% for m in [:name, :surname, :email, :affiliation, :position_to_s, :address, :postalcode, :city, :country, :birth_date, :birth_place, :birth_country, :taxid] do %>  
+      <dt><%= t m %></dt>
+      <dd><%= attribute_to_s repayment.send(m) %></dd>
+    <% end %>
+    <% if (id_cards = repayment.id_cards).any? %>  
+      <dt>ID</dt>
+      <% id_cards.each do |id_card| %>
+        <dd><%= link_to_id_card id_card %></dd>
+      <% end %>
+    <% end %>
+    <% if user_can_edit %>  
+      <dd><%= modal_link_to 'Modifica', edit_repayment_path(repayment, what: :speaker), addclass: :button %></dd>
+    <% end %>
+  </dl>
+<% end %>
+

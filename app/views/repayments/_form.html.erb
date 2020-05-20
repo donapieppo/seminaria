@@ -8,7 +8,7 @@
   <%= repayment.dm_error_notification %>  
   <input type="hidden" name="what" value="<%= @what %>">  
 
-  <%= render('speaker_reason', repayment: repayment) if @what == 'reason' %>  
+  <%= render('speaker_reason_form', repayment: repayment) if @what == 'reason' %>  
   <%= render('fund_form', repayment: repayment) if @what == 'fund' %>  
 
   <% if @what == 'compensation' %>  
@@ -18,9 +18,9 @@
   <% end %>
 
   <% if @what == 'speaker' %>  
-    <%= render('speaker_anagrafica', repayment: repayment) %>  
-    <%= render('speaker_address', repayment: repayment) %>  
-    <%= render('speaker_role', repayment: repayment) %>  
+    <%= render('speaker_anagrafica_form', repayment: repayment) %>  
+    <%= render('speaker_address_form', repayment: repayment) %>  
+    <%= render('speaker_role_form', repayment: repayment) %>  
   <% end %>
 
   <%= render('bank_form', repayment: repayment) if @what == 'bank' %>  
