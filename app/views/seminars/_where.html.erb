@@ -10,12 +10,13 @@
       Per verificare i dati collegarsi al sito <%= link_to 'Zoom meetings unibo', 'https://unibo.zoom.us/meeting' %>. 
     <% else %>
       <div class="alert alert-info">
-       Nel caso di seminari on line è possibile inserire l'indirizzo della stanza oppure permettere all'applicativo di inserire
-       automaticamente tutti i dati del seminario su Zoom. <br/>
-       Per i seminari on line è possibile ricevere iscrizioni tramite questo applicativo. 
-       Prima del seminario potrete inviare una mail a tutti gli iscritti per informarli di come accedere al seminario.
+        Nel caso di seminari <strong>on line</strong> è possibile inserire l'indirizzo della stanza oppure permettere all'applicativo creare automaticamente 
+        una stanza su zoom con tutti i dati del seminario. <br/>
+        Per i seminari on line è possibile ricevere iscrizioni tramite questo applicativo. 
+        Prima del seminario potrete inviare una mail a tutti gli iscritti per informarli di come accedere al seminario.
       </div>
       <%= s.input :meeting_url %>  
+      <%= s.submit 'Salva', class: 'mt-3' %>  
       <div style="text-align: center; font-size: 120%" class="mt-3"> 
         <div class="my-3">--- <strong>oppure</strong> ---</div>
         <%= image_pack_tag 'ZoomLogo.png', width: 120 %> <%= link_to 'Crea automaticamente un meeting su Zoom', seminar_zoom_create_path(@seminar), class: 'btn btn-primary ml-5' %>  
@@ -25,8 +26,8 @@
   <div id="in_presence_seminar">
     <%= s.association :place, collection: current_organization.places.all, include_blank: false %>
     <%= s.input :place_description, input_html: { cols: 50, rows: 2 } %> 
+    <%= s.submit 'Salva', class: 'mt-3' %>  
   </div>
-  <%= s.submit 'Salva', class: 'mt-3' %>  
 <% end %>
 
 <%= javascript_tag do %>  
