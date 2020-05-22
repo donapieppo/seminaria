@@ -1,13 +1,14 @@
 class RepaymentsController < ApplicationController
-  before_action :get_repayment_and_seminar_and_check_permission, only: [:show, :edit, :update, :notify, 
-                                                                        :print_decree, :print_letter, :print_proposal, :print_repayment, :print_refund, :print_other]
+  before_action :get_repayment_and_seminar_and_check_permission, 
+                only: [:show, :edit, :update, :notify, 
+                       :print_decree, :print_letter, :print_proposal, :print_repayment, :print_refund, :print_other]
   before_action :get_seminar, only: [:new, :create]
   # su propri fondi
   before_action :get_repayment_and_check_permission, only: [:choose_fund, :update_fund]
   before_action :get_and_validate_holder,            only: [:update]
 
   def index
-    authorize :repayment
+    authorize current_organization, :manage?
 
     @year ||= (params[:year] || Date.today.year).to_i
     @repayments = Repayment.includes(seminar: :user, fund: [:category, :holder])
