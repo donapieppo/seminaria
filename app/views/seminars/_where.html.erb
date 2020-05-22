@@ -17,7 +17,9 @@
         Per i seminari on line vengono automaticamente abilitate le <strong>iscrizioni</strong> tramite questo applicativo. 
         Prima del seminario potrete inviare una mail a tutti gli iscritti per informarli dell'indirizzo con cui accedere al seminario.
       </div>
+      <%= s.input :meeting_visible %>  
       <%= s.input :meeting_url %>  
+      <%= s.input :meeting_code %>  
       <%= s.submit 'Salva', class: 'mt-3' %>  
       <div style="text-align: center; font-size: 120%" class="mt-3"> 
         <div class="my-3">--- <strong>oppure</strong> ---</div>

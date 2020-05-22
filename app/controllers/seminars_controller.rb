@@ -17,7 +17,9 @@ class SeminarsController < ApplicationController
       @title = "Prossimi seminari del #{current_organization.description}"
       @seminars = current_organization.seminars.order('seminars.date ASC').future
     else
-      redirect_to choose_organization_path and return
+      # TODO
+      # redirect_to choose_organization_path and return
+      redirect_to seminars_path(__org__: 'mat') and return
     end
     @seminars = @seminars.includes([:documents, :arguments, :place, :zoom_meeting])
 
@@ -85,13 +87,14 @@ class SeminarsController < ApplicationController
     authorize @seminar
 
     if @seminar.save
-      redirect_to edit_seminar_path(@seminar), notice: "Il seminario è stato creato correttamente."
+      redirect_to edit_seminar_path(@seminar, what: :where), notice: "Il seminario è stato creato correttamente."
     else
       render action: :new
     end
   end
 
   def edit
+    @what = params[:what]
     @repayment = @seminar.repayment
     # user can change existing repayment. FIXME
     @too_late_for_repayment = user_too_late_for_repayment?(@seminar) unless @seminar.repayment
@@ -156,7 +159,7 @@ class SeminarsController < ApplicationController
     if params[:seminar][:date]
       params[:seminar][:date] = params[:seminar][:date] + " " + params[:seminar].delete('date(4i)') + ':' + params[:seminar].delete('date(5i)')
     end
-    p = [:date, :duration, :on_line, :meeting_url, :place_id, :place_description, :cycle_id, :serial_id, :speaker_title, :speaker, :committee, { argument_ids: [] }, :title, :abstract, :file, :link, :link_text]
+    p = [:date, :duration, :on_line, :meeting_url, :meeting_code, :meeting_visible, :place_id, :place_description, :cycle_id, :serial_id, :speaker_title, :speaker, :committee, { argument_ids: [] }, :title, :abstract, :file, :link, :link_text]
     p = p + [:user_id, :serial_id, :cycle_id] if policy(current_organization).manage?
     params[:seminar].permit(p)
   end

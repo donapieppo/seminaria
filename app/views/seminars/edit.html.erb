@@ -1,12 +1,18 @@
-<%= render 'form' %>
+<% if (! @what) || (@what == 'main') %>  
+  <%= render 'form' %>
+<% end %>
 
-<%= render 'where' %>  
+<% if (! @what) || (@what == 'where') %>  
+  <%= render 'where' %>  
+<% end %>
 
-<div class="row">
-  <div class="col-md-6">
-    <%= render 'seminar_documents_form' %>
+<% unless @what %>
+  <div class="row">
+    <div class="col-md-6">
+      <%= render 'seminar_documents_form' %>
+    </div>
+    <div class="col-md-6">
+      <%= render 'seminar_repayment_button' %>  
+    </div>
   </div>
-  <div class="col-md-6">
-    <%= render 'seminar_repayment_button' %>  
-  </div>
-</div>
+<% end %>
