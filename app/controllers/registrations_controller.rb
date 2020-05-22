@@ -8,18 +8,13 @@ class RegistrationsController < ApplicationController
     authorize @seminar, :update?
   end
 
-  def show
-    @registration = Registration.find(params[:id])
-    authorize @registration
-  end
-
   def new
     @registration = @seminar.registrations.new
     authorize @registration
     if current_user
       @registration.user_id = current_user.id
       @registration.save!
-      redirect_to @registration, notice: "Sei stato registrato, riceverai una mail con le istruzioni per accedere."
+      redirect_to root_path, notice: "Sei stato registrato, riceverai una mail con le istruzioni per accedere il giorno del seminario."
     end
   end
 
@@ -29,7 +24,7 @@ class RegistrationsController < ApplicationController
     authorize @registration
     if @registration.save
       session[Registration.session_name(@seminar)] = 1
-      redirect_to root_path, notice: "Sei stato registrato, riceverai una mail con le istruzioni per accedere."
+      redirect_to root_path, notice: "Sei stato registrato, riceverai una mail con le istruzioni per accedere il giorno dl seminario."
     else
       render action: 'new'
     end
