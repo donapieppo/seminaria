@@ -9,7 +9,7 @@ class Repayment < ApplicationRecord
 
   # validates :taxid, format: { with: /\A[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]\z/i, message: 'Controllare il formato del codice fiscale' }, allow_nil: true, allow_blank: true
 
-  validate :payment_limit_for_italians
+  validate :payment_limits
   validate :speaker_arrival_departure_validation
   validate :validate_fund_and_holder
 
@@ -22,8 +22,10 @@ class Repayment < ApplicationRecord
   ADAPT_NET_ITALIAN_VALUE = 1.25 
   ADAPT_NET_FOREIGN_VALUE = 1.42858142
 
-  def payment_limit_for_italians
-    if self.italy and self.lordo_percipiente and self.lordo_percipiente > 500
+  def payment_limits
+    if self.seminar.on_line && self.lordo_percipiente && self.lordo_percipiente > 200
+      self.errors.add(:payment, "il compenso massimo erogabile a conferenzieri per seminari on line è pari a 200 Euro lordo ente, corrispondenti a 184,33 Euro lordo percipiente (147,47 Euro netti per conferenzieri con residenza fiscale in Italia; 129,03 euro netti per conferenzieri con residenza fiscale estera)")
+    elsif self.italy && self.lordo_percipiente && self.lordo_percipiente > 500
       self.errors.add(:payment, "il compenso massimo erogabile a conferenzieri con residenza fiscale in Italia è pari a Euro 500 lordo percipiente (400 euro nette; 542,50 euro lordo ente)")
     end
   end
