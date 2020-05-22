@@ -25,12 +25,20 @@ module SeminarsHelper
     end
   end
 
+  def on_line_where_url(seminar) 
+    if seminar.meeting_visible
+      (seminar.meeting_code.blank? ? "" : "codice: (" + h(seminar.meeting_code) + ") - ") + 
+        link_to('collegamento al meeting', seminar.meeting_url)
+    else
+      "l'indirizzo con cui accedere verrà inviato via mail agli iscritti il giorno del seminario."
+    end
+  end
+
   def where_tag(seminar, short: false)
     # lascerei il posto fino a ieri (prima era if ! seminar.past?)
     content_tag :div, class: "where-tag" do
       if seminar.on_line
-        dmicon('cloud') + " on line " + 
-          (seminar.meeting_url.blank? ? " - l'indirizzo verrà inviato via mail agli iscritti prima del seminario" : link_to(seminar.meeting_url, seminar.meeting_url))
+        dmicon('cloud') + " seminario on line • " + on_line_where_url(seminar).html_safe
       else
         dmicon('map-marker-alt') + "&nbsp;".html_safe +
           I18n.t(:place) + " " + seminar.place_to_s 
@@ -58,7 +66,7 @@ module SeminarsHelper
   def clock_tag(seminar, short: false)
     if seminar.date.today? and !short
       content_tag :div, class: :today do 
-        concat(big_dmicon('clock', prefix: 'far')) 
+        concat(big_dmicon('clock')) 
         concat( 
                content_tag(:span, class: 'ml-2') do
                  ((seminar.date < Time.now) ? 'iniziato da ' :  'tra ') + time_ago_in_words(seminar.date) 
@@ -127,7 +135,7 @@ module SeminarsHelper
     if seminar.on_line  
       if (current_user && current_user.registered?(seminar))  || session[Registration.session_name(seminar)]
         content_tag :span, class: "registration-link float-right text-success" do
-          dmicon("check-square") + ' registrato al seminario (riceverà istruzioni per partecipare)'
+          dmicon("check-square") + ' registrato (verranno inviate istruzioni per partecipare il giorno del seminario)'
         end
       elsif ! (current_user && current_user.owns?(seminar)) 
         content_tag :span, class: "registration-link float-right" do
