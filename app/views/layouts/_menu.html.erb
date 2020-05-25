@@ -1,7 +1,7 @@
 <%= dm_menu do %>  
   <%= dm_header(dm_header_subtitle: (current_organization ? current_organization.description : '')) %>
   <%= dm_nav do  %>  
-    <li><%= link_to big_dmicon('home', text: 'Home'), main_app.root_path %></li>
+    <li><%= link_to big_dmicon('home', text: 'Home'), main_app.seminars_path %></li>
     <% if current_organization %>
       <% if user_signed_in? %>  
         <li><%= link_to big_dmicon('plus-circle', text: 'Inserisci seminario'), main_app.choose_type_seminars_path %></li>
