@@ -1,4 +1,3 @@
-# committee = Organizzatore
 class Seminar < ApplicationRecord
   include Calendar
 
@@ -112,5 +111,6 @@ class Seminar < ApplicationRecord
   def start_time
     self.date
   end
+
 end
 
