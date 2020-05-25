@@ -1,10 +1,5 @@
 # FIXME
 class RepaymentPolicy < ApplicationPolicy
-  def index?
-    raise "FIXME"
-    @user && OrganizationPolicy.new(@user, @record.seminar.organization).read?
-  end
-
   # can update seminar
   # user can read all organization (Greta)
   # fund owner
