@@ -13,6 +13,8 @@ module Seminaria
     config.header_title       = 'Seminari'
     config.header_subtitle    = 'Università di Bologna'
     config.repayment_deadline = 14 # 8 days for working on repayment/refund before speaker arrival
+    config.on_line_repayment_deadline_1 = 5  # 5 giorni prima della giunta
+    config.on_line_repayment_deadline_2 = 15 # 15 giorni prima del seminario
 
     # email from field
     config.default_from    = 'DipMat Seminari <pippo.pluto@example.com>'
