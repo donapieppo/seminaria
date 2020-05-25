@@ -14,13 +14,13 @@
   <% end %>
 </div>
 
-<h2>Elenco delle email fornite</h2>
+<h3>Elenco delle email fornite</h3>
 
 <div class="my-3"><%= @registrations.map(&:email).join(',') %> </div>
 
 <h2>Testo della mail</h2>
 
-<pre>
+<pre style="font-size: 16px; background-color: #eee; padding: 10px">
 Buongiorno,
 
   il giorno <%= l @seminar.date, format: :seminar %>, <%= @seminar.speaker %>
