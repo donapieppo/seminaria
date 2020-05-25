@@ -14,13 +14,14 @@
   <% end %>
 </div>
 
-<h3>Elenco delle email fornite</h3>
+<% unless @url.blank? %>  
+  <h3>Elenco delle email fornite</h3>
 
-<div class="my-3"><%= @registrations.map(&:email).join(',') %> </div>
+  <div class="my-3"><%= @registrations.map(&:email).join(',') %> </div>
 
-<h2>Testo della mail</h2>
+  <h2>Testo della mail</h2>
 
-<pre style="font-size: 16px; background-color: #eee; padding: 10px">
+  <pre style="font-size: 16px; background-color: #eee; padding: 10px">
 Buongiorno,
 
   il giorno <%= l @seminar.date, format: :seminar %>, <%= @seminar.speaker %>
@@ -31,6 +32,6 @@ terrà un seminario organizzato da <%= @seminar.committee %> dal titolo
 Per seguire il seminario online potrete accedere al seguente indirizzo
 
 <%= link_to @url, @url %>  
-</pre>
+  </pre>
 
-
+<% end %>
