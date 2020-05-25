@@ -1,5 +1,7 @@
-# FIXME
 class RepaymentPolicy < ApplicationPolicy
+
+  # index? - see controller authorize current_organization, :manage?
+  
   # can update seminar
   # user can read all organization (Greta)
   # fund owner
