@@ -43,8 +43,8 @@ class User < ApplicationRecord
     Seminar.where(id: seminar_ids)
   end
 
-  def registered?(seminar)
-    self.registrations.where(seminar_id: seminar.id).any?
+  def registration(seminar)
+    self.registrations.where(seminar_id: seminar.id)
   end
 
 end
