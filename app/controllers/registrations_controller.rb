@@ -30,6 +30,13 @@ class RegistrationsController < ApplicationController
     end
   end
 
+  def destroy
+    registration = Registration.find(params[:id])
+    authorize registration
+    registration.destroy
+    redirect_to seminars_path
+  end
+
   private
 
   def registration_params
