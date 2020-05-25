@@ -1,0 +1,10 @@
+<h1>Seminari</h1>
+
+<div class="row">
+  <% @organizations.each do |o| %>  
+    <div class="col-md-6">
+      <%= link_to o.name, o.code, class: 'btn btn-lg btn-primary w-100 h-100' %>
+    </div>
+  <% end %>
+</div>
+
