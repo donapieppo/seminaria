@@ -6,6 +6,10 @@
   <%= render 'where' %>  
 <% end %>
 
+<div style="text-align: center">
+  <%= link_to 'invia email', mail_text_seminar_path(@seminar), class: 'btn btn-lg btn-warning my-3' %>  
+</div>
+
 <% unless @what %>
   <div class="row">
     <div class="col-md-6">
