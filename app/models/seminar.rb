@@ -37,8 +37,12 @@ class Seminar < ApplicationRecord
   end
 
   def place_to_s
-    if self.on_line
-      ""
+    if self.on_line 
+      if self.meeting_visible && ! self.meeting_url.blank?
+        "on-line: #{self.meeting_url}"
+      else
+        'on-line'
+      end
     else
       case self.place_id
       when 2
