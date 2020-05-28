@@ -12,7 +12,7 @@ class Seminar < ApplicationRecord
   has_one    :zoom_meeting
   has_many   :registrations
 
-  scope :future, -> { where("seminars.date > DATE_ADD(NOW(), INTERVAL -2 hour)") }
+  scope :future, -> { where("seminars.date > DATE_ADD(UTC_TIMESTAMP(), INTERVAL -2 hour)") }
   scope :this_year, -> { where("YEAR(seminars.date) = YEAR(NOW())") }
   scope :date_today, -> { where("DATE(seminars.date)=CURDATE()") }
 
