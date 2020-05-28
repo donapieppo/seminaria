@@ -33,7 +33,9 @@ class RegistrationsController < ApplicationController
   def destroy
     registration = Registration.find(params[:id])
     authorize registration
-    registration.destroy
+    if registration.destroy
+      flash[:notice] = 'La registrazione è stata cancellata.'
+    end
     redirect_to seminars_path
   end
 

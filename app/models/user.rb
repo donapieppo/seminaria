@@ -44,7 +44,7 @@ class User < ApplicationRecord
   end
 
   def registration(seminar)
-    self.registrations.where(seminar_id: seminar.id)
+    self.registrations.where(seminar_id: seminar.id).first
   end
 
 end
