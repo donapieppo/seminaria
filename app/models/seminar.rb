@@ -26,9 +26,9 @@ class Seminar < ApplicationRecord
     self.place_description = nil unless (self.place_id == 2)
   end
 
-  # convenzione che fino ad un'ora fa non e' passato
+  # convenzione che fino ad due ore fa non e' passato
   def past?
-    self.date < Time.now - 1.hour
+    self.date < Time.now - 2.hour
   end
 
   # non so se sono amministratore
