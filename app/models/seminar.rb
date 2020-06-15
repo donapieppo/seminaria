@@ -48,7 +48,7 @@ class Seminar < ApplicationRecord
       when 2
         self.place_description
       when nil
-        'Non definita'
+        'Aula non definita'
       else
         self.place.to_s
       end
