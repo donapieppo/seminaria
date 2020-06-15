@@ -44,7 +44,14 @@ class ZoomOauth
              topic: seminar.zoom_topic, 
              start_time: seminar.start_time.to_formatted_s(:iso8601), 
              duration: seminar.duration,
-             timezone: 'Europe/Rome' }
+             timezone: 'Europe/Rome',
+             agenda: seminar.abstract, 
+             settings: {
+               waiting_room: false,
+               mute_upon_entry: true,
+               join_before_host: false
+             }
+    }
     token = get_token(code)
     Rails.logger.info(body.to_json)
     Rails.logger.info("-------------------------------")
