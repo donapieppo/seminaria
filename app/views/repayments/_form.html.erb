@@ -9,6 +9,7 @@
   <input type="hidden" name="what" value="<%= @what %>">  
 
   <%= render('speaker_reason_form', repayment: repayment) if @what == 'reason' %>  
+  <%= render('seminar_reason_form', repayment: repayment) if @what == 'seminar_reason' %>  
   <%= render('fund_form', repayment: repayment) if @what == 'fund' %>  
 
   <% if @what == 'compensation' %>  
