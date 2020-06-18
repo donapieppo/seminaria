@@ -1,0 +1,19 @@
+<%= dm_card title: checked_title(repayment, :seminar_reason) do %>
+  <% unless repayment.activity_details.blank? %>  
+    <div>
+      Descrizione dettagliata:
+      <p><em> <%= repayment.activity_details %></em></p> 
+    </div>
+  <% end %>
+  <% unless repayment.scientific_interests.blank? %>  
+    <div>
+      Interesse scientifico o di terza missione:
+      <p><em><%= repayment.scientific_interests %></em></p>
+    </div>
+  <% end %>
+  <% if user_can_edit %>  
+    <div><%= modal_link_to('Modifica', edit_repayment_path(repayment, what: :seminar_reason), addclass: :button) %></div>
+  <% end %>
+<% end %>
+
+

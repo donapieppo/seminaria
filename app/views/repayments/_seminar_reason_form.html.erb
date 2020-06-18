@@ -1,0 +1,12 @@
+<div class="dm-card">
+  <div class="dm-card-title">
+    <%= t :seminar_reason  %>
+    <span class="float-right"><%= checked_icon(repayment_seminar_reason_ok?(repayment.object)) %></span>
+  </div>
+  <div class="dm-card-body">
+    <%= repayment.input :activity_details, input_html: {rows: 6} %>  
+    <%= repayment.input :scientific_interests, input_html: {rows: 6} %>  
+  </div>
+</div>
+
+
