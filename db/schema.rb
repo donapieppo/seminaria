@@ -143,7 +143,10 @@ ActiveRecord::Schema.define(version: 2020_02_11_081644) do
     t.date "speaker_arrival"
     t.date "speaker_departure"
     t.string "affiliation"
+    t.text "activity_details"
+    t.text "scientific_interests"
     t.text "reason"
+    t.text "final_notes"
     t.decimal "payment", precision: 8, scale: 2
     t.boolean "gross"
     t.integer "position_id", unsigned: true

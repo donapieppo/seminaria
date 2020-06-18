@@ -9,6 +9,7 @@ it:
   repayment: Richiesta di rimborso
   fund: Fondo
   compensation: Rimborso / compenso
+  seminar_reason: Descrizione dettagliata dell'attività e del suo interesse scientifico 
   address:    Indirizzo di residenza
   postalcode: Codice postale
   city:       Città
@@ -26,7 +27,7 @@ it:
   speaker_arrival: Arrivo del relatore a Bologna
   speaker_departure: Partenza del relatore da Bologna
   expected_refund: Importo presunto
-  reason: Eccezionali ragioni di particolare qualificazione
+  reason: Eccezionali ragioni di particolare qualificazione del conferenziere
   reason_long_version: È necessario inserire una descrizione dettagliata delle eccezionali ragioni di particolare qualificazione, abilità e conoscenze possedute dal conferenziere che motivano la deroga alla procedura comparativa pubblica con assegnazione diretta dell’incarico
   speaker_details: Deti relativi al relatore
   bank_name:    Nome della banca
@@ -87,6 +88,8 @@ it:
         expected_refund: Importo presunto
         affiliation: Ente di appartenenza
         reason: Descrizione dettagliata delle eccezionali ragioni di particolare qualificazione, abilità e conoscenze possedute dal conferenziere che motivano la deroga alla procedura comparativa pubblica con assegnazione diretta dell’incarico
+        activity_details: Descrizione dettagliata del tipo di attività che verrà svolta dallo speaker (scaletta/programma).
+        scientific_interests: Interesse scientifico o di terza missione che ci si aspetta di soddisfare con la prestazione dello speaker, con illustrazione dei presupposti scientifici o di terza missione dell’intervento
         payment: Compenso 
         gross: lordo
         role: Dettagli posizione

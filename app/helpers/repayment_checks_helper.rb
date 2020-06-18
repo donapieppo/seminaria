@@ -19,6 +19,8 @@ module RepaymentChecksHelper
     case what
     when :reason
       repayment_speaker_reason_ok?(repayment)
+    when :seminar_reason
+      repayment_seminar_reason_ok?(repayment)
     when :fund
       if (repayment.holder_id == repayment.seminar.user_id) or user_is_manager?
         (repayment.holder_id and repayment.fund_id)
@@ -42,6 +44,10 @@ module RepaymentChecksHelper
     ! ((repayment.documents.empty?) || (repayment.reason.blank?))
   end
 
+  def repayment_seminar_reason_ok?(repayment)
+    ! ((repayment.activity_details.blank?) || (repayment.scientific_interests.blank?))
+  end
+
   def repayment_speaker_anagrafica_ok?(repayment)
     ! ((repayment.name.blank?) || (repayment.surname.blank?) || (repayment.birth_place.blank?) || (repayment.birth_date.blank?))
   end
@@ -57,6 +63,7 @@ module RepaymentChecksHelper
   def repayment_missing_payment_and_refund?(repayment)
     ! ((repayment.payment.to_i > 0) || (repayment.expected_refund.to_i > 0))
   end
+
   def repayment_all_ok_to_send?(repayment)
     repayment_holder_ok?(repayment) && 
     repayment_speaker_reason_ok?(repayment) && 
