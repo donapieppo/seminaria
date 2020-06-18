@@ -167,7 +167,7 @@ class RepaymentsController < ApplicationController
 
     @repayment.update_attribute(:fund_id, @fund.id)
 
-    RepaymentMailer.notify_fund(@repayment).deliver unless (user_is_manager? or user_owns?(@repayment.seminar))
+    RepaymentMailer.notify_fund(@repayment).deliver unless (policy(@repayment.seminar).update?)
     redirect_to root_path, notice: "È stato selezionato il fondo #{@fund.to_s}."
   end
 
@@ -175,7 +175,9 @@ class RepaymentsController < ApplicationController
 
   def repayment_params
     p = [:name, :surname, :email, :address, :postalcode, :city, :italy, :country, :birth_date, :birth_place, :birth_country, :affiliation,
-         :payment, :gross, :position_id, :role, :refund, :reason, :speaker_arrival, :speaker_departure, :expected_refund, :taxid, 
+         :payment, :gross, :position_id, :role, :refund, 
+         :reason, :activity_details, :scientific_interests, 
+         :speaker_arrival, :speaker_departure, :expected_refund, :taxid, 
          :iban, :swift, :aba, :bank_name, :bank_address]
     p = p + [:bond_number, :bond_year] if policy(@repayment).update_bond?
     p = p + [:fund_id] if policy(@repayment).update_fund?
