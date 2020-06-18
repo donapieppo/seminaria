@@ -10,5 +10,5 @@ previsto per il giorno <%= l @seminar.date %>
 sui suoi fondi <%= @repayment.fund %>.  
 
 Per stampare la lettera o modificare i dati collegarsi a
-<%= repayment_url(@repayment) %>  
+<%= repayment_url(@repayment, __org__: @repayment.seminar.organization.code) %>  
 

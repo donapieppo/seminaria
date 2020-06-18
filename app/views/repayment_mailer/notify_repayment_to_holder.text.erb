@@ -9,7 +9,7 @@ tenuto da <%= @seminar.speaker %>
 previsto per il giorno <%= l @seminar.date %>.
 
 Per selezionare i fondi collegarsi al sito
-<%= choose_fund_repayment_url(@repayment) %>
+<%= choose_fund_repayment_url(@repayment, __org__: @repayment.seminar.organization.code) %>
 
 <% if @repayment.speaker_arrival %>  
 Ricordiamo che la richiesta di compenso / rimborso 
