@@ -2,10 +2,12 @@
   <dl class="inline">
     <dt>Residenza fiscale</dt>
     <dd><%= repayment.italy ? 'Italia' : 'Estero' %> </dd>
-    <dt>Arrivo a Bologna</dt>
-    <dd><%= l(repayment.speaker_arrival) if repayment.speaker_arrival %></dd>
-    <dt>Partenza da Bologna</dt>
-    <dd><%= l(repayment.speaker_departure) if repayment.speaker_departure %></dd>
+    <% unless repayment.seminar.on_line %>  
+      <dt>Arrivo a Bologna</dt>
+      <dd><%= l(repayment.speaker_arrival) if repayment.speaker_arrival %></dd>
+      <dt>Partenza da Bologna</dt>
+      <dd><%= l(repayment.speaker_departure) if repayment.speaker_departure %></dd>
+    <% end %>
     <dt>Compenso lordo percipiente</dt>
     <dd><%= euro repayment.lordo_percipiente %></dd>
     <dt>Compenso netto percipiente</dt>
