@@ -13,7 +13,7 @@
       <%= repayment.association :fund, collection: @funds, label_method: :to_s, include_blank: false %>
     <% end %>
 
-    <% if user_owns?(@repayment.seminar) %>  
+    <% if policy(@repayment.seminar).edit? %>  
       <%= repayment.submit "Salva e invia richiesta" %>
     <% else %>
       <%= repayment.submit "Salva e approva" %>
