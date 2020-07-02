@@ -27,7 +27,7 @@ it:
   speaker_arrival: Arrivo del relatore a Bologna
   speaker_departure: Partenza del relatore da Bologna
   expected_refund: Importo presunto
-  reason: Eccezionali ragioni di particolare qualificazione del conferenziere
+  reason: Eccezionali ragioni di particolare qualificazione del conferenziere che consentono di derogare alla procedura selettiva pubblica
   reason_long_version: È necessario inserire una descrizione dettagliata delle eccezionali ragioni di particolare qualificazione, abilità e conoscenze possedute dal conferenziere che motivano la deroga alla procedura comparativa pubblica con assegnazione diretta dell’incarico
   speaker_details: Deti relativi al relatore
   bank_name:    Nome della banca
