@@ -135,18 +135,17 @@ module SeminarsHelper
 
   def on_line_tag(seminar)
     if seminar.on_line  
-
       if session[Registration.session_name(seminar)]
-        content_tag :span, class: "registration-link float-right text-success" do
+        content_tag :div, class: "registration-link float-right text-success mt-3" do
           dmicon("check-square") + ' registrato (verranno inviate istruzioni per partecipare il giorno del seminario)'
         end
       elsif r = current_user ? current_user.registration(seminar) : nil
-        content_tag :span, class: "registration-link float-right text-success" do
+        content_tag :div, class: "registration-link float-right text-success mt-3" do
           'Registrato (verranno inviate istruzioni per partecipare il giorno del seminario) '.html_safe + 
             link_to(dmicon('trash'), registration_path(r), method: :delete, title: 'Cancella la registrazione')
         end
       elsif ! (current_user && current_user.owns?(seminar)) 
-        content_tag :span, class: "registration-link float-right" do
+        content_tag :div, class: "registration-link float-right mt-3" do
           link_to t(:register_and_be_notified), new_seminar_registration_path(seminar), class: 'btn btn-primary' 
         end
       end

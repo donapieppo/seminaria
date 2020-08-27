@@ -1,5 +1,3 @@
-include DmUniboCommonHelper
-
 module ApplicationHelper
   def link_to_cv(doc)
     link_to_download(url_for(doc.attach), doc.description) 
@@ -10,3 +8,9 @@ module ApplicationHelper
   end
 end
 
+include DmUniboCommonHelper
+
+include UserPermissionHelper
+include RepaymentChecksHelper
+include MoneyHelper
+include SeminarsHelper

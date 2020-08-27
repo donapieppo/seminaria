@@ -8,14 +8,14 @@
     <% end %>
 
     <% if policy(repayment.object).update_fund? %>  
-      <% if user_is_manager? %>  
+      <% if current_organization && policy(current_organization).manage? %>  
         <%= repayment.association :fund, collection: @funds, label_method: :to_s_with_holder, include_blank: false %>
       <% else %>
         <%= repayment.association :fund, collection: @funds, label_method: :to_s, include_blank: false %>
       <% end %>
     <% end %>
 
-    <% if user_is_manager? %>  
+    <% if current_organization && policy(current_organization).manage? %>  
       <%= repayment.input :bond_number %>
       <% year = Date.today.year %>  
       <%= repayment.input :bond_year, collection: [year -1 , year] %>
