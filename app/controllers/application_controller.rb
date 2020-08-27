@@ -17,25 +17,13 @@ module DmUniboCommon
   end
 end
 
-class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
-
-  include Pundit
-
-  include DmUniboCommon::Controllers::Helpers
-  include UserPermissionHelper
-
-  impersonates :user
-
-  before_action :log_current_user, :set_locale, :set_organization, :redirect_unsigned_user, :update_current_user_authlevels
+class ApplicationController < DmUniboCommon::ApplicationController
+  before_action :set_current_user, :update_authorization, :set_current_organization, :log_current_user, :set_locale, :redirect_unsigned_user
   after_action :verify_authorized, except: [:who_impersonate, :impersonate, :stop_impersonating]
+
+  include UserPermissionHelper
 
   def set_locale
     I18n.locale = :it
-  end
-
-  def default_url_options(_options={})
-    _options[:__org__] = current_organization ? current_organization.code : nil
-    _options
   end
 end
