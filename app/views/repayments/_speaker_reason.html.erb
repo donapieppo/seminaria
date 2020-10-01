@@ -11,7 +11,7 @@
     <%= "è necessario inserire il CV del relatore" if cvs.empty? %>  
     <% cvs.each do |doc| %> <%= link_to_cv doc %> <% end %>
     </dd>
-    <% if user_can_edit %>  
+    <% if policy(repayment).edit? %>  
       <dd><%= modal_link_to('Modifica', edit_repayment_path(repayment, what: :reason ), addclass: :button) %></dd>
     <% end %>
   </dl>
