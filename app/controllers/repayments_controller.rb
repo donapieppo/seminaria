@@ -1,6 +1,6 @@
 class RepaymentsController < ApplicationController
   before_action :get_repayment_and_seminar_and_check_permission, only: [:show, :edit, :update, :notify, 
-                                                                        :print_decree, :print_letter, :print_proposal, :print_repayment, 
+                                                                        :print_request, :print_decree, :print_letter, :print_proposal, :print_repayment, 
                                                                         :print_refund, :print_other]
   before_action :get_seminar, only: [:new, :create]
   # su propri fondi
@@ -80,6 +80,12 @@ class RepaymentsController < ApplicationController
   end
 
   # MODULISTICA 
+
+  def print_request
+    respond_to do |format|
+      format.docx { headers["Content-Disposition"] = "attachment; filename=\"#{@repayment.letter_filename_docx('richiesta_docente')}\"" }
+    end
+  end
 
   def print_letter
     respond_to do |format|

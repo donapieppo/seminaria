@@ -2,6 +2,7 @@
   <div style="text-align: right">
     <% if ok_to_send && repayment.fund_id %>  
       <div class="my-2">
+        <%= link_to dmicon('print', text: 'richiesta'),                    print_request_repayment_path(repayment, format: :docx),   class: 'btn btn-sm btn-outline-primary' %> -
         <%= link_to dmicon('print', text: 'lettera di incarico'),          print_letter_repayment_path(repayment, format: :docx),   class: 'btn btn-sm btn-outline-primary' %> -
         <%= link_to dmicon('print', text: 'decreto'),                      print_decree_repayment_path(repayment, format: :docx),   class: 'btn btn-sm btn-outline-primary' %> - 
         <%= link_to dmicon('print', text: 'proposta compenso / rimborso'), print_proposal_repayment_path(repayment, format: :docx), class: 'btn btn-sm btn-outline-primary' %>  

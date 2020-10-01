@@ -45,6 +45,10 @@ class RepaymentPolicy < ApplicationPolicy
     update_fund?
   end
 
+  def print_request?
+    show?
+  end
+
   def print_letter?
     show?
   end

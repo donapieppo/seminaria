@@ -47,6 +47,7 @@ Rails.application.routes.draw do
       get  :choose_fund, on: :member
       post :update_fund, on: :member
 
+      get  :print_request,   on: :member
       get  :print_letter,    on: :member
       get  :print_decree,    on: :member
       get  :print_proposal,  on: :member
