@@ -1,0 +1,87 @@
+letter_defaults(docx)
+
+repayment_header(docx)
+
+repayment = @repayment
+
+docx.p
+docx.p
+
+docx.p "Richiesta compenso/rimborso spese di #{@repayment.seminar.user.to_s}.", bold: true
+docx.p "per il seminario di #{@repayment.seminar.speaker} del #{I18n.l(@repayment.seminar.date)}", bold: true
+
+docx.p
+
+docx.p "Eccezionali ragioni di particolare qualificazione del conferenziere che consentono di derogare alla procedura selettiva pubblica:", bold: true
+docx.style do
+  id 'indent'
+  name 'indent'
+  indent_left 300
+end
+docx.p @repayment.reason, style: 'indent', italic: true
+
+docx.p
+
+if @repayment.seminar.on_line
+  docx.p do
+    text "Descrizione dettagliata: ", bold: true
+    text @repayment.activity_details, style: 'indent', italic: true
+    br
+    text "Interesse scientifico o di terza missione: ", bold: true
+    text @repayment.scientific_interests, style: 'indent', italic: true
+  end
+end
+
+docx.p do
+  text "Fondo: ", bold: true
+  text "#{repayment.fund} di #{repayment.holder.to_s}"
+  br
+  text "Numero vincolo di costo: ", bold: true
+  text "#{repayment.bond_year} / #{repayment.bond_number}"
+end
+
+docx.p
+
+docx.p do
+  text "Residenza fiscale: ", bold: true
+  text repayment.italy ? 'Italia' : 'Estero'
+end
+
+unless repayment.seminar.on_line   
+  docx.p do 
+    text "Arrivo a Bologna: ", bold: true
+    text "#{I18n.l(repayment.speaker_arrival) if repayment.speaker_arrival}"
+    br
+    text "Partenza da Bologna: ", bold: true
+    text "#{I18n.l(repayment.speaker_departure) if repayment.speaker_departure}"
+  end
+end
+
+docx.p
+
+docx.p do
+  text "Compenso lordo percipiente: ", bold: true
+  text "euro #{repayment.lordo_percipiente}"
+  br
+  text "Compenso netto percipiente: ", bold: true
+  text "euro #{repayment.netto_percipiente}"
+  br
+  text "Compenso lordo ente: ", bold: true
+  text "euro #{repayment.lordo_ente}"
+
+  if repayment.refund
+    text "Rimborsi: ", bold: true
+    text "#{I18n.t :expected_refund}: euro #{repayment.expected_refund}"
+  end
+end
+
+docx.p
+
+docx.p do 
+  for m in [:name, :surname, :email, :affiliation, :position_to_s, :address, :postalcode, :city, :country, :birth_date, :birth_place, :birth_country, :taxid] do
+    text "#{I18n.t(m)}: ", bold: true
+    text "#{attribute_to_s repayment.send(m)}"
+    br
+  end
+end
+
