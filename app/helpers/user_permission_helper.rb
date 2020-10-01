@@ -21,6 +21,10 @@ module UserPermissionHelper
   # FIXME
   def user_too_late_for_repayment?(seminar)
     user_is_manager? and return false
-    seminar.too_late_for_repayment? 
+    seminar.too_late_for_repayment?
+  end
+
+  def user_can_edit_repayment?(repayment)
+    user_is_manager? || ! (user_too_late_for_repayment?(repayment.seminar) || repayment.notified)
   end
 end
