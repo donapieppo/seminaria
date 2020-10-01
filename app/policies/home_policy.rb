@@ -4,7 +4,7 @@ class HomePolicy < ApplicationPolicy
   end
 
   def choose_organization?
-    true
+    @user
   end
 end
 
