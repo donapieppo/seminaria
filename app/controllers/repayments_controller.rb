@@ -1,11 +1,10 @@
 class RepaymentsController < ApplicationController
-  before_action :get_repayment_and_seminar_and_check_permission, 
-                only: [:show, :edit, :update, :notify, 
-                       :print_decree, :print_letter, :print_proposal, :print_repayment, :print_refund, :print_other]
+  before_action :get_repayment_and_seminar_and_check_permission, only: [:show, :edit, :update, :notify, 
+                                                                        :print_decree, :print_letter, :print_proposal, :print_repayment, 
+                                                                        :print_refund, :print_other]
   before_action :get_seminar, only: [:new, :create]
   # su propri fondi
   before_action :get_repayment_and_check_permission, only: [:choose_fund, :update_fund]
-  before_action :get_and_validate_holder,            only: [:update]
 
   def index
     authorize current_organization, :manage?
@@ -19,7 +18,7 @@ class RepaymentsController < ApplicationController
   end
 
   def new
-    if @seminar.repayment or user_too_late_for_repayment?(@seminar)
+    if @seminar.repayment 
       redirect_to(seminar_path(@seminar), alert: 'Non è più possibile richiedere rimborso / compenso.') and return
     else
       @repayment = @seminar.build_repayment
@@ -29,13 +28,13 @@ class RepaymentsController < ApplicationController
 
   # only the basic data
   def create
-    if @seminar.repayment or user_too_late_for_repayment?(@seminar)
+    if @seminar.repayment 
       redirect_to seminar_path(@seminar), alert: 'Non è più possibile richiedere rimborso / compenso.'
     else
       @repayment = @seminar.build_repayment(name:    params[:repayment][:name],
                                             surname: params[:repayment][:surname],
                                             email:   params[:repayment][:email]) 
-                                            # speaker_arrival: @seminar.date, speaker_departure: @seminar.date)
+      # speaker_arrival: @seminar.date, speaker_departure: @seminar.date)
       authorize @repayment
       if @repayment.save
         redirect_to repayment_path(@repayment)
@@ -47,38 +46,28 @@ class RepaymentsController < ApplicationController
 
   # what = [reason, fund, compensation, speaker]
   def edit
-    if user_too_late_for_repayment?(@seminar)
-      redirect_to(seminar_path(@seminar), alert: 'Non è più possibile agire sul rimborso / compenso.') and return
-    else
-      @funds = available_funds
-      @what = params[:what] 
-      render layout: false if modal_page
-    end  
+    @funds = available_funds
+    @what = params[:what] 
+    render layout: false if modal_page
   end
 
   # has_one, e' un create/update
   def update
     @what = params[:what] # hidden 
+    get_and_validate_holder
 
     if @what == 'compensation'
       fix_payment_params
       # fix_refund_params
     end
 
-    if @repayment = @seminar.repayment # edit. FIXME pensare se con too late non puo' modificare
-      @repayment.assign_attributes(repayment_params)
-    else                               # new
-      if @too_late_for_repayment = user_too_late_for_repayment?(@seminar)
-        redirect_to(edit_seminar_path(seminar), alert: "È troppo tardi per richiedere rimborso e/o compenso.") and return
-      end
-      @repayment = @seminar.build_repayment(repayment_params)
-    end
+    @repayment.assign_attributes(repayment_params)
 
     if @holder
       @repayment.holder_id = @holder.id
     end
 
-    if (user_is_manager? or ! @repayment.notified) and @repayment.save
+    if @repayment.save
       add_cv
       redirect_to repayment_path(@repayment), message: "La richiesta è stata salvata correttamente."
     else
@@ -208,7 +197,7 @@ class RepaymentsController < ApplicationController
     anagrafica_unica_holder = params[:repayment].delete(:holder_id)
     @holder = anagrafica_unica_holder.blank? ? nil : User.update_from_anagrafica_unica(anagrafica_unica_holder) 
   end
-  
+
   def available_funds
     user_is_manager? ? Fund.active.includes(:holder, :category).order('users.surname, users.name').references(:user) : current_user.funds.active
   end
@@ -223,7 +212,7 @@ class RepaymentsController < ApplicationController
       params[:repayment][:payment].gsub!(',', '.')
     end
   end
-  
+
   def fix_refund_params
     # non piu'
     # params[:repayment][:refund] e' "0" o "1"

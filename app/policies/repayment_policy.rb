@@ -9,7 +9,6 @@ class RepaymentPolicy < ApplicationPolicy
     @user && (SeminarPolicy.new(@user, @record.seminar).update? || @user.authorization.can_read?(@record.seminar.organization_id) || @record.holder_id == @user.id)
   end
 
-  # there's actually no create in controller. the new method (I know, :get and not a :post) acts like a create.
   # manager
   # can update seminar and is on time
   def create?
