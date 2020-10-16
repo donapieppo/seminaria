@@ -5,6 +5,7 @@ it:
   is_cesia: superuser
   name: Nome
   surname: Cognome
+  email: email
   taxid: Codice fiscale
   repayment: Richiesta di rimborso
   fund: Fondo
