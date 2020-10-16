@@ -14,7 +14,7 @@ class RegistrationsController < ApplicationController
     if current_user
       @registration.user_id = current_user.id
       @registration.email = current_user.upn
-      @registration.save!
+      @registration.save
       redirect_to root_path, notice: "Sei stato registrato, riceverai una mail con le istruzioni per accedere il giorno del seminario."
     end
   end
