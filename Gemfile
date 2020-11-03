@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'dm_unibo_user_search', git: 'https://github.com/donapieppo/dm_unibo_user_search.git'
-gem 'dm_unibo_common', git: 'https://github.com/donapieppo/dm_unibo_common.git'
+gem 'dm_unibo_common',      git: 'https://github.com/donapieppo/dm_unibo_common.git'
 # gem 'dm_unibo_common',      path: '/home/rails/gems/dm_unibo_common/'
 
 gem 'webpacker', '~> 4.0'
