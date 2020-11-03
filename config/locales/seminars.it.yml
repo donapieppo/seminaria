@@ -155,7 +155,7 @@ it:
         link: Altre informzioni sul seminario. Non usare per fornire il link del meeting in caso di seminari on-line. 
         meeting_url: Indirizzo della stanza di Zoom / Teams / Skype o altri servizi (è possibile anche inserirlo in seguito).
         meeting_code: Codice opzionale da condividere.
-        meeting_visible: Se abilitate questa opzione, codice e url del meeting sono visibili a tutti da questa applicazione. Altrimenti potrete inviare i dati agli iscritti il giorno del seminario.
+        meeting_visible: Se abilitate questa opzione, codice e url del meeting sono visibili a tutti. Altrimenti dovrete inviare i dati agli iscritti prima dell'inizio del seminario.
       repayment:
         reason: Descrizione dettagliata delle eccezionali ragioni di particolare qualificazione, abilità e conoscenze possedute dal conferenziere che motivano la deroga alla procedura comparativa pubblica con assegnazione diretta dell’incarico.
         taxid: Inserire se disponibile. Non bloccante per l'invio all'amministrazione.
