@@ -27,8 +27,8 @@ module SeminarsHelper
 
   def on_line_where_url(seminar) 
     if seminar.meeting_visible
-      (seminar.meeting_code.blank? ? "" : "codice: (" + h(seminar.meeting_code) + ") - ") + 
-        link_to('collegamento al meeting', seminar.meeting_url)
+      (seminar.meeting_code.blank? ? "" 
+                                   : ("codice: (" + h(seminar.meeting_code) + ") - ") + link_to('collegamento al meeting', seminar.meeting_url))
     else
       "l'indirizzo con cui accedere verrà inviato via mail agli iscritti il giorno del seminario."
     end
