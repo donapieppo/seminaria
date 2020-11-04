@@ -73,5 +73,15 @@ Rails.application.routes.draw do
 
     get '/', to: 'seminars#index', as: 'current_organization_root'
   end
+
+  get 'serials', to: redirect('mat/serials', status: 302)
+  get 'serials/(:id)', to: redirect('mat/serials/%{id}', status: 302)
+  get 'cycles', to: redirect('mat/cycles', status: 302)
+  get 'cycles/(:id)', to: redirect('mat/cycles/%{id}', status: 302)
+  #get 'seminars/archive', to: redirect('mat/seminars/archive', status: 302)
+  #get 'seminars/archive/(:year)', to: redirect('mat/seminars/archive/%{year}', status: 302)
+  #get 'seminars', to: redirect('mat/seminars', status: 302)
+  #get 'seminars/(:id)', to: redirect('mat/seminars/%{id}', status: 302)
+
   root to: 'seminars#index'
 end
