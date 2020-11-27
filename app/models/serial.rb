@@ -2,7 +2,7 @@ class Serial < ApplicationRecord
   belongs_to :organization
   has_many :seminars
 
-  scope :active, -> {where(active: 1)}
+  scope :active, -> { where(active: 1) }
 
   validates_presence_of :title, :committee
 
@@ -10,4 +10,3 @@ class Serial < ApplicationRecord
     self.title
   end
 end
-
