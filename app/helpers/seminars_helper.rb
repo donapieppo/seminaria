@@ -97,7 +97,7 @@ module SeminarsHelper
             repayment_class = (seminar.repayment.fund ? 'fund_ok' : 'fund_missing') 
             concat( link_to(fwdmicon('euro-sign') + ' scelta del fondo<br/>'.html_safe, choose_fund_repayment_path(seminar.repayment)) )
           end 
-          concat ( link_to(fwdmicon('google', prefix: 'fab') + 'aggiungi a Google Calendar<br/>'.html_safe, seminar.google_url, target: :new) )
+          concat ( link_to(fwdmicon('google', prefix: 'fab') + 'aggiungi a Google Calendar<br/>'.html_safe, seminar.google_url(seminar_url(seminar)), target: :new) )
           concat ( link_to(fwdmicon('calendar-plus') + 'aggiungi a iCal<br/>'.html_safe, seminar_url(seminar, format: :ics)) )
         end 
 
