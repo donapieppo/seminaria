@@ -12,9 +12,9 @@ class Seminar < ApplicationRecord
   has_one    :zoom_meeting
   has_many   :registrations
 
-  scope :future, -> { where("seminars.date > DATE_ADD(UTC_TIMESTAMP(), INTERVAL -2 hour)") }
-  scope :this_year, -> { where("YEAR(seminars.date) = YEAR(NOW())") }
-  scope :date_today, -> { where("DATE(seminars.date)=CURDATE()") }
+  scope :future, -> { where('seminars.date > DATE_ADD(UTC_TIMESTAMP(), INTERVAL -2 hour)') }
+  scope :this_year, -> { where('YEAR(seminars.date) = YEAR(NOW())') }
+  scope :date_today, -> { where('DATE(seminars.date)=CURDATE()') }
 
   before_save :manage_place_choice, :date_in_future
 
@@ -60,7 +60,7 @@ class Seminar < ApplicationRecord
   end
 
   def to_long_s
-    "#{self.date.strftime("%d/%m/%Y")}: #{self.speaker} (#{self.title})"
+    "#{self.date.strftime('%d/%m/%Y')}: #{self.speaker} (#{self.title})"
   end
 
   def zoom_topic
@@ -72,21 +72,21 @@ class Seminar < ApplicationRecord
   end
 
   def speaker_with_date
-    "#{self.date.strftime("%d/%m/%Y")}: #{self.speaker}"
+    "#{self.date.strftime('%d/%m/%Y')}: #{self.speaker}"
   end
 
   def speaker_with_title
-    self.speaker_title + " " + self.speaker
+    self.speaker_title + ' ' + self.speaker
   end
 
   def project
     # caso particolare seminari ciclo MANET
-    if self.serial_id == 9 or self.cycle_id == 12 or self.id == 1361
+    if self.serial_id == 9 || self.cycle_id == 12 || self.id == 1361
       "nell'ambito del Progetto Fondi U.E. MANET del prof. Giovanna Citti."
-    elsif self.repayment and self.repayment.fund_id and self.repayment.holder_id
+    elsif self.repayment&.fund_id && self.repayment&.holder_id
       "nell'ambito del Progetto #{self.repayment.fund} del prof. #{self.repayment.holder}"
     else
-      ""
+      ''
     end
   end
 
@@ -94,9 +94,12 @@ class Seminar < ApplicationRecord
   # - seminar start in less than repayment_deadline days (see configuration)
   # - the repayment has a speaker_arrival and the arrival is before repayment_deadline days
   def too_late_for_repayment?
-    startDatePossibleRepayment = Date.today + Rails.configuration.repayment_deadline.days
-    (self.date < startDatePossibleRepayment) and return true
-    (self.repayment and self.repayment.speaker_arrival and self.repayment.speaker_arrival < startDatePossibleRepayment) and return true
+    start_date_possible_repayment = Date.today + Rails.configuration.repayment_deadline.days
+
+    return true if (self.date < start_date_possible_repayment)
+
+    return true if (self.repayment&.speaker_arrival && self.repayment.speaker_arrival < start_date_possible_repayment)
+
     false
   end
 
@@ -115,6 +118,4 @@ class Seminar < ApplicationRecord
   def start_time
     self.date
   end
-
 end
-

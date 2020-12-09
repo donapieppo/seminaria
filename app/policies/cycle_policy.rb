@@ -7,6 +7,8 @@ class CyclePolicy < ApplicationPolicy
     true
   end
 
+  # every user can create a cycle in current_organization
+  # FIXME
   def create?
     @user 
   end

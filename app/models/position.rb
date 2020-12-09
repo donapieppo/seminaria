@@ -9,4 +9,3 @@ class Position < ApplicationRecord
     self.code == 'phdstudent'
   end
 end
-

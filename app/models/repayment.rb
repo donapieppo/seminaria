@@ -24,35 +24,36 @@ class Repayment < ApplicationRecord
 
   def payment_limits
     if self.seminar.on_line && self.lordo_percipiente && self.lordo_percipiente > 200
-      self.errors.add(:payment, "il compenso massimo erogabile a conferenzieri per seminari on line è pari a 200 Euro lordo ente, corrispondenti a 184,33 Euro lordo percipiente (147,47 Euro netti per conferenzieri con residenza fiscale in Italia; 129,03 euro netti per conferenzieri con residenza fiscale estera)")
+      self.errors.add(:payment, 'il compenso massimo erogabile a conferenzieri per seminari on line è pari a 200 Euro lordo ente, corrispondenti a 184,33 Euro lordo percipiente (147,47 Euro netti per conferenzieri con residenza fiscale in Italia; 129,03 euro netti per conferenzieri con residenza fiscale estera)')
     elsif self.italy && self.lordo_percipiente && self.lordo_percipiente > 500
-      self.errors.add(:payment, "il compenso massimo erogabile a conferenzieri con residenza fiscale in Italia è pari a Euro 500 lordo percipiente (400 euro nette; 542,50 euro lordo ente)")
+      self.errors.add(:payment, 'il compenso massimo erogabile a conferenzieri con residenza fiscale in Italia è pari a Euro 500 lordo percipiente (400 euro nette; 542,50 euro lordo ente)')
     end
   end
 
   def speaker_arrival_departure_validation
     return true if self.seminar.on_line
-    return true unless ( self.refund || self.payment )
+
+    return true unless (self.refund || self.payment)
 
     if self.speaker_departure.blank?
-      self.errors.add(:speaker_departure, "È necessario inserire la data di partenza da Bologna del relatore")
+      self.errors.add(:speaker_departure, 'È necessario inserire la data di partenza da Bologna del relatore')
     end
     if self.speaker_arrival.blank?
-      self.errors.add(:speaker_arrival, "È necessario inserire la data di arrivo a Bologna del relatore")
+      self.errors.add(:speaker_arrival, 'È necessario inserire la data di arrivo a Bologna del relatore')
     end
     if self.speaker_arrival.present? && self.speaker_departure.present?
       if self.speaker_departure < self.speaker_arrival
         self.errors.add(:speaker_departure, "La partenza non può essere precedente all'arrivo.")
       end
       if self.speaker_arrival > self.seminar.date
-        self.errors.add(:speaker_arrival, "Il relatore non può arrivare a Bologna dopo la data prevista per il seminario.")
+        self.errors.add(:speaker_arrival, 'Il relatore non può arrivare a Bologna dopo la data prevista per il seminario.')
       end
     end
   end
 
   def validate_fund_and_holder
     if self.fund
-      (self.fund.holder_id == self.holder_id) or self.errors.add(:fund, "ERRORE")
+      (self.fund.holder_id == self.holder_id) or self.errors.add(:fund, 'ERRORE')
     end
   end
 
@@ -65,12 +66,12 @@ class Repayment < ApplicationRecord
   #         Nella lettera dobbiamo sempre inserire il valore del lordo percipiente (LP). La formula è:
   #         LE x 0,92165898. Esempio: LE = 155,00 LP = 100 x 0,92165898 = 142,86
   def lordo_percipiente
-    (self.payment and self.payment > 0) or return
+    return unless (self.payment && self.payment > 0)
     res = if self.gross
-      self.payment * ADAPT_GROSS_VALUE
-    else
-      self.italy ? self.payment * ADAPT_NET_ITALIAN_VALUE : self.payment * ADAPT_NET_FOREIGN_VALUE
-    end
+            self.payment * ADAPT_GROSS_VALUE
+          else
+            self.italy ? self.payment * ADAPT_NET_ITALIAN_VALUE : self.payment * ADAPT_NET_FOREIGN_VALUE
+          end
     res.round(2)
   end
 
@@ -83,7 +84,7 @@ class Repayment < ApplicationRecord
   #
   # netto che prende lo speaker (in tasca)
   def netto_percipiente
-    (self.payment and self.payment > 0) or return
+    return unless (self.payment && self.payment > 0)
     self.gross or return self.payment.round(2)
     lordo_percipiente = self.payment * 0.92165898
     if self.italy
@@ -95,32 +96,32 @@ class Repayment < ApplicationRecord
 
   # lordo_ente 
   def lordo_ente
-    (self.payment and self.payment > 0) or return
+    return unless (self.payment && self.payment > 0)
     self.gross and return self.payment.round(2)
     lordo_percipiente = self.payment * (self.italy ? 1.25 : 1.42858142)
     (lordo_percipiente + lordo_percipiente * 0.085).round(2)
   end
 
   def letter_filename
-    clean_speaker_name = self.seminar.speaker.downcase.gsub(' ','_')
+    clean_speaker_name = self.seminar.speaker.downcase.gsub(' ', '_')
    "richiesta_compenso_#{clean_speaker_name}.pdf"
   end
 
   def letter_filename_docx(what)
-    clean_speaker_name = self.seminar.speaker.downcase.gsub(' ','_')
+    clean_speaker_name = self.seminar.speaker.downcase.gsub(' ', '_')
    "#{what}_per_seminario_di_#{clean_speaker_name}.docx"
   end
 
   def speaker_with_title
-    if self.name.blank? or self.surname.blank?
+    if self.name.blank? || self.surname.blank?
       self.seminar.speaker_with_title
     else
-      self.seminar.speaker_title + " " + self.name + " " + self.surname
+      self.seminar.speaker_title + ' ' + self.name + ' ' + self.surname
     end
   end
 
   def position_to_s
-    return " - " unless self.position_id
+    return ' - ' unless self.position_id
     self.position.code == 'other' ? self.role : self.position.name
   end
 
@@ -177,5 +178,3 @@ class Repayment < ApplicationRecord
   #   end
   # end
 end
-
-

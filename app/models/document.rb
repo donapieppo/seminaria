@@ -7,6 +7,4 @@ class Document < ApplicationRecord
   def to_s
     self.description.blank? ? self.attach_file_name : self.description
   end
-
 end
-

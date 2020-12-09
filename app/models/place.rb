@@ -8,4 +8,3 @@ class Place < ApplicationRecord
     self.name
   end
 end
-
