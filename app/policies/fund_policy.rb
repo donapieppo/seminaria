@@ -1,4 +1,5 @@
 class FundPolicy < ApplicationPolicy
+  # The list of all funds
   def show?
     owner_or_record_organization_manager?
   end
