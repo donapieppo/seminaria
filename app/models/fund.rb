@@ -9,7 +9,7 @@ class Fund < ApplicationRecord
   scope :active, -> { where('funds.available = 1') }
 
   def self.holders
-    user_ids = Fund.active.select(:holder_id).group(:holder_id).map { |f| f.holder_id }
+    user_ids = Fund.active.select(:holder_id).group(:holder_id).map(&:holder_id)
     User.order(:surname).find(user_ids)
   end
 
@@ -33,6 +33,3 @@ class Fund < ApplicationRecord
     self.description.blank? ? self.to_s : self.to_s + ' "' + self.description + '"'
   end
 end
-
-
-
