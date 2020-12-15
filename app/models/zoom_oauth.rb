@@ -49,9 +49,10 @@ class ZoomOauth
              settings: {
                waiting_room: false,
                mute_upon_entry: true,
-               join_before_host: false
+               join_before_host: false, 
+               meeting_authentication: false
              }
-    }
+           }
     token = get_token(code)
     Rails.logger.info(body.to_json)
     Rails.logger.info("-------------------------------")
