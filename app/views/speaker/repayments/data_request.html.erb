@@ -1,17 +1,17 @@
 <h1>Richiesta dati al relatore</h1>
 
 <div class="alert alert-danger">
-  <p>Si prega di mantenere queste informazioni <strong>private</strong>.<br/>
-  Il link permette infatti a chiunque di leggere e modificare i dati del relatore.<br/>
-  Il link resterà attivo fino all'invio della richiesta di compenso/rimborso.</p>
+  <p><%= dmicon('exclamation-circle') %>  Si prega di mantenere queste informazioni <strong>private</strong>.<br/>
+  Il link nella mail permette infatti a chiunque di leggere e modificare i dati del relatore (resterà attivo 
+  solo fino all'invio della richiesta di compenso/rimborso).</p>
 </div>
 
 <div class="">
-  <p>Per richiedere al relatore <strong><%= @repayment.name %> <%= @repayment.surname %>, indirizzo email: <%= mail_to @repayment.email, @repayment.email %></strong><br/>
-di compilare i dati anagrafici (inclusi codice fiscale e coordinate bancarie)
-attraverso un <strong>link nascosto</strong>, <br/>
-inviare dalla propria posta elettronica personale un messaggio simile a questi in italiano/inglese <br/>
-(copiare e incollare facendo attenzione a non modificare il link con il codice):</p>
+  <p>Per richiedere al relatore <strong><%= @repayment.name %> <%= @repayment.surname %>, 
+  indirizzo email: <%= mail_to @repayment.email, @repayment.email %></strong>
+  di compilare i dati anagrafici (inclusi codice fiscale e coordinate bancarie)
+  inviare dalla propria posta elettronica personale un messaggio simile a questi in italiano/inglese 
+  (copiare e incollare facendo attenzione a non modificare il link con il codice):</p>
 </div>
 
 <div class="alert alert-info">
