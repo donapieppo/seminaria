@@ -11,12 +11,12 @@ class ZoomController < ApplicationController
     redirect_to @zoom.authorize_url('user')
   end
 
-  def create
-    @seminar = Seminar.find(params[:seminar_id])
-    @zoom = ZoomOauth.new
-    authorize :zoom
-    redirect_to @zoom.authorize_url(@seminar.id)
-  end
+  #def create
+  #  @seminar = Seminar.find(params[:seminar_id])
+  #  @zoom = ZoomOauth.new
+  #  authorize :zoom
+  #  redirect_to @zoom.authorize_url(@seminar.id)
+  #end
 
   def oauth
     @zoom = ZoomOauth.new
