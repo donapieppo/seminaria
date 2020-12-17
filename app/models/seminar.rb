@@ -36,22 +36,38 @@ class Seminar < ApplicationRecord
   def date_in_future
   end
 
+  def where_to_s(visible: false)
+    res = ""
+    res += self.place_to_s 
+    res += " e " if self.in_presence && self.on_line
+    res += self.on_line_to_s(visible: visible)
+    res
+  end
+
   def place_to_s
-    if self.on_line 
-      if self.meeting_visible && ! self.meeting_url.blank?
-        "on-line: #{self.meeting_url}"
+    if self.in_presence
+      case self.place_id
+      when 2
+        "#{I18n.t :place} #{self.place_description}"
+      when nil
+        'Aula non definita'
+      else
+        "#{I18n.t :place} #{self.place.to_s}"
+      end
+    else
+      ''
+    end
+  end
+
+  def on_line_to_s(visible: false)
+    if self.on_line
+      if visible || (self.meeting_visible && ! self.meeting_url.blank?)
+        "on-line all'indirizzo: #{self.meeting_url}"
       else
         'on-line'
       end
     else
-      case self.place_id
-      when 2
-        self.place_description
-      when nil
-        'Aula non definita'
-      else
-        self.place.to_s
-      end
+      ''
     end
   end
 
@@ -117,5 +133,10 @@ class Seminar < ApplicationRecord
 
   def start_time
     self.date
+  end
+
+  # to use in simple form
+  def zoom_meeting_create
+    ! self.zoom_meeting.blank?
   end
 end
