@@ -36,12 +36,14 @@ module SeminarsHelper
 
   def where_tag(seminar, short: false)
     # lascerei il posto fino a ieri (prima era if ! seminar.past?)
-    content_tag :div, class: "where-tag" do
+    content_tag(:div, class: "where-tag") do
+      if seminar.in_presence
+        dmicon('map-marker-alt') + "&nbsp;".html_safe + " " + seminar.place_to_s 
+      end
+    end +
+    content_tag(:div, class: "where-tag") do
       if seminar.on_line
         dmicon('cloud') + " seminario on line • " + on_line_where_url(seminar).html_safe
-      else
-        dmicon('map-marker-alt') + "&nbsp;".html_safe +
-          I18n.t(:place) + " " + seminar.place_to_s 
       end
     end
   end
