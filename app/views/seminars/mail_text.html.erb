@@ -12,7 +12,7 @@ Nella pagina successiva sarà possibile compilare la richiesta di <strong>compen
 
   <%= f.input :text, as: 'text', input_html: { value: "
     #{l @seminar.date, format: :seminar} 
-    #{@seminar.place_to_s}
+    #{@seminar.where_to_s(visible: true)}
 
     #{@seminar.speaker}
 

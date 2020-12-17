@@ -28,7 +28,7 @@ module Calendar
     google_base = 'http://www.google.com/calendar'
     title       = self.title 
     speaker     = self.speaker
-    where       = self.place_to_s
+    where       = self.where_to_s
 
     "#{google_base}/event?action=TEMPLATE&text=Seminario #{speaker}: #{title}&details=#{url}&dates=#{self.calendar_start_date}/#{self.calendar_end_date}&location=#{where}&trp=false&sprop=website:www.dm.unibo.it"
   end
