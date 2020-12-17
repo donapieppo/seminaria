@@ -104,13 +104,15 @@ it:
         bank_name:    Nome della banca
         bank_address: Indirizzo della banca
       seminar:
-        title:      Titolo
-        date:       Giorno e ora
-        day:        Giorno
-        hour:       Ora
-        minute:     Minuti
-        duration:   Durata
-        place:      Luogo
+        title:       Titolo
+        date:        Giorno e ora
+        day:         Giorno
+        hour:        Ora
+        minute:      Minuti
+        duration:    Durata
+        on_line:     On line
+        in_presence: In presenza
+        place:       Luogo
         place_description:  Descrizione luogo
         speaker_title:    Titolo relatore
         speaker:    Relatore
@@ -127,6 +129,7 @@ it:
         meeting_url: Indirizzo del meeting
         meeting_code: Codice del meeting 
         meeting_visible: Visibile
+        zoom_meeting_create: Crea su zoom automaticamente
       fund:
         name: Nome
         category:    Categoria
@@ -152,6 +155,8 @@ it:
   simple_form:
     hints:
       seminar:
+        in_presence: Selezionare se è possibile seguire il seminario in presenza
+        on_line: Selezionare se rendete possibile seguire il seminario on line con zoom o teams o altri strumenti
         link: Altre informzioni sul seminario. Non usare per fornire il link del meeting in caso di seminari on-line. 
         meeting_url: Indirizzo della stanza di Zoom / Teams / Skype o altri servizi (è possibile anche inserirlo in seguito).
         meeting_code: Codice opzionale da condividere.
@@ -163,8 +168,6 @@ it:
         aba: Anche detto 'routing number' o 'routing transfer number'. 9 caratteri numerici usati per identificare istituzioni finanziarie negli Stati Uniti.
         bank_name: Required only for extra UE
         bank_address: Required only for extra UE
-
-
 
   payment_hint: Compenso + eventuale quota forfettaria di rimborso spese da non giustificare, entrambi tassati.
   dlgs33_2013: Si prega di inserire il curriculum vitae. Obbligatorio in caso di compenso ai sensi del D.Lgs. 33/2013 in materia di collaborazioni ed incarichi.

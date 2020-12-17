@@ -12,7 +12,7 @@
 <div class="row">
   <div class="col-lg-7">
     <%= render('speaker_reason', repayment: @repayment, user_can_edit: user_can_edit) %>  
-    <% if @repayment.seminar.on_line %>  
+    <% unless @repayment.seminar.in_presence %>  
       <%= render('seminar_reason', repayment: @repayment, user_can_edit: user_can_edit) %>    
     <% end %>
     <%= render('fund', repayment: @repayment, user_can_edit: user_can_edit) %>  

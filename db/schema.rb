@@ -174,6 +174,7 @@ ActiveRecord::Schema.define(version: 2020_02_11_081644) do
     t.integer "organization_id", unsigned: true
     t.datetime "date"
     t.integer "duration"
+    t.boolean "in_presence"
     t.integer "place_id"
     t.text "place_description"
     t.boolean "on_line"
