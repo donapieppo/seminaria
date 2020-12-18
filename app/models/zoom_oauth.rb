@@ -37,8 +37,9 @@ class ZoomOauth
   # "timezone": "America/New_York"
   # "start_time": "2019-08-30T22:00:00Z"
   # "settings": {
-  #   "approval_type": 2, "audio": "both", "enforce_login": false, "host_video": false, "join_before_host": true, 
+  #   "audio": "both", "enforce_login": false, "host_video": false, "join_before_host": true, 
   #   "mute_upon_entry": false, "waiting_room": false ....
+  #   "approval_type": 0/1/2 (automatically approve, manually approve, no registration required) default 2
   def create_meeting(code, seminar)
     body = { type: 2,
              topic: seminar.zoom_topic, 
@@ -47,10 +48,12 @@ class ZoomOauth
              timezone: 'Europe/Rome',
              agenda: seminar.abstract, 
              settings: {
+               approval_type: 2, 
                waiting_room: false,
                mute_upon_entry: true,
                join_before_host: false, 
-               meeting_authentication: false
+               meeting_authentication: false,
+               participant_video: false
              }
            }
     token = get_token(code)
