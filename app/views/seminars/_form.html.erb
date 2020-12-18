@@ -4,6 +4,7 @@
   <div class="alert alert-info">
     <p>
     <strong>Ciclo: <%= @cycle %></strong>
+    <%= link_to_edit edit_cycle_path(@cycle) if policy(@cycle).edit? %>  
     <% unless @cycle.description.blank? %>  
       <br/><i><%= @cycle.description %></i>
     <% end %>
