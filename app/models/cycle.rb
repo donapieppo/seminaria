@@ -3,7 +3,7 @@ class Cycle < ApplicationRecord
   belongs_to :user
   has_many :seminars
 
-  validates_presence_of :title, :committee
+  validates :title, :committee, presence: true
 
   def to_s
     self.title
