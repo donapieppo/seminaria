@@ -94,6 +94,9 @@ module SeminarsHelper
         if ! seminar.past? 
           if _can_update_seminar
             concat( link_to(fwdmicon('edit') + ' modifica<br/>'.html_safe, edit_seminar_path(seminar) ))
+            if seminar.on_line
+              concat( link_to(fwdmicon('user-check') + ' iscrizioni<br/>'.html_safe, seminar_registrations_path(seminar) ))
+            end
           end
           if _user_is_holder
             repayment_class = (seminar.repayment.fund ? 'fund_ok' : 'fund_missing') 
@@ -102,10 +105,6 @@ module SeminarsHelper
           concat ( link_to(fwdmicon('google', prefix: 'fab') + 'aggiungi a Google Calendar<br/>'.html_safe, seminar.google_url(seminar_url(seminar)), target: :new) )
           concat ( link_to(fwdmicon('calendar-plus') + 'aggiungi a iCal<br/>'.html_safe, seminar_url(seminar, format: :ics)) )
         end 
-
-        if _can_update_seminar && seminar.on_line
-          concat( link_to(fwdmicon('user-check') + ' iscrizioni<br/>'.html_safe, seminar_registrations_path(seminar) ))
-        end
 
         concat( link_to(fwdmicon('print') + ' pagina stampabile<br/>'.html_safe, seminar_path(seminar)) )
 
