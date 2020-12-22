@@ -106,7 +106,7 @@ class SeminarsController < ApplicationController
 
   def update
     create_zoom = params[:seminar].delete(:zoom_meeting_create)
-    if @seminar.update_attributes(seminar_params)
+    if @seminar.update(seminar_params)
       if create_zoom == "1"
         @zoom = ZoomOauth.new
         redirect_to @zoom.authorize_url(@seminar.id)
@@ -165,7 +165,9 @@ class SeminarsController < ApplicationController
     if params[:seminar][:date]
       params[:seminar][:date] = params[:seminar][:date] + " " + params[:seminar].delete('date(4i)') + ':' + params[:seminar].delete('date(5i)')
     end
-    p = [:date, :duration, :in_presence, :on_line, :meeting_url, :meeting_code, :meeting_visible, :place_id, :place_description, :cycle_id, :serial_id, :speaker_title, :speaker, :committee, { argument_ids: [] }, :title, :abstract, :file, :link, :link_text]
+    p = [:date, :duration, :in_presence, :on_line, :meeting_url, :meeting_code, :meeting_visible, 
+         :place_id, :place_description, :cycle_id, :serial_id, :speaker_title, :speaker, 
+         :committee, { argument_ids: [] }, :title, :abstract, :file, :link, :link_text]
     p = p + [:user_id, :serial_id, :cycle_id] if policy(current_organization).manage?
     params[:seminar].permit(p)
   end
