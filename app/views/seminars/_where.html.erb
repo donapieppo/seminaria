@@ -1,24 +1,24 @@
 <h2>Luogo di svolgimento</h2>
 
-      <div class="alert alert-info">
-        Nel caso di seminari <strong>on line</strong> è possibile inserire l'indirizzo della stanza oppure permettere all'applicativo di creare 
-        una stanza su Zoom con tutti i dati del seminario. <br/>
-        Per i seminari on line vengono automaticamente abilitate le <strong>iscrizioni</strong> tramite questo applicativo. 
-        Prima del seminario potrete inviare una mail a tutti gli iscritti per informarli dell'indirizzo con cui accedere al seminario 
-        (le mail NON partono automaticamente).<br/>
-        In caso di <strong>compenso</strong> l’elenco degli iscritti verrà acquisito agli atti della pratica.
-      </div>
+<div class="alert alert-info">
+  Nel caso di seminari <strong>on line</strong> è possibile inserire l'indirizzo della stanza oppure permettere all'applicativo di creare 
+  una stanza su Zoom con tutti i dati del seminario. <br/>
+  Per i seminari on line vengono automaticamente abilitate le <strong>iscrizioni</strong> tramite questo applicativo. 
+  Prima del seminario potrete inviare una mail a tutti gli iscritti per informarli dell'indirizzo con cui accedere al seminario 
+  (le mail NON partono automaticamente).<br/>
+  In caso di <strong>compenso</strong> l’elenco degli iscritti verrà acquisito agli atti della pratica.
+</div>
 
 <%= dm_form_for @seminar, title: "Dove si tiene il seminario?" do |s| %>  
   <%= s.dm_error_notification %>  
 
-  <%= s.input :in_presence %>
+  <%= s.input :in_presence, as: :boolean %>
   <div id="in_presence_seminar" class="my-3">
     <%= s.association :place, collection: current_organization.places.all, include_blank: false %>
     <%= s.input :place_description, input_html: { cols: 50, rows: 2 } %> 
   </div>
 
-  <%= s.input :on_line %>  
+  <%= s.input :on_line, as: :boolean %>  
   <div id="on_line_seminar" class="ml-3 my-3">
     <%= s.input :meeting_visible %>  
     <% if zm = @seminar.zoom_meeting %>  
@@ -34,7 +34,7 @@
       </div>
     <% end %>
   </div>
-  <%= s.submit 'Salva', class: 'mt-3' %>  
+  <%= s.submit 'Salva', class: '' %> - <%= link_to_back root_path %>  
 <% end %>
 
 <%= javascript_tag do %>  
@@ -42,11 +42,14 @@
     console.log(`toggle_div on ${boolean_div} with_listener=${with_listener}`);
     check_input = document.querySelector(boolean_div);
 
-    document.querySelector(first_div).style.display  = check_input.checked ? 'block' : 'none';
-    if (second_div)
+    if (first_div && document.querySelector(first_div)) {
+      document.querySelector(first_div).style.display  = check_input.checked ? 'block' : 'none';
+    }
+    if (second_div && document.querySelector(second_div)) {
       document.querySelector(second_div).style.display = check_input.checked ? 'none' : 'block';
+    }
 
-    if (with_listener) {
+    if (check_input && with_listener) {
       console.log("addEventListener");
       check_input.addEventListener('change', function() { 
         toggle_div(boolean_div, first_div, second_div, false);
@@ -57,4 +60,22 @@
   toggle_div("#seminar_on_line", "#on_line_seminar", null, true);
   toggle_div("#seminar_in_presence", "#in_presence_seminar", null, true);
   toggle_div("#seminar_zoom_meeting_create", "#zoom_auto_div", "#manual_seminar_div", true);
+
+  function description_field() {
+    console.log(`description_field`);
+    $("#seminar_place_id option:selected").each(function() {
+      if ($(this).val() == "2") {
+        $(".seminar_place_description").show('slow');
+      } else {
+        $(".seminar_place_description").hide('fast');
+      }
+    });
+  }
+
+  $(document).ready(function() {
+    description_field();
+    $("#seminar_place_id").change(function() {
+      description_field();
+    });
+  });
 <% end %>
