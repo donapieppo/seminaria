@@ -33,6 +33,11 @@ class ZoomOauth
     r.parsed
   end
 
+  def change_security_setting
+    true
+    # PATCH /v2/accounts/{accountId}/lock_settings
+  end
+
   # https://marketplace.zoom.us/docs/api-reference/zoom-api/meetings/meetingcreate
   # "timezone": "America/New_York"
   # "start_time": "2019-08-30T22:00:00Z"
@@ -48,12 +53,12 @@ class ZoomOauth
              timezone: 'Europe/Rome',
              agenda: seminar.abstract, 
              settings: {
-               approval_type: 2, 
-               waiting_room: false,
                mute_upon_entry: true,
                join_before_host: false, 
                meeting_authentication: false,
-               participant_video: false
+               waiting_room: true,
+               participant_video: false,
+               approval_type: 2 
              }
            }
     token = get_token(code)
