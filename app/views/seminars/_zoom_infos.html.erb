@@ -1,10 +1,34 @@
 <div>
-  Il seminario si terrà nella stanza Zoom (con id <%= zoom_meeting.id %>).<br/>
-  Per collegarsi i partecipanti dovranno usare l'indirizzo <%= link_to 'join_url', zoom_meeting.join_url %>.<br/>
-  Consigliamo di ricevere le iscrizioni tramite questa applicazione e comunicare il link agli iscritti solo il giorno del seminario.<br/>
-  Potete seguire le iscrizioni a questa <%= link_to 'pagina', seminar_registrations_path(zoom_meeting.seminar) %>.<br/>
+  Il seminario si terrà nella stanza Zoom con id <%= zoom_meeting.id %>.<br/>
+  Per collegarsi i partecipanti dovranno usare l'indirizzo <%= link_to 'join_url', zoom_meeting.join_url %>.
   Per verificare i dati collegarsi al sito <%= link_to 'Zoom meetings unibo', 'https://unibo.zoom.us/meeting' %>.<br/>
-  Per modificare in seguito i dati del seminario dovrete operare in questa pagina <strong>E</strong> sulla pagina di 
+  Ricordiamo che nelle riunioni create automaticamente da questo applicativo è attiva la "sala di attesa" 
+  (per informazioni su come disabilitarla cliccare 
+  <a href="#" onclick="document.getElementById('zoom_security_informations').style.display = 'block'; return(false)">quì</a>).<br/>
+
+  <div id="zoom_security_informations" class="my-2 alert alert-info" style="display: none">
+    <p class="font-weight-bold">Impostazioni sicurezza su Zoom:</p>
+    <p> 
+    le nuove impostazioni di Zoom prevedono che in ogni meeting sia attiva almeno una delle tre opzioni sicurezza:
+    <ul>
+      <li>Passcode</li>
+      <li>Waiting Room</li>
+      <li>Require authentication to join</li>
+    </ul>
+    </p>
+
+    <p>Quindi nella creazione automatica della stanza Zoom tramite questo applicativo abbiamo scelto di attivare la Waiting Room.</p>
+
+    <p>È ancora possibile creare meeting "liberi" ma è necessario vistare la pagina 
+       <a href=https://unibo.zoom.us/profile/setting">impostazioni profilo di zoom</a> e disabilitare l'opzione 
+       "Require that all meetings are secured with one security option".</p>
+    <p>Una volta fatta questa operazione (necessaria una sola volta) diventa possibile togliere anche la waiting room del singolo seminario.</p>
+  </div>
+
+  <br/>
+  Consigliamo di ricevere le iscrizioni tramite questa applicazione e comunicare il link agli iscritti solo il giorno del seminario.<br/>
+  Potete seguire le iscrizioni a questa <%= link_to 'pagina', seminar_registrations_path(zoom_meeting.seminar) %>.<br/><br/>
+  Per modificare i dati del seminario dovrete operare SIA in questa pagina SIA sulla pagina di 
   Zoom <%= link_to 'Zoom meetings unibo', 'https://unibo.zoom.us/meeting' %>.
 </div>
 
