@@ -35,7 +35,7 @@ class CyclesController < ApplicationController
   end
 
   def update
-    if @cycle.update_attributes(cycle_params)
+    if @cycle.update(cycle_params)
       redirect_to choose_type_seminars_path, notice: "Il ciclo di seminari è stato aggiornato."
     else
       render action: :edit

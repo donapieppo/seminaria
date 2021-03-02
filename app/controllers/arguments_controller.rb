@@ -31,7 +31,7 @@ class ArgumentsController < ApplicationController
   end
 
   def update
-    if @argument.update_attributes(name: params[:argument][:name])
+    if @argument.update(name: params[:argument][:name])
       redirect_to arguments_path
     else
       render :edit
