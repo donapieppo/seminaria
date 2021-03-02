@@ -31,7 +31,7 @@ class PlacesController < ApplicationController
   end
 
   def update
-    if @place.update_attributes(name: params[:place][:name])
+    if @place.update(name: params[:place][:name])
       redirect_to places_path
     else
       render :edit

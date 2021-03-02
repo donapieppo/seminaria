@@ -33,7 +33,7 @@ class FundsController < ApplicationController
   end
 
   def update
-    if @fund.update_attributes(fund_params)
+    if @fund.update(fund_params)
       redirect_to funds_path, notice: "Il fondo è stato aggiornato correttamente."
     else
       render action: 'edit'

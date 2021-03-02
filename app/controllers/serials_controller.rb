@@ -31,7 +31,7 @@ class SerialsController < ApplicationController
   end
 
   def update
-    if @serial.update_attributes(serial_params)
+    if @serial.update(serial_params)
       redirect_to serials_path, notice: "La serie è stata aggiornata correttamente."
     else
       render action: :edit
