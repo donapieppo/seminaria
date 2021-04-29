@@ -72,7 +72,7 @@ class ZoomOauth
       zm = seminar.build_zoom_meeting(id:        data["id"], 
                                       uuid:      data["uuid"],
                                       start_url: data["start_url"],
-                                      join_url:  data["start_url"])
+                                      join_url:  data["join_url"])
       if zm.save
         return zm
       end
