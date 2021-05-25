@@ -16,9 +16,9 @@
         <% end %>
         <%= link_to dmicon('print', text: 'dichiarazione altri incarichi'), print_other_repayment_path(repayment, format: :docx), class: 'btn btn-sm btn-outline-primary' %> -
         <% if repayment.italy %>  
-          <%= link_to dmicon('print', text: ' modulo D'), "https://www.dm.unibo.it/seminari/unibo_modules/OccasionaliResidentiModuloD.doc", class: 'btn btn-sm btn-outline-primary' %> 
+          <%= link_to dmicon('print', text: ' modulo D'), "https://www.dm.unibo.it/seminari/unibo_modules/OccasionaliResidentiModuloD.docx", class: 'btn btn-sm btn-outline-primary' %> 
         <% else %>
-          <%= link_to dmicon('print', text: ' modulo D non residenti'), "https://www.dm.unibo.it/seminari/unibo_modules/OccasionaliNonResidentiModuloD.doc", class: 'btn btn-sm btn-outline-primary' %> 
+          <%= link_to dmicon('print', text: ' modulo D non residenti'), "https://www.dm.unibo.it/seminari/unibo_modules/OccasionaliNonResidentiModuloD.docx", class: 'btn btn-sm btn-outline-primary' %> 
         <% end %>
       </div>
     <% else %>
