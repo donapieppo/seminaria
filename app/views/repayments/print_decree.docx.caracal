@@ -23,7 +23,7 @@ docx.p "ATTESO  \t\tche per le sovra esposte ragioni non si procede a procedura 
 
 docx.p "ACCERTATA\t\tla copertura finanziaria garantita dai Progetti di ricerca: “#{@repayment.fund}”, di cui è titolare #{@repayment.fund.holder};"
 
-docx.p "VISTA\t\tla delibera della Giunta di Dipartimento del 21.05.2018 che delega il Direttore alla sottoscrizione degli incarichi a conferenzieri per seminari,"
+docx.p "VISTA\t\tla delibera della Giunta di Dipartimento del 07.06.2021 che delega il Direttore alla sottoscrizione degli incarichi a conferenzieri per seminari,"
 
 docx.p
 docx.p "DECRETA", align: :center
@@ -35,7 +35,8 @@ docx.p "ART. 2 - Si autorizza la sottoscrizione della lettera d’incarico stipu
 
 docx.p
 docx.p "         Il Direttore         ", align: :right
-docx.p "(Prof. Giovanni Dore)         ", align: :right
+docx.p "(Prof. Fabrizio Caselli)      ", align: :right
+docx.p "    Firmato digitalmente      ", align: :right
 docx.p
 
 

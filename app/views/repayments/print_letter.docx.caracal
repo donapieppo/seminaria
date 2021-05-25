@@ -48,10 +48,10 @@ docx.p "Distinti saluti."
 docx.p
 
 col_delega = Caracal::Core::Models::TableCellModel.new do
-  p "In attuazione della Delibera della Giunta del Dipartimento di Matematica"
+  p "In attuazione della Delibera della Giunta del Dipartimento di Matematica del 07.06.2021"
   p "del ___________________"
   p "Il Direttore"
-  p "Prof. Giovanni Dore"
+  p "Prof. Fabrizio Caselli"
   p "(FIRMATO DIGITALMENTE)"
 end
 
