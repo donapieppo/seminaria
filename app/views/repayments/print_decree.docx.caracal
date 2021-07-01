@@ -19,7 +19,7 @@ docx.p "TENUTO CONTO \tdella giurisprudenza della Corte dei conti pronunciatasi 
 
 docx.p "RILEVATO CHE \t#{@repayment.reason};"
 
-docx.p "ATTESO  \t\tche per le sovra esposte ragioni non si procede a procedura comparativa pubblica, con assegnazione diretta dell’incarico motivata in relazione a ragioni di particolare qualificazione, abilità e conoscenze richieste e possedute dal conferenziere;"
+docx.p "ATTESO  \t\tche per le sovra esposte ragioni non si procede a procedura comparativa pubblica, con assegnazione diretta dell’incarico motivata in relazione alla circostanza che il seminario e la ricerca in collaborazione si configurano come prestazioni meramente occasionali, che si esauriscono in una singola prestazione episodica svolta dal destinatario dell’incarico in maniera saltuaria, nonché motivata in relazione a ragioni di particolare qualificazione, abilità e conoscenze richieste e possedute dal conferenziere, per il loro contenuto di natura scientifica non comparabili, in quanto strettamente connesse a particolari abilità, interpretazioni o elaborazioni del soggetto, che ha acquisito nel suo campo specifico una chiara fama professionale, comprovata da idonea documentazione (in particolare, dal CV);"
 
 docx.p "ACCERTATA\t\tla copertura finanziaria garantita dai Progetti di ricerca: “#{@repayment.fund}”, di cui è titolare #{@repayment.fund.holder};"
 
