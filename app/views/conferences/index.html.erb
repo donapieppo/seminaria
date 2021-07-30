@@ -1,0 +1,20 @@
+<h2>Convegni</h2>
+
+<% @conferences.each do |conference| %>  
+  <div class="dm-card">
+    <div class="dm-card-header"><%= link_to conference.to_s.upcase, conference_path(conference) %></div>
+    <div class="dm-card-body">
+      <ul>
+        <% conference.seminars.each do |seminar| %>  
+          <li><%= l seminar.date, format: :seminar %> <strong><%= seminar %></strong> (<%= seminar.speaker %>)</li>
+        <% end %>
+      </ul>
+    </div>
+    <% if policy(conference).update? %>  
+      <div class="dm-card-footer">
+        <%= link_to dmicon('edit'), edit_conference_path(conference) %>  
+        <%= link_to dmicon('plus'), new_conference_seminar_path(conference) %>  
+      </div>
+    <% end %>
+  </div>
+<% end %>
