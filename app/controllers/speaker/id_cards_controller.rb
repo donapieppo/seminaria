@@ -3,14 +3,14 @@ class Speaker::IdCardsController < ApplicationController
   before_action :get_repayment_from_token
 
   def create
+    authorize [:speaker, :id_card]
     if params[:id_card]
       id_card = @repayment.id_cards.new(id_card_params)
-      authorize [:speaker, id_card]
       id_card.description = "Id Document"
       if id_card.save
-        flash[:notice] = "L'allegato è stato salvato."
+        flash[:notice] = "The attachemnt has been saved."
       else
-        flash[:error] = "Non è stato possibile salvere l'allegato. #{id_card.errors.first.inspect}."
+        flash[:error] = "It was not possible to save the attachment. #{id_card.errors.first.inspect}."
       end
     end
 
@@ -19,7 +19,7 @@ class Speaker::IdCardsController < ApplicationController
 
   def destroy
     id_card = @repayment.id_cards.find(params[:id])
-    authorize [:speaker, id_card]
+    authorize [:speaker, :id_card]
     id_card.destroy
     redirect_to edit_speaker_repayment_path(@repayment.spkr_token)
   end
