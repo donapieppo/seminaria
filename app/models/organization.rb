@@ -5,6 +5,7 @@ class Organization < ApplicationRecord
   has_many :funds
   has_many :serials
   has_many :cycles
+  has_many :conferences
   has_many :places
   has_many :arguments
 
