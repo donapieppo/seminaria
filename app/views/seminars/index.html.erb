@@ -11,7 +11,17 @@
   </div>
 <% end %>
 
+<%# Only first seminar in conference %>
+<% conferences = [] %>
 <% @seminars.each do |seminar| %>  
-  <%= render seminar %>  
+  <% if seminar.in_conference? %>  
+    <% unless conferences.include?(seminar.conference_id) %>  
+      <%= render seminar.conference %>  
+      <% conferences << seminar.conference_id %>  
+    <% end %>
+    <% last_seminar_in_conference = seminar.id %>  
+  <% else %>
+    <%= render seminar %>  
+  <% end %>
 <% end %>
 

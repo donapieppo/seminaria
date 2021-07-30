@@ -49,6 +49,11 @@ it:
       wday: !    "%A"
       nday: !    "%d"
       month: !   "%b"
+  date:
+    formats:
+      wday: !    "%A"
+      nday: !    "%d"
+      month: !   "%b"
 
   organized_by: "organizzato da:"
   seminar: Seminario
@@ -69,6 +74,7 @@ it:
       place:     Luogo
       argument:  Argomento
       registration: Registrazione
+      conference: Convegno
     attributes:
       repayment:
         name:     Nome
@@ -124,6 +130,7 @@ it:
         link_text:  Descrizione Link
         document:   Allegato
         cycle:      Ciclo
+        conference: Convegno
         serial:     Serie
         user:       Proponente
         meeting_url: Indirizzo del meeting
@@ -141,6 +148,12 @@ it:
         title:       Nome
         description: Descrizione
         committee:   Organizzazione
+      conference:
+        title:       Nome
+        description: Descrizione
+        committee:   Organizzazione
+        start_date:  Inizio
+        end_date:    Fine
       document: 
         description: Descrizione
         attach:      Allegato

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_23_092215) do
+ActiveRecord::Schema.define(version: 2021_03_04_073352) do
 
   create_table "active_storage_attachments", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -55,6 +55,19 @@ ActiveRecord::Schema.define(version: 2021_02_23_092215) do
 
   create_table "categories", id: { type: :integer, unsigned: true }, charset: "utf8", force: :cascade do |t|
     t.string "name", limit: 200
+  end
+
+  create_table "conferences", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
+    t.integer "user_id", unsigned: true
+    t.integer "organization_id", unsigned: true
+    t.string "title", limit: 250
+    t.text "abstract"
+    t.string "committee", limit: 250
+    t.string "url", limit: 250
+    t.date "start_date"
+    t.date "end_date"
+    t.index ["organization_id"], name: "fk_conference_organization"
+    t.index ["user_id"], name: "fk_conference_user"
   end
 
   create_table "cycles", id: { type: :integer, unsigned: true }, charset: "utf8", force: :cascade do |t|
@@ -200,6 +213,8 @@ ActiveRecord::Schema.define(version: 2021_02_23_092215) do
     t.datetime "alert_deadline"
     t.integer "serial_id"
     t.integer "cycle_id"
+    t.integer "conference_id", unsigned: true
+    t.index ["conference_id"], name: "fk_seminars_conference"
     t.index ["cycle_id"], name: "index_seminars_on_cycle_id"
     t.index ["organization_id"], name: "fk_seminars_organization"
     t.index ["serial_id"], name: "index_seminars_on_serial_id"
@@ -241,6 +256,8 @@ ActiveRecord::Schema.define(version: 2021_02_23_092215) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "arguments", "organizations", name: "fk_arguments_organization"
+  add_foreign_key "conferences", "organizations", name: "fk_conference_organization"
+  add_foreign_key "conferences", "users", name: "fk_conference_user"
   add_foreign_key "cycles", "organizations", name: "fk_cycles_organization"
   add_foreign_key "cycles", "users", name: "cycles_ibfk_1"
   add_foreign_key "funds", "organizations", name: "fk_funds_organization"
@@ -252,6 +269,7 @@ ActiveRecord::Schema.define(version: 2021_02_23_092215) do
   add_foreign_key "repayments", "funds", name: "repayments_ibfk_3"
   add_foreign_key "repayments", "seminars", name: "repayments_ibfk_2"
   add_foreign_key "repayments", "users", column: "holder_id", name: "repayments_ibfk_1"
+  add_foreign_key "seminars", "conferences", name: "fk_seminars_conference"
   add_foreign_key "seminars", "organizations", name: "fk_seminars_organization"
   add_foreign_key "seminars", "users", name: "seminars_ibfk_1"
   add_foreign_key "serials", "organizations", name: "fk_serials_organization"

@@ -1,4 +1,20 @@
-<h1>Elenco seminari del convegno <br/><small>&ldquo;<%= @conference.to_s.upcase %>&rdquo;</small></h1>
+<h1>Convegno <br/><small>&ldquo;<%= @conference.to_s.upcase %>&rdquo;</small></h1>
+
+<div class="alert p-4 py-2" style="font-size: 120%">
+  <% unless @conference.abstract.blank? %>  
+    <div class="text-justify font-italic">
+      <%= @conference.abstract %>
+    </div> 
+  <% end %>
+  <div>
+    <span class="committee">
+      <%= t :organized_by %> <%= @conference.committee %> <br/>
+    </span>
+  </div>
+  <div class="mt-2">
+    <%= link_to 'Detailed program', @conference.url, target: :new %>
+  </div>
+</div>
 
 <% if policy(@conference).update? %>  
   <div class="centered my-2">
@@ -7,17 +23,7 @@
   </div>
 <% end %>
 
-<div class="alert alert-info p-4 py-2" style="font-size: 120%">
-  <% unless @conference.abstract.blank? %>  
-    <div>
-      <%= @conference.abstract %>
-    </div> 
-  <% end %>
-  <div class="mt-2">
-    <%= link_to 'Detailed program', @conference.url, class: 'btn btn-primary', target: :new %>
-  </div>
-</div>
-
+<h2>Elenco seminari</h2>
 <% @seminars.each do |seminar| %>  
   <%= render seminar %>  
 <% end %>

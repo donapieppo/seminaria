@@ -42,6 +42,10 @@ Rails.application.routes.draw do
       resources :seminars
     end
 
+    resources :conferences do
+      resources :seminars
+    end
+
     resources :repayments do
       post :notify, on: :member
       get  :choose_fund, on: :member
