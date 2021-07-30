@@ -15,7 +15,7 @@ class ConferencesController < ApplicationController
   end
 
   def new
-    @conference = Conference.new(organization: current_organization)
+    @conference = current_organization.conferences.new
     authorize @conference
   end
 
@@ -49,7 +49,7 @@ class ConferencesController < ApplicationController
   end
 
   def get_conference_and_check_permission
-    @conference = Conference.find(params[:id])
+    @conference = current_organization.conferences.find(params[:id])
     authorize @conference
   end
 end
