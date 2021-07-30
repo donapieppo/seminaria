@@ -19,7 +19,7 @@ class Speaker::IdCardsController < ApplicationController
 
   def destroy
     id_card = @repayment.id_cards.find(params[:id])
-    authorize [:speaker, :id_card]
+    authorize [:speaker, id_card]
     id_card.destroy
     redirect_to edit_speaker_repayment_path(@repayment.spkr_token)
   end
@@ -34,4 +34,3 @@ class Speaker::IdCardsController < ApplicationController
     params[:id_card].permit(:attach)
   end
 end
-
