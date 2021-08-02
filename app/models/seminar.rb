@@ -6,6 +6,7 @@ class Seminar < ApplicationRecord
   belongs_to :place, optional: true
   belongs_to :cycle, optional: true
   belongs_to :serial, optional: true
+  belongs_to :conference, optional: true
   has_many   :documents, dependent: :destroy
   has_one    :repayment, dependent: :destroy
   has_and_belongs_to_many :arguments
@@ -18,7 +19,7 @@ class Seminar < ApplicationRecord
 
   before_save :manage_place_choice, :date_in_future
 
-  validates_presence_of :title, :date, :speaker_title, :speaker
+  validates :title, :speaker_title, :speaker, :date, presence: true
 
   # place_id == 1 -> 'non definita'
   # place_id == 2 -> 'esterna' -> si puo' mettere descrizione
@@ -138,5 +139,9 @@ class Seminar < ApplicationRecord
   # to use in simple form
   def zoom_meeting_create
     ! self.zoom_meeting.blank?
+  end
+
+  def in_conference?
+    self.conference_id
   end
 end
