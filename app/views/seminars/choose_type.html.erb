@@ -26,6 +26,22 @@
   </div>
 
   <div class="choose_type_item">
+    <h2>Seminario in un convegno</h2>
+
+    <% if @conferences.empty? %>  
+      <div class="alert alert-warning">Non sono al momento presenti convegni da te organizzati presso <br/><%= current_organization.description %>.</div>
+    <% end %>
+
+    <% @conferences.each do |conference| %>  
+      <div>
+        <%= link_to conference.to_s.upcase , new_conference_seminar_path(conference), class: 'btn btn-outline-primary m-1', style: 'width: 100%' %>
+      </div>
+    <% end %>
+
+    <div class="mt-3 float-right"><%= link_to "Crea un nuovo convegno", new_conference_path, class: 'btn btn-outline-info' %></div>
+  </div>
+
+  <div class="choose_type_item">
     <h2>Seminario in una serie</h2>
 
     <% @serials.each do |serial| %>  
