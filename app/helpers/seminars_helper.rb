@@ -2,24 +2,26 @@ module SeminarsHelper
   def css_classes(seminar)
     res = 'seminar'
     res += seminar.past? ? ' past' : ' future'
-    res += ' seminar-serial' if seminar.serial_id
-    res += ' seminar-cycle'  if seminar.cycle_id
+    res += ' seminar-serial'     if seminar.serial_id
+    res += ' seminar-cycle'      if seminar.cycle_id
+    res += ' seminar-conference' if seminar.conference_id
     res
   end
 
-  def day_tag(seminar, short: false)
-    month  = I18n.l(seminar.date, format: :month)
-    nday   = I18n.l(seminar.date, format: :nday)
-    detail = seminar.past? ? seminar.date.year : I18n.l(seminar.date, format: :wday) # week day for future seminar or year if already done
+  def day_tag(date, short: false)
+    month  = I18n.l(date, format: :month)
+    nday   = I18n.l(date, format: :nday)
+    detail = (date < Time.now) ? date.year : I18n.l(date, format: :wday) # week day for future seminar or year if already done
 
     content_tag :div, class: 'date' do
-      "<i class='fas fa-calendar my-2' style='font-size: 24px'></i><br/>".html_safe + 
+      "<i class='far fa-calendar my-2' style='font-size: 24px'></i><br/>".html_safe + 
         "<span class='day-and-month'>#{h nday}<br/>#{h month}</span><br/>".html_safe +
         "<span class='text-muted'>#{h detail}</span> <br/>".html_safe
     end
   end
 
   def hour_tag(seminar, short: false)
+    return '' if seminar.conference_id
     content_tag :div, class: "hour-tag" do
       dmicon('clock') + "&nbsp;".html_safe + I18n.t(:hours) + " " + I18n.l(seminar.date, format: :hour)
     end
@@ -69,13 +71,13 @@ module SeminarsHelper
     end
   end
 
-  def clock_tag(seminar, short: false)
-    if seminar.date.today? and !short
+  def clock_tag(date, short: false)
+    if date.today? && !short 
       content_tag :div, class: :today do 
         concat(big_dmicon('clock')) 
         concat( 
                content_tag(:span, class: 'ml-2') do
-                 ((seminar.date < Time.now) ? 'iniziato da ' :  'tra ') + time_ago_in_words(seminar.date) 
+                 ((date < Time.now) ? 'iniziato da ' :  'tra ') + time_ago_in_words(date) 
                end
               )
       end 
