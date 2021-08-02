@@ -4,10 +4,10 @@
 <%= content_tag :div, class: css_classes(seminar) do %>
 
   <div class="seminar-header">
-    <%= clock_tag(seminar) %>  
+    <%= clock_tag(seminar.date) %>  
     <div class="row">
       <div class="when col-md-2">
-        <%= day_tag seminar %>  
+        <%= day_tag seminar.date %>  
       </div> <!-- when -->
 
       <div class="col">
@@ -48,11 +48,13 @@
   </div>
 
   <div class="seminar-footer">
-    <span class="committee">
-      <hr/>
-      <%= t :organized_by %> <%= seminar.committee %> <br/>
-      <%= seminar.project %>  
-    </span>
+    <% unless seminar.conference_id %>  
+      <span class="committee">
+        <hr/>
+        <%= t :organized_by %> <%= seminar.committee %> <br/>
+        <%= seminar.project %>  
+      </span>
+    <% end %>
 
     <%= on_line_tag(seminar) unless past %>  
   </div><!-- footer -->
