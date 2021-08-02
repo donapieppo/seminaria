@@ -48,6 +48,7 @@ class SeminarsController < ApplicationController
 
   def choose_type
     @cycles  = current_user.cycles.where(organization_id: current_organization.id).all
+    @conferences = current_user.conferences.where(organization_id: current_organization.id).all
     @serials = current_organization.serials.order('title asc').active.all
     authorize :seminar
   end
@@ -64,14 +65,9 @@ class SeminarsController < ApplicationController
                                                    committee: current_user.cn, 
                                                    date: Date.tomorrow)
     end
-    if params[:cycle_id]
-      @cycle = current_organization.cycles.find(params[:cycle_id])
-      @seminar.cycle_id = @cycle.id
-      @seminar.committee = @cycle.committee
-    elsif params[:serial_id]
-      @serial = current_organization.serials.find(params[:serial_id])
-      @seminar.serial_id = @serial.id
-    end
+
+    set_seminar_conference_cycle_serial(params)
+
     authorize @seminar
   end
 
@@ -81,13 +77,17 @@ class SeminarsController < ApplicationController
 
     @seminar.link = nil if @seminar.link == 'http://'
 
-    @seminar.cycle_id  = params[:cycle_id] if params[:cycle_id]
-    @seminar.serial_id = params[:serial_id] if params[:serial_id]
+    set_seminar_conference_cycle_serial(params[:seminar])
 
     authorize @seminar
 
     if @seminar.save
-      redirect_to edit_seminar_path(@seminar, what: :where), notice: "Il seminario è stato creato correttamente."
+      if @seminar.conference_id
+        redirect_to conference_path(@seminar.conference_id), notice: "Il seminario è stato creato correttamente."
+      else
+        # ask for where
+        redirect_to edit_seminar_path(@seminar, what: :where), notice: "Il seminario è stato creato correttamente."
+      end
     else
       render action: :new
     end
@@ -99,9 +99,10 @@ class SeminarsController < ApplicationController
     # user can change existing repayment. FIXME
     @too_late_for_repayment = user_too_late_for_repayment?(@seminar) unless @seminar.repayment
 
-    @serial    = @seminar.serial 
-    @cycle     = @seminar.cycle
-    @documents = @seminar.documents
+    @serial     = @seminar.serial 
+    @cycle      = @seminar.cycle
+    @conference = @seminar.conference
+    @documents  = @seminar.documents
   end
 
   def update
@@ -115,11 +116,12 @@ class SeminarsController < ApplicationController
       end
     else
       # TO REFACTOR
-      @repayment = @seminar.repayment
-      @serial    = @seminar.serial 
-      @cycle     = @seminar.cycle
-      @documents = @seminar.documents
-      @document  = Document.new
+      @repayment  = @seminar.repayment
+      @serial     = @seminar.serial 
+      @conference = @seminar.conference
+      @cycle      = @seminar.cycle
+      @documents  = @seminar.documents
+      @document   = Document.new
       render action: :edit
     end
   end
@@ -166,10 +168,25 @@ class SeminarsController < ApplicationController
       params[:seminar][:date] = params[:seminar][:date] + " " + params[:seminar].delete('date(4i)') + ':' + params[:seminar].delete('date(5i)')
     end
     p = [:date, :duration, :in_presence, :on_line, :meeting_url, :meeting_code, :meeting_visible, 
-         :place_id, :place_description, :cycle_id, :serial_id, :speaker_title, :speaker, 
-         :committee, { argument_ids: [] }, :title, :abstract, :file, :link, :link_text]
+         :place_id, :place_description, :speaker_title, :speaker, 
+         :committee, { argument_ids: [] }, :title, :abstract, :file, :link, :link_text, 
+         :serial_id, :cycle_id, :conference_id] # FIXME :serial_id, :cycle_id, :conference_id
     p = p + [:user_id, :serial_id, :cycle_id] if policy(current_organization).manage?
     params[:seminar].permit(p)
   end
 
+  def set_seminar_conference_cycle_serial(p)
+    if p[:cycle_id] && p[:cycle_id].to_i > 0
+      @cycle = current_organization.cycles.find(p[:cycle_id])
+      @seminar.cycle_id = @cycle.id
+      @seminar.committee = @cycle.committee
+    elsif p[:serial_id] && p[:serial_id].to_i > 0
+      @serial = current_organization.serials.find(p[:serial_id])
+      @seminar.serial_id = @serial.id
+    elsif p[:conference_id] && p[:conference_id].to_i > 0
+      @conference = current_organization.conferences.find(p[:conference_id])
+      @seminar.conference_id = @conference.id
+      @seminar.date = @conference.start_date
+    end
+  end
 end
