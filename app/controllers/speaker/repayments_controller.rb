@@ -1,7 +1,7 @@
 # :spkr_token
 class Speaker::RepaymentsController < ApplicationController
   skip_before_action :redirect_unsigned_user, only: [:accept, :show, :edit, :update]
-  before_action :get_repayment_from_token, only: [:accept, :show, :edit, :update]
+  before_action :get_repayment_from_token_and_authorize, only: [:accept, :show, :edit, :update]
 
   def data_request
     @repayment = Repayment.find(params[:id])
@@ -43,7 +43,7 @@ class Speaker::RepaymentsController < ApplicationController
 
   private
 
-  def get_repayment_from_token
+  def get_repayment_from_token_and_authorize
     @repayment = Repayment.where(spkr_token: params[:id]).first or raise "Uncorrect tkn."
     authorize [:speaker, @repayment]
   end
