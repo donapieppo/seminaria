@@ -1,3 +1,13 @@
+<% if @conference %>  
+  <div class="alert alert-info">
+    <h2>Convegno &ldquo;<%= link_to @conference.title, @conference %>&rdquo;</h2> 
+    <div><%= @conference.abstract %></div>
+    <div><%= l @conference.start_date %> - <%= l @conference.end_date %></div>
+    <% if policy(@conference).edit? %>  
+      <%= link_to 'Modifica dati convegno', edit_conference_path(@conference), class: 'button my-2' %>  
+    <% end %>
+  </div>
+<% end %>
 <% if @cycle %>  
   <%# other except itsself (of nil in new_record) %>
   <% other_seminars_same_cycle = @cycle.seminars.where('seminars.id != ?', @seminar.id || 0).order('id desc').to_a %>  
@@ -28,22 +38,30 @@
 <%= dm_form_for @seminar, title: "Seminario del #{current_organization.description}" do |seminar| %>  
   <%= seminar.dm_error_notification %>  
   <% if current_organization && policy(current_organization).manage? %>  
-    <%= seminar.association :cycle %>  
-    <%= seminar.association :serial, collection: Serial.active.order(:title) %>  
+    <%= seminar.association :cycle, collection: current_organization.cycles.active.order(:title) %>  
+    <%= seminar.association :serial, collection: current_organization.serials.active.order(:title) %>  
+    <%= seminar.association :conference, collection: current_organization.conferences.order(:title) %>  
   <% else %>
     <%= seminar.input :serial_id, as: :hidden %>  
     <%= seminar.input :cycle_id,  as: :hidden %>  
+    <%= seminar.input :conference_id,  as: :hidden %>  
   <% end %>
   <%= seminar.input :title %>  
-  <%= seminar.input :date, as: :datetime_html5 %>
-  <%= seminar.input :duration, collection: [30,45,60,75,90,120,180].map{ |p| ["#{p} minuti", p] }, include_blank: false %>
+  <% unless @conference %>  
+    <%= seminar.input :date, as: :datetime_html5 %>
+    <%= seminar.input :duration, collection: [30,45,60,75,90,120,180].map{ |p| ["#{p} minuti", p] }, include_blank: false %>
+  <% end %>
   <%= seminar.input :speaker_title, collection: User.abbr_titles, include_blank: false %>  
   <%= seminar.input :speaker %>  
-  <%= seminar.input :committee %>
-  <%= seminar.association :arguments, collection: current_organization.arguments.order(:name), hint: I18n.t('new_arguments', reply_to: Rails.configuration.reply_to) %>
+  <% unless @conference %>  
+    <%= seminar.input :committee %>
+  <% end %>
+  <%= seminar.association :arguments, collection: current_organization.arguments.order(:name), hint: I18n.t('new_arguments', reply_to: Rails.configuration.reply_to), as: :check_boxes %>
   <%= seminar.input :abstract, input_html: { cols: 50, rows: 3 } %>
-  <%= seminar.input :link %>
-  <%= seminar.input :link_text %> 
+  <% unless @conference %>  
+    <%= seminar.input :link %>
+    <%= seminar.input :link_text %> 
+  <% end %>
   <% if current_organization && policy(current_organization).manage? %>  
     <%= seminar.association :user, collection: User.order('surname').to_a, label_method: :cn %>  
   <% end %>
