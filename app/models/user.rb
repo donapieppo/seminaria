@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   has_many :seminars
   has_many :cycles
+  has_many :conferences
   has_many :repayments, foreign_key: :holder_id
   has_many :funds, foreign_key: 'holder_id'
   has_many :registrations
