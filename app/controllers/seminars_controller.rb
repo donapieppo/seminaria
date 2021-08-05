@@ -185,6 +185,7 @@ class SeminarsController < ApplicationController
       @seminar.serial_id = @serial.id
     elsif p[:conference_id] && p[:conference_id].to_i > 0
       @conference = current_organization.conferences.find(p[:conference_id])
+      @seminar.title = "Relazione all'interno del convegno: #{@conference.title}"
       @seminar.conference_id = @conference.id
       @seminar.date = @conference.start_date
     end
