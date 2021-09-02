@@ -30,7 +30,7 @@ it:
   expected_refund: Importo presunto
   reason: Eccezionali ragioni di particolare qualificazione del conferenziere che consentono di derogare alla procedura selettiva pubblica
   reason_long_version: È necessario inserire una descrizione dettagliata delle eccezionali ragioni di particolare qualificazione, abilità e conoscenze possedute dal conferenziere che motivano la deroga alla procedura comparativa pubblica con assegnazione diretta dell’incarico
-  speaker_details: Deti relativi al relatore
+  speaker_details: Dati relativi al relatore
   bank_name:    Nome della banca
   bank_address: Indirizzo della banca
 
