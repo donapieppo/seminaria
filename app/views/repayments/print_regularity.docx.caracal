@@ -47,11 +47,11 @@ end
 
 docx.p ""
 
-docx.p "#{@repayment.payment ? 'COMPENSO' : 'RIMBORSO SPESE'} SPESE PER SEMINARI E ATTIVITA’ DI RICERCA SCIENTIFICA IN COLLABORAZIONE", align: :center, bold: true
+docx.p "#{@repayment.payment ? 'COMPENSO' : 'RIMBORSO SPESE'} PER SEMINARI E ATTIVITA’ DI RICERCA SCIENTIFICA IN COLLABORAZIONE", align: :center, bold: true
 
 docx.p ""
 
-docx.p "OGGETTO: #{@repayment.payment ? 'COMPENSO' : 'RIMBORSO SPESE'} di € #{@repayment.payment ? @repayment.lordo_ente : @repayment.expected_refund} a favore di #{@repayment.speaker_with_title.upcase} in qualità di #{@repayment.position} presso #{@repayment.affiliation} per SEMINARIO “#{@repayment.seminar.title}” del #{@repayment.seminar.date.strftime("%d/%m/%Y")} e colloqui scientifici per ricerca in collaborazione - periodo #{I18n.l(@repayment.speaker_arrival) if @repayment.speaker_arrival} - #{I18n.l(@repayment.speaker_departure) if @repayment.speaker_departure} nell’ambito del seguente progetto di ricerca/didattica, su cui graverà la spesa:"
+docx.p "OGGETTO: #{@repayment.payment ? 'Compenso' : 'Rimborso spese'} di € #{@repayment.payment ? @repayment.lordo_ente : @repayment.expected_refund} a favore di #{@repayment.speaker_with_title.upcase} in qualità di #{@repayment.position} presso #{@repayment.affiliation} per SEMINARIO “#{@repayment.seminar.title}” del #{@repayment.seminar.date.strftime("%d/%m/%Y")} e colloqui scientifici per ricerca in collaborazione - periodo #{I18n.l(@repayment.speaker_arrival) if @repayment.speaker_arrival} - #{I18n.l(@repayment.speaker_departure) if @repayment.speaker_departure} nell’ambito del seguente progetto di ricerca/didattica, su cui graverà la spesa:"
 docx.p 
 
 docx.p "progetto: #{@repayment.fund} titolare prof. #{@repayment.holder}."
@@ -60,9 +60,9 @@ docx.p
 docx.p "Il sottoscritto titolare del Progetto, dichiara che:"
 docx.p
 
-docx.p "- Il destinatario a cui è stato conferito l’incarico non è componente del progetto di ricerca/didattica nell’ambito del quale è stata resa la prestazione e su cui grava la spesa"
-docx.p "- L’iniziativa è stata attinente al progetto su menzionato, poiché essa ha trattato metodi, tecniche e problematiche direttamente connessi alle tematiche in esso sviluppate, e che la scelta del relatore si è giustificata dalla riconosciuta qualifica di esperto scientifico della materia"
-docx.p "- Si attesta la regolarità della prestazione e si autorizza il pagamento del #{@repayment.payment ? 'compenso' : 'rimborso spese'}"
+docx.p "- Il destinatario a cui è stato conferito l’incarico non è componente del progetto di ricerca/didattica nell’ambito del quale è stata resa la prestazione e su cui grava la spesa;"
+docx.p "- L’iniziativa è stata attinente al progetto su menzionato, poiché essa ha trattato metodi, tecniche e problematiche direttamente connessi alle tematiche in esso sviluppate, e che la scelta del relatore si è giustificata dalla riconosciuta qualifica di esperto scientifico della materia;"
+docx.p "- Si attesta la regolarità della prestazione e si autorizza il pagamento del #{@repayment.payment ? 'compenso' : 'rimborso spese'}."
 
 docx.p ""
 
@@ -70,7 +70,7 @@ docx.p "Bologna, GIORNO FERIALE SUCCESSIVO A QUELLO CONTENUTO NEL CAMPO “Parte
 
 docx.p ""
 
-docx.p "IL TITOLARE DEL PROGETTO"
+docx.p "Il titolare del progetto #{@repayment.fund}"
 docx.p @repayment.holder
 docx.p "[firmato digitalmente]"
 docx.p "_________________________________"
