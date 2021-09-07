@@ -72,4 +72,8 @@ class RepaymentPolicy < ApplicationPolicy
   def print_other?
     show?
   end
+
+  def print_regularity?
+    show?
+  end
 end

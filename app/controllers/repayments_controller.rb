@@ -1,7 +1,7 @@
 class RepaymentsController < ApplicationController
   before_action :get_repayment_and_seminar_and_check_permission, only: [:show, :edit, :update, :notify, 
                                                                         :print_request, :print_decree, :print_letter, :print_proposal, :print_repayment, 
-                                                                        :print_refund, :print_other]
+                                                                        :print_refund, :print_other, :print_regularity]
   before_action :get_seminar, only: [:new, :create]
   # su propri fondi
   before_action :get_repayment_and_check_permission, only: [:choose_fund, :update_fund]
@@ -120,6 +120,12 @@ class RepaymentsController < ApplicationController
   def print_other
     respond_to do |format|
       format.docx { headers["Content-Disposition"] = "attachment; filename=\"#{@repayment.letter_filename_docx('altri_incarichi_trasferta')}\"" }
+    end
+  end
+
+  def print_regularity
+    respond_to do |format|
+      format.docx { headers["Content-Disposition"] = "attachment; filename=\"#{@repayment.letter_filename_docx('regolare_esecuzione')}\"" }
     end
   end
 
