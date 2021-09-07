@@ -198,6 +198,7 @@ ActiveRecord::Schema.define(version: 2021_03_04_073352) do
     t.integer "place_id"
     t.text "place_description"
     t.boolean "on_line"
+    t.string "registration_url"
     t.string "meeting_url", limit: 250
     t.string "meeting_code", limit: 250
     t.boolean "meeting_visible"
