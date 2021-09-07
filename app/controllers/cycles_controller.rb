@@ -11,7 +11,7 @@ class CyclesController < ApplicationController
   def show
     @cycle = current_organization.cycles.find(params[:id])
     authorize @cycle
-    @seminars = @cycle.seminars.includes(:documents, :arguments, :repayment).order('seminars.date DESC')
+    @seminars = @cycle.seminars.includes(:documents, :arguments, :repayment).order('seminars.date ASC')
   end
 
   def new
