@@ -1,7 +1,7 @@
 class SeminarsController < ApplicationController
   skip_before_action :redirect_unsigned_user, only: [:index, :archive, :show, :totem]
 
-  before_action :get_seminar_and_check_permission, only: [:show, :edit, :update, :destroy, :mail_text, :submit_mail_text]
+  before_action :get_seminar_and_check_permission, only: [:show, :print, :edit, :update, :destroy, :mail_text, :submit_mail_text]
 
   # Prossimi sono quelli a partire da tutto oggi
   def index
@@ -35,6 +35,9 @@ class SeminarsController < ApplicationController
       format.html 
       format.ics
     end  
+  end
+
+  def print
   end
 
   # archivio quelli da ieri

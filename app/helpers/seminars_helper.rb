@@ -112,7 +112,7 @@ module SeminarsHelper
           concat ( link_to(fwdmicon('calendar-plus') + 'aggiungi a iCal<br/>'.html_safe, seminar_url(seminar, format: :ics)) )
         end 
 
-        concat( link_to(fwdmicon('print') + ' pagina stampabile<br/>'.html_safe, seminar_path(seminar)) )
+        concat( link_to(fwdmicon('print') + ' pagina stampabile<br/>'.html_safe, print_seminar_path(seminar)) )
 
         if policy(seminar).destroy?
           concat( '<br/>'.html_safe + link_to_delete('elimina', seminar_path(seminar)) )

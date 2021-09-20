@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     resources :arguments
 
     resources :seminars do
+      get  :print, on: :member, as: :print
       get  :choose_type, on: :collection
       get  :mail_text,   on: :member
       post :submit_mail_text, on: :member

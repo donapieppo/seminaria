@@ -11,6 +11,10 @@ class SeminarPolicy < ApplicationPolicy
     true
   end
 
+  def print?
+    show?
+  end
+
   def choose_type?
     @user
   end
