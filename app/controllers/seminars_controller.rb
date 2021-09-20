@@ -38,6 +38,7 @@ class SeminarsController < ApplicationController
   end
 
   def print
+    @no_menu = true
   end
 
   # archivio quelli da ieri
