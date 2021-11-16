@@ -19,7 +19,8 @@ class RepaymentsController < ApplicationController
 
   def new
     if @seminar.repayment 
-      redirect_to(seminar_path(@seminar), alert: 'Non è più possibile richiedere rimborso / compenso.') and return
+      redirect_to(seminar_path(@seminar), alert: 'Non è più possibile richiedere rimborso / compenso.') 
+      return
     else
       @repayment = @seminar.build_repayment
       authorize @repayment
