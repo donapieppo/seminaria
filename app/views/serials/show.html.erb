@@ -14,3 +14,8 @@
   <%= render seminar %>
 <% end %>
 
+<h2 class="my-5 centered">Seminari passati</h2>
+
+<% @archive.each do |seminar| %>  
+  <%= render seminar, short: true %>
+<% end %>
