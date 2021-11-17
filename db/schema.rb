@@ -204,6 +204,7 @@ ActiveRecord::Schema.define(version: 2021_03_04_073352) do
     t.boolean "meeting_visible"
     t.string "speaker", limit: 250
     t.string "speaker_title", limit: 20
+    t.boolean "speaker_on_line", default: false
     t.string "committee", limit: 200
     t.string "title", limit: 250
     t.text "abstract"
