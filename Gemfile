@@ -14,7 +14,7 @@ gem 'caracal-rails'
 gem 'roo'
 gem 'roo-xls'
 
-gem 'mini_racer'
+gem 'mini_racer', '~> 0.4'
 
 gem 'listen'
 
