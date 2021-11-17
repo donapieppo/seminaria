@@ -122,6 +122,7 @@ it:
         place_description:  Descrizione luogo
         speaker_title:    Titolo relatore
         speaker:    Relatore
+        speaker_on_line: Relatore non in presenza
         committee:  Organizzazione
         arguments:  Argomenti
         abstract:   Abstract

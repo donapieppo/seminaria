@@ -1,15 +1,12 @@
-<h2>Luogo di svolgimento</h2>
+<h2>Modalità di svolgimento</h2>
 
 <div class="alert alert-info">
   Nel caso di seminari <strong>on line</strong> è possibile inserire l'indirizzo della stanza oppure permettere all'applicativo di creare 
   una stanza su Zoom con tutti i dati del seminario. <br/>
-  Per i seminari on line vengono automaticamente abilitate le <strong>iscrizioni</strong> tramite questo applicativo. 
-  Prima del seminario potrete inviare una mail a tutti gli iscritti per informarli dell'indirizzo con cui accedere al seminario 
-  (le mail NON partono automaticamente).<br/>
-  In caso di <strong>compenso</strong> l’elenco degli iscritti verrà acquisito agli atti della pratica.
+  Per i seminari on line possono essere abilitate le <strong>iscrizioni</strong> tramite questo applicativo e prima del seminario dovrete inviare una mail a tutti gli iscritti per informarli dell'indirizzo con cui accedere al seminario (le mail NON partono automaticamente).<br/>
 </div>
 
-<%= dm_form_for @seminar, title: "Dove si tiene il seminario?" do |s| %>  
+<%= dm_form_for @seminar, title: "È possibile seguire il seminario:" do |s| %>  
   <%= s.dm_error_notification %>  
 
   <%= s.input :in_presence, as: :boolean %>
@@ -36,6 +33,8 @@
       </div>
     <% end %>
   </div>
+
+  <%= s.input :speaker_on_line, as: :boolean %>
   <%= s.submit 'Salva', class: '' %> - <%= link_to_back root_path %>  
 <% end %>
 
