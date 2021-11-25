@@ -8,9 +8,9 @@ Nella pagina successiva sarà possibile compilare la richiesta di <strong>compen
   <%= f.input :to, label: "Destinatari", input_html: { value: "dipmat-seminari@unibo.it" }, 
                    hint: "dipmat-seminari@unibo.it comprende docenti, dottorandi, borsisti e coloro che fanno richiesta per essere inseriti. Inserire eventuali altri destinatari separati da virgola." %>  
 
-  <%= f.input :subject, label: "Subject", input_html: { value: "AVVISO DI SEMINARIO" } %>
+  <%= f.input :subject, label: "Oggetto", input_html: { value: "AVVISO DI SEMINARIO" } %>
 
-  <%= f.input :text, as: 'text', input_html: { value: "
+  <%= f.input :text, as: 'text', label: 'Testo', input_html: { value: "
     #{l @seminar.date, format: :seminar} 
     #{@seminar.where_to_s(visible: true)}
 
