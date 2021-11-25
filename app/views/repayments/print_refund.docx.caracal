@@ -9,21 +9,37 @@ docx.p
 
 docx.p t(:refund_title), align: :center, bold: true
 docx.p
-docx.p I18n.t :i_declare
+docx.p t(:i_declare)
 docx.p
 docx.p "  #{@repayment.name} #{@repayment.surname}, #{t :born_in} #{@repayment.birth_place} (#{@repayment.birth_country}), #{t :born_at} #{@repayment.birth_date}, #{I18n.t :resident_at} #{@repayment.address} – #{@repayment.postalcode}, #{@repayment.city} (#{@repayment.country}), #{I18n.t :tax_id} #{field_or_underscores @repayment.taxid.to_s.upcase, size: 50} #{I18n.t :and_in_quality_of} #{@repayment.position_to_s} #{I18n.t :at} #{@repayment.affiliation}"
-docx.p 
-docx.p "#{t :performance}____________________________________________________ Rep ______  del ________________ "
+
+docx.p
+docx.p " □ di essere dipendente pubblico"
+docx.p "    Denominazione Ente di appartenenza _________________________________________"
+docx.p "    C.F. Ente ___________________________________"
+docx.p "   □ a tempo determinato dal ________________ al ________________"
+docx.p "   □ a tempo indeterminato dal _________________________________"
+
+docx.p
+docx.p do
+  text "#{I18n.t :performance} "
+  text "(es.: Speaker/ricerca in collaborazione) _____________________________________________ ", size: 13
+end
+
+docx.p
+docx.p "Rep n.  ______  del ________________ "
 docx.p 
 docx.p "#{t :vat} ________________________"
 docx.p
-docx.p "IBAN: #{field_or_underscores @repayment.iban}"
+docx.p "IBAN / BANK ACCOUNT: #{field_or_underscores @repayment.iban}"
 docx.p
-docx.p "SWIFT: #{field_or_underscores @repayment.swift}"
+docx.p "BIC/SWIFT: #{field_or_underscores @repayment.swift}"
+docx.p
+docx.p "ABA/ROUTING NUMBER (for Extra-UE only): #{field_or_underscores @repayment.aba}"
 docx.p
 docx.p "NOME DELLA BANCA: #{field_or_underscores @repayment.bank_name}"
 docx.p
-docx.p "INDIRIZZO DELLA BANCA: #{field_or_underscores @repayment.bank_address}"
+docx.p "INDIRIZZO DELLA BANCA (for Extra-UE only): #{field_or_underscores @repayment.bank_address}"
 docx.p
 
 if @repayment.speaker_arrival and @repayment.speaker_departure
@@ -64,13 +80,17 @@ docx.table [[t(:description), t(:required_import), t(:accepted_import)],
   cell_style cells, margins: { top: 20, bottom: 20, left: 100, right: 100 }
 end
 
-docx.page 
+# docx.page 
 
-docx.p t(:extra_traqnsport)
-docx.p "     □ #{t :taxi}           □ #{t :rentals}             □ #{t :owned_car} *"
-docx.p " □ * #{:only_responsable}"
 docx.p 
+docx.p t(:extra_traqnsport)
+docx.p " □ #{t :taxi} "
+docx.p " □ #{t :rentals} "
+docx.p " □ #{t :owned_car} "
+docx.p 
+docx.p " □ * #{t :only_responsable}"
 
+docx.p 
 if @repayment.italy
   sciopero      = '□ sciopero dei mezzi ordinari di trasporto'
   ingombranti   = '□ trasporto di materiali e/o strumenti delicati o ingombranti'
@@ -105,21 +125,40 @@ docx.table [['Viaggio\n(auto propria o a noleggio)',
   cell_style cells, margins: { top: 20, bottom: 20, left: 100, right: 100 }
 end
 
-
 docx.p
 docx.p t :i_attach
 docx.p 
-docx.p t :stamp
+
+docx.p "Il/La sottoscritto/a, dichiara di non detrarre/dedurre in sede di Dichiarazione dei Redditi le somme relative alle spese rimborsate per l’espletamento del presente incarico."
+docx.p
+docx.p "Il/La Sottoscritto/a, si impegna a comunicare tempestivamente ogni eventuale variazione dei dati dichiarati nella presente sezione e a rimborsare integralmente l’Università nei casi in cui questa venga sanzionata dagli Enti preposti a causa della mancata/non tempestiva/incompleta/inesatta comunicazione della variazione dei dati dichiarati."
 docx.p
 docx.p "#{t :the_applicant}  ___________________________", bold: true
+
 docx.p
-docx.p t(:it_certifies)
 docx.p
-docx.p "Rep. ________ Prot., __________"
+
+docx.hr 
+
+docx.p
+docx.p "RISERVATO ALL’AMMINISTRAZIONE", bold: true, align: :center
+docx.p
+docx.p "Progetto di ricerca/didattica, su cui grava la spesa: #{@repayment.fund}"
+docx.p "Titolare del Progetto: #{@repayment.holder}"
+docx.p
+docx.p "Il/La sottoscritto/a titolare del Progetto, dichiara che:"
+docx.p
+docx.p "- Il destinatario a cui è stato conferito l’incarico non è componente del progetto di ricerca/didattica nell’ambito del quale è stata resa la prestazione e su cui grava la spesa;"
+docx.p "- L’iniziativa è stata attinente al progetto su menzionato, poiché essa ha trattato metodi, tecniche e problematiche direttamente connessi alle tematiche in esso sviluppate, e che la scelta del destinatario dell’incarico si è giustificata dalla riconosciuta qualifica di esperto scientifico della materia;"
+docx.p "- Si attesta che le spese indicate sono inerenti e necessarie allo svolgimento della prestazione oggetto dell'incarico"
+docx.p "- Si attesta la regolarità della prestazione e si autorizza il pagamento del rimborso."
 docx.p
 docx.p "#{t :the_referent} ___________________________", bold: true
 docx.p
 docx.p "#{t :the_director} ___________________________", bold: true
+docx.p 
+docx.p "Bologna, ________________"
+
 
 
 
