@@ -3,7 +3,10 @@
 <%= dm_card title: big_dmicon('euro-sign', text: 'Richiesta di compenso e/o rimborso').html_safe do %>
   <% if @seminar.on_line %>  
     <div class="alert alert-danger">
-      <%= dmicon('exclamation-circle') %>  Si avvisa che la procedura per l’autorizzazione di seminari on-line che prevedono compenso è in fase di ridefinizione. La richiesta dovrà essere approvata dalla Giunta di Dipartimento. Si invita, prima di inserire una nuova richiesta, a prendere contatto con la Direzione del Dipartimento per verificare la fattibilità dell’iniziativa e rispettare le nuove modalità di predisposizione della pratica.
+      <%= dmicon('exclamation-circle') %> Si avvisa che la procedura per l’autorizzazione di seminari che prevedono compenso per un 
+      <strong>relatore on-line</strong> è in fase di ridefinizione. La richiesta dovrà essere approvata dalla Giunta di Dipartimento. 
+      Si invita, prima di inserire una nuova richiesta, a prendere contatto con la Direzione del Dipartimento per verificare la 
+      fattibilità dell’iniziativa e rispettare le nuove modalità di predisposizione della pratica.
     </div>
   <% end %>
   <% if seminar_repayment %>
