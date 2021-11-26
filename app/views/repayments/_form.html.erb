@@ -15,7 +15,9 @@
   <% if @what == 'compensation' %>  
     <%= render('compensation_form', repayment: repayment) %>
     <%= render('payment_form', repayment: repayment) %>
-    <%= render('refund_form', repayment: repayment) %>
+    <% unless @repayment.seminar.speaker_on_line %>  
+      <%= render('refund_form', repayment: repayment) %>
+    <% end %>
   <% end %>
 
   <% if @what == 'speaker' %>  
