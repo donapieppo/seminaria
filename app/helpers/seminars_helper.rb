@@ -28,16 +28,16 @@ module SeminarsHelper
   end
 
   def on_line_where_url(seminar) 
-    if seminar.meeting_visible
+    #if seminar.meeting_visible
       if seminar.zoom_meeting
         link_to('collegamento al meeting su zoom', seminar.zoom_meeting.join_url)
       else
         (seminar.meeting_code.blank? ? "" : ("codice: (" + h(seminar.meeting_code) + ") - ")) + 
         (seminar.meeting_url.blank?  ? "" : link_to('collegamento al meeting', seminar.meeting_url))
       end
-    else
-      "l'indirizzo con cui accedere verrà inviato via mail agli iscritti il giorno del seminario."
-    end
+    #else
+    #  "l'indirizzo con cui accedere verrà inviato via mail agli iscritti il giorno del seminario."
+    #end
   end
 
   def where_tag(seminar, short: false)
@@ -143,6 +143,7 @@ module SeminarsHelper
     end
   end
 
+  # OLD 
   def on_line_tag(seminar)
     if seminar.on_line  
       if session[Registration.session_name(seminar)]

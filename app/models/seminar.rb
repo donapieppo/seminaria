@@ -63,7 +63,8 @@ class Seminar < ApplicationRecord
 
   def on_line_to_s(visible: false)
     if self.on_line
-      if visible || (self.meeting_visible && ! self.meeting_url.blank?)
+      # if visible || (self.meeting_visible && ! self.meeting_url.blank?)
+      if self.meeting_visible && ! self.meeting_url.blank?
         "on-line all'indirizzo: #{self.meeting_url}"
       else
         'on-line'
