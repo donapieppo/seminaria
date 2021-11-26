@@ -10,6 +10,7 @@ it:
   and_in_quality_of: e in qualità di 
   at: presso
   ask_payment: e chiede che il pagamento del compenso venga effettuato
+  ask_payment2: "Chiede che il pagamento venga effettuato mediante versamento su c/c bancario/bancoposta/carta prepagata con le seguenti coordinate:"
   declare: DICHIARA
   that_i_hold_no_position: di non svolgere incarichi e né di avere titolarità di cariche in enti di diritto privato regolati o finanziati dalla pubblica amministrazione o lo svolgimento di attività professionali;
   that_i_hold_position:    di svolgere incarichi e/o avere titolarità di cariche in enti di diritto privato regolati o finanziati dalla pubblica amministrazione e/o lo svolgimento di attività professionali. In tal caso specificare nell’apposita tabella di seguito riportata
@@ -29,7 +30,7 @@ it:
   vat: Partita IVA / VAT number
   owned_car: Auto propria
   extra_traqnsport: Dichiara di essersi avvalso di uno dei seguenti mezzi di trasporto straordinari
-  only_responsable: dichiaro di essere l'unico responsabile per l'uso dei mezzi di trosporto sopra selezionati e sollevo l'Università di Bologna da ogni responsabilità.
+  only_responsable: dichiaro di essere l'unico responsabile per l'uso dei mezzi di trasporto sopra selezionati e sollevo l'Università di Bologna da ogni responsabilità.
 
   travel_costs: Spese di viaggio
   taxi: Taxi
@@ -60,6 +61,7 @@ it:
   the_applicant: IL RICHIEDENTE 
   the_referent: IL REFERENTE CONTRATTUALE / IL TITOLARE DEL FONDO
   the_director: IL DIRETTORE
+  declaration_art_47: DICHIARAZIONE SOSTITUTIVA DI ATTO DI NOTORIETÀ ART 47 DPR 445/2000 (*)
 
 en:
   i_declare: I undersigned, under penalties of perjury, hereby declare the following to be true
@@ -72,7 +74,8 @@ en:
   letter_signature: Signature
   and_in_quality_of: and in quality of 
   at: at
-  ask_payment: and asks the payment to the on the following bank account 
+  ask_payment: "and asks the payment to the on the following bank account:"
+  ask_payment2: "Please make payment to the following bank account:"
   declare: DECLARE
   that_i_hold_no_position: that I hold no position nor the entitlement to any position in a private corporation that is publicly controlled or financed, or work as a professional 
   that_i_hold_position:    that I hold a position and/or have the entitlement to a position in a private corporation that is publicly controlled or financed and/or work as a professional. In that case, indicate in the specific table shown below
@@ -80,6 +83,7 @@ en:
   corporation: Corporation/company
   professional_begin_date: Start date
   professional_end_date: End date
+  bank_account_in_name: il c/c deve essere intestato o cointestato al dichiarante
 
   refund_title: BILL OF COSTS - COSTS CLAIM
   speaker_arrival: Speaker arrival
@@ -124,5 +128,5 @@ en:
   the_applicant: THE APPLICANT
   the_referent: THE CONTRACTUAL'S REFERENT
   the_director: THE DIRECTOR
-
-
+  declaration_art_47: DECLARATION UNDER DPR 445/2000, ART 47 (*)
+  bank_account_in_name: the Bank Account must be in the name or joint name of the declarant

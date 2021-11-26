@@ -13,12 +13,14 @@ docx.p t(:i_declare)
 docx.p
 docx.p "  #{@repayment.name} #{@repayment.surname}, #{t :born_in} #{@repayment.birth_place} (#{@repayment.birth_country}), #{t :born_at} #{@repayment.birth_date}, #{I18n.t :resident_at} #{@repayment.address} – #{@repayment.postalcode}, #{@repayment.city} (#{@repayment.country}), #{I18n.t :tax_id} #{field_or_underscores @repayment.taxid.to_s.upcase, size: 50} #{I18n.t :and_in_quality_of} #{@repayment.position_to_s} #{I18n.t :at} #{@repayment.affiliation}"
 
-docx.p
-docx.p " □ di essere dipendente pubblico"
-docx.p "    Denominazione Ente di appartenenza _________________________________________"
-docx.p "    C.F. Ente ___________________________________"
-docx.p "   □ a tempo determinato dal ________________ al ________________"
-docx.p "   □ a tempo indeterminato dal _________________________________"
+if @repayment.italy
+  docx.p
+  docx.p " □ di essere dipendente pubblico"
+  docx.p "    Denominazione Ente di appartenenza _________________________________________"
+  docx.p "    C.F. Ente ___________________________________"
+  docx.p "   □ a tempo determinato dal ________________ al ________________"
+  docx.p "   □ a tempo indeterminato dal _________________________________"
+end
 
 docx.p
 docx.p do
@@ -33,19 +35,19 @@ docx.p "#{t :vat} ________________________"
 docx.p
 docx.p "IBAN / BANK ACCOUNT: #{field_or_underscores @repayment.iban}"
 docx.p
-docx.p "BIC/SWIFT: #{field_or_underscores @repayment.swift}"
+docx.p "BIC/SWIFT (For UE/Area Sepa and Extra-UE only): #{field_or_underscores @repayment.swift}"
 docx.p
 docx.p "ABA/ROUTING NUMBER (for Extra-UE only): #{field_or_underscores @repayment.aba}"
 docx.p
-docx.p "NOME DELLA BANCA: #{field_or_underscores @repayment.bank_name}"
+docx.p "NOME DELLA BANCA/NAME OF THE BANK (for Extra-UE only): #{field_or_underscores @repayment.bank_name}"
 docx.p
-docx.p "INDIRIZZO DELLA BANCA (for Extra-UE only): #{field_or_underscores @repayment.bank_address}"
+docx.p "INDIRIZZO DELLA BANCA/ADDRESS OF THE BANK (for Extra-UE only): #{field_or_underscores @repayment.bank_address}"
 docx.p
 
 if @repayment.speaker_arrival and @repayment.speaker_departure
-  docx.p "#{t :speaker_arrival}: #{I18n.l @repayment.speaker_arrival} #{t :arrival_from} __________________________________" 
+  docx.p "Arrivo del relatore a Bologna/Date of arrival at Bologna and Place of Departure: #{I18n.l @repayment.speaker_arrival} #{t :arrival_from} __________________________________" 
   docx.p
-  docx.p "#{t :speaker_departure}: #{I18n.l @repayment.speaker_departure} #{t :departure_to} __________________________________" 
+  docx.p "Partenza del relatore da Bologna/Date of leaving from Bologna and Place of Arrival: #{I18n.l @repayment.speaker_departure} #{t :departure_to} __________________________________" 
   docx.p
 end
 
@@ -146,7 +148,7 @@ docx.p
 docx.p "Progetto di ricerca/didattica, su cui grava la spesa: #{@repayment.fund}"
 docx.p "Titolare del Progetto: #{@repayment.holder}"
 docx.p
-docx.p "Il/La sottoscritto/a titolare del Progetto, dichiara che:"
+docx.p "Il/La sottoscritto/a, dichiara che:"
 docx.p
 docx.p "- Il destinatario a cui è stato conferito l’incarico non è componente del progetto di ricerca/didattica nell’ambito del quale è stata resa la prestazione e su cui grava la spesa;"
 docx.p "- L’iniziativa è stata attinente al progetto su menzionato, poiché essa ha trattato metodi, tecniche e problematiche direttamente connessi alle tematiche in esso sviluppate, e che la scelta del destinatario dell’incarico si è giustificata dalla riconosciuta qualifica di esperto scientifico della materia;"
