@@ -16,17 +16,19 @@
   </div>
 
   <%= s.input :on_line, as: :boolean %>  
+
   <div id="on_line_seminar" class="ml-3 my-3">
-    <%= s.input :meeting_visible %>  
+    <%# <%= s.input :meeting_visible %1> %>  
     <% if zm = @seminar.zoom_meeting %>  
       <%= render partial: 'zoom_infos', locals: { zoom_meeting: zm } %>  
     <% else %>
-      <%= s.input :zoom_meeting_create, as: :boolean %>  
       <div id="manual_seminar_div">
-        <p>Oppure inserisci:</p>
+        Istruzioni per collegarsi online:
         <%= s.input :meeting_url %>  
         <%= s.input :meeting_code %> 
+        Oppure è possibile far creare all'applicativo il seminario su Zoom.
       </div>
+      <%= s.input :zoom_meeting_create, as: :boolean %>  
       <div id="zoom_auto_div" class="font-weight-light font-italic" class="ml-3">
         <%= image_pack_tag 'ZoomLogo.png', width: 80 %> <br/>
         <span class="text-warning">Nota:</span> nella riunione creata automaticamente su zoom verrà abilitata l'opzione di sicurezza "sala di attesa" (waiting room).        
@@ -35,48 +37,10 @@
   </div>
 
   <%= s.input :speaker_on_line, as: :boolean %>
+
   <%= s.submit 'Salva', class: '' %> - <%= link_to_back root_path %>  
 <% end %>
 
 <%= javascript_tag do %>  
-  function toggle_div (boolean_div, first_div, second_div, with_listener = true) {
-    console.log(`toggle_div on ${boolean_div} with_listener=${with_listener}`);
-    check_input = document.querySelector(boolean_div);
-
-    if (first_div && document.querySelector(first_div)) {
-      document.querySelector(first_div).style.display  = check_input.checked ? 'block' : 'none';
-    }
-    if (second_div && document.querySelector(second_div)) {
-      document.querySelector(second_div).style.display = check_input.checked ? 'none' : 'block';
-    }
-
-    if (check_input && with_listener) {
-      console.log("addEventListener");
-      check_input.addEventListener('change', function() { 
-        toggle_div(boolean_div, first_div, second_div, false);
-      });
-    }
-  };
-
-  toggle_div("#seminar_on_line", "#on_line_seminar", null, true);
-  toggle_div("#seminar_in_presence", "#in_presence_seminar", null, true);
-  toggle_div("#seminar_zoom_meeting_create", "#zoom_auto_div", "#manual_seminar_div", true);
-
-  function description_field() {
-    console.log(`description_field`);
-    $("#seminar_place_id option:selected").each(function() {
-      if ($(this).val() == "2") {
-        $(".seminar_place_description").show('slow');
-      } else {
-        $(".seminar_place_description").hide('fast');
-      }
-    });
-  }
-
-  $(document).ready(function() {
-    description_field();
-    $("#seminar_place_id").change(function() {
-      description_field();
-    });
-  });
+  <%= render partial: 'seminars/helpers', formats: ['js'] %>  
 <% end %>
