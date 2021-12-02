@@ -62,6 +62,15 @@ it:
   the_referent: IL REFERENTE CONTRATTUALE / IL TITOLARE DEL FONDO
   the_director: IL DIRETTORE
   declaration_art_47: DICHIARAZIONE SOSTITUTIVA DI ATTO DI NOTORIETÀ ART 47 DPR 445/2000 (*)
+  bank_account_in_name: "il c/c deve essere intestato o cointestato al dichiarante"
+  name_of_bank: NOME DELLA BANCA
+  address_of_bank: INDIRIZZO DELLA BANCA
+  i_notify_country_change: "Il/la sottoscritto/a si impegna a comunicare tempestivamente all’Università di Bologna, agli stessi recapiti indicati per l’invio di questo modulo, l’eventuale trasferimento in altro Stato della residenza sopra indicata."
+  privacy_informed: "Il/la sottoscritto/a dichiara di essere stato informato sul trattamento dei suoi dati personali (ai sensi dell’art. 13 del Regolamento UE 2016/679)."
+  i_have_read_notes: "Il/la sottoscritto/a dichiara di aver letto le Note, che sono parte integrante della modulistica."
+  attach_id_document: "Importante: allegare sempre, alla presente dichiarazione sostitutiva, la copia di un documento di identità in corso di validità."
+  warning: Avvertenza
+
 
 en:
   i_declare: I undersigned, under penalties of perjury, hereby declare the following to be true
@@ -83,7 +92,6 @@ en:
   corporation: Corporation/company
   professional_begin_date: Start date
   professional_end_date: End date
-  bank_account_in_name: il c/c deve essere intestato o cointestato al dichiarante
 
   refund_title: BILL OF COSTS - COSTS CLAIM
   speaker_arrival: Speaker arrival
@@ -128,5 +136,13 @@ en:
   the_applicant: THE APPLICANT
   the_referent: THE CONTRACTUAL'S REFERENT
   the_director: THE DIRECTOR
-  declaration_art_47: DECLARATION UNDER DPR 445/2000, ART 47 (*)
+  declaration_art_47: "DECLARATION UNDER DPR 445/2000, ART 47 (*)"
   bank_account_in_name: the Bank Account must be in the name or joint name of the declarant
+  name_of_bank: NAME OF THE BANK
+  address_of_bank: ADDRESS OF THE BANK
+  i_notify_country_change: I shall promptly notify to the same office of the University of Bologna any change of residence to another Country
+  boh123: I, the undersigned, undertake to communicate promptly any declared data variation.
+  privacy_informed: "I declare to be informed about the processing of my personal data (pursuant to art. 13 of Regulation EU 2016/679)"
+  i_have_read_notes: I declare that I have read the notes, which are an integral part of the forms.
+  attach_id_document: "Important: always attach a copy of a valid identity document to this substitute declaration"
+  warning: Warning

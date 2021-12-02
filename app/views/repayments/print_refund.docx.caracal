@@ -18,8 +18,8 @@ if @repayment.italy
   docx.p " □ di essere dipendente pubblico"
   docx.p "    Denominazione Ente di appartenenza _________________________________________"
   docx.p "    C.F. Ente ___________________________________"
-  docx.p "   □ a tempo determinato dal ________________ al ________________"
-  docx.p "   □ a tempo indeterminato dal _________________________________"
+  docx.p "   □ a tempo determinato dal ____________________ al ____________________"
+  docx.p "   □ a tempo indeterminato dal ____________________"
 end
 
 docx.p
