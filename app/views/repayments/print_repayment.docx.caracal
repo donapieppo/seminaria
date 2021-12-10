@@ -45,6 +45,7 @@ unless true #  @repayment.italy
 end
 
 docx.p
+docx.p I18n.t(:i_notify_any_change)
 docx.p I18n.t(:i_notify_country_change)
 docx.p I18n.t(:privacy_informed)
 docx.p I18n.t(:i_have_read_notes)
@@ -63,7 +64,7 @@ docx.p "* " + I18n.t(:attach_id_document), align: :center
 
 
 
-if I18n.locale == "it"
+if I18n.locale == :it
   docx.p
   docx.p "NOTE", align: :center, bold: true
   docx.p "INFORMATIVA AI FINI DELLA PRIVACY", align: :center, bold: true
