@@ -1,5 +1,5 @@
 it:
-  i_declare: Il/la sottoscritto/a dichiaro sotto la mia personale responsabilità che i seguenti dati sono veritieri
+  i_declare: Il/la sottoscritto/a dichiara sotto la sua personale responsabilità che i seguenti dati sono veritieri
   born_in: nato/a a
   born_at: il
   tax_id: Codice Fiscale Italiano
@@ -66,10 +66,11 @@ it:
   name_of_bank: NOME DELLA BANCA
   address_of_bank: INDIRIZZO DELLA BANCA
   i_notify_country_change: "Il/la sottoscritto/a si impegna a comunicare tempestivamente all’Università di Bologna, agli stessi recapiti indicati per l’invio di questo modulo, l’eventuale trasferimento in altro Stato della residenza sopra indicata."
-  privacy_informed: "Il/la sottoscritto/a dichiara di essere stato informato sul trattamento dei suoi dati personali (ai sensi dell’art. 13 del Regolamento UE 2016/679)."
+  privacy_informed: "Il/la sottoscritto/a dichiara di essere stato/a informato/a sul trattamento dei suoi dati personali (ai sensi dell’art. 13 del Regolamento UE 2016/679)."
   i_have_read_notes: "Il/la sottoscritto/a dichiara di aver letto le Note, che sono parte integrante della modulistica."
   attach_id_document: "Importante: allegare sempre, alla presente dichiarazione sostitutiva, la copia di un documento di identità in corso di validità."
   warning: Avvertenza
+  i_notify_any_change: "Il/la sottoscritto/a si impegna a comunicare tempestivamente ogni eventuale variazione dei dati dichiarati."
 
 
 en:
@@ -141,7 +142,7 @@ en:
   name_of_bank: NAME OF THE BANK
   address_of_bank: ADDRESS OF THE BANK
   i_notify_country_change: I shall promptly notify to the same office of the University of Bologna any change of residence to another Country
-  boh123: I, the undersigned, undertake to communicate promptly any declared data variation.
+  i_notify_any_change: I, the undersigned, undertake to communicate promptly any declared data variation.
   privacy_informed: "I declare to be informed about the processing of my personal data (pursuant to art. 13 of Regulation EU 2016/679)"
   i_have_read_notes: I declare that I have read the notes, which are an integral part of the forms.
   attach_id_document: "Important: always attach a copy of a valid identity document to this substitute declaration"
