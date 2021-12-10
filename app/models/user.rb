@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_many :conferences
   has_many :repayments, foreign_key: :holder_id
   has_many :funds, foreign_key: 'holder_id'
-  has_many :registrations
+  # has_many :registrations
 
   def has_active_funds?
     self.funds.active.any?

@@ -11,7 +11,7 @@ class Seminar < ApplicationRecord
   has_one    :repayment, dependent: :destroy
   has_and_belongs_to_many :arguments
   has_one    :zoom_meeting
-  has_many   :registrations
+  # has_many   :registrations
 
   scope :future, -> { where('seminars.date > DATE_ADD(UTC_TIMESTAMP(), INTERVAL -2 hour)') }
   scope :past, -> { where('seminars.date <= DATE_ADD(UTC_TIMESTAMP(), INTERVAL -2 hour)') }
@@ -64,7 +64,7 @@ class Seminar < ApplicationRecord
   def on_line_to_s(visible: false)
     if self.on_line
       # if visible || (self.meeting_visible && ! self.meeting_url.blank?)
-      if self.meeting_visible && ! self.meeting_url.blank?
+      if self.meeting_url.blank?
         "on-line all'indirizzo: #{self.meeting_url}"
       else
         'on-line'
