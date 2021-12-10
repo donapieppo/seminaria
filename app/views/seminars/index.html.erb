@@ -1,13 +1,13 @@
-<h1><%= @title %></h1>
+<h1 class="title"><%= @title %></h1>
 
 <% if user_signed_in? %>
   <div class="home-filters">
     <% if params[:only_current_user] %>
-      <%= link_to dmicon('list', text: "prossimi seminari"), root_path, class: 'btn btn-outline-primary' %> 
+      <%= link_to dmicon('list', text: "prossimi seminari"), root_path, class: 'btn btn-outline-primary mt-1' %> 
     <% else %>
-      <%= link_to dmicon('list', text: "seminari inseriti da me"), user_seminars_path, class: 'btn btn-outline-primary' %> 
+      <%= link_to dmicon('list', text: "seminari inseriti da me"), user_seminars_path, class: 'btn btn-outline-primary mt-1' %> 
     <% end %>
-    <%= link_to dmicon('list', text: "seminari sui miei fondi"), funds_seminars_path, class: 'btn btn-outline-primary' %> 
+    <%= link_to dmicon('list', text: "seminari sui miei fondi"), funds_seminars_path, class: 'btn btn-outline-primary mt-1' %> 
   </div>
 <% end %>
 
