@@ -13,6 +13,12 @@
       <% end %>
     </div>
 
+    <% if repayment.object.seminar.speaker_on_line %>
+      <div class="alert alert-danger">
+        Al fine del pagamento l'organizzatore dovrà fornire l’elenco dei partecipanti.
+      </div>
+    <% end %>
+
     <div class="input">
       <label>Richiedo compenso</label>
       <input type="hidden" value="0" name="payment_bool">
