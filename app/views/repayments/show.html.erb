@@ -8,8 +8,8 @@
 </h1>
 
 <div>
-  in presenza: <%= @repayment.seminar.in_presence ? 'si' : 'no' %><br/>
-  on line: <%= @repayment.seminar.on_line ? 'si' : 'no' %><br/>
+  seminario in presenza: <%= @repayment.seminar.in_presence ? 'si' : 'no' %><br/>
+  seminario accessibile on line: <%= @repayment.seminar.on_line ? 'si' : 'no' %><br/>
   relatore non in presenza: <%= @repayment.seminar.speaker_on_line ? 'si' : 'no' %>  
 </div>
 
@@ -33,13 +33,14 @@
 
 <div style="text-align: center">
   <% if ! @repayment.notified and user_can_edit %>  
-    <% button_class = ok_to_send ? 'btn-success' : 'btn-primary disabled' %>  
+    <% button_class = ok_to_send ? 'btn-success' : 'btn-primary disabled' %>
     <% unless ok_to_send %>  
       <div class="alert alert-warning m-3">
         Per <strong>inviare la richiesta</strong> è necessario che tutti i campi siano compilati correttamente.
       </div>
     <% end %>
     <%= link_to 'invia richiesta', notify_repayment_path(@repayment), class: "btn btn-lg #{button_class}", method: :post %>
+    - <%= link_to 'torna al seminario', [:edit, @repayment.seminar] %>  
   <% end %>
   <% if ! user_can_edit %>  
     <div class="alert alert-info">Non è possibile modificare i dati relativi al rimborso / compenso.</div>
