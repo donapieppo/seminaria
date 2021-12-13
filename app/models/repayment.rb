@@ -23,7 +23,7 @@ class Repayment < ApplicationRecord
   ADAPT_NET_FOREIGN_VALUE = 1.42858142
 
   def payment_limits
-    if self.seminar.on_line && self.lordo_percipiente && self.lordo_percipiente > 200
+    if self.seminar.speaker_on_line && self.lordo_percipiente && self.lordo_percipiente > 200
       self.errors.add(:payment, 'il compenso massimo erogabile a conferenzieri per seminari on line è pari a 200 Euro lordo ente, corrispondenti a 184,33 Euro lordo percipiente (147,47 Euro netti per conferenzieri con residenza fiscale in Italia; 129,03 euro netti per conferenzieri con residenza fiscale estera)')
     elsif self.italy && self.lordo_percipiente && self.lordo_percipiente > 500
       self.errors.add(:payment, 'il compenso massimo erogabile a conferenzieri con residenza fiscale in Italia è pari a Euro 500 lordo percipiente (400 euro nette; 542,50 euro lordo ente)')
@@ -31,7 +31,7 @@ class Repayment < ApplicationRecord
   end
 
   def speaker_arrival_departure_validation
-    return true if self.seminar.on_line
+    return true if self.seminar.speaker_on_line
 
     return true unless (self.refund || self.payment)
 
