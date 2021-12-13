@@ -1,7 +1,7 @@
 <% seminar_repayment = @seminar.repayment %>  
 
 <%= dm_card title: big_dmicon('euro-sign', text: 'Richiesta di compenso e/o rimborso').html_safe do %>
-  <% if @seminar.on_line %>  
+  <% if @seminar.speaker_on_line %>  
     <div class="alert alert-danger">
       <%= dmicon('exclamation-circle') %> La richiesta per seminari che prevedono compenso per un <strong>relatore on-line</strong> dovrà 
       essere approvata dalla Giunta di Dipartimento.<br/> 
