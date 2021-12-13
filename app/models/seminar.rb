@@ -1,3 +1,4 @@
+# speaker_on_line e' in database
 class Seminar < ApplicationRecord
   include Calendar
 
