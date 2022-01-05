@@ -3,7 +3,7 @@
 <% if @too_late_for_repayment %>  
   <p class="alert alert-danger">
   Non è più possibile approvare la richiesta di compenso / rimborso.<br/>
-  <%= repayment_days_warning(@repayment) %> 
+  <%= repayment_days_warning(@repayment.seminar) %> 
   </p> 
 <% else %>
   <%= dm_form_for @repayment, url: update_fund_repayment_path(@repayment), method: :post, title: "Scelta del Fondo" do |repayment| %>  
