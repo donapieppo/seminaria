@@ -1,5 +1,6 @@
 /* NAVBAR */
 .dm-navbar {
+  font-size: 16px;
   @extend .navbar;
   @extend .navbar-expand-lg;
   @extend .navbar-light; // necessary for .navbar-dark .navbar-toggler-icon

@@ -1,6 +1,16 @@
 @import "variables";
 @import "dm";
 
+body {
+  color: #222;
+}
+h1 {
+  // font-family: georgia,serif;
+  padding: 20px 0;
+  font-size: 200%;
+  text-transform: uppercase;
+}
+
 div.home-filters {
   text-align: right;
 }

@@ -171,7 +171,7 @@ class SeminarsController < ApplicationController
     if params[:seminar][:date]
       params[:seminar][:date] = params[:seminar][:date] + " " + params[:seminar].delete('date(4i)') + ':' + params[:seminar].delete('date(5i)')
     end
-    p = [:date, :duration, :in_presence, :on_line, :meeting_url, :meeting_code, :meeting_visible, 
+    p = [:date, :duration, :in_presence, :on_line, :meeting_url, :meeting_code, # :meeting_visible, 
          :place_id, :place_description, :speaker_title, :speaker, :speaker_on_line, 
          :committee, { argument_ids: [] }, :title, :abstract, :file, :link, :link_text, 
          :serial_id, :cycle_id, :conference_id] # FIXME :serial_id, :cycle_id, :conference_id

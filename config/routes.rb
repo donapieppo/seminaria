@@ -29,7 +29,6 @@ Rails.application.routes.draw do
       post :submit_mail_text, on: :member
       resources :documents
       resources :repayments
-      resources :registrations
 
       # seminar_zoom_create  -> /:__org__/seminars/:seminar_id/zoom/create(.:format)
       get '/zoom/create', to: "zoom#create", as: :zoom_create
@@ -74,8 +73,6 @@ Rails.application.routes.draw do
         resources :id_cards
       end
     end
-
-    resources :registrations
 
     get '/', to: 'seminars#index', as: 'current_organization_root'
   end

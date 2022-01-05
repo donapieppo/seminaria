@@ -4,8 +4,8 @@
 
 <% @serials.each do |serial| %>  
   <div class="dm-card">
-    <div class="dm-card-title ">
-      <%= serial %>
+    <div class="dm-card-title">
+      <span style="font-size: 16px"><%= serial.to_s.upcase %></span>
       <%= "(serie conclusa)" unless serial.active %>
       <span class="float-right">
         <%= link_to(fwdmicon('plus', text: "nuovo seminario"), new_serial_seminar_path(serial)) if (user_signed_in? and serial.active) %>

@@ -1,10 +1,10 @@
 <%= dm_form_for @serial do |serial| %>  
   <%= serial.dm_error_notification %>  
   <fieldset>
+    <%= serial.input :active %> 
     <%= serial.input :title %>  
     <%= serial.input :committee %> 
     <%= serial.input :description %> 
-    <%= serial.input :active %> 
     <%= serial.input :link %>
     <%= serial.submit %>  
   </fieldset>

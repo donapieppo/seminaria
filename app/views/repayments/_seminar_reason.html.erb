@@ -12,7 +12,11 @@
     </div>
   <% end %>
   <% if user_can_edit %>  
-    <div><%= modal_link_to('Modifica', edit_repayment_path(repayment, what: :seminar_reason), addclass: :button) %></div>
+    <dl class="inline">
+      <dd>
+      <%= modal_link_to('Modifica', edit_repayment_path(repayment, what: :seminar_reason), addclass: :button) %>
+      </dd>
+    </dl>
   <% end %>
 <% end %>
 

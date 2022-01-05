@@ -1,15 +1,16 @@
 it:
-  i_declare: io sottoscritto/a dichiaro sotto la mia personale responsabilità che i seguenti dati sono veritieri
+  i_declare: Il/la sottoscritto/a dichiara sotto la sua personale responsabilità che i seguenti dati sono veritieri
   born_in: nato/a a
   born_at: il
   tax_id: Codice Fiscale Italiano
   resident_at: indirizzo di residenza
-  i_notify: Io sottoscritto mi impegno a comunicare tempestivamente ogni eventuale variazione dei dati dichiarati
+  i_notify: Il/la sottoscritto/a si impegna a comunicare tempestivamente ogni eventuale variazione dei dati dichiarati
   letter_date: Data
   letter_signature: Firma
   and_in_quality_of: e in qualità di 
   at: presso
   ask_payment: e chiede che il pagamento del compenso venga effettuato
+  ask_payment2: "Chiede che il pagamento venga effettuato mediante versamento su c/c bancario/bancoposta/carta prepagata con le seguenti coordinate:"
   declare: DICHIARA
   that_i_hold_no_position: di non svolgere incarichi e né di avere titolarità di cariche in enti di diritto privato regolati o finanziati dalla pubblica amministrazione o lo svolgimento di attività professionali;
   that_i_hold_position:    di svolgere incarichi e/o avere titolarità di cariche in enti di diritto privato regolati o finanziati dalla pubblica amministrazione e/o lo svolgimento di attività professionali. In tal caso specificare nell’apposita tabella di seguito riportata
@@ -26,10 +27,10 @@ it:
   description: descrizione
   required_import: Importo richiesto
   accepted_import: Importo ammesso al rimborso
-  vat: Partita IVA
+  vat: Partita IVA / VAT number
   owned_car: Auto propria
   extra_traqnsport: Dichiara di essersi avvalso di uno dei seguenti mezzi di trasporto straordinari
-  only_responsable: I declare that I am the only responsible for the use of the above means of trasport and discharge the University of Bologna from any liability
+  only_responsable: dichiaro di essere l'unico responsabile per l'uso dei mezzi di trasporto sopra selezionati e sollevo l'Università di Bologna da ogni responsabilità.
 
   travel_costs: Spese di viaggio
   taxi: Taxi
@@ -53,14 +54,24 @@ it:
   registrations: Iscrizione a convegni
   other: Altro (specificare)
   total_to_refund: Totale da rimborsare
-
-  i_attach: Il sottoscritto allega n°___________ giustificativi dei pagamenti effettuati ai fini del rimborso come sopradescritto
-  stamp: Appone una marca da bollo da euro 2 nel caso in cui il totale del rimborso richiesto si superiore ad euro 77,47
-  performance: Attività svolta 
+  i_attach: Il/la sottoscritto/a allega n°___________ giustificativi dei pagamenti effettuati ai fini del rimborso come sopradescritto.
+  stamp: Applicazione della marca da bollo da euro 2 nel caso in cui il totale del rimborso richiesto sia superiore ad euro 77,47
+  performance: "Attività svolta presso Unibo"
   it_certifies: Si attesta che le spese indicate sono inerenti e  necessarie allo svolgimento della prestazione oggetto dell'incarico
   the_applicant: IL RICHIEDENTE 
-  the_referent: IL REFERENTE CONTRATTUALE 
+  the_referent: IL REFERENTE CONTRATTUALE / IL TITOLARE DEL FONDO
   the_director: IL DIRETTORE
+  declaration_art_47: DICHIARAZIONE SOSTITUTIVA DI ATTO DI NOTORIETÀ ART 47 DPR 445/2000 (*)
+  bank_account_in_name: "il c/c deve essere intestato o cointestato al dichiarante"
+  name_of_bank: NOME DELLA BANCA
+  address_of_bank: INDIRIZZO DELLA BANCA
+  i_notify_country_change: "Il/la sottoscritto/a si impegna a comunicare tempestivamente all’Università di Bologna, agli stessi recapiti indicati per l’invio di questo modulo, l’eventuale trasferimento in altro Stato della residenza sopra indicata."
+  privacy_informed: "Il/la sottoscritto/a dichiara di essere stato/a informato/a sul trattamento dei suoi dati personali (ai sensi dell’art. 13 del Regolamento UE 2016/679)."
+  i_have_read_notes: "Il/la sottoscritto/a dichiara di aver letto le Note, che sono parte integrante della modulistica."
+  attach_id_document: "Importante: allegare sempre, alla presente dichiarazione sostitutiva, la copia di un documento di identità in corso di validità."
+  warning: Avvertenza
+  i_notify_any_change: "Il/la sottoscritto/a si impegna a comunicare tempestivamente ogni eventuale variazione dei dati dichiarati."
+
 
 en:
   i_declare: I undersigned, under penalties of perjury, hereby declare the following to be true
@@ -73,7 +84,8 @@ en:
   letter_signature: Signature
   and_in_quality_of: and in quality of 
   at: at
-  ask_payment: and asks the payment to the on the following bank account 
+  ask_payment: "and asks the payment to the on the following bank account:"
+  ask_payment2: "Please make payment to the following bank account:"
   declare: DECLARE
   that_i_hold_no_position: that I hold no position nor the entitlement to any position in a private corporation that is publicly controlled or financed, or work as a professional 
   that_i_hold_position:    that I hold a position and/or have the entitlement to a position in a private corporation that is publicly controlled or financed and/or work as a professional. In that case, indicate in the specific table shown below
@@ -125,5 +137,13 @@ en:
   the_applicant: THE APPLICANT
   the_referent: THE CONTRACTUAL'S REFERENT
   the_director: THE DIRECTOR
-
-
+  declaration_art_47: "DECLARATION UNDER DPR 445/2000, ART 47 (*)"
+  bank_account_in_name: the Bank Account must be in the name or joint name of the declarant
+  name_of_bank: NAME OF THE BANK
+  address_of_bank: ADDRESS OF THE BANK
+  i_notify_country_change: I shall promptly notify to the same office of the University of Bologna any change of residence to another Country
+  i_notify_any_change: I, the undersigned, undertake to communicate promptly any declared data variation.
+  privacy_informed: "I declare to be informed about the processing of my personal data (pursuant to art. 13 of Regulation EU 2016/679)"
+  i_have_read_notes: I declare that I have read the notes, which are an integral part of the forms.
+  attach_id_document: "Important: always attach a copy of a valid identity document to this substitute declaration"
+  warning: Warning

@@ -11,8 +11,8 @@ gem "prawn-table"
 gem "caracal"
 gem 'caracal-rails'
 
-gem 'roo'
-gem 'roo-xls'
+#gem 'roo'
+#gem 'roo-xls'
 
 gem 'mini_racer', '~> 0.4'
 

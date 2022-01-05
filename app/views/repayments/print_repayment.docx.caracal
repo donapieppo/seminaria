@@ -9,6 +9,7 @@ docx.p
 docx.p
 
 docx.p "DATI ANAGRAFICI E MODALITÀ DI PAGAMENTO", align: :center, bold: true
+docx.p I18n.t(:declaration_art_47), align: :center, bold: true
 docx.p
 docx.p
 docx.p I18n.t :i_declare
@@ -20,20 +21,35 @@ docx.p "  #{I18n.t :resident_at}: #{@repayment.address} – #{@repayment.postalc
 docx.p 
 docx.p "  #{I18n.t :and_in_quality_of} #{@repayment.position_to_s} #{I18n.t :at} #{@repayment.affiliation}"
 docx.p 
-docx.p "Chiede che il pagamento venga effettuato mediante versamento su c/c bancario/bancoposta/carta prepagata con le seguenti coordinate IBAN: #{field_or_underscores(@repayment.iban.to_s.upcase, size: 40)}"
-unless @repayment.bank_name.blank?
-  docx.p "Banca: #{@repayment.bank_name}, #{@repayment.bank_address}"
-end
+docx.p I18n.t :ask_payment2
+
 docx.p
-docx.p "AVVERTENZA:", align: :center
-docx.p "il c/c deve essere intestato o cointestato al dichiarante", align: :center
-unless @repayment.italy
+docx.p "IBAN/BANK ACCOUNT: #{field_or_underscores @repayment.iban}"
+docx.p
+docx.p "BIC/SWIFT (For UE/Area Sepa and Extra-UE only): #{field_or_underscores @repayment.swift}"
+docx.p
+docx.p "ABA/ROUTING NUMBER (for Extra-UE only): #{field_or_underscores @repayment.aba}"
+docx.p
+docx.p "#{I18n.t :name_of_bank} (for Extra-UE only): #{field_or_underscores @repayment.bank_name}"
+docx.p
+docx.p "#{I18n.t :address_of_bank} (for Extra-UE only): #{field_or_underscores @repayment.bank_address}"
+docx.p
+docx.p
+docx.p I18n.t(:warning).upcase, align: :center
+docx.p I18n.t(:bank_account_in_name), align: :center
+
+unless true #  @repayment.italy
   docx.p "AVVERTENZA: i titolari di c/c europei ed extra-europei devono indicare anche:", align: :center
   docx.p "BIC/SWIFT: #{@repayment.swift.to_s.upcase}"
   docx.p "ABA/ROUTING NUMBER: #{@repayment.aba.to_s.upcase}"
 end
+
 docx.p
-docx.p I18n.t :i_notify
+docx.p I18n.t(:i_notify_any_change)
+docx.p I18n.t(:i_notify_country_change)
+docx.p I18n.t(:privacy_informed)
+docx.p I18n.t(:i_have_read_notes)
+
 docx.p 
 docx.p 
 docx.p I18n.t(:letter_date) + ":  ___________"
@@ -43,7 +59,44 @@ docx.p
 docx.p
 docx.p 
 docx.p 
-docx.p "* Importante: allegare sempre, alla presente dichiarazione sostitutiva, la copia di un documento di identità in corso di validità.", align: :center
-docx.p
-docx.p "INFORMATIVA AI FINI DELLA PRIVACY", align: :center, bold: true
-docx.p "S’informa che, ai sensi del D.Lgs 196/2003 e D.Lgs. 101/2018 sulla tutela dei dati personali, i dati raccolti con la presente dichiarazione saranno trattati in modo lecito e secondo correttezza per le finalità connesse all’erogazione dei compensi nonché per gli adempimenti imposti dalla legge."
+docx.p "* " + I18n.t(:attach_id_document), align: :center
+
+
+
+
+if I18n.locale == :it
+  docx.p
+  docx.p "NOTE", align: :center, bold: true
+  docx.p "INFORMATIVA AI FINI DELLA PRIVACY", align: :center, bold: true
+
+  docx.p
+  docx.p "Ai sensi dell'art. 13 del Regolamento generale sulla protezione dei dati (Regolamento (UE) 2016/679 del Parlamento europeo e del Consiglio del 27 aprile 2016), si informano gli interessati che il trattamento dei dati personali da essi forniti o comunque acquisiti dall’Alma Mater Studiorum – Università di Bologna è finalizzato all’erogazione dei compensi e alla gestione delle relative operazioni e attività connesse."
+  docx.p "I dati saranno trattati da soggetti specificatamente autorizzati, con l'utilizzo di procedure anche informatizzate, nei modi e nei limiti necessari per perseguire le predette finalità, anche in caso di eventuale comunicazione a terzi. Il conferimento di tali dati è indispensabile per consentire l’erogazione dei compensi e l’eventuale rifiuto a fornirli può precludere tale attività."
+  docx.p "Agli interessati sono riconosciuti i diritti di cui agli artt. 15 e ss. del citato Regolamento 2016/679, in particolare, il diritto di accedere ai propri dati personali, di chiederne la rettifica, la cancellazione, la limitazione del trattamento, nonché di opporsi al loro trattamento e richiederne la portabilità, rivolgendo le richieste all’Alma Mater Studiorum – Università di Bologna all’indirizzo privacy@unibo.it."
+  docx.p "Gli interessati che ritengono che il trattamento dei dati personali a loro riferiti avvenga in violazione di quanto previsto dal Regolamento hanno il diritto di proporre reclamo al Garante, come previsto dall'art. 77 del Regolamento stesso, o di adire le opportune sedi giudiziarie (art. 79 del Regolamento)."
+  docx.p "Il titolare del trattamento dei dati è l’Alma Mater Studiorum – Università di Bologna (sede legale: via Zamboni n. 33, 40126 - Bologna, Italia; e-mail: privacy@unibo.it; PEC: scriviunibo@pec.unibo.it)."
+  docx.p "I dati di contatto del Responsabile della protezione dei dati personali sono: sede legale: via Zamboni n. 33, 40126 - Bologna, Italia; e-mail: dpo@unibo.it; PEC: scriviunibo@pec.unibo.it."
+  docx.p "Per maggiori informazioni si prega di consultare il sito www.unibo.it/privacy"
+
+  docx.p
+  docx.p "(*)  La dichiarazione sostitutiva è un atto importante che il dichiarante presenta assumendosi la responsabilità, anche penale, di quanto dichiara. Il modulo deve essere firmato dal beneficiario in presenza di un pubblico ufficiale impegnato nella ricezione della documentazione. Se la documentazione è inviata tramite posta o consegnata per mezzo di altri individui, autocertificazioni devono essere firmate dal beneficiario e accompagnate da una fotocopia di un documento di identità valido."
+
+else
+
+  docx.p
+  docx.p "NOTES", align: :center, bold: true
+  docx.p "Information on the processing of personal data", align: :center, bold: true
+
+  docx.p
+  docx.p "Pursuant to art. 13 of the General Data Protection Regulation (Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016), data subjects are informed that the processing of personal data provided by them or otherwise acquired by Alma Mater Studiorum - University of Bologna is aimed at the provision of salaries and managing the related operations and related activities."
+  docx.p "The data will be processed by persons who are authorised to process personal data, with the use of procedures also computerized, in the manner and within the limits necessary to pursue the aforementioned purposes, also in the case of possible communication to third parties. The provision of such data is essential to allow payment of salaries and any refusal to provide them may preclude such activity."
+  docx.p "Data subjects are granted the rights referred to in art. 15 and ss. of the aforementioned Regulation 2016/679, in particular, the right to access their personal data, to request their rectification or erasure, as well as to restrict the processing of their data, object to its processing and request its portability, by sending requests to the Alma Mater Studiorum - University of Bologna at privacy@unibo.it."
+  docx.p "Data subjects who believe that the processing of their personal data is in infringement of the provisions of Regulation have the right to lodge a complaint with the Italian data protection authority's (known as the \"Garante per la protezione dei dati personali\"), pursuant to Article 77of the Regulation (UE) 2016/679, or to refer to the appropriate courts (art. 79 of the Regulation)."
+  docx.p "The data controller is the Alma Mater Studiorum - University of Bologna (registered office: via Zamboni n.33, 40126 - Bologna, Italy; e-mail: privacy@unibo.it; Certified E-Mail: scriviunibo@pec.unibo.it)."
+  docx.p "The contact details of the Data Protection Officer are: registered office: via Zamboni n. 33, 40126 - Bologna, Italy; e-mail: dpo@unibo.it; Certified E-Mail: scriviunibo@pec.unibo.it."
+  docx.p "For more information, please visit the website www.unibo.it/privacy."
+
+  docx.p
+  docx.p "*)  By signing the Declaration above the beneficiary takes his/her own responsibility under penalties of perjury."
+  docx.p "The signature shall be made in the presence of the University staff entitled to receive the form. In case the documentation is sent by post mail or delivered by another person on behalf of the beneficiary, the declaration shall be signed by the beneficiary and a photocopy of a valid identity document (e.g. passport) shall be attached."
+end

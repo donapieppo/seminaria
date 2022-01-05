@@ -171,6 +171,7 @@ it:
       seminar:
         in_presence: Selezionare se è possibile seguire il seminario in presenza.
         on_line: Selezionare se è possibile seguire il seminario on line.
+        speaker_on_line: Selezionare se il relatore non sarà presente in aula ma collegato on-line. Informazione necessaria per seminari con rimborso/compenso.
         link: Altre informazioni sul seminario. Non usare per fornire il link del meeting in caso di seminari on-line. 
         meeting_url: Indirizzo della stanza di Zoom / Teams / Skype o altri servizi (è possibile anche inserirlo in seguito).
         meeting_code: Codice opzionale da condividere.
