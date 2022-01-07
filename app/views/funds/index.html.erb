@@ -22,7 +22,7 @@
           <%= modal_link_to fund.code, fund_path(fund), addclass: "btn btn-sm py-1 font-weight-bold #{fund.available ? 'btn-info' : 'btn-warning'}" %>  
           - <%= fund.name %>
           (<%= fund.category.name %>)
-          <span class="float-right">
+          <span class="float-end">
             <%= modal_link_to dmicon(:eye), fund_path(fund) %>  
             <%= link_to_edit edit_fund_path(fund) %>
             <%= link_to_delete fund_path(fund) %>
