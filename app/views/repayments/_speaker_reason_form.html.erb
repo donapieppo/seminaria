@@ -1,6 +1,6 @@
 <div class="dm-card">
   <div class="dm-card-title">
-    Scelta conferenziere <span class="float-right"><%= checked_icon(repayment_speaker_reason_ok?(repayment.object)) %></span>
+    Scelta conferenziere <span class="float-end"><%= checked_icon(repayment_speaker_reason_ok?(repayment.object)) %></span>
   </div>
   <div class="dm-card-body">
     <%= repayment.input :reason, input_html: {rows: 6} %>  
