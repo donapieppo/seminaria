@@ -1,21 +1,39 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-import "@hotwired/turbo-rails"
-import "controllers"
+// import "@hotwired/turbo-rails"
+// import "controllers"
 
-$(document).ready(function() {
-  // visible if checked
-  $.fn.visibility_from = function (bool_check){
-    var visible_element = this;
-    visible_element.toggle($(bool_check).is(':checked'));
-    $(bool_check).change(function(){
-      visible_element.toggle($(bool_check).is(':checked'));
+import * as bootstrap from "bootstrap"
+
+window.display_unless = function (txt, what, condition_input) {
+  what.style.display = (condition_input.value == txt) ? 'none' : 'block';
+  condition_input.addEventListener('change', () => {
+    console.log(condition_input.value);
+    what.style.display = (condition_input.value === txt) ? 'none' : 'block';
+  });
+}
+
+window.display_if = function (txt, what, condition_input) {
+  what.style.display = (condition_input.value == txt) ? 'block' : 'none';
+  condition_input.addEventListener('change', () => {
+    console.log(condition_input.value);
+    what.style.display = (condition_input.value === txt) ? 'block' : 'none';
+  });
+}
+
+window.display_if_checked = function (what, condition_input) {
+  what.style.display = (condition_input.checked) ? 'block' : 'none';
+  condition_input.addEventListener('change', () => {
+    console.log(condition_input.checked);
+    what.style.display = (condition_input.checked) ? 'block' : 'none';
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  document.querySelectorAll(".actions-button").forEach( (i) => {
+    i.addEventListener("click", function() {
+      y = i.nextElementSibling;
+      if (y.style.display === "none") { y.style.display = "block"; } else { y.style.display = "none"; }
     });
-    return visible_element;
-  }
-  $(".actions-button").click(function() {
-    $(this).next(".actions-popup").toggle();
   });
 });
 
-
-import * as bootstrap from "bootstrap"
