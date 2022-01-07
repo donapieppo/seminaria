@@ -12,8 +12,8 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_pack_tag 'application', media: 'all' %>
-    <%= javascript_pack_tag 'application' %>
+    <%= javascript_include_tag "application" %>
+    <%= stylesheet_link_tag "fa.all.min", "application" %>
   </head>
   <body>
     <% unless @no_menu %>  
