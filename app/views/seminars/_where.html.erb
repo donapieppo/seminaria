@@ -29,7 +29,7 @@
       </div>
       <%= s.input :zoom_meeting_create, as: :boolean %>  
       <div id="zoom_auto_div" class="font-weight-light font-italic" class="ml-3">
-        <%= image_pack_tag 'ZoomLogo.png', width: 80 %> <br/>
+        <%= image_tag 'ZoomLogo.png', width: 80 %> <br/>
         <span class="text-warning">Nota:</span> nella riunione creata automaticamente su zoom verrà abilitata l'opzione di sicurezza "sala di attesa" (waiting room).        
       </div>
     <% end %>
@@ -41,5 +41,5 @@
 <% end %>
 
 <%= javascript_tag do %>  
-  <%= render partial: 'seminars/helpers', formats: ['js'] %>  
+  <%= render partial: 'seminars/helpers', formats: [:js] %>  
 <% end %>
