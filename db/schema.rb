@@ -216,6 +216,7 @@ ActiveRecord::Schema.define(version: 2021_03_04_073352) do
     t.integer "serial_id"
     t.integer "cycle_id"
     t.integer "conference_id", unsigned: true
+    t.boolean "hidden"
     t.index ["conference_id"], name: "fk_seminars_conference"
     t.index ["cycle_id"], name: "index_seminars_on_cycle_id"
     t.index ["organization_id"], name: "fk_seminars_organization"
