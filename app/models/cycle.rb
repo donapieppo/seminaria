@@ -3,8 +3,6 @@ class Cycle < ApplicationRecord
   belongs_to :user
   has_many :seminars
 
-  scope :active, -> { where(active: 1) }
-
   validates :title, :committee, presence: true
 
   def to_s
