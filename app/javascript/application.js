@@ -4,6 +4,9 @@
 
 import * as bootstrap from "bootstrap"
 
+import Rails from "@rails/ujs"
+Rails.start()
+
 window.display_unless = function (txt, what, condition_input) {
   what.style.display = (condition_input.value == txt) ? 'none' : 'block';
   condition_input.addEventListener('change', () => {
