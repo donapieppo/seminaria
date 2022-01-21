@@ -1,0 +1,177 @@
+@import "variables";
+@import "dm";
+
+body {
+  color: #222;
+}
+div.home-filters {
+  text-align: right;
+}
+
+.seminar, .conference {
+   // box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+   // h-offset v-offset blur spread color
+  border: 1px solid #BFBFBF;
+  box-shadow: 6px 3px 3px #aaaaaa;
+  @extend .card;
+  @extend .my-3;
+  .today {
+    @extend .alert;
+    @extend .bg-warning;
+    font-weight: bold;
+    text-align: center;
+  }
+  .seminar-header {
+    @extend .card-header;
+    @extend .py-3;
+  }
+  .seminar-body {
+    @extend .card-body;
+    @extend .pb-1;
+  }
+  .seminar-footer {
+    @extend .card-body;
+    @extend .small;
+    @extend .text-muted;
+    @extend .pt-1;
+  }
+
+  .when {
+    text-align: center;
+    border-right: 2px solid rgb(30, 30, 30);
+    .day-and-month {
+      font-weight: 600; 
+      font-size: 24px; 
+      line-height: 20px;
+    }
+  }
+  .speaker {
+    // font-weight: bold;
+  }
+  .title {
+    @extend .my-1;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: black;
+  }
+  .notes {
+    @extend .small;
+    .abstract {
+      font-style: italic;
+      text-align: justify;
+    }
+  }
+  .hour-tag {
+    @extend .mt-3;
+  }
+  .where-tag {
+    @extend .mt-1;
+  }
+  .link-tag {
+    @extend .mt-1;
+    @extend .mb-3;
+  }
+}
+
+.actions-button {
+  cursor: pointer;
+}
+.can_update {
+  color: green;
+}
+.actions-popup {
+  background-color: #f9f9f9;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  position: absolute;
+  display: none;
+  z-index: 1;
+  width: 300px;
+  margin-left: -300px;
+  @extend .list-group;
+  a {
+    @extend .list-group-item;
+    @extend .list-group-item-action;
+    padding: 0.75rem;
+  }
+}
+
+dl.cycles {
+  dt {
+    margin-top: 10px
+  }
+  dd {
+    margin-left: 10px;
+  }
+}
+
+#seminar_hour {
+  width: 5em;
+}
+#seminar_minute {
+  width: 5em;
+}
+#seminar_duration {
+  width: 15em;
+}
+
+.seminar-small-info {
+  @extend .ps-3;
+  border-left: 3px solid rgb(0,255,255);
+}
+
+table.funds {
+  @extend .table;
+  @extend .table-striped;
+  @extend .table-sm;
+  @extend .table-bordered;
+  .unavailable {
+    text-decoration: line-through;
+  }
+}
+.modal-dialog {
+  width: 90%;
+  max-width: 1200px;
+}
+
+.repayment-show {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+  @extend .p-2;
+  @extend .my-2;
+}
+
+dl.inline {
+  display: grid;
+  grid-template-columns: 33% auto;
+  dt { grid-column-start: 1; margin-right: 10px; text-align: right;}
+  dd { grid-column-start: 2; }
+}
+
+.choose_type_body {
+  @extend .row;
+  text-align: center;
+
+  h2 {
+    @extend .my-2;
+  }
+
+  .choose_type_item {
+    @extend .col-md-8;
+    @extend .offset-md-2;
+    @extend .p-3;
+    @extend .my-2;
+    border: 1px solid #BFBFBF;
+    box-shadow: 3px 1px 1px #aaaaaa;
+  }
+}
+
+// fix bootstrap 5 
+
+.form-group {
+  margin-bottom: 0.75rem;
+}
+// .form-control {
+//   padding-top: 0.75rem;
+//   padding-bottom: 0.75rem;
+// }
