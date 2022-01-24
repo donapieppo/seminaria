@@ -22,7 +22,7 @@ class Seminar < ApplicationRecord
   before_save :manage_place_choice, :date_in_future
 
   validates :title, :speaker_title, :speaker, :date, presence: true
-  validates :meeting_url, format: { with: URI.regexp(['http', 'https']), allow_blank: true }
+  validates :meeting_url, :link, format: { with: URI.regexp(['http', 'https']), allow_blank: true }
 
   # place_id == 1 -> 'non definita'
   # place_id == 2 -> 'esterna' -> si puo' mettere descrizione
