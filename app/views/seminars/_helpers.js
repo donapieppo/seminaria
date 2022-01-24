@@ -25,7 +25,7 @@ function place_description_field() {
   console.log(`place_description_field`);
   place_id_selected = document.querySelector('#seminar_place_id').selectedIndex;
   console.log(place_id_selected);
-  document.querySelector(".seminar_place_description").style.display = (place_id_selected == 1) ? 'block' : 'none';
+  document.querySelector(".seminar_place_description").style.display = (place_id_selected == 1) ? 'flex' : 'none';
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
