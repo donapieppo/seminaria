@@ -3,48 +3,54 @@ function roundToTwo(num) {
 };
 
 function highlight_changes(what) {
-  $(what).addClass("alert-warning");
+  what.classList.add("alert-warning");
 }
 
-$(function(){
-  const irap = $("#payment_amount").data("irap");
-  const irpef_italian = $("#payment_amount").data("irpef-italian");
-  const irpef_foreign = $("#payment_amount").data("irpef-foreign");
-  const adapt_net_italian_value = $("#payment_amount").data("adapt-net-italian-value");
-  const adapt_net_foreign_value = $("#payment_amount").data("adapt-net-foreign-value");
-  const adapt_gross_value = $("#payment_amount").data("adapt-gross-value");
+const payment_dataset = document.getElementById("payment_amount").dataset;
 
-  $("#payment_amount").visibility_from("#payment_bool");
-  $("#refund_details").visibility_from("#refund_bool");
+const irap                    = parseFloat(payment_dataset.irap);
+const irpef_italian           = parseFloat(payment_dataset.irpefItalian);
+const irpef_foreign           = parseFloat(payment_dataset.irpefForeign);
+const adapt_net_italian_value = parseFloat(payment_dataset.adaptNetItalianValue);
+const adapt_net_foreign_value = parseFloat(payment_dataset.adaptNetForeignValue);
+const adapt_gross_value       = parseFloat(payment_dataset.adaptGrossValue);
 
-  function show_lordo_percipiente() {
-    italy   = $('#repayment_italy_true').is(':checked');
-    gross   = $("#repayment_gross_true").is(':checked'); 
-    payment = $("#repayment_payment").val() || 0;
+display_if_checked(document.getElementById("payment_amount"), document.getElementById("payment_bool"));
+display_if_checked(document.getElementById("refund_details"), document.getElementById("refund_bool"));
 
-    console.log("changed repayment[italy]: italy=" + italy + " as: " + typeof(italy));
+function show_lordo_percipiente() {
+  var italy   = document.getElementById("repayment_italy_true").checked;
+  var gross   = document.getElementById("repayment_gross_true").checked; 
+  var payment = document.getElementById("repayment_payment").value || 0;
+  console.log("payment: " + payment);
 
-    gross_result = 0;
-    net_result   = 0;
-    irpef        = italy ? irpef_italian : irpef_foreign; 
-    adapt_net    = italy ? adapt_net_italian_value : adapt_net_foreign_value;
+  gross_result = 0;
+  net_result   = 0;
+  irpef        = italy ? irpef_italian : irpef_foreign; 
+  adapt_net    = italy ? adapt_net_italian_value : adapt_net_foreign_value;
 
-    if (gross) {
-      gross_result = payment;
-      net_result   = payment * adapt_gross_value * (1 - irpef);  
-    } else {
-      net_result   = payment;
-      gross_result = payment * adapt_net * (1 + irap);
-    }
+  if (gross) {
+    gross_result = payment;
+    net_result   = payment * adapt_gross_value * (1 - irpef);  
+  } else {
+    console.log(payment);
+    console.log(adapt_net);
+    console.log(irap);
+    console.log(1.0 + irap);
+    net_result   = payment;
+    gross_result = payment * adapt_net * (1.0 + irap);
+    console.log(gross_result);
+  }
 
-    $("#payment_summary").html("-> <strong>Lordo ente:</strong> " + roundToTwo(gross_result) + " &euro;<br/>" +
-                               "-> <strong>Netto:</strong> "      + roundToTwo(net_result)   + " &euro;"); 
-  };
+  document.getElementById("payment_summary").innerHTML = "-> <strong>Lordo ente:</strong> " + roundToTwo(gross_result) + " &euro;<br/>" +
+    "-> <strong>Netto:</strong> "      + roundToTwo(net_result)   + " &euro;"; 
+};
 
-  show_lordo_percipiente();
+show_lordo_percipiente();
 
-  $("#repayment_payment, .repayment_gross, input[name='repayment[italy]']").change(function() { 
-    highlight_changes("#payment_summary");
+document.querySelectorAll("#repayment_payment, .repayment_gross, input[name='repayment[italy]']").forEach( (i) => {
+  i.addEventListener('change', (e) => { 
+    highlight_changes(document.getElementById("payment_summary"));
     show_lordo_percipiente(); 
   });
 });
