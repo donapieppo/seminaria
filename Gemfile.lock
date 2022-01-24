@@ -1,13 +1,7 @@
 GIT
-  remote: https://github.com/donapieppo/dm_unibo_user_search.git
-  revision: c1448ac2215785f12cd619fddfd045fe8f0bc7c0
-  specs:
-    dm_unibo_user_search (0.2.0)
-      rails
-      savon
-
-PATH
-  remote: /home/rails/gems/dm_unibo_common
+  remote: https://github.com/donapieppo/dm_unibo_common.git
+  revision: 62083acb9dc89d88548ca2859891dad20d827d16
+  branch: rails7
   specs:
     dm_unibo_common (5.0.0)
       image_processing
@@ -23,6 +17,14 @@ PATH
       rails (~> 7.0)
       simple_form
       sprockets-rails
+
+GIT
+  remote: https://github.com/donapieppo/dm_unibo_user_search.git
+  revision: c1448ac2215785f12cd619fddfd045fe8f0bc7c0
+  specs:
+    dm_unibo_user_search (0.2.0)
+      rails
+      savon
 
 GEM
   remote: https://rubygems.org/
