@@ -1,4 +1,4 @@
-<%= render @seminar %>  
+<%= render Seminar::SeminarComponent.new(@seminar, current_user) %>  
 
 <% if policy(@seminar).update? %>  
   <div class="row">
