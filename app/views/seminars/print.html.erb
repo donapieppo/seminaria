@@ -2,7 +2,7 @@
   Seminario del <%= @seminar.date.year %>  
 </p>
 
-<%= render @seminar %>  
+<%= render Seminar::SeminarComponent.new(@seminar, current_user) %>  
 
 <p class="centered">
   <%= link_to 'indietro', root_path %>  

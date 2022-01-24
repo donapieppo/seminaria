@@ -1,7 +1,5 @@
-<h1>
-  <small>Seminari periodici <%= current_organization.description.upcase %></small><br/>
-  <%= serial_image(@serial) %> <%= @serial %>
-</h1>
+<h2 class="text-center">Seminari periodici <%= current_organization.description.upcase %></h2>
+<h1><%= serial_image(@serial) %> <%= @serial %></h1>
 
 <div class="centered_action">
   <% unless @serial.link.blank? %>  
@@ -11,11 +9,11 @@
 </div>
 
 <% @seminars.each do |seminar| %>
-  <%= render seminar %>
+  <%= render Seminar::SeminarComponent.new(seminar, current_user) %>  
 <% end %>
 
 <h2 class="my-5 centered">Seminari passati</h2>
 
 <% @archive.each do |seminar| %>  
-  <%= render seminar, short: true %>
+  <%= render Seminar::SeminarComponent.new(seminar, current_user, short: true) %>  
 <% end %>

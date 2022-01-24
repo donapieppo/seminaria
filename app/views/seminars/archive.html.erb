@@ -10,6 +10,6 @@
 
 <% cache "archive_#{@year}" do %>
   <% @seminars.each do |seminar| %>  
-    <%= render seminar, short: true %>  
+    <%= render Seminar::SeminarComponent.new(seminar, current_user, short: true) %>  
   <% end %>
 <% end %>

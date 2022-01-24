@@ -25,7 +25,7 @@
 
 <h2>Elenco seminari</h2>
 <% @seminars.each do |seminar| %>  
-  <%= render seminar %>  
+  <%= render Seminar::SeminarComponent.new(seminar, current_user) %>  
 <% end %>
 
 
