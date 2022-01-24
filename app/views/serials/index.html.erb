@@ -5,23 +5,31 @@
 <% @serials.each do |serial| %>  
   <div class="dm-card">
     <div class="dm-card-title">
-      <span style="font-size: 16px"><%= serial.to_s.upcase %></span>
-      <%= "(serie conclusa)" unless serial.active %>
-      <span class="float-end">
-        <%= link_to(fwdmicon('plus', text: "nuovo seminario"), new_serial_seminar_path(serial)) if (user_signed_in? and serial.active) %>
-        <%= link_to(fwdmicon('home', text: 'pagina web ufficiale'), serial.link, target: "_blank") unless serial.link.blank? %> 
-        <%= link_to_edit('modifica', edit_serial_path(serial.id)) if policy(serial).edit? %>
+      <%= serial.to_s.upcase %> <%= "(serie conclusa)" unless serial.active %>
+      <span class="float-end"> 
+        <%= link_to(fwdmicon('home', text: 'pagina web ufficiale'), serial.link, target: "_blank") unless serial.link.blank? %>
       </span>
     </div><!-- title -->
-    <div class="dm-card-body">
-      <strong>Organizzazione:</strong> <%= serial.committee %>
-      <% if serial_ids_with_future_seminar.include?(serial.id) %>
-        <p class="alert alert-success my-3"><%= serial.seminars.future.count %> seminari ancora da svolgersi.</p>
-      <% end %>
-      <div class="mt-2 mx-3">
-        <%= link_to fwdmicon('list', text: 'elenco seminari'), serial_path(serial) %> 
-      </div>
 
+    <div class="dm-card-body">
+      <div>
+        <strong>Organizzazione:</strong> <%= serial.committee %> 
+      </div>
+      <% if serial_ids_with_future_seminar.include?(serial.id) %>
+        <p class="alert alert-success my-3">
+        <% n = serial.seminars.future.count %>  
+        <%= n %> seminari<%= (n > 1) ? '' : 'o' %> ancora da svolgersi.
+        </p>
+      <% end %>
+      <div class="mt-4 mx-2">
+        <%= link_to fwdmicon('list', text: ' elenco seminari'), serial_path(serial) %>
+      </div>
+      <% if current_user && serial.active %>  
+        <div class="mt-2 mx-2">
+          <%= link_to(fwdmicon('plus', text: " crea nuovo seminario"), new_serial_seminar_path(serial)) %>
+        </div>
+      <% end %>
+      <%= link_to_edit('modifica', edit_serial_path(serial.id)) if policy(serial).edit? %>
     </div><!-- body -->
   </div><!-- card -->
 <% end %>
@@ -30,7 +38,7 @@
   <p><%= link_to 'nuova serie', new_serial_path, class: :button %> </p>
 <% elsif user_signed_in? %>
   <p class="alert alert-info">
-    Per l'inserimento di una nuova serie occorre inviare una richiesta all'indirizzo <%= support_mail %>
+  Per l'inserimento di una nuova serie occorre inviare una richiesta all'indirizzo <%= support_mail %>
   </p>
 <% end %>
 
