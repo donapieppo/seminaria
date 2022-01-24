@@ -9,10 +9,12 @@ class SeminarsController < ApplicationController
     if params[:only_current_user] && current_user # see config/routes.rb
       @title = "Seminari inseriti da #{current_user.cn}"  
       @seminars = current_user.seminars.order('seminars.date DESC')
+      @show_hidden = true
     elsif params[:funds_current_user] && current_user
       @title = "Seminari sui miei fondi"
       @fund_ids = current_user.fund_ids
       @seminars = current_user.seminars_on_my_funds_last_year.order('seminars.date DESC')
+      @show_hidden = true
     elsif current_organization
       @title = "Prossimi seminari del #{current_organization.description}"
       @seminars = current_organization.seminars.order('seminars.date ASC').future
@@ -21,7 +23,9 @@ class SeminarsController < ApplicationController
       # redirect_to choose_organization_path and return
       redirect_to seminars_path(__org__: 'mat') and return
     end
-    @seminars = @seminars.includes([:documents, :arguments, :place, :zoom_meeting])
+    @seminars = @seminars.includes(:repayment, :serial, :cycle, :documents, :arguments, :place, :zoom_meeting)
+
+    @show_hidden = @show_hidden || user_is_manager?
 
     respond_to do |format|
       format.html

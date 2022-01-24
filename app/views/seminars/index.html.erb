@@ -12,16 +12,17 @@
 <% end %>
 
 <%# Only first seminar in conference %>
-<% conferences = [] %>
+<% done_conferences = [] %>
 <% @seminars.each do |seminar| %>  
+  <%= next if (seminar.hidden && ! @show_hidden) %>  
   <% if seminar.in_conference? %>  
-    <% unless conferences.include?(seminar.conference_id) %>  
+    <% unless done_conferences.include?(seminar.conference_id) %>  
       <%= render seminar.conference %>  
-      <% conferences << seminar.conference_id %>  
+      <% done_conferences << seminar.conference_id %>  
     <% end %>
     <% last_seminar_in_conference = seminar.id %>  
   <% else %>
-    <%= render seminar %>  
+    <%= render Seminar::SeminarComponent.new(seminar, current_user) %>  
   <% end %>
 <% end %>
 
