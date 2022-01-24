@@ -9,9 +9,9 @@
     <% if @can_update_fund %>
       <% repayment_class = (@seminar.repayment.fund ? 'fund_ok' : 'fund_missing') %>
       <div><%= link_to fwdmicon('euro-sign') + ' scelta del fondo', choose_fund_repayment_path(@seminar.repayment) %></div>
+    <% end %>
       <div><%= link_to fwdmicon('google', prefix: 'fab') + 'aggiungi a Google Calendar', @seminar.google_url(seminar_url(@seminar)), target: :new %></div>
       <div><%= link_to fwdmicon('calendar-plus') + 'aggiungi a iCal', seminar_url(@seminar, format: :ics) %></div>
-    <% end %>
   <% end %>
 
   <%= link_to fwdmicon('print') + ' pagina stampabile', print_seminar_path(@seminar) %>
