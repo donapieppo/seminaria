@@ -3,12 +3,12 @@ module Calendar
   Time::DATE_FORMATS[:google] = '%Y%m%dT%H%M%SZ'
 
   def calendar_start_date
-    self.date.to_formatted_s(:google)
+    self.date.utc.to_formatted_s(:google)
   end
 
   def calendar_end_date
     # FIXME: need duration, decide if required
-    (self.date + (self.duration ? self.duration.minutes : 60)).gmtime.to_formatted_s(:google)
+    (self.date + (self.duration ? self.duration.minutes : 60)).utc.to_formatted_s(:google)
   end
 
   # action(required)  This value is always TEMPLATE (all capitalized).  action=TEMPLATE
