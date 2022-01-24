@@ -8,34 +8,40 @@
 <%= dm_form_for @seminar, title: "È possibile seguire il seminario:" do |s| %>  
   <%= s.dm_error_notification %>  
 
-  <%= s.input :in_presence, as: :boolean %>
-  <div id="in_presence_seminar" class="my-3">
-    <%= s.association :place, collection: current_organization.places.all, include_blank: false %>
-    <%= s.input :place_description, input_html: { cols: 50, rows: 2 } %> 
+  <div class="my-4 border-bottom border-info">
+    <%= s.input :in_presence, as: :boolean, label: '' %>
+    <div id="in_presence_seminar" class="my-3">
+      <%= s.association :place, collection: current_organization.places.all, include_blank: false %>
+      <%= s.input :place_description, input_html: { cols: 50, rows: 2 } %> 
+    </div>
   </div>
 
-  <%= s.input :on_line, as: :boolean %>  
+  <div class="my-4 border-bottom border-info">
+    <%= s.input :on_line, as: :boolean, label: '' %>  
 
-  <div id="on_line_seminar" class="ml-3 my-3">
-    <%# <%= s.input :meeting_visible %1> %>  
-    <% if zm = @seminar.zoom_meeting %>  
-      <%= render partial: 'zoom_infos', locals: { zoom_meeting: zm } %>  
-    <% else %>
-      <div id="manual_seminar_div">
-        Istruzioni per collegarsi online:
-        <%= s.input :meeting_url %>  
-        <%= s.input :meeting_code %> 
-        Oppure è possibile far creare all'applicativo il seminario su Zoom.
-      </div>
-      <%= s.input :zoom_meeting_create, as: :boolean %>  
-      <div id="zoom_auto_div" class="font-weight-light font-italic" class="ml-3">
-        <%= image_tag 'ZoomLogo.png', width: 80 %> <br/>
-        <span class="text-warning">Nota:</span> nella riunione creata automaticamente su zoom verrà abilitata l'opzione di sicurezza "sala di attesa" (waiting room).        
-      </div>
-    <% end %>
+    <div id="on_line_seminar" class="ms-3 my-3">
+      <%# <%= s.input :meeting_visible %1> %>  
+      <% if zm = @seminar.zoom_meeting %>  
+        <%= render partial: 'zoom_infos', locals: { zoom_meeting: zm } %>  
+      <% else %>
+        <div id="manual_seminar_div">
+          Istruzioni per collegarsi online:
+          <%= s.input :meeting_url %>  
+          <%= s.input :meeting_code %> 
+          Oppure è possibile far creare all'applicativo il seminario su Zoom.
+        </div>
+        <%= s.input :zoom_meeting_create, as: :boolean, label: '' %>  
+        <div id="zoom_auto_div" class="font-weight-light font-italic ms-3">
+          <%= image_tag 'ZoomLogo.png', width: 80 %> <br/>
+          <span class="text-warning">Nota:</span> nella riunione creata automaticamente su zoom verrà abilitata l'opzione di sicurezza "sala di attesa" (waiting room).        
+        </div>
+      <% end %>
+    </div>
   </div>
 
-  <%= s.input :speaker_on_line, as: :boolean %>
+  <div class="my-4">
+    <%= s.input :speaker_on_line, as: :boolean, label: '' %>
+  </div>
 
   <%= s.submit 'Salva', class: '' %> - <%= link_to_back root_path %>  
 <% end %>
