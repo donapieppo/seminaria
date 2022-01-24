@@ -24,11 +24,13 @@ window.display_if = function (txt, what, condition_input) {
 }
 
 window.display_if_checked = function (what, condition_input) {
-  what.style.display = (condition_input.checked) ? 'block' : 'none';
-  condition_input.addEventListener('change', () => {
-    console.log(condition_input.checked);
+  if (what && condition_input) {
     what.style.display = (condition_input.checked) ? 'block' : 'none';
-  });
+    condition_input.addEventListener('change', () => {
+      console.log(condition_input.checked);
+      what.style.display = (condition_input.checked) ? 'block' : 'none';
+    });
+  }
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
