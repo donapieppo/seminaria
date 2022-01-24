@@ -14,9 +14,9 @@ module SeminarsHelper
     detail = (date < Time.now) ? date.year : I18n.l(date, format: :wday) # week day for future seminar or year if already done
 
     content_tag :div, class: 'date' do
-      "<i class='far fa-calendar my-2' style='font-size: 24px'></i><br/>".html_safe + 
-        "<span class='day-and-month'>#{h nday}<br/>#{h month}</span><br/>".html_safe +
-        "<span class='text-muted'>#{h detail}</span> <br/>".html_safe
+      "<i class='far fa-calendar my-2' style='font-size: 40px'></i><br/>".html_safe + 
+      "<span class='fw-bold'>#{h detail}</span> <br/>".html_safe +
+      "<span class='fw-bold'>#{h nday} #{h month}</span><br/>".html_safe 
     end
   end
 
@@ -90,33 +90,33 @@ module SeminarsHelper
     end
   end
 
-  def actions_tag(seminar)
-    _can_update_seminar = policy(seminar).update? 
-    _user_is_holder     = user_is_holder?(seminar)
-    capture do 
-      concat(content_tag(:span, dmicon(:bars, size: 26), class: "actions-button #{(_can_update_seminar or _user_is_holder) ? 'can_update' : ''}"))
+  # def actions_tag(seminar)
+  #   _can_update_seminar = policy(seminar).update? 
+  #   _user_is_holder     = user_is_holder?(seminar)
+  #   capture do 
+  #     concat(content_tag(:span, dmicon(:bars, size: 26), class: "actions-button #{(_can_update_seminar or _user_is_holder) ? 'can_update' : ''}"))
 
-      concat(content_tag(:div, class: 'actions-popup') do 
-        if ! seminar.past? 
-          if _can_update_seminar
-            concat( link_to(fwdmicon('edit') + ' modifica<br/>'.html_safe, edit_seminar_path(seminar) ))
-          end
-          if _user_is_holder
-            repayment_class = (seminar.repayment.fund ? 'fund_ok' : 'fund_missing') 
-            concat( link_to(fwdmicon('euro-sign') + ' scelta del fondo<br/>'.html_safe, choose_fund_repayment_path(seminar.repayment)) )
-          end 
-          concat ( link_to(fwdmicon('google', prefix: 'fab') + 'aggiungi a Google Calendar<br/>'.html_safe, seminar.google_url(seminar_url(seminar)), target: :new) )
-          concat ( link_to(fwdmicon('calendar-plus') + 'aggiungi a iCal<br/>'.html_safe, seminar_url(seminar, format: :ics)) )
-        end 
+  #     concat(content_tag(:div, class: 'actions-popup', style: 'display: none') do 
+  #       if ! seminar.past? 
+  #         if _can_update_seminar
+  #           concat( link_to(fwdmicon('edit') + ' modifica<br/>'.html_safe, edit_seminar_path(seminar) ))
+  #         end
+  #         if _user_is_holder
+  #           repayment_class = (seminar.repayment.fund ? 'fund_ok' : 'fund_missing') 
+  #           concat( link_to(fwdmicon('euro-sign') + ' scelta del fondo<br/>'.html_safe, choose_fund_repayment_path(seminar.repayment)) )
+  #         end 
+  #         concat ( link_to(fwdmicon('google', prefix: 'fab') + 'aggiungi a Google Calendar<br/>'.html_safe, seminar.google_url(seminar_url(seminar)), target: :new) )
+  #         concat ( link_to(fwdmicon('calendar-plus') + 'aggiungi a iCal<br/>'.html_safe, seminar_url(seminar, format: :ics)) )
+  #       end 
 
-        concat( link_to(fwdmicon('print') + ' pagina stampabile<br/>'.html_safe, print_seminar_path(seminar)) )
+  #       concat( link_to(fwdmicon('print') + ' pagina stampabile<br/>'.html_safe, print_seminar_path(seminar)) )
 
-        if policy(seminar).destroy?
-          concat( '<br/>'.html_safe + link_to_delete('elimina', seminar_path(seminar)) )
-        end 
-      end)
-    end
-  end
+  #       if policy(seminar).destroy?
+  #         concat( '<br/>'.html_safe + link_to_delete('elimina', seminar_path(seminar)) )
+  #       end 
+  #     end)
+  #   end
+  # end
 
   def arguments_tag(seminar)
     a = seminar.arguments
