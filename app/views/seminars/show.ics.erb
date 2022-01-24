@@ -3,7 +3,7 @@ VERSION:2.0
 PRODID:-//Dipartimento Matematica Bologna/seminari//NONSGML v0.1//EN
 BEGIN:VEVENT
 UID:<%= @seminar.id %>-<%= @seminar.date.to_i %>@dm.unibo.it
-DTSTAMP:<%= Time.now.gmtime.to_s(:google) %> 
+DTSTAMP:<%= Time.now.gmtime.to_formatted_s(:google) %> 
 ORGANIZER;CN=Dipartimento:MAILTO:dipmat-supportoweb@unibo.it
 DTSTART:<%= @seminar.calendar_start_date %>
 DTEND:<%= @seminar.calendar_end_date %>
