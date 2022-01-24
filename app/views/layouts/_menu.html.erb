@@ -10,14 +10,14 @@
       <li><%= link_to big_dmicon('archive', text: 'Archivio'), main_app.archive_seminars_path %></li>
       <% if current_organization && policy(current_organization).manage? %>  
         <%= dropdown_menu :amm, big_dmicon('cogs', text: ' Amm.') do  %>
-          <%= link_to fwdmicon('euro-sign', text: 'Compensi'), main_app.repayments_path %>
-          <%= link_to fwdmicon('wallet', text: 'Fondi'), main_app.funds_path %>
-          <div class="dropdown-divider"></div>
-          <%= link_to fwdmicon('map-marker', text: 'Luoghi'), main_app.places_path %>
-          <%= link_to fwdmicon('comment', text: 'Topics'), main_app.arguments_path %>
+          <li><%= link_to fwdmicon('euro-sign', text: 'Compensi'), main_app.repayments_path %></li>
+          <li><%= link_to fwdmicon('wallet', text: 'Fondi'), main_app.funds_path %></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><%= link_to fwdmicon('map-marker', text: 'Luoghi'), main_app.places_path %></li>
+          <li><%= link_to fwdmicon('comment', text: 'Topics'), main_app.arguments_path %></li>
           <% if current_user_cesia? %>  
-            <div class="dropdown-divider"></div>
-            <%= link_to fwdmicon('users', text: 'Auths'), dm_unibo_common.permissions_path %>
+            <li><hr class="dropdown-divider"></li>
+            <li><%= link_to fwdmicon('users', text: 'Auths'), dm_unibo_common.permissions_path %></li>
           <% end %>
         <% end %>
       <% elsif policy(current_organization).read? %>
