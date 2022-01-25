@@ -10,7 +10,7 @@
   <% end %>
 </div>
 
-<div class="accordion" id="fundAccordion">
+<div class="accordion my-4" id="fundAccordion">
   <% @holders.each do |holder, funds| %>
     <div class="accordion-item">
       <h2 class="accordion-header" id="holder<%= holder.id %>">
@@ -23,7 +23,7 @@
           <ul class="list-group list-group-flush">
             <% funds.each do |fund| %>  
               <li class="list-group-item list-group-item <%= "bg-light text-warning" unless fund.available %>">
-                <%= modal_link_to fund.code, fund_path(fund), addclass: "btn btn-sm py-1 font-weight-bold #{fund.available ? 'btn-info' : 'btn-warning'}" %>  
+                <%= modal_link_to fund.code, fund_path(fund), addclass: "btn btn-sm font-weight-bold #{fund.available ? 'btn-info' : 'btn-warning'}" %>  
                 - <%= fund.name %>
                 (<%= fund.category.name %>)
                 <span class="float-end">
