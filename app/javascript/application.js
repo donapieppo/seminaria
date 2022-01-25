@@ -33,12 +33,27 @@ window.display_if_checked = function (what, condition_input) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll(".actions-button").forEach( (i) => {
     i.addEventListener("click", function() {
       y = i.nextElementSibling;
       if (y.style.display === "none") { y.style.display = "block"; } else { y.style.display = "none"; }
     });
   });
-});
 
+  const mainModal = new bootstrap.Modal(document.getElementById('mainModal'), {});
+
+  document.querySelectorAll(".modal-link").forEach( (i) => {
+    i.addEventListener("click", function(e) {
+      e.preventDefault();
+      const url = i.href;
+      const separator = url.indexOf('?') > -1 ? '&' : '?';
+      fetch(url + separator + "modal=yyy").then( (response) => {
+        return response.text();
+      }).then ( (txt) => {
+        document.querySelector('#mainModal .modal-body').innerHTML = txt;
+      });
+      mainModal.show();
+    });
+  });
+});
