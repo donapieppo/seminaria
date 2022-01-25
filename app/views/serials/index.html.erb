@@ -26,10 +26,14 @@
       </div>
       <% if current_user && serial.active %>  
         <div class="mt-2 mx-2">
-          <%= link_to(fwdmicon('plus-circle', text: " crea nuovo seminario"), new_serial_seminar_path(serial)) %>
+          <%= link_to fwdmicon('plus-circle', text: " crea nuovo seminario"), new_serial_seminar_path(serial) %>
         </div>
       <% end %>
-      <%= link_to_edit('modifica', edit_serial_path(serial.id)) if policy(serial).edit? %>
+      <% if policy(serial).edit? %>  
+        <div class="mt-2 mx-2">
+          <%= link_to_edit 'modifica', edit_serial_path(serial.id) %>
+        </div>
+      <% end %>
     </div><!-- body -->
   </div><!-- card -->
 <% end %>
