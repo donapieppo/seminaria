@@ -25,7 +25,7 @@ class ConferencesController < ApplicationController
     authorize @conference
 
     if @conference.save
-      redirect_to new_conference_seminar_path(@conference), notice: "Il ciclo di seminari è stato creato correttamente."
+      redirect_to new_conference_seminar_path(@conference), notice: "Il convegno è stato creato correttamente."
     else
       render action: :new
     end
@@ -36,7 +36,7 @@ class ConferencesController < ApplicationController
 
   def update
     if @conference.update(conference_params)
-      redirect_to choose_type_seminars_path, notice: "Il ciclo di seminari è stato aggiornato."
+      redirect_to choose_type_seminars_path, notice: "Il convegno è stato aggiornatocorrettamente."
     else
       render action: :edit
     end
