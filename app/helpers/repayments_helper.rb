@@ -14,7 +14,7 @@ module RepaymentsHelper
   end
 
   def repayment_header(docx)
-    logopath = "#{Rails.root}/app/javascript/images/sigillo1.png"
+    logopath = "#{Rails.root}/app/assets/images/sigillo1.png"
     docx.img logopath do
       width  50
       height 50
