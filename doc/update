@@ -1,0 +1,7 @@
+#!/bin/bash
+
+dm_unibo_common_sty_path=$(./bin/rails runner "print File.join(Gem::Specification.find_by_name('dm_unibo_common').gem_dir, 'app', 'assets', 'stylesheets', 'dm_unibo_common')")
+
+echo $dm_unibo_common_sty_path
+
+sed -e "s#_DM_UNIBO_COMMON_STYLESHEET_PATH_#${dm_unibo_common_sty_path}#" package.json.proto > package.json
