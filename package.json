@@ -9,7 +9,7 @@
     "sass": "^1.46.0"
   },
   "scripts": {
-    "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules --load-path=/home/dona/.gem/ruby/3.0.3/bundler/gems/dm_unibo_common-b88bff3f5996/app/assets/stylesheets/dm_unibo_common",
+    "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules --load-path=/var/lib/rails/.gem/ruby/3.0.2/bundler/gems/dm_unibo_common-c5fe9188107d/app/assets/stylesheets/dm_unibo_common",
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds"
   }
 }

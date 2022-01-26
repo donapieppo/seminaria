@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/donapieppo/dm_unibo_common.git
-  revision: b88bff3f599656225d7a6d1cb5b78557443cae08
+  revision: c5fe9188107d4afd4a47fdfaef64b490b705f270
   branch: rails7
   specs:
     dm_unibo_common (5.0.0)
@@ -395,4 +395,4 @@ DEPENDENCIES
   webdrivers
 
 BUNDLED WITH
-   2.2.32
+   2.3.5
