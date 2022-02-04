@@ -118,7 +118,7 @@ class SeminarsController < ApplicationController
     if @seminar.update(seminar_params)
       if create_zoom == "1"
         @zoom = ZoomOauth.new
-        redirect_to @zoom.authorize_url(@seminar.id)
+        redirect_to @zoom.authorize_url(@seminar.id), allow_other_host: true
       else
         redirect_to edit_seminar_path(@seminar), notice: "Il seminario è stato aggiornato."
       end
