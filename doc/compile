@@ -5,3 +5,6 @@ dm_unibo_common_sty_path=$(./bin/rails runner "print File.join(Gem::Specificatio
 echo $dm_unibo_common_sty_path
 
 sed -e "s#_DM_UNIBO_COMMON_STYLESHEET_PATH_#${dm_unibo_common_sty_path}#" package.json.proto > package.json
+
+RAILS_ENV=production RAILS_RELATIVE_URL_ROOT="/seminari" ./bin/rails assets:precompile
+
