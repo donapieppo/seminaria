@@ -22,7 +22,7 @@ docx.p @repayment.reason, style: 'indent', italic: true
 
 docx.p
 
-unless @repayment.seminar.in_presence
+if @repayment.seminar.speaker_on_line
   docx.p do
     text "Descrizione dettagliata: ", bold: true
     text @repayment.activity_details, style: 'indent', italic: true
@@ -47,7 +47,7 @@ docx.p do
   text repayment.italy ? 'Italia' : 'Estero'
 end
 
-if repayment.seminar.in_presence
+unless repayment.seminar.speaker_on_line
   docx.p do 
     text "Arrivo a Bologna: ", bold: true
     text "#{I18n.l(repayment.speaker_arrival) if repayment.speaker_arrival}"
