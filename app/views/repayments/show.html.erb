@@ -12,7 +12,11 @@
   Richiedente: <%= @repayment.seminar.user.to_s %><br/>
   Seminario in presenza: <%= @repayment.seminar.in_presence ? 'si' : 'no' %><br/>
   Seminario accessibile on line: <%= @repayment.seminar.on_line ? 'si' : 'no' %><br/>
-  Relatore non in presenza: <%= @repayment.seminar.speaker_on_line ? 'si' : 'no' %>  
+  <% if @repayment.seminar.speaker_on_line %>  
+    <span class="text-danger"><i class="fas fa-exclamation-circle"></i> Relatore non in presenza</span>
+  <% else %>
+     Relatore in presenza
+   <% end %>
 </div>
 
 <%= render partial: 'print_operations', locals: { repayment: @repayment, ok_to_send: ok_to_send } %>  
