@@ -1,13 +1,12 @@
 <% user_can_edit = policy(@repayment).edit? %>  
 <% ok_to_send    = repayment_all_ok_to_send?(@repayment) %>  
 
-<h1>Richiesta di rimborso / compenso <br/>
-  <small>
-    seminario di <%= @repayment.seminar.speaker %> 
-  </small>
-</h1>
+<h1>Richiesta di rimborso / compenso</h1>
 
 <div class="text-muted">
+  <%= link_to @repayment.seminar do %>  
+    <h2>Seminario di <%= @repayment.seminar.speaker %> </h2>
+  <% end %>
   Data: <%= l @repayment.seminar.date %><br/>
   Richiedente: <%= @repayment.seminar.user.to_s %><br/>
   Seminario in presenza: <%= @repayment.seminar.in_presence ? 'si' : 'no' %><br/>
