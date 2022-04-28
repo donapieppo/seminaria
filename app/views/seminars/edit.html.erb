@@ -20,3 +20,9 @@
     </div>
   </div>
 <% end %>
+
+<% if policy(@seminar).destroy? %>
+  <div class="text-end">
+    <div class="btn btn-danger my-4"><%= link_to_delete 'elimina', seminar_path(@seminar) %></div>
+  </div>
+<% end %>
