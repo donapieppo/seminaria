@@ -7,7 +7,7 @@
     <%= clock_tag(conference.start_date) %>  
     <div class="row">
       <div class="when col-md-2">
-        <%= day_tag conference.start_date %>  
+        <%= render DayTagComponent.new(conference) %>  
       </div> <!-- when -->
 
       <div class="col">
@@ -19,9 +19,9 @@
           <div><%= link_to conference.title, conference %></div>
           <div class="small"><%= conference.start_date %>  - <%= conference.end_date %>  </div>
         </div>
-      </div><!-- what -->
-    </div> <!-- row -->
-  </div> <!-- header -->
+      </div>
+    </div> 
+  </div> 
 
   <div class="seminar-body">
     <div class="abstract">
