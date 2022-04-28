@@ -1,20 +1,19 @@
-FROM ruby:2.6
+FROM ruby:3.1
 MAINTAINER Donapieppo <donapieppo@yahoo.it>
 
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update \
-    && apt-get install -y -y --no-install-recommends mysql-client libmariadbclient18 git apt-transport-https vim locales
+    && apt-get install -yq --no-install-recommends build-essential gnupg2 curl git vim locales \
+    && apt-get clean 
 
-RUN echo 'deb https://deb.nodesource.com/node_10.x stretch main' > /etc/apt/sources.list.d/nodesource.list
-RUN echo 'deb https://dl.yarnpkg.com/debian/ stable main' > /etc/apt/sources.list.d/yarn.list
-
-RUN curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
 
 RUN apt-get update \
-    && apt-get install nodejs yarn \
-    && rm -rf /var/lib/apt/lists/*
+    && apt-get install -yq nodejs \
+    && apt-get clean
+ 
+RUN npm install -g yarn
 
 WORKDIR /usr/src/app
 COPY Gemfile* ./
@@ -26,13 +25,3 @@ RUN ["/bin/cp", "doc/docker_database.yml",        "config/database.yml"]
 RUN ["/bin/cp", "doc/dm_unibo_common_docker.yml", "config/dm_unibo_common.yml"]
 RUN ["/bin/cp", "doc/seminaria_example.rb",       "config/initializers/seminaria.rb"]
 RUN ["/bin/cp", "doc/docker_seeds.rb",            "db/seeds.rb"]
-
-# old without docker compose
-# db
-#RUN ["rake", "db:create"]
-#RUN ["rake", "db:schema:load"]
-#EXPOSE 3000
-#CMD ["rails", "server", "-b", "0.0.0.0"]
-
-
-
