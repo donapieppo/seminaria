@@ -8,18 +8,6 @@ module SeminarsHelper
     res
   end
 
-  def day_tag(date, short: false)
-    month  = I18n.l(date, format: :month)
-    nday   = I18n.l(date, format: :nday)
-    detail = (date < Time.now) ? date.year : I18n.l(date, format: :wday) # week day for future seminar or year if already done
-
-    content_tag :div, class: 'date' do
-      "<i class='far fa-calendar my-2' style='font-size: 40px'></i><br/>".html_safe + 
-      "<span class='fw-bold'>#{h detail}</span> <br/>".html_safe +
-      "<span class='fw-bold'>#{h nday} #{h month}</span><br/>".html_safe 
-    end
-  end
-
   def hour_tag(seminar, short: false)
     return '' if seminar.conference_id
     content_tag :div, class: "hour-tag" do
