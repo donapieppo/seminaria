@@ -6,7 +6,7 @@
     <%= clock_tag(@seminar.date) %>  
     <div class="row">
       <div class="when col-md-2">
-        <%= day_tag @seminar.date %>  
+        <%= render DayTagComponent.new(@seminar) %>  
       </div> <!-- when -->
 
       <div class="col ps-lg-4">

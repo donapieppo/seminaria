@@ -1,0 +1,15 @@
+<div class="date">
+  <i class='far fa-calendar my-2' style='font-size: 40px'></i><br/>
+  <span class='fw-bold'><%= @detail %></span> <br/>
+  <% if @conference %>  
+    <span class='fw-bold'>
+      <% if @conference.start_date == @conference.end_date %>  
+        <%= @conference.start_date %>
+      <% else %>
+        <%= l @conference.start_date %><br/><%= l @conference.end_date %>
+      <% end %>
+    </span>
+  <% else %>
+    <span class='fw-bold'><%= @nday %> <%= @month %></span>
+  <% end %>
+</div>

@@ -1,0 +1,21 @@
+<div class="seminar-small-info">
+  <div>
+    SEMINARIO DEL <%= @seminar.organization.description.upcase %> - <%= l @seminar.date %> 
+  </div>
+  <%= @seminar.speaker %> - <%= @seminar.title %><br/>
+  <%= t :organized_by %> <%= @seminar.committee %><br/>
+  <%= @seminar.project %>  
+
+  <% if @with_repayment %>  
+    <div class="m-2">
+      Residenza fiscale: <%= @repayment.italy ? 'Italia' : 'Estero' %><br/>
+      Compenso lordo percipiente: <%= euro @repayment.lordo_percipiente %><br/>
+      Compenso netto percipiente: <%= euro @repayment.netto_percipiente %><br/>
+      Compenso lordo ente: <%= euro @repayment.lordo_ente %><br/>
+      <% if @repayment.refund %>  
+        Rimborsi: 
+        <%= t :expected_refund %> <%= euro @repayment.expected_refund %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

@@ -14,9 +14,6 @@
       <div><%= link_to fwdmicon('calendar-plus') + 'aggiungi a iCal', seminar_url(@seminar, format: :ics) %></div>
   <% end %>
 
-  <%= link_to fwdmicon('print') + ' pagina stampabile', print_seminar_path(@seminar) %>
+  <div><%= link_to fwdmicon('print') + ' pagina stampabile', print_seminar_path(@seminar) %></div>
 
-  <% if @can_destroy_seminar %>
-    <div><%= link_to_delete 'elimina', seminar_path(@seminar) %></div>
-  <% end %>
 </div>
