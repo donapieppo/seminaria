@@ -67,9 +67,9 @@ class Seminar < ApplicationRecord
     if self.on_line
       # if visible || (self.meeting_visible && ! self.meeting_url.blank?)
       if self.meeting_url.blank?
-        "on-line all'indirizzo: #{self.meeting_url}"
-      else
         'on-line'
+      else
+        "on-line all'indirizzo: #{self.meeting_url}"
       end
     else
       ''
