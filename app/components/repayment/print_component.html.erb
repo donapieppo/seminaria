@@ -1,0 +1,27 @@
+<div style="text-align: right">
+  <% if @ok_to_send && @repayment.fund_id %>  
+    <div class="my-2">
+      <%= link_to dmicon('print', text: 'richiesta'),                    print_request_repayment_path(@repayment, format: :docx),   class: 'btn btn-sm btn-outline-primary' %> -
+      <%= link_to dmicon('print', text: 'lettera di incarico'),          print_letter_repayment_path(@repayment, format: :docx),   class: 'btn btn-sm btn-outline-primary' %> -
+      <%= link_to dmicon('print', text: 'decreto'),                      print_decree_repayment_path(@repayment, format: :docx),   class: 'btn btn-sm btn-outline-primary' %> - 
+      <%= link_to dmicon('print', text: 'proposta compenso / rimborso'), print_proposal_repayment_path(@repayment, format: :docx), class: 'btn btn-sm btn-outline-primary' %>  
+      <%= link_to dmicon('print', text: 'regolare esecuzione'), print_regularity_repayment_path(@repayment, format: :docx), class: 'btn btn-sm btn-outline-primary' %>  
+    </div>
+    <div>
+      <% if @repayment.payment %>
+        <%= link_to dmicon('print', text: 'modulo pagamento'),  print_repayment_repayment_path(@repayment, format: :docx), class: 'btn btn-sm btn-outline-primary' %> - 
+      <% end %>
+      <% if @repayment.refund %>  
+        <%= link_to dmicon('print', text: 'modulo nota spese'), print_refund_repayment_path(@repayment, format: :docx), class: 'btn btn-sm btn-outline-primary' %> -  
+      <% end %>
+      <%= link_to dmicon('print', text: 'dichiarazione altri incarichi'), print_other_repayment_path(@repayment, format: :docx), class: 'btn btn-sm btn-outline-primary' %> -
+      <% if @repayment.italy %>  
+        <%= link_to dmicon('print', text: ' modulo D'), "https://www.dm.unibo.it/seminari/unibo_modules/OccasionaliResidentiModuloD.docx", class: 'btn btn-sm btn-outline-primary' %> 
+      <% else %>
+        <%= link_to dmicon('print', text: ' modulo D non residenti'), "https://www.dm.unibo.it/seminari/unibo_modules/OccasionaliNonResidentiModuloD.docx", class: 'btn btn-sm btn-outline-primary' %> 
+      <% end %>
+    </div>
+  <% else %>
+    I documenti saranno disponibili solo dopo che tutti i dati richiesti saranno compilati.
+  <% end %>
+</div>

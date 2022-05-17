@@ -1,7 +1,8 @@
 <span class="actions-button">
   <i class="fas fa-bars fa-2x <%= (@can_update_seminar || @can_update_fund) ? 'can_update' : '' %>"></i>
 </span>
-<div class="actions-popup" style="display: none">
+<%# "display: none" non basta in css ma server inline %>
+<div class="actions-popup" style="display: none"> 
   <% if ! @seminar.past? %>  
     <% if @can_update_seminar %>  
       <div><%= link_to fwdmicon('edit') + ' modifica', edit_seminar_path(@seminar) %></div>
@@ -13,7 +14,5 @@
       <div><%= link_to fwdmicon('google', prefix: 'fab') + 'aggiungi a Google Calendar', @seminar.google_url(seminar_url(@seminar)), target: :new %></div>
       <div><%= link_to fwdmicon('calendar-plus') + 'aggiungi a iCal', seminar_url(@seminar, format: :ics) %></div>
   <% end %>
-
   <div><%= link_to fwdmicon('print') + ' pagina stampabile', print_seminar_path(@seminar) %></div>
-
 </div>
