@@ -1,34 +1,22 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = [ "place", "placedescription", "online", "manual", "zoom" ];
-  static values = { inpresence: Boolean, online: Boolean, zoom: Boolean };
+  static targets = [ "in_presence", "in_presence_details", "place_selector", "place_description", "on_line", "on_line_details" ];
+
+  place_description_field() {
+    var place_decription_to_show = (this.place_selectorTarget.selectedIndex === 1);
+    this.place_descriptionTarget.style.display = place_decription_to_show ? 'flex' : 'none';
+  }
 
   connect() {
     console.log("connect where");
-    this.placeTarget.style.display = this.inpresenceValue ? 'block' : 'none';
-    this.onlineTarget.style.display = this.onlineValue ? 'block' : 'none';
-    this.zoomTarget.style.display = this.zoomValue ? 'block' : 'none';
-    this.manualTarget.style.display = this.zoomValue ? 'none' : 'block';
-  }
+    toggle_div(this.in_presenceTarget, this.in_presence_detailsTarget, null, true);
+    toggle_div(this.on_lineTarget, this.on_line_detailsTarget, null, true);
+    toggle_div("#seminar_zoom_meeting_create", "#zoom_auto_div", "#manual_seminar_div", true);
 
-  show_place(el) {
-    console.log("change presence");
-    this.placeTarget.style.display = el.target.checked ? 'block' : 'none';
-  }
-
-  show_online(el) {
-    console.log("change online");
-    this.onlineTarget.style.display = el.target.checked ? 'block' : 'none';
-  }
-
-  show_zoom(el) {
-    console.log("change zoom");
-    this.zoomTarget.style.display = el.target.checked ? 'block' : 'none';
-    this.manualTarget.style.display = el.target.checked ? 'none' : 'block';
-  }
-
-  show_place_description(el) {
-    console.log("change place");
+    this.place_description_field();
+    this.place_selectorTarget.addEventListener('change', () => {
+      this.place_description_field();
+    });
   }
 }
