@@ -1,4 +1,4 @@
-<%= dm_card title: "Coordinate Bancarie <small>(dati non bloccanti)</small> #{checked_icon(true)}".html_safe do %>
+<%= dm_card title: "#{checked_icon(true)} Coordinate Bancarie <small>(dati non bloccanti)</small>".html_safe do %>
   <dl class="inline">
     <dt>Iban</dt><dd><%= repayment.iban %></dd>
     <dt>Swift</dt><dd><%= repayment.swift %></dd>
@@ -7,12 +7,14 @@
       <dt><%= t :bank_name %></dt><dd><%= repayment.bank_name %></dd>
       <dt><%= t :bank_address %></dt><dd><%= repayment.bank_address %></dd> 
     <% end %>
-    <% if user_can_edit %>
-      <dd><%= modal_link_to 'Modifica', edit_repayment_path(repayment, what: :bank), addclass: :button %></dd>
-    <% end %>
   </dl>
   <% unless repayment.italy %>
     <p class="small">Nome della banca e indirizzo sono richiesti solo in caso di residenza extra UE.</p>
+  <% end %>
+  <% if user_can_edit %>  
+    <div class="text-end">
+      <%= link_to 'Modifica', edit_repayment_path(repayment, what: :bank, modal: 1), class: :button, data: { turbo_frame: 'modal' } %>
+    </div>
   <% end %>
 <% end %>
 
