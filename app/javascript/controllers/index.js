@@ -10,6 +10,12 @@ application.register("hello", HelloController)
 import WhereController from "./where_controller"
 application.register("where", WhereController)
 
+import PaymentController from "./payment_controller"
+application.register("payment", PaymentController)
+
+import RefundController from "./refund_controller"
+application.register("refund", RefundController)
+
 import { DmTest, TurboModalController } from "dm_unibo_common"
 application.register("turbo-modal", TurboModalController)
 
