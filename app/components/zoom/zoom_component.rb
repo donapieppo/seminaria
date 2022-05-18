@@ -2,7 +2,7 @@
 
 class Zoom::ZoomComponent < ViewComponent::Base
   def initialize(zoom_meeting)
-    @zoom_meeting = seminar.zoom_meeting
+    @zoom_meeting = zoom_meeting
   end
 
   def render?
