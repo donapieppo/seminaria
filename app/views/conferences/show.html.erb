@@ -11,9 +11,11 @@
       <%= t :organized_by %> <%= @conference.committee %> <br/>
     </span>
   </div>
-  <div class="mt-2">
-    <%= link_to 'Detailed program', @conference.url, target: :new %>
-  </div>
+  <% unless @conference.url.blank? %>  
+    <div class="mt-2">
+      <%= link_to 'Vai alla home page del convegno', @conference.url, target: :new %>
+    </div>
+  <% end %>
 </div>
 
 <% if policy(@conference).update? %>  
