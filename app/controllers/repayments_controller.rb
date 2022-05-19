@@ -49,7 +49,6 @@ class RepaymentsController < ApplicationController
   def edit
     @funds = available_funds
     @what = params[:what] 
-    render layout: false if modal_page
   end
 
   # has_one, e' un create/update
