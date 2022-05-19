@@ -35,7 +35,7 @@
   <% end %>
 <% end %>
 
-<%= dm_form_for @seminar, title: "Seminario del #{current_organization.description}" do |seminar| %>  
+<%= dm_form_for @seminar, title: "Seminario del #{current_organization.description}", html: { data: { turbo: false } } do |seminar| %>  
   <%= seminar.dm_error_notification %>  
   <%= seminar.input :hidden, label: '', as: :boolean %>  
   <% if current_organization && policy(current_organization).manage? %>  
