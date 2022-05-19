@@ -2,7 +2,8 @@
 
 <div class="dm-card">
   <div class="dm-card-title">
-    Indirizzo di residenza di <%= seminar.speaker_title %> <%= seminar.speaker %> <%= checked_icon(repayment_speaker_address_ok?(repayment.object)) %>
+    Indirizzo di residenza di <%= seminar.speaker_title %> <%= seminar.speaker %> 
+    <span class="float-end"><%= checked_icon(repayment_speaker_address_ok?(repayment.object)) %></span>
   </div>
   <div class="dm-card-body">
     <%= repayment.input :address %>

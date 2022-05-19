@@ -1,6 +1,7 @@
 <div class="dm-card">
   <div class="dm-card-title">
-    Fondo <%= checked_icon(repayment_holder_ok?(repayment.object)) %>
+    Fondo 
+    <span class="float-end"><%= checked_icon(repayment_holder_ok?(repayment.object)) %></span>
   </div>
   <div class="dm-card-body">
     <% if policy(repayment.object.seminar).edit? %>  

@@ -1,25 +1,14 @@
 <% seminar = repayment.object.seminar %>  
 
-<div class="dm-card">
+<div class="dm-card" data-controller="speaker">
   <div class="dm-card-title">
-    Ruolo di <%= seminar.speaker_title %> <%= seminar.speaker %> <%= checked_icon(repayment_speaker_role_ok?(repayment.object)) %>
+    Ruolo di <%= seminar.speaker_title %> <%= seminar.speaker %>   
+  <span class="float-end"><%= checked_icon(repayment_speaker_role_ok?(repayment.object)) %></span>
   </div>
   <div class="dm-card-body">
     <%= repayment.input :affiliation %>
-    <%= repayment.association :position, hint: "Qualifica e/o attività del relatore" %>
+    <%= repayment.association :position, hint: "Qualifica e/o attività del relatore", input_html: { 'data-speaker-target': 'positionInput' } %>
     <%= repayment.input :role, hint: "Dettagli opzionali sulla qualifica e/o attività del relatore. Obbligatorio nel caso abbiate scelto \"altro\" come ruolo." %>
     <%= repayment.input :email %>
   </div>
 </div>
-
-<%= javascript_tag do %>
-  $(function() {
-    ALTRO_ID = 8;
-    $("#repayment_position_id").change(function() { 
-      if ($("#repayment_position_id").val() == ALTRO_ID) {
-        alert("Ricordarsi di completare il campo successivo fornendo la descrizione della qualifica e/o attività del relatore");
-      }
-    });
-  });
-<% end %>
-

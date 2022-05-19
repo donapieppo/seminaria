@@ -1,7 +1,8 @@
 <% seminar = repayment.object.seminar %>  
 <div class="dm-card">
   <div class="dm-card-title">
-    Dati anagrafici <%= seminar.speaker_title %> <%= seminar.speaker %> <%= checked_icon(repayment_speaker_anagrafica_ok?(repayment.object)) %>
+    Dati anagrafici <%= seminar.speaker_title %> <%= seminar.speaker %> 
+    <span class="float-end"><%= checked_icon(repayment_speaker_anagrafica_ok?(repayment.object)) %></span>
   </div>
   <div class="dm-card-body">
     <%= repayment.input :name %>
