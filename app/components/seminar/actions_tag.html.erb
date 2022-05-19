@@ -1,18 +1,19 @@
-<span class="actions-button">
-  <i class="fas fa-bars fa-2x <%= (@can_update_seminar || @can_update_fund) ? 'can_update' : '' %>"></i>
-</span>
-<%# "display: none" non basta in css ma server inline %>
-<div class="actions-popup" style="display: none"> 
-  <% if ! @seminar.past? %>  
-    <% if @can_update_seminar %>  
-      <div><%= link_to fwdmicon('edit') + ' modifica', edit_seminar_path(@seminar) %></div>
+<div class="dropdown">
+  <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton<%= @seminar.id %>" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="fas fa-bars fa-2xl <%= (@can_update_seminar || @can_update_fund) ? 'can_update' : '' %>"></i>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton<%= @seminar.id %>">
+    <% unless @seminar.past? %>  
+      <% if @can_update_seminar %>  
+        <li><%= link_to fwdmicon('edit') + ' modifica', edit_seminar_path(@seminar), class: "dropdown-item" %></li>
+      <% end %>
+      <% if @can_update_fund %>
+        <% repayment_class = (@seminar.repayment.fund ? 'fund_ok' : 'fund_missing') %>
+        <li><%= link_to fwdmicon('euro-sign') + ' scelta del fondo', choose_fund_repayment_path(@seminar.repayment), class: "dropdown-item" %></li>
+      <% end %>
+      <li><%= link_to fwdmicon('google', prefix: 'fab') + 'aggiungi a Google Calendar', @seminar.google_url(seminar_url(@seminar)), target: :new, class: "dropdown-item" %></li>
+      <li><%= link_to fwdmicon('calendar-plus') + 'aggiungi a iCal', seminar_url(@seminar, format: :ics), class: "dropdown-item" %></li>
     <% end %>
-    <% if @can_update_fund %>
-      <% repayment_class = (@seminar.repayment.fund ? 'fund_ok' : 'fund_missing') %>
-      <div><%= link_to fwdmicon('euro-sign') + ' scelta del fondo', choose_fund_repayment_path(@seminar.repayment) %></div>
-    <% end %>
-      <div><%= link_to fwdmicon('google', prefix: 'fab') + 'aggiungi a Google Calendar', @seminar.google_url(seminar_url(@seminar)), target: :new %></div>
-      <div><%= link_to fwdmicon('calendar-plus') + 'aggiungi a iCal', seminar_url(@seminar, format: :ics) %></div>
-  <% end %>
-  <div><%= link_to fwdmicon('print') + ' pagina stampabile', print_seminar_path(@seminar) %></div>
+    <li><%= link_to fwdmicon('print') + ' pagina stampabile', print_seminar_path(@seminar), class: "dropdown-item" %></li>
+  </ul>
 </div>
