@@ -1,4 +1,4 @@
-<%= main_title("Richiesta di rimborso / compenso") %>
-
-<%= render 'form' %>
+<%= render DmUniboCommon::ModalComponent.new() do %>
+  <%= render 'form' %>
+<% end %>
 

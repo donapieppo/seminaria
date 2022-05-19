@@ -1,4 +1,10 @@
-<div class="dm-card">
+<div class="dm-card" data-controller="payment"
+                     data-payment-irap-value="<%= Repayment::IRAP %>" 
+                     data-payment-irpef-italian-value="<%= Repayment::IRPEF_ITALIAN %>" 
+                     data-payment-irpef-foreign-value="<%= Repayment::IRPEF_FOREIGN %>"
+                     data-payment-adapt-net-italian-value="<%= Repayment::ADAPT_NET_ITALIAN_VALUE %>"
+                     data-payment-adapt-net-foreign-value="<%= Repayment::ADAPT_NET_FOREIGN_VALUE %>"
+                     data-payment-adapt-gross-value="<%= Repayment::ADAPT_GROSS_VALUE %>nt" >
   <div class="dm-card-title">
     Compenso onnicomprensivo
   </div>
@@ -13,6 +19,7 @@
       <% end %>
     </div>
 
+
     <% if repayment.object.seminar.speaker_on_line %>
       <div class="alert alert-danger">
         Al fine del pagamento l'organizzatore dovrà fornire l’elenco dei partecipanti.
@@ -22,19 +29,15 @@
     <div class="input">
       <label>Richiedo compenso</label>
       <input type="hidden" value="0" name="payment_bool">
-      <input type="checkbox" value="1" name="payment_bool" id="payment_bool" <%= 'checked="checked"' if repayment.object.payment %>/>
+      <input type="checkbox" value="1" name="payment_bool" data-payment-target="paymentBool" <%= 'checked="checked"' if repayment.object.payment %>/>
     </div>
-    <div id="payment_amount" data-irap="<%= Repayment::IRAP %>" 
-                             data-irpef-italian="<%= Repayment::IRPEF_ITALIAN %>" 
-                             data-irpef-foreign="<%= Repayment::IRPEF_FOREIGN %>"
-                             data-adapt-net-italian-value="<%= Repayment::ADAPT_NET_ITALIAN_VALUE %>"
-                             data-adapt-net-foreign-value="<%= Repayment::ADAPT_NET_FOREIGN_VALUE %>"
-                             data-adapt-gross-value="<%= Repayment::ADAPT_GROSS_VALUE %>">
-
-      <%= repayment.input :payment, hint: t(:payment_hint), as: :currency_float %>
-      <%= repayment.input :gross, as: :radio_buttons, collection: [['Lordo ente', true], ['Compenso netto', false]], label: "" %>  
+    <div data-payment-target="paymentDetails">
+      <%= repayment.input :italy, as: :radio_buttons, input_html: { 'data-payment-target': 'italyBool' } %>
+      <%= repayment.input :payment, hint: t(:payment_hint), as: :currency_float, input_html: { 'data-payment-target': 'paymentAmount' } %>
+      <%= repayment.input :gross, as: :radio_buttons, collection: [['Lordo ente', true], ['Compenso netto', false]], label: "", input_html: { 'data-payment-target': 'grossBool' } %>  
       <div class="col-sm-9 offset-sm-3">
-        <div class="alert" id="payment_summary"></div>
+        <div class="alert" data-payment-target="paymentSummary">
+        </div>
       </div>
     </div>
   </div>

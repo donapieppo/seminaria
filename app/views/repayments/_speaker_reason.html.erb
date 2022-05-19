@@ -9,10 +9,18 @@
     <dd>
     <% cvs = repayment.curricula_vitae.all %>  
     <%= "è necessario inserire il CV del relatore" if cvs.empty? %>  
-    <% cvs.each do |doc| %> <%= link_to_cv doc %> <% end %>
-    </dd>
-    <% if policy(repayment).edit? %>  
-      <dd><%= modal_link_to('Modifica', edit_repayment_path(repayment, what: :reason ), addclass: :button) %></dd>
+    <% cvs.each do |doc| %>
+      <%= link_to_cv doc %> 
+      <% if policy(doc).destroy? %>  
+        <%= link_to_delete repayment_curriculum_vitae_path(repayment, doc) %><br/>
+      <% end %>
     <% end %>
+    </dd>
   </dl>
+  <% if user_can_edit %>  
+    <div class="text-end">
+      <%= link_to 'Modifica', edit_repayment_path(repayment, what: :reason, modal: 1), class: :button, data: { turbo_frame: 'modal' } %>
+    </div>
+  <% end %>
 <% end %>
+

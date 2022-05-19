@@ -13,9 +13,11 @@
         <dd><%= link_to_id_card id_card %></dd>
       <% end %>
     <% end %>
-    <% if user_can_edit %>  
-      <dd><%= modal_link_to 'Modifica', edit_repayment_path(repayment, what: :speaker), addclass: :button %></dd>
-    <% end %>
   </dl>
+  <% if user_can_edit %>  
+    <div class="text-end">
+      <%= link_to 'Modifica', edit_repayment_path(repayment, what: :speaker, modal: 1), class: :button, data: { turbo_frame: 'modal' } %>
+    </div>
+  <% end %>
 <% end %>
 

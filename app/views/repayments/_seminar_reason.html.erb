@@ -12,11 +12,9 @@
     </div>
   <% end %>
   <% if user_can_edit %>  
-    <dl class="inline">
-      <dd>
-      <%= modal_link_to('Modifica', edit_repayment_path(repayment, what: :seminar_reason), addclass: :button) %>
-      </dd>
-    </dl>
+    <div class="text-end">
+      <%= link_to 'Modifica', edit_repayment_path(repayment, what: :seminar_reason, modal: 1), class: :button, data: { turbo_frame: 'modal' } %>
+    </div>
   <% end %>
 <% end %>
 

@@ -4,21 +4,15 @@
 <h1>Richiesta di rimborso / compenso</h1>
 
 <div class="text-muted">
-  <%= link_to @repayment.seminar do %>  
-    <h2>Seminario di <%= @repayment.seminar.speaker %> </h2>
-  <% end %>
-  Data: <%= l @repayment.seminar.date %><br/>
-  Richiedente: <%= @repayment.seminar.user.to_s %><br/>
-  Seminario in presenza: <%= @repayment.seminar.in_presence ? 'si' : 'no' %><br/>
-  Seminario accessibile on line: <%= @repayment.seminar.on_line ? 'si' : 'no' %><br/>
+  <%= render Seminar::SummaryComponent.new(@repayment.seminar) %>  
   <% if @repayment.seminar.speaker_on_line %>  
     <span class="text-danger"><i class="fas fa-exclamation-circle"></i> Relatore non in presenza</span>
   <% else %>
-     Relatore in presenza
+    <span class="text-success">Relatore in presenza</span>
    <% end %>
 </div>
 
-<%= render partial: 'print_operations', locals: { repayment: @repayment, ok_to_send: ok_to_send } %>  
+<%= render Repayment::PrintComponent.new(@repayment, current_user, ok_to_send: ok_to_send) %>  
 
 <div class="row">
   <div class="col-lg-7">

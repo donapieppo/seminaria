@@ -5,16 +5,13 @@
 
 <div class="dm-card">
   <div class="dm-card-title">
-    Residenza fiscale <span class="text-danger font-weight-bold float-end">Importante, da questa scelta dipendono vari conteggi.</span>
+    Date
   </div>
   <div class="dm-card-body">
-    <%= repayment.input :italy, as: :radio_buttons %>
-    <% unless repayment.object.seminar.speaker_on_line %>  
       <%= repayment.input :speaker_arrival,   as: :date, html5: true, hint: repayment_days_warning, 
                                               input_html: { min: l(startDatePossibleRepayment, format: :date_html5) } %>
       <%= repayment.input :speaker_departure, as: :date, html5: true, 
                                               input_html: { min: l(startDatePossibleRepayment, format: :date_html5) } %>
-    <% end %>
   </div>
 </div>
 

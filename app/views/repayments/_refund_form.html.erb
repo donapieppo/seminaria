@@ -1,4 +1,4 @@
-<div class="dm-card">
+<div class="dm-card" data-controller="refund">
   <div class="dm-card-title">
     Rimborsi 
   </div>
@@ -11,9 +11,9 @@
         del compenso onnicomprensivo.
       </p>
       <label>Richiedo rimborso spese</label>
-      <%= repayment.input_field :refund, boolean_style: :inline, id: 'refund_bool' %>
+      <%= repayment.input_field :refund, boolean_style: :inline, data: { 'refund-target': 'refundBool' }  %>
     </div>
-    <div id="refund_details">
+    <div data-refund-target="refundDetails">
       <%= repayment.input :expected_refund, as: :currency_float %>
     </div>
   </div>

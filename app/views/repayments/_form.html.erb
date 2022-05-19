@@ -1,10 +1,10 @@
-<%# I's a modal popup and shows one part of the form one at a time with @what%>
+<%# I's a modal popup and shows one part of the form one at a time with @what %>
 
 <p class="alert alert-warning">
-  <%= big_dmicon("hand-point-right") %>  <%= repayment_days_warning(@repayment.seminar) %>
+<%= big_dmicon("hand-point-right") %> <%= repayment_days_warning(@repayment.seminar) %>
 </p>
 
-<%= horizontal_form_for @repayment do |repayment| %>  
+<%= simple_form_for @repayment, html: { data: { turbo: false } } do |repayment| %>  
   <%= repayment.dm_error_notification %>  
   <input type="hidden" name="what" value="<%= @what %>">  
 
@@ -13,11 +13,9 @@
   <%= render('fund_form', repayment: repayment) if @what == 'fund' %>  
 
   <% if @what == 'compensation' %>  
-    <%= render('compensation_form', repayment: repayment) %>
+    <%= render('dates_form', repayment: repayment) unless @repayment.seminar.speaker_on_line %>
     <%= render('payment_form', repayment: repayment) %>
-    <% unless @repayment.seminar.speaker_on_line %>  
-      <%= render('refund_form', repayment: repayment) %>
-    <% end %>
+    <%= render('refund_form', repayment: repayment) unless @repayment.seminar.speaker_on_line %>
   <% end %>
 
   <% if @what == 'speaker' %>  
@@ -30,6 +28,3 @@
   <%= repayment.submit 'Salva' %> - <%= link_to_back repayment_path(repayment.object) %>  
 <% end %>
 
-<%= javascript_tag do %>  
-  <%= render partial: 'repayments/js', formats: [:js] %>  
-<% end %>

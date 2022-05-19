@@ -18,10 +18,11 @@
       <dt>Rimborsi</dt>
       <dd><%= t :expected_refund %>:   <%= euro repayment.expected_refund %></dd>
     <% end %>
-
-    <% if user_can_edit %>  
-      <dd><%= link_to 'Modifica', edit_repayment_path(repayment, what: :compensation), class: :button %></dd>
-    <% end %>
   </dl>
+  <% if user_can_edit %>  
+    <div class="text-end">
+      <%= link_to 'Modifica', edit_repayment_path(repayment, what: :compensation, modal: 1), class: :button, data: { turbo_frame: 'modal' } %>
+    </div>
+  <% end %>
 <% end %>
 
