@@ -87,6 +87,13 @@ class SeminarsController < ApplicationController
 
     set_seminar_conference_cycle_serial(params[:seminar])
 
+    # FIXME
+    if (@seminar.date < Date.today) && (! user_is_manager?)
+      @seminar.errors.add(:base, "Non è possibile inserire seminari con data nel passato")
+      render action: :new, status: :unprocessable_entity
+      return
+    end
+
     authorize @seminar
 
     if @seminar.save
@@ -115,7 +122,16 @@ class SeminarsController < ApplicationController
 
   def update
     create_zoom = params[:seminar].delete(:zoom_meeting_create)
-    if @seminar.update(seminar_params)
+    @seminar.assign_attributes(seminar_params)
+
+    # FIXME
+    if (@seminar.date < Date.today) && (! user_is_manager?)
+      @seminar.errors.add(:base, "Non è possibile inserire seminari con data nel passato")
+      render action: :new, status: :unprocessable_entity
+      return
+    end
+
+    if @seminar.save
       if create_zoom == "1"
         @zoom = ZoomOauth.new
         redirect_to @zoom.authorize_url(@seminar.id), allow_other_host: true
