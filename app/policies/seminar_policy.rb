@@ -24,7 +24,7 @@ class SeminarPolicy < ApplicationPolicy
   end
 
   def create?
-    true
+    record_organization_manager? || (@user && ! @record.past?)
   end
 
   def update?
