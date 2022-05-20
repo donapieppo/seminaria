@@ -37,7 +37,7 @@ class Speaker::RepaymentsController < ApplicationController
     elsif @repayment.update(speaker_repayment_attributes) 
       redirect_to edit_speaker_repayment_path(@repayment.spkr_token), notice: 'The data have been saved.'
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 

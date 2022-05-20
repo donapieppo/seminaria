@@ -27,7 +27,7 @@ class CyclesController < ApplicationController
     if @cycle.save
       redirect_to new_cycle_seminar_path(@cycle), notice: "Il ciclo di seminari è stato creato correttamente."
     else
-      render action: :new
+      render action: :new, status: :unprocessable_entity
     end
   end
 
@@ -38,7 +38,7 @@ class CyclesController < ApplicationController
     if @cycle.update(cycle_params)
       redirect_to choose_type_seminars_path, notice: "Il ciclo di seminari è stato aggiornato."
     else
-      render action: :edit
+      render action: :edit, status: :unprocessable_entity
     end
   end
 

@@ -23,7 +23,7 @@ class PlacesController < ApplicationController
     if @place.save
       redirect_to places_path
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -34,7 +34,7 @@ class PlacesController < ApplicationController
     if @place.update(name: params[:place][:name])
       redirect_to places_path
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 

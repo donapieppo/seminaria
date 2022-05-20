@@ -24,7 +24,7 @@ class SerialsController < ApplicationController
     if @serial.save
       redirect_to serials_path, notice: "La serie è stata creata correttamente."
     else
-      render action: :new
+      render action: :new, status: :unprocessable_entity
     end
   end
 
@@ -35,7 +35,7 @@ class SerialsController < ApplicationController
     if @serial.update(serial_params)
       redirect_to serials_path, notice: "La serie è stata aggiornata correttamente."
     else
-      render action: :edit
+      render action: :edit, status: :unprocessable_entity
     end
   end
 

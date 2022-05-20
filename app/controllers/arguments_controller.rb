@@ -23,7 +23,7 @@ class ArgumentsController < ApplicationController
     if @argument.save
       redirect_to arguments_path
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -34,7 +34,7 @@ class ArgumentsController < ApplicationController
     if @argument.update(name: params[:argument][:name])
       redirect_to arguments_path
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
