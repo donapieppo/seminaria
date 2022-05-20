@@ -33,6 +33,7 @@ it:
   speaker_details: Dati relativi al relatore
   bank_name:    Nome della banca
   bank_address: Indirizzo della banca
+  bank_account: Coordinate Bancarie <small>(dati non bloccanti)</small>
 
   register_and_be_notified: Voglio registrarmi e ricevere istruzioni su come partecipare
 
