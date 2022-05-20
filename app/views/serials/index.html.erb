@@ -6,9 +6,11 @@
   <div class="dm-card">
     <div class="dm-card-title">
       <%= serial.to_s.upcase %> <%= "(serie conclusa)" unless serial.active %>
-      <span class="float-end"> 
-        <%= link_to(fwdmicon('home', text: 'pagina web ufficiale'), serial.link, target: "_blank") unless serial.link.blank? %>
-      </span>
+      <% unless serial.link.blank? %>  
+        <span class="float-end small"> 
+          <%= link_to fwdmicon('home', text: 'pagina web ufficiale'), serial.link, target: "_blank" %>
+        </span>
+      <% end %>
     </div><!-- title -->
 
     <div class="dm-card-body">
