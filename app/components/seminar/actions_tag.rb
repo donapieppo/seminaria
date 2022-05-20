@@ -13,6 +13,10 @@ class Seminar::ActionsTag < ViewComponent::Base
     @can_destroy_seminar = @policy.destroy?
     @can_update_fund     = @repayment ? @repayment_policy.update_fund? : false
   end
+
+  def render?
+    @can_update_seminar || @can_update_fund
+  end
 end
 
 
