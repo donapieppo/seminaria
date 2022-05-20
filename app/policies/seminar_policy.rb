@@ -28,7 +28,7 @@ class SeminarPolicy < ApplicationPolicy
   end
 
   def update?
-    owner_or_record_organization_manager?
+    record_organization_manager? || (owner? && ! @record.past?)
   end
 
   # FIXME li cancella solo manager o se non e' ancora stata inviata
