@@ -43,6 +43,6 @@
   <%= repayment.input :bank_name %>
   <%= repayment.input :bank_address %>
 
-  <%= repayment.submit "Save" %>  - <%= link_to 'End submission', speaker_repayment_path(@repayment.spkr_token), class: 'btn btn-success' %>  
+  <%= repayment.submit "Save" %> - <%= link_to 'done', speaker_repayment_path(@repayment.spkr_token) %>  
 <% end %>
 
