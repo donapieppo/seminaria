@@ -97,7 +97,7 @@ class SeminarsController < ApplicationController
         redirect_to edit_seminar_path(@seminar, what: :where), notice: "Il seminario è stato creato correttamente."
       end
     else
-      render action: :new
+      render action: :new, status: :unprocessable_entity
     end
   end
 
@@ -130,7 +130,7 @@ class SeminarsController < ApplicationController
       @cycle      = @seminar.cycle
       @documents  = @seminar.documents
       @document   = Document.new
-      render action: :edit
+      render action: :edit, status: :unprocessable_entity
     end
   end
 

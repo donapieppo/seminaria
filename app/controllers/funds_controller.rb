@@ -25,7 +25,7 @@ class FundsController < ApplicationController
     if @fund.save
       redirect_to funds_path, notice: "Il fondo è stato creato correttamente."
     else
-      render action: 'new'
+      render action: 'new', status: :unprocessable_entity
     end
   end
 
@@ -36,7 +36,7 @@ class FundsController < ApplicationController
     if @fund.update(fund_params)
       redirect_to funds_path, notice: "Il fondo è stato aggiornato correttamente."
     else
-      render action: 'edit'
+      render action: 'edit', status: :unprocessable_entity
     end
   end
 

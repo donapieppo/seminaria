@@ -72,7 +72,7 @@ class RepaymentsController < ApplicationController
       redirect_to repayment_path(@repayment), message: "La richiesta è stata salvata correttamente."
     else
       @funds = available_funds
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
