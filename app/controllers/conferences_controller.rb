@@ -27,7 +27,7 @@ class ConferencesController < ApplicationController
     if @conference.save
       redirect_to new_conference_seminar_path(@conference), notice: "Il convegno è stato creato correttamente."
     else
-      render action: :new
+      render action: :new, status: :unprocessable_entity
     end
   end
 
@@ -38,7 +38,7 @@ class ConferencesController < ApplicationController
     if @conference.update(conference_params)
       redirect_to choose_type_seminars_path, notice: "Il convegno è stato aggiornatocorrettamente."
     else
-      render action: :edit
+      render action: :edit, status: :unprocessable_entity
     end
   end
 
