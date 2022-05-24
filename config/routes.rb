@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get '/logins/logout', to: 'dm_unibo_common/logins#logout'
 
   scope ":__org__" do
-    get 'seminars/archive/(:year)',   controller: 'seminars',   action: 'archive', as: 'archive_seminars'
+    get 'seminars/archive/(:year)', to: 'seminars#archive', as: 'archive_seminars'
 
     get 'totem', controller: 'home', action: 'totem', as: 'totem'
 
