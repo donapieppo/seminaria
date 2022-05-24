@@ -6,6 +6,7 @@ gem 'dm_unibo_user_search', git: 'https://github.com/donapieppo/dm_unibo_user_se
 gem 'dm_unibo_common',      git: 'https://github.com/donapieppo/dm_unibo_common.git', branch: 'turbo'
 
 gem "sprockets-rails"
+gem "jsbundling-rails"
 gem "turbo-rails"
 
 gem "prawn"
