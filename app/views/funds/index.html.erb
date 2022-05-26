@@ -14,7 +14,7 @@
   <% @holders.each do |holder, funds| %>
     <div class="accordion-item">
       <h2 class="accordion-header" id="holder<%= holder.id %>">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#funds<%= holder.id %>" aria-expanded="false" aria-controls="funds<%= holder.id %>">
+        <button class="accordion-button collapsed py-2" type="button" data-bs-toggle="collapse" data-bs-target="#funds<%= holder.id %>" aria-expanded="false" aria-controls="funds<%= holder.id %>">
           <%= holder.cn_militar %>
         </button>
       </h2>
@@ -22,12 +22,10 @@
         <div class="accordion-body">
           <ul class="list-group list-group-flush">
             <% funds.each do |fund| %>  
-              <li class="list-group-item list-group-item <%= "bg-light text-warning" unless fund.available %>">
-                <%= modal_link_to fund.code, fund_path(fund), addclass: "btn btn-sm font-weight-bold #{fund.available ? 'btn-info' : 'btn-warning'}" %>  
-                - <%= fund.name %>
+              <li class="list-group-item list-group-item <%= "text-warning" unless fund.available %>">
+                <%= link_to fund.code, fund_path(fund, modal: 1), data: { turbo_frame: 'modal' } %> - <%= fund.name %>
                 (<%= fund.category.name %>)
                 <span class="float-end">
-                  <%= modal_link_to dmicon(:eye), fund_path(fund) %>  
                   <%= link_to_edit edit_fund_path(fund) %>
                   <%= link_to_delete fund_path(fund) %>
                 </span>
