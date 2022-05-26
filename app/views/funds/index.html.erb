@@ -23,7 +23,9 @@
           <ul class="list-group list-group-flush">
             <% funds.each do |fund| %>  
               <li class="list-group-item list-group-item <%= "text-warning" unless fund.available %>">
-                <%= link_to fund.code, fund_path(fund, modal: 1), data: { turbo_frame: 'modal' } %> - <%= fund.name %>
+                <%= link_to fund_path(fund, modal: 1), data: { turbo_frame: 'modal' } do %>
+                  <%= fund.code %> - <%= fund.name %>
+                <% end %>
                 (<%= fund.category.name %>)
                 <span class="float-end">
                   <%= link_to_edit edit_fund_path(fund) %>
