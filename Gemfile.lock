@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/donapieppo/dm_unibo_common.git
-  revision: 0d88654e70a41de53e9ead6325060b6210aacc89
+  revision: bbca4e6adfbe854df8dd55107f78882fb2c648aa
   branch: turbo
   specs:
     dm_unibo_common (5.0.0)
@@ -307,7 +307,7 @@ GEM
     strscan (3.0.3)
     thor (1.2.1)
     tilt (2.0.10)
-    timeout (0.2.0)
+    timeout (0.3.0)
     ttfunk (1.7.0)
     turbo-rails (1.1.1)
       actionpack (>= 6.0.0)
