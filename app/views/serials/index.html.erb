@@ -6,42 +6,42 @@
   <% @serials.each do |serial| %>  
     <div class="accordion-item">
       <h2 class="accordion-header" id="heading_<%= dom_id serial %>">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_<%= dom_id serial %>" aria-expanded="false" aria-controls="collapse_<%= dom_id serial %>"/>
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_<%= dom_id serial %>" aria-expanded="false" aria-controls="collapse_<%= dom_id serial %>"/>
           <%= serial.to_s.upcase %> <%= "(serie conclusa)" unless serial.active %>
       </h2>
-    </div>
 
-    <div id="collapse_<%= dom_id serial %>" class="accordion-collapse collapse" aria-labelledby="heading_<%= dom_id serial %>" data-bs-parent="#serials_accordion">
-      <div class="accordion-body">
-        <% unless serial.link.blank? %>  
-          <span class="float-end small"> 
-            <%= link_to fwdmicon('home', text: 'pagina web ufficiale'), serial.link, target: "_blank" %>
-          </span>
-        <% end %>
-        <div>
-          <strong>Organizzazione:</strong> <%= serial.committee %> 
-        </div>
-        <% if serial_ids_with_future_seminar.include?(serial.id) %>
-          <p class="alert alert-success my-3">
-          <% n = serial.seminars.future.count %>  
-          <%= n %> seminari<%= (n > 1) ? '' : 'o' %> ancora da svolgersi.
-          </p>
-        <% end %>
-        <div class="mt-4 mx-2">
-          <%= link_to fwdmicon('list', text: ' elenco seminari'), serial_path(serial) %>
-        </div>
-        <% if current_user && serial.active %>  
-          <div class="mt-2 mx-2">
-            <%= link_to fwdmicon('plus-circle', text: " crea nuovo seminario"), new_serial_seminar_path(serial) %>
+      <div id="collapse_<%= dom_id serial %>" class="accordion-collapse collapse" aria-labelledby="heading_<%= dom_id serial %>" data-bs-parent="#serials_accordion">
+        <div class="accordion-body">
+          <% unless serial.link.blank? %>  
+            <div class="float-end small"> 
+              <%= link_to fwdmicon('home', text: 'pagina web ufficiale'), serial.link, target: "_blank" %>
+            </div>
+          <% end %>
+          <div>
+            <strong>Organizzazione:</strong> <%= serial.committee %> 
           </div>
-        <% end %>
-        <% if policy(serial).edit? %>  
-          <div class="mt-2 mx-2">
-            <%= link_to_edit 'modifica', edit_serial_path(serial.id) %>
+          <% if serial_ids_with_future_seminar.include?(serial.id) %>
+            <p class="alert alert-success my-3">
+            <% n = serial.seminars.future.count %>  
+            <%= n %> seminari<%= (n > 1) ? '' : 'o' %> ancora da svolgersi.
+            </p>
+          <% end %>
+          <div class="mt-4 mx-2">
+            <%= link_to fwdmicon('list', text: ' elenco seminari'), serial_path(serial) %>
           </div>
-        <% end %>
-      </div><!-- accordion-body -->
-    </div><!-- collapse -->
+          <% if current_user && serial.active %>  
+            <div class="mt-2 mx-2">
+              <%= link_to fwdmicon('plus-circle', text: " crea nuovo seminario"), new_serial_seminar_path(serial) %>
+            </div>
+          <% end %>
+          <% if policy(serial).edit? %>  
+            <div class="mt-2 mx-2">
+              <%= link_to_edit 'modifica', edit_serial_path(serial.id) %>
+            </div>
+          <% end %>
+        </div><!-- accordion-body -->
+      </div><!-- collapse -->
+    </div><!-- item -->
   <% end %>
 </div>
 
