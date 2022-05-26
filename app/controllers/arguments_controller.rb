@@ -2,7 +2,7 @@ class ArgumentsController < ApplicationController
   before_action :get_argument_and_check_permission, only: [:edit, :update, :destroy]
 
   def index
-    @arguments = current_organization.arguments
+    @arguments = current_organization.arguments.order(:name)
     authorize Argument
   end
 
