@@ -59,52 +59,11 @@ module SeminarsHelper
     end
   end
 
-  def clock_tag(date, short: false)
-    if date.today? && !short 
-      content_tag :div, class: :today do 
-        concat(big_dmicon('clock')) 
-        concat( 
-               content_tag(:span, class: 'ml-2') do
-                 ((date < Time.now) ? 'iniziato da ' :  'tra ') + time_ago_in_words(date) 
-               end
-              )
-      end 
-    end 
-  end 
-
   def abstract_tag(seminar)
     if ! seminar.abstract.blank?  
       content_tag :div, seminar.abstract, class: 'abstract'
     end
   end
-
-  # def actions_tag(seminar)
-  #   _can_update_seminar = policy(seminar).update? 
-  #   _user_is_holder     = user_is_holder?(seminar)
-  #   capture do 
-  #     concat(content_tag(:span, dmicon(:bars, size: 26), class: "actions-button #{(_can_update_seminar or _user_is_holder) ? 'can_update' : ''}"))
-
-  #     concat(content_tag(:div, class: 'actions-popup', style: 'display: none') do 
-  #       if ! seminar.past? 
-  #         if _can_update_seminar
-  #           concat( link_to(fwdmicon('edit') + ' modifica<br/>'.html_safe, edit_seminar_path(seminar) ))
-  #         end
-  #         if _user_is_holder
-  #           repayment_class = (seminar.repayment.fund ? 'fund_ok' : 'fund_missing') 
-  #           concat( link_to(fwdmicon('euro-sign') + ' scelta del fondo<br/>'.html_safe, choose_fund_repayment_path(seminar.repayment)) )
-  #         end 
-  #         concat ( link_to(fwdmicon('google', prefix: 'fab') + 'aggiungi a Google Calendar<br/>'.html_safe, seminar.google_url(seminar_url(seminar)), target: :new) )
-  #         concat ( link_to(fwdmicon('calendar-plus') + 'aggiungi a iCal<br/>'.html_safe, seminar_url(seminar, format: :ics)) )
-  #       end 
-
-  #       concat( link_to(fwdmicon('print') + ' pagina stampabile<br/>'.html_safe, print_seminar_path(seminar)) )
-
-  #       if policy(seminar).destroy?
-  #         concat( '<br/>'.html_safe + link_to_delete('elimina', seminar_path(seminar)) )
-  #       end 
-  #     end)
-  #   end
-  # end
 
   def arguments_tag(seminar)
     a = seminar.arguments
