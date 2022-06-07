@@ -3,7 +3,7 @@
 <%= content_tag :div, class: css_classes(@seminar) do %>
 
   <div class="seminar-header">
-    <%= clock_tag(@seminar.date) %>  
+    <%= render ClockTagComponent.new(@seminar.date) %>  
     <div class="row">
       <div class="when col-md-2">
         <%= render DayTagComponent.new(@seminar) %>  
