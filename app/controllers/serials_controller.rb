@@ -14,7 +14,7 @@ class SerialsController < ApplicationController
   end
 
   def new
-    @serial = current_organization.serials.new
+    @serial = current_organization.serials.new(active: true)
     authorize @serial
   end
 
