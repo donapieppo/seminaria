@@ -167,6 +167,11 @@ it:
         surname: Cognome
         email: Email
         affiliation: Affiliazione
+      serial:
+        active: Attiva
+        title: Titolo
+        committee: Organizzatori
+        description: Descrizione 
 
   simple_form:
     hints:
