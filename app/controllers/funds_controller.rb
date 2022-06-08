@@ -10,7 +10,7 @@ class FundsController < ApplicationController
   end
 
   def show
-    @repayments = @fund.repayments.includes(:holder)
+    @repayments = @fund.repayments.includes(:seminar, :holder)
     render layout: false if modal_page
   end
 
