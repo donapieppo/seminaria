@@ -1,6 +1,6 @@
 <div class="seminar-small-info">
   <div>
-    SEMINARIO DEL <%= @seminar.organization.description.upcase %> - <%= l @seminar.date %> 
+    SEMINARIO DEL <%= @seminar.organization.description.upcase %> - <%= l @seminar.date, format: :long %> 
   </div>
   <%= @seminar.speaker %> - <%= @seminar.title %><br/>
   <%= t :organized_by %> <%= @seminar.committee %><br/>
