@@ -1,6 +1,4 @@
-<%= render DmUniboCommon::ModalComponent.new() do %>
-  <%= main_title(@fund) %>
-
+<%= render DmUniboCommon::ModalComponent.new(title: @fund) do %>
   <h2>Elenco compensi sul fondo</h2>
 
   <% if @repayments.any? %>  
