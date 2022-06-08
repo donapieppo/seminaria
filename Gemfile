@@ -2,11 +2,12 @@ source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'dm_unibo_user_search', git: 'https://github.com/donapieppo/dm_unibo_user_search.git'
-#gem 'dm_unibo_common',      path: '/home/rails/gems/dm_unibo_common/'
 gem 'dm_unibo_common',      git: 'https://github.com/donapieppo/dm_unibo_common.git', branch: 'turbo'
+#gem 'dm_unibo_common',      path: '/home/rails/gems/dm_unibo_common/'
 
 gem "sprockets-rails"
 gem "jsbundling-rails"
+gem "cssbundling-rails", "~> 1.1"
 gem "turbo-rails"
 
 gem "prawn"
