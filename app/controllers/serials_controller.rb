@@ -9,8 +9,8 @@ class SerialsController < ApplicationController
   end
 
   def show
-    @seminars = @serial.seminars.future.includes([:repayment, :documents, :arguments]).order('seminars.date ASC')
-    @archive  = @serial.seminars.past.order('seminars.date DESC')
+    @seminars = @serial.seminars.future.includes(:repayment, :documents, :arguments).order('seminars.date ASC')
+    @archive  = @serial.seminars.past.includes(:repayment, :documents, :arguments).order('seminars.date DESC')
   end
 
   def new
