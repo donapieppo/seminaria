@@ -77,7 +77,7 @@ braces@~3.0.2:
 
 dm_unibo_common@donapieppo/dm_unibo_common.git#turbo:
   version "0.1.0"
-  resolved "https://codeload.github.com/donapieppo/dm_unibo_common/tar.gz/aaf2dd34544c0086cf9d27649b3e89f2045fdc60"
+  resolved "https://codeload.github.com/donapieppo/dm_unibo_common/tar.gz/131d689a4d3d6abc7bba16b88ca472e39989ae39"
   dependencies:
     "@fortawesome/fontawesome-free" "^6.1.1"
     "@hotwired/stimulus" "^3.0.1"
@@ -279,9 +279,9 @@ readdirp@~3.6.0:
     picomatch "^2.2.1"
 
 sass@^1.46.0:
-  version "1.52.2"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.52.2.tgz#cd1f03e0e7be5bb2cebcf1c34d735f087d790936"
-  integrity sha512-mfHB2VSeFS7sZlPv9YohB9GB7yWIgQNTGniQwfQ04EoQN0wsQEv7SwpCwy/x48Af+Z3vDeFXz+iuXM3HK/phZQ==
+  version "1.52.3"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.52.3.tgz#b7cc7ffea2341ccc9a0c4fd372bf1b3f9be1b6cb"
+  integrity sha512-LNNPJ9lafx+j1ArtA7GyEJm9eawXN8KlA1+5dF6IZyoONg1Tyo/g+muOsENWJH/2Q1FHbbV4UwliU0cXMa/VIA==
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
     immutable "^4.0.0"
