@@ -14,7 +14,7 @@
       <div data-where-target="in_presence_details" class="my-3">
         <%= s.association :place, collection: current_organization.places.all, include_blank: false, input_html: { 'data-where-target': 'place_selector' } %>
         <div data-where-target="place_description">
-          <%= s.input :place_description, label: '', input_html: { cols: 50, rows: 2 } %> 
+          <%= s.input :place_description, label: '' %> 
         </div>
       </div>
     </div>

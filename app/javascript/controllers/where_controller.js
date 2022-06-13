@@ -5,7 +5,7 @@ export default class extends Controller {
 
   place_description_field() {
     var place_decription_to_show = (this.place_selectorTarget.selectedIndex === 1);
-    this.place_descriptionTarget.style.display = place_decription_to_show ? 'flex' : 'none';
+    this.place_descriptionTarget.style.display = place_decription_to_show ? 'block' : 'none';
   }
 
   connect() {
