@@ -32,6 +32,7 @@ class RepaymentPolicy < ApplicationPolicy
     update?
   end
 
+  # FIXME controlled only in view (ok_to_send)
   def notify?
     update?
   end
@@ -39,7 +40,7 @@ class RepaymentPolicy < ApplicationPolicy
   # manager
   # fund owner
   def update_fund?
-    can_manage_organization? || (@user && (@record.holder_id == @user.id) && (! @record.notified))
+    can_manage_organization? || (@user && (@record.holder_id == @user.id) && (! @record.seminar.too_late_for_repayment?))
   end
 
   def update_bond?
