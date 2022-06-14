@@ -4,7 +4,7 @@
   <ul class="pagination pagination-sm justify-content-center my-4">
     <% (2003..Date.today.year).each do |year| %>  
       <li class="page-item <%= 'active' if (@year == year) %>">
-        <%= link_to year, archive_seminars_path(year), class: 'page-link' %>
+        <%= link_to year, archive_seminars_path(year), class: 'page-link', data: { turbo: false } %>
       </li>
     <% end %>
   </ul>
