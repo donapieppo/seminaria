@@ -22,15 +22,15 @@ module RepaymentChecksHelper
     when :seminar_reason
       repayment_seminar_reason_ok?(repayment)
     when :fund
-      if (repayment.holder_id == repayment.seminar.user_id) or user_is_manager?
-        (repayment.holder_id and repayment.fund_id)
+      if (repayment.holder_id == repayment.seminar.user_id) || user_is_manager?
+        (repayment.holder_id && repayment.fund_id)
       else
         repayment.holder_id
       end
     when :compensation
       ! repayment_missing_payment_and_refund?(repayment)
     when :speaker_details
-      repayment_speaker_anagrafica_ok?(repayment) and repayment_speaker_address_ok?(repayment) and repayment_speaker_role_ok?(repayment)
+      repayment_speaker_anagrafica_ok?(repayment) && repayment_speaker_address_ok?(repayment) && repayment_speaker_role_ok?(repayment)
     else
       false
     end
