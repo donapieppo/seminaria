@@ -51,7 +51,7 @@ class SeminarsController < ApplicationController
     @year = params[:year] ? params[:year].to_i : Date.today.year
     @seminars = current_organization.seminars.order('seminars.date DESC')
                                              .where("YEAR(date) = ? and date < NOW()", @year)
-                                             .includes(:cycle, :serial, :user, :documents, :arguments, repayment: :fund)
+                                             .includes(:cycle, :serial, :user, :documents, :arguments, :conference, repayment: :fund)
   end
 
   def choose_type
