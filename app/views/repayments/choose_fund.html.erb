@@ -6,7 +6,7 @@
   <%= repayment_days_warning(@repayment.seminar) %> 
   </p> 
 <% else %>
-  <%= dm_form_for @repayment, url: update_fund_repayment_path(@repayment), method: :post, title: "Scelta del Fondo" do |repayment| %>  
+  <%= dm_form_for @repayment, url: update_fund_repayment_path(@repayment), title: "Scelta del Fondo" do |repayment| %>  
     <% if current_organization && policy(current_organization).manage? %>  
       <%= repayment.association :fund, collection: @funds, label_method: :to_s_with_holder, include_blank: false %>
     <% else %>
