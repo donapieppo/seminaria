@@ -1,6 +1,6 @@
 <div class="dropdown">
   <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton<%= @seminar.id %>" data-bs-toggle="dropdown" aria-expanded="false">
-    <i class="fas fa-bars fa-2xl can_update"></i>
+    <i class="fas fa-bars fa-2xl <%= (@can_update_seminar || @can_update_fund) ? 'can_update' : '' %>"></i>
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton<%= @seminar.id %>">
     <% unless @seminar.past? %>  
@@ -12,7 +12,7 @@
         <li><%= link_to fwdmicon('euro-sign') + ' scelta del fondo', choose_fund_repayment_path(@seminar.repayment), class: "dropdown-item" %></li>
       <% end %>
       <li><%= link_to google_icon + ' aggiungi a Google Calendar', @seminar.google_url(seminar_url(@seminar)), target: :new, class: "dropdown-item" %></li>
-      <li><%= link_to fwdmicon('calendar-plus') + 'aggiungi a iCal', seminar_url(@seminar, format: :ics), class: "dropdown-item" %></li>
+      <li><%= link_to fwdmicon('calendar-plus') + ' aggiungi a iCal', seminar_url(@seminar, format: :ics), class: "dropdown-item" %></li>
     <% end %>
     <li><%= link_to fwdmicon('print') + ' pagina stampabile', print_seminar_path(@seminar), class: "dropdown-item" %></li>
   </ul>
