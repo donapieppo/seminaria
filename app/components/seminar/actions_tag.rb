@@ -6,12 +6,11 @@ class Seminar::ActionsTag < ViewComponent::Base
     @current_user = current_user
     @repayment = @seminar.repayment
 
-    @policy = SeminarPolicy.new(@current_user, @seminar)
+    @seminar_policy = SeminarPolicy.new(@current_user, @seminar)
     @repayment_policy = RepaymentPolicy.new(@current_user, @repayment)
 
-    @can_update_seminar  = @policy.update? 
-    @can_destroy_seminar = @policy.destroy?
-    @can_update_fund     = @repayment ? @repayment_policy.update_fund? : false
+    @can_update_seminar = @seminar_policy.update? 
+    @can_update_fund    = @repayment ? @repayment_policy.update_fund? : false
   end
 
   def render?
