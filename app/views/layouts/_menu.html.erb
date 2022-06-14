@@ -7,7 +7,7 @@
         <li><%= link_to big_dmicon('plus-circle', text: 'Inserisci seminario'), main_app.choose_type_seminars_path %></li>
       <% end %>
       <li><%= link_to big_dmicon('list', text: 'Seminari periodici'), main_app.serials_path %></li>
-      <li><%= link_to big_dmicon('archive', text: 'Archivio'), main_app.archive_seminars_path %></li>
+      <li><%= link_to big_dmicon('archive', text: 'Archivio'), main_app.archive_seminars_path, data: { turbo: false } %></li>
       <% if current_organization && policy(current_organization).manage? %>
         <%= dropdown_menu :amm, big_dmicon('cogs', text: ' Amm.') do  %>
           <li><%= link_to fwdmicon('euro-sign', text: 'Compensi'), main_app.repayments_path %></li>
