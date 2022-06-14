@@ -38,8 +38,8 @@
         Per <strong>inviare la richiesta</strong> è necessario che tutti i campi siano compilati correttamente.
       </div>
     <% end %>
-    <%= link_to 'invia richiesta', notify_repayment_path(@repayment), class: "btn btn-lg #{button_class}", method: :post %>
-    - <%= link_to 'torna al seminario', [:edit, @repayment.seminar] %>  
+    <%= button_to 'invia richiesta', notify_repayment_path(@repayment), class: "btn btn-lg #{button_class} my-2", data: { turbo: false } %>
+    <%= link_to 'torna al seminario', [:edit, @repayment.seminar] %>  
   <% end %>
   <% if ! user_can_edit %>  
     <div class="alert alert-info">Non è possibile modificare i dati relativi al rimborso / compenso.</div>
