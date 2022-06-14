@@ -12,10 +12,6 @@ class Seminar::ActionsTag < ViewComponent::Base
     @can_update_seminar = @seminar_policy.update? 
     @can_update_fund    = @repayment ? @repayment_policy.update_fund? : false
   end
-
-  def render?
-    @can_update_seminar || @can_update_fund
-  end
 end
 
 
