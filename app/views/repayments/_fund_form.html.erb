@@ -1,22 +1,22 @@
-<div class="dm-card">
+<%= manager = user_is_manager? %>  
+
+<div class="dm-card" data-controller="fund">
   <div class="dm-card-title">
     Fondo 
     <span class="float-end"><%= checked_icon(repayment_holder_ok?(repayment.object)) %></span>
   </div>
   <div class="dm-card-body">
     <% if policy(repayment.object.seminar).edit? %>  
-      <%= repayment.association :holder, collection: Fund.holders2, label_method: :cn_militar, include_blank: true, hint: repayment_days_warning(repayment.object.seminar) %>
+      <%= repayment.association :holder, collection: Fund.holders2, label_method: :cn_militar, include_blank: true, hint: repayment_days_warning(repayment.object.seminar), input_html: { data: { 'fund-target': 'holder' }} %>
     <% end %>
 
-    <% if policy(repayment.object).update_fund? %>  
-      <% if current_organization && policy(current_organization).manage? %>  
-        <%= repayment.association :fund, collection: @funds, label_method: :to_s_with_holder, include_blank: false %>
-      <% else %>
+    <div data-fund-target="fund">
+      <% if policy(repayment.object).update_fund? %>  
         <%= repayment.association :fund, collection: @funds, label_method: :to_s, include_blank: false %>
       <% end %>
-    <% end %>
+    </div>
 
-    <% if current_organization && policy(current_organization).manage? %>  
+    <% if manager %>  
       <%= repayment.input :bond_number %>
       <% year = Date.today.year %>  
       <%= repayment.input :bond_year, collection: [year -1 , year] %>

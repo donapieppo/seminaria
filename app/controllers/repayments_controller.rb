@@ -17,8 +17,11 @@ class RepaymentsController < ApplicationController
                            .references(:seminars)
   end
 
+  # Only the basic questions (name, surname, email)
   def new
     if @seminar.repayment 
+      # We should never be here
+      skip_authorization
       redirect_to(seminar_path(@seminar), alert: 'Non è più possibile richiedere rimborso / compenso.') 
       return
     else
@@ -35,7 +38,6 @@ class RepaymentsController < ApplicationController
       @repayment = @seminar.build_repayment(name:    params[:repayment][:name],
                                             surname: params[:repayment][:surname],
                                             email:   params[:repayment][:email]) 
-      # speaker_arrival: @seminar.date, speaker_departure: @seminar.date)
       authorize @repayment
       if @repayment.save
         redirect_to repayment_path(@repayment)
@@ -65,6 +67,9 @@ class RepaymentsController < ApplicationController
 
     if @holder
       @repayment.holder_id = @holder.id
+      if @repayment.holder_id_changed? 
+        @repayment.fund_id = nil
+      end
     end
 
     if @repayment.save
@@ -211,7 +216,19 @@ class RepaymentsController < ApplicationController
   end
 
   def available_funds
-    user_is_manager? ? Fund.active.includes(:holder, :category).order('users.surname, users.name').references(:user) : current_user.funds.active
+    if user_is_manager? 
+      if @repayment.holder_id
+        @repayment.holder.funds.active
+      else
+        []
+      end
+    else
+      if @repayment.holder_id && @repayment.holder_id == current_user.id
+        current_user.funds.active
+      else
+        []
+      end
+    end
   end
 
   def fix_payment_params
