@@ -13,5 +13,9 @@
     <div class="text-end">
       <%= link_to 'Modifica', edit_repayment_path(repayment, what: :fund, modal: 1), class: :button, data: { turbo_frame: 'modal' } %>
     </div>
+  <% elsif policy(repayment).choose_fund? %>  
+    <div class="text-end">
+      <%= link_to 'Scelta del fondo', choose_fund_repayment_path(repayment), class: :button %>
+    </div>
   <% end %>
 <% end %>
