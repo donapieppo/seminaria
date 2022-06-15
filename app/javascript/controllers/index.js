@@ -19,6 +19,9 @@ application.register("refund", RefundController)
 import SpeakerController from "./speaker_controller"
 application.register("speaker", SpeakerController)
 
+import FundController from "./fund_controller"
+application.register("fund", FundController)
+
 import { DmTest, TurboModalController } from "dm_unibo_common"
 application.register("turbo-modal", TurboModalController)
 
