@@ -215,6 +215,7 @@ class RepaymentsController < ApplicationController
     @holder = anagrafica_unica_holder.blank? ? nil : User.update_from_anagrafica_unica(anagrafica_unica_holder) 
   end
 
+  # [] if missing holder (first choose holder)
   def available_funds
     if user_is_manager? 
       if @repayment.holder_id
