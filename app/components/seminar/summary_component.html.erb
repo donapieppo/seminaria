@@ -2,9 +2,20 @@
   <div>
     SEMINARIO DEL <%= @seminar.organization.description.upcase %> - <%= l @seminar.date, format: :long %> 
   </div>
-  <%= @seminar.speaker %> - <%= @seminar.title %><br/>
-  <%= t :organized_by %> <%= @seminar.committee %><br/>
-  <%= @seminar.project %>  
+  <div>
+    <%= @seminar.speaker %> - <%= @seminar.title %>
+  </div>
+  <div>
+    <%= t :organized_by %> <%= @seminar.committee %>
+  </div>
+  <div>
+    <%= @seminar.project %>
+  </div>
+  <% if @seminar.speaker_on_line %>  
+    <div class="text-danger"><i class="fas fa-exclamation-circle"></i> Relatore non in presenza</div>
+  <% else %>
+    <div class="text-success">Relatore in presenza</div>
+   <% end %>
 
   <% if @with_repayment %>  
     <div class="m-2">
