@@ -1,15 +1,10 @@
 <% user_can_edit = policy(@repayment).edit? %>  
-<% ok_to_send    = repayment_all_ok_to_send?(@repayment) %>  
+<% ok_to_send = repayment_all_ok_to_send?(@repayment) %>  
 
 <h1>Richiesta di rimborso / compenso</h1>
 
 <div class="text-muted">
   <%= render Seminar::SummaryComponent.new(@repayment.seminar) %>  
-  <% if @repayment.seminar.speaker_on_line %>  
-    <span class="text-danger"><i class="fas fa-exclamation-circle"></i> Relatore non in presenza</span>
-  <% else %>
-    <span class="text-success">Relatore in presenza</span>
-   <% end %>
 </div>
 
 <%= render Repayment::PrintComponent.new(@repayment, current_user, ok_to_send: ok_to_send) %>  
@@ -32,17 +27,17 @@
 
 <div style="text-align: center">
   <% if ! @repayment.notified && user_can_edit %>  
-    <% button_class = ok_to_send ? 'btn-success' : 'btn-primary disabled' %>
-    <% unless ok_to_send %>  
+    <% if ok_to_send %>  
+      <%= button_to 'invia richiesta', notify_repayment_path(@repayment), class: "btn btn-success btn-lg my-2", data: { turbo: false } %>
+    <% else %>  
       <div class="alert alert-warning m-3">
         Per <strong>inviare la richiesta</strong> è necessario che tutti i campi siano compilati correttamente.
       </div>
     <% end %>
-    <%= button_to 'invia richiesta', notify_repayment_path(@repayment), class: "btn btn-lg #{button_class} my-2", data: { turbo: false } %>
     <%= link_to 'torna al seminario', [:edit, @repayment.seminar] %>  
   <% end %>
   <% if ! user_can_edit %>  
-    <div class="alert alert-info">Non è possibile modificare i dati relativi al rimborso / compenso.</div>
+    <div class="alert alert-info">Non è più possibile modificare i dati relativi al rimborso / compenso.</div>
   <% end %>
 </div>
 
