@@ -7,6 +7,10 @@ class RepaymentPolicy < ApplicationPolicy
     @user && SeminarPolicy.new(@user, @record.seminar).update?
   end
 
+  def not_too_late?
+    ! @record.seminar.too_late_for_repayment?
+  end
+
   # index? - see controller authorize current_organization, :manage?
   
   # can update seminar
@@ -16,20 +20,16 @@ class RepaymentPolicy < ApplicationPolicy
     @user && (can_update_seminar? || @record.holder_id == @user.id || @user.authorization.can_read?(@record.seminar.organization_id))
   end
 
-  # manager
-  # can update seminar and is on time
   def create?
-    can_manage_organization? || (can_update_seminar? && (! @record.seminar.too_late_for_repayment?))
+    can_manage_organization? || (can_update_seminar? && not_too_late?)
   end
 
-  # manager
-  # simple user can update until notified and in time if can update seminar
   def update?
-    can_manage_organization? || (can_update_seminar? && (! @record.notified) && (! @record.seminar.too_late_for_repayment?))
+    can_manage_organization? || (can_update_seminar? && (! @record.notified) && not_too_late?)
   end
 
   def destroy?
-    update?
+    can_manage_organization? || (can_update_seminar? && (! @record.notified))
   end
 
   # FIXME controlled only in view (ok_to_send)
@@ -37,10 +37,8 @@ class RepaymentPolicy < ApplicationPolicy
     update?
   end
 
-  # manager
-  # fund owner
   def update_fund?
-    can_manage_organization? || (@user && (@record.holder_id == @user.id) && (! @record.seminar.too_late_for_repayment?))
+    can_manage_organization? || (@user && (@record.holder_id == @user.id) && not_too_late?)
   end
 
   def update_bond?
