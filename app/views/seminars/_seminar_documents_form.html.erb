@@ -1,4 +1,4 @@
-<%= dm_form_for Document.new, url: seminar_documents_path(@seminar), title: big_dmicon('paperclip', text: 'Allegati').html_safe, html: { multipart: true } do |document| %>
+<%= dm_card title: big_dmicon('paperclip', text: 'Allegati').html_safe do %>
   <div class="alert alert-info">
     Questi allegati (per esempo locandine, slides, etc.) <strong> SONO PUBBLICI</strong>.<br/>
     Nel caso di un rimborso/compenso dovrete inserire il curriculum vitae del relatore (in questo caso visibile solo all'amministrazione) <strong>in un altro form</strong> che trovate nelle pagine relative alla richiesta di compenso.
@@ -18,8 +18,10 @@
     <p>Non sono ancora stati inseriti allegati a questo seminario.</p>
   <% end %>
 
-  <%= document.input :description, hint: 'Allegato di pubblico accesso.' %>
-  <%= document.input :attach, as: :file, class: "" %>
-  <%= document.submit 'Invia' %> -
-  <%= link_to 'indietro', root_path %>   
+  <%= simple_form_for Document.new, url: seminar_documents_path(@seminar), title: big_dmicon('paperclip', text: 'Allegati').html_safe, html: { multipart: true } do |document| %>
+    <%= document.input :description, hint: 'Allegato di pubblico accesso.' %>
+    <%= document.input :attach, as: :file, class: "" %>
+    <%= document.submit 'Invia' %> -
+    <%= link_to 'indietro', root_path %>   
+  <% end %>
 <% end %>
