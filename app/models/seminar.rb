@@ -23,6 +23,7 @@ class Seminar < ApplicationRecord
 
   validates :title, :speaker_title, :speaker, :date, presence: true
   validates :meeting_url, :link, format: { with: URI.regexp(['http', 'https']), allow_blank: true }
+  validates :committee, length: { maximum: 200 }
 
   # place_id == 1 -> 'non definita'
   # place_id == 2 -> 'esterna' -> si puo' mettere descrizione
