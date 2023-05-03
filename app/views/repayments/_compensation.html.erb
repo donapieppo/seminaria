@@ -1,7 +1,9 @@
 <%= dm_card title: checked_title(repayment, :compensation) do %>
   <dl class="inline">
-    <dt>Residenza fiscale</dt>
-    <dd><%= repayment.italy ? 'Italia' : 'Estero' %> </dd>
+    <% unless repayment.italy.nil? %>  
+      <dt>Residenza fiscale</dt>
+      <dd><%= repayment.italy ? 'Italia' : 'Estero' %></dd>
+    <% end %>
     <% unless repayment.seminar.speaker_on_line %>  
       <dt>Arrivo a Bologna</dt>
       <dd><%= l(repayment.speaker_arrival) if repayment.speaker_arrival %></dd>
@@ -16,7 +18,7 @@
 
     <% if repayment.refund %>  
       <dt>Rimborsi</dt>
-      <dd><%= t :expected_refund %>:   <%= euro repayment.expected_refund %></dd>
+      <dd><%= t :expected_refund %>: <%= euro repayment.expected_refund %></dd>
     <% end %>
   </dl>
   <% if user_can_edit %>  
