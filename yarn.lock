@@ -187,7 +187,7 @@ braces@~3.0.2:
 
 dm_unibo_common@donapieppo/dm_unibo_common.git#turbo:
   version "0.1.0"
-  resolved "https://codeload.github.com/donapieppo/dm_unibo_common/tar.gz/ac22e590b856cac738eab484e68e1432ed33d6da"
+  resolved "https://codeload.github.com/donapieppo/dm_unibo_common/tar.gz/5ffe9f2eafee21cf009f0e8d643e74c7f1023e26"
   dependencies:
     "@fortawesome/fontawesome-free" "^6.3.0"
     "@hotwired/stimulus" "^3.2.1"
