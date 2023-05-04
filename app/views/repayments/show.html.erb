@@ -41,4 +41,26 @@
   <% end %>
 </div>
 
+<% if @repayment.complete? %>
+  <div class="alert alert-success">
+    La pratica è stata completata con <strong>Numero Reg. DG <%=@repayment.ugov %></strong>.
+  </div>
+<% elsif policy(@repayment).close? %>  
+  <div class="text-center alert alert-warning">
+    <div class="my-2">
+      Se la pratica è stata <strong>completata</strong> (registrata in UGOV e pagata) inserire il Numero Reg. DG di UGOV.
+    </div>
+    <%= simple_form_for @repayment, url: [:close, @repayment] do |f| %>  
+      <%= f.input :ugov %>  
+      <%= f.submit "Chiudi pratica" %>  
+    <% end %>
+  </div>
+<% end %>
 
+<% if policy(@repayment).destroy? %>
+  <center>
+    <%= button_to @repayment, method: :delete, title: 'elimina', form: { data: { 'turbo-confirm': 'Siete sicuri di voler cancellare la richiesta e tutti i dati?' }}, class: "btn btn-danger" do %>
+      CANCELLA LA RICHIESTA
+    <% end %>
+  </center>
+<% end %>
