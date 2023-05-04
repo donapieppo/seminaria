@@ -8,12 +8,17 @@
 
 <div class="list-group">
   <% @repayments.each do |repayment| %>  
-    <%= link_to repayment_path(repayment), class: "list-group-item list-group-item-action" do %>
+    <%= link_to repayment_path(repayment), class: status_class(repayment) do %>
       <span class="font-weight-bold mr-3"><%= l(repayment.seminar.date, format: :date) %></span> 
       <%= repayment.seminar.speaker %>
+      <% if repayment.taxid %>
+        <small>(<%= repayment.taxid %>)</small>
+      <% end %>
       <span class="float-end"><small>
       richiedente <%= repayment.seminar.user %> -  
-      <% if repayment.notified %>  
+      <% if repayment.complete? %>  
+        UGOV <%= repayment.ugov %>
+      <% elsif repayment.notified %>  
         <%= repayment.fund %>
       <% else %>
         richiesta non inviata
