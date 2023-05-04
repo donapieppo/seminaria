@@ -85,7 +85,12 @@ class RepaymentsController < ApplicationController
   end
 
   def close
-    @repayment.update(ugov: params[:repayment][:ugov])
+    if params[:repayment][:ugov] && params[:repayment][:ugov].to_i > 0
+      # FIXME for old repayments may be missing something, may use update_attribute
+      if @repayment.update(ugov: params[:repayment][:ugov].to_i)
+        flash[:notice] = "La richiesta di rimborso è stata completata."
+      end
+    end
     redirect_to @repayment
   end
 
