@@ -1,5 +1,5 @@
 class RepaymentsController < ApplicationController
-  before_action :get_repayment_and_seminar_and_check_permission, only: [:show, :edit, :update, :notify, 
+  before_action :get_repayment_and_seminar_and_check_permission, only: [:show, :edit, :update, :notify, :close, :destroy,
                                                                         :print_request, :print_decree, :print_letter, :print_proposal, :print_repayment, 
                                                                         :print_refund, :print_other, :print_regularity]
   before_action :get_seminar, only: [:new, :create]
@@ -47,6 +47,9 @@ class RepaymentsController < ApplicationController
     end
   end
 
+  def show
+  end
+
   # what = [reason, fund, compensation, speaker]
   def edit
     @funds = available_funds
@@ -81,7 +84,9 @@ class RepaymentsController < ApplicationController
     end
   end
 
-  def show
+  def close
+    @repayment.update(ugov: params[:repayment][:ugov])
+    redirect_to @repayment
   end
 
   # MODULISTICA 
@@ -175,6 +180,15 @@ class RepaymentsController < ApplicationController
 
     RepaymentMailer.notify_fund(@repayment).deliver unless (policy(@repayment.seminar).update?)
     redirect_to root_path, notice: "È stato selezionato il fondo #{@fund.to_s}."
+  end
+
+  def destroy
+    if @repayment.destroy
+      flash[:notice] = "La richiesta è stata cancellata."
+    else
+      flash[:error] = "Non è stato possibile cacellare la richiesta."
+    end
+    redirect_to @repayment.seminar
   end
 
   private
