@@ -10,54 +10,53 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_04_073352) do
-
-  create_table "active_storage_attachments", charset: "utf8", force: :cascade do |t|
+ActiveRecord::Schema[7.0].define(version: 2021_03_04_073352) do
+  create_table "active_storage_attachments", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
     t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", charset: "utf8", force: :cascade do |t|
+  create_table "active_storage_blobs", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
     t.text "metadata"
     t.bigint "byte_size", null: false
     t.string "checksum", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.string "service_name", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "active_storage_variant_records", charset: "utf8mb4", force: :cascade do |t|
+  create_table "active_storage_variant_records", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "arguments", id: { type: :integer, unsigned: true }, charset: "utf8", force: :cascade do |t|
+  create_table "arguments", id: { type: :integer, unsigned: true }, charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.integer "organization_id", unsigned: true
     t.string "name", limit: 30
     t.index ["organization_id"], name: "fk_arguments_organization"
   end
 
-  create_table "arguments_seminars", id: false, charset: "utf8", force: :cascade do |t|
+  create_table "arguments_seminars", id: false, charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.integer "argument_id", null: false, unsigned: true
     t.integer "seminar_id", null: false, unsigned: true
     t.index ["argument_id"], name: "argument_id"
     t.index ["seminar_id"], name: "seminar_id"
   end
 
-  create_table "categories", id: { type: :integer, unsigned: true }, charset: "utf8", force: :cascade do |t|
+  create_table "categories", id: { type: :integer, unsigned: true }, charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.string "name", limit: 200
   end
 
-  create_table "conferences", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
+  create_table "conferences", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.integer "user_id", unsigned: true
     t.integer "organization_id", unsigned: true
     t.string "title", limit: 250
@@ -70,7 +69,7 @@ ActiveRecord::Schema.define(version: 2021_03_04_073352) do
     t.index ["user_id"], name: "fk_conference_user"
   end
 
-  create_table "cycles", id: { type: :integer, unsigned: true }, charset: "utf8", force: :cascade do |t|
+  create_table "cycles", id: { type: :integer, unsigned: true }, charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.integer "user_id", unsigned: true
     t.integer "organization_id", unsigned: true
     t.string "title", limit: 250
@@ -82,19 +81,19 @@ ActiveRecord::Schema.define(version: 2021_03_04_073352) do
     t.index ["user_id"], name: "user_id"
   end
 
-  create_table "documents", id: { type: :integer, unsigned: true }, charset: "utf8", options: "ENGINE=MyISAM", force: :cascade do |t|
+  create_table "documents", id: { type: :integer, unsigned: true }, charset: "utf8", collation: "utf8_general_ci", options: "ENGINE=MyISAM", force: :cascade do |t|
     t.string "type", limit: 100
     t.integer "user_id", unsigned: true
     t.integer "seminar_id", unsigned: true
     t.integer "repayment_id", unsigned: true
     t.string "description", limit: 200
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.index ["repayment_id"], name: "repayment_id"
     t.index ["seminar_id"], name: "seminar_id"
     t.index ["user_id"], name: "user_id"
   end
 
-  create_table "funds", id: { type: :integer, unsigned: true }, charset: "utf8", force: :cascade do |t|
+  create_table "funds", id: { type: :integer, unsigned: true }, charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.integer "organization_id", unsigned: true
     t.string "name", limit: 200
     t.string "description"
@@ -106,13 +105,13 @@ ActiveRecord::Schema.define(version: 2021_03_04_073352) do
     t.index ["organization_id"], name: "fk_funds_organization"
   end
 
-  create_table "organizations", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
+  create_table "organizations", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "code", limit: 250
     t.string "name"
     t.string "description"
   end
 
-  create_table "permissions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
+  create_table "permissions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.integer "user_id", null: false, unsigned: true
     t.integer "organization_id", null: false, unsigned: true
     t.string "network", limit: 20
@@ -121,31 +120,31 @@ ActiveRecord::Schema.define(version: 2021_03_04_073352) do
     t.index ["user_id"], name: "fk_user_authorization"
   end
 
-  create_table "places", id: { type: :integer, unsigned: true }, charset: "utf8", force: :cascade do |t|
+  create_table "places", id: { type: :integer, unsigned: true }, charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.integer "organization_id", unsigned: true
     t.text "name"
     t.index ["organization_id"], name: "fk_places_organization"
   end
 
-  create_table "positions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
+  create_table "positions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "code", limit: 50
     t.string "name"
   end
 
-  create_table "registrations", id: { type: :integer, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
+  create_table "registrations", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.integer "seminar_id", unsigned: true
     t.integer "user_id", unsigned: true
     t.string "email", limit: 250
     t.string "name", limit: 250
     t.string "surname", limit: 250
     t.string "affiliation", limit: 250
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["seminar_id"], name: "fk_seminars_registrations"
     t.index ["user_id"], name: "fk_users_registrations"
   end
 
-  create_table "repayments", id: { type: :integer, unsigned: true }, charset: "utf8", force: :cascade do |t|
+  create_table "repayments", id: { type: :integer, unsigned: true }, charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.integer "seminar_id", null: false, unsigned: true
     t.integer "holder_id", unsigned: true
     t.integer "fund_id", unsigned: true
@@ -182,6 +181,7 @@ ActiveRecord::Schema.define(version: 2021_03_04_073352) do
     t.integer "bond_year", unsigned: true
     t.integer "bond_number", unsigned: true
     t.boolean "notified"
+    t.integer "ugov"
     t.string "spkr_token", limit: 250
     t.index ["fund_id"], name: "fund_id"
     t.index ["holder_id"], name: "index_repayments_on_holder_id"
@@ -189,10 +189,10 @@ ActiveRecord::Schema.define(version: 2021_03_04_073352) do
     t.index ["spkr_token"], name: "spkr_token_on_repayments"
   end
 
-  create_table "seminars", id: { type: :integer, unsigned: true }, charset: "utf8", force: :cascade do |t|
+  create_table "seminars", id: { type: :integer, unsigned: true }, charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.integer "user_id", unsigned: true
     t.integer "organization_id", unsigned: true
-    t.datetime "date"
+    t.datetime "date", precision: nil
     t.integer "duration"
     t.boolean "in_presence"
     t.integer "place_id"
@@ -212,7 +212,7 @@ ActiveRecord::Schema.define(version: 2021_03_04_073352) do
     t.string "link", limit: 250
     t.string "link_text"
     t.string "alert_message"
-    t.datetime "alert_deadline"
+    t.datetime "alert_deadline", precision: nil
     t.integer "serial_id"
     t.integer "cycle_id"
     t.integer "conference_id", unsigned: true
@@ -224,7 +224,7 @@ ActiveRecord::Schema.define(version: 2021_03_04_073352) do
     t.index ["user_id"], name: "index_seminars_on_user_id"
   end
 
-  create_table "serials", id: { type: :integer, unsigned: true }, charset: "utf8", force: :cascade do |t|
+  create_table "serials", id: { type: :integer, unsigned: true }, charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.integer "organization_id", unsigned: true
     t.string "title", limit: 250
     t.text "description"
@@ -234,21 +234,21 @@ ActiveRecord::Schema.define(version: 2021_03_04_073352) do
     t.index ["organization_id"], name: "fk_serials_organization"
   end
 
-  create_table "tags", id: { type: :integer, unsigned: true }, charset: "utf8", force: :cascade do |t|
+  create_table "tags", id: { type: :integer, unsigned: true }, charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
   end
 
-  create_table "users", id: { type: :integer, unsigned: true, default: nil }, charset: "utf8", force: :cascade do |t|
+  create_table "users", id: { type: :integer, unsigned: true, default: nil }, charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.string "upn", null: false
     t.string "name"
     t.string "surname"
     t.string "email"
-    t.datetime "updated_at"
+    t.datetime "updated_at", precision: nil
     t.index ["upn"], name: "index_upn_on_users"
   end
 
-  create_table "zoom_meetings", id: { type: :bigint, unsigned: true, default: nil }, charset: "utf8mb4", force: :cascade do |t|
+  create_table "zoom_meetings", id: { type: :bigint, unsigned: true, default: nil }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "uuid", limit: 200
     t.text "start_url"
     t.text "join_url"
