@@ -110,6 +110,7 @@ it:
         iban:    Iban (Bank Account)
         bank_name:    Nome della banca
         bank_address: Indirizzo della banca
+        ugov: Numero Reg. DG
       seminar:
         hidden:      Nascosto.
         title:       Titolo
