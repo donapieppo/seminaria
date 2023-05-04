@@ -5,11 +5,10 @@ export default class extends Controller {
   static values = { manager: Boolean };
 
   connect() {
-    console.log("connected fund controller");
+    console.log("Connected fund controller");
     var fundDiv = this.fundTarget;
     var manager = this.managerValue;
-    console.log(fundDiv)
-    console.log(manager)
+    console.log(`manager: ${manager}`)
     if (! manager) {
       this.holderTarget.addEventListener("change", function(e) { 
         if (fundDiv) {
