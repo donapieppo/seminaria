@@ -88,5 +88,14 @@ module RepaymentsHelper
     s.blank? ? ('_' * size) : s
   end
 
-
+  def status_class(repayment)
+    c = 'list-group-item list-group-item-action'
+    if repayment.complete?
+      c + ' list-group-item-success'
+    elsif repayment.notified
+      c + ' list-group-item-primary'
+    else
+      c + ' list-group-item-light'
+    end
+  end
 end
