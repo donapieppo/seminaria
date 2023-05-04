@@ -48,6 +48,7 @@ Rails.application.routes.draw do
 
     resources :repayments do
       post :notify, on: :member
+      patch :close, on: :member
       get  :choose_fund, on: :member
       post :update_fund, on: :member
 
