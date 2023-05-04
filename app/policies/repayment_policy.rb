@@ -49,6 +49,10 @@ class RepaymentPolicy < ApplicationPolicy
     update_fund?
   end
 
+  def close?
+    @record.notified && can_manage_organization?
+  end
+
   def print_request?
     show?
   end
