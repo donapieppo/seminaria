@@ -1,7 +1,7 @@
 module UserPermissionHelper
   # see app/policies/application_policy.rb
   def user_is_manager?
-    current_user && current_organization && current_user.authorization.can_manage?(current_organization)
+    !!(current_user && current_organization && current_user.authorization.can_manage?(current_organization))
   end
 
   # def user_is_holder?(what)
