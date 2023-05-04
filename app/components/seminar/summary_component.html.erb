@@ -3,7 +3,9 @@
     SEMINARIO DEL <%= @seminar.organization.description.upcase %> - <%= l @seminar.date, format: :long %> 
   </div>
   <div>
-    <%= @seminar.speaker %> - <%= @seminar.title %>
+    <%= link_to @seminar do %>  
+      <%= @seminar.speaker %> - <%= @seminar.title %>
+    <% end %>
   </div>
   <div>
     <%= t :organized_by %> <%= @seminar.committee %>
