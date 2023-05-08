@@ -24,7 +24,12 @@
             <% funds.each do |fund| %>  
               <li class="list-group-item list-group-item <%= "text-warning" unless fund.available %>">
                 <%= link_to fund_path(fund, modal: 1), data: { turbo_frame: 'modal' } do %>
-                  <%= fund.code %> - <%= fund.name %>
+                  <% if fund.code.blank? %>  
+                    <span class="text-danger fw-bold">Manca codice del fondo</span>
+                  <% else %>
+                    <%= fund.code %>  
+                  <% end %>
+                   - <%= fund.name %>
                 <% end %>
                 (<%= fund.category.name %>)
                 <span class="float-end">
