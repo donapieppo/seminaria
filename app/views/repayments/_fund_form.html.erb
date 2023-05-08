@@ -1,6 +1,6 @@
-<%= manager = user_is_manager? %>  
+<% manager = user_is_manager? %>  
 
-<div class="dm-card" data-controller="fund">
+<div class="dm-card" data-controller="fund" data-fund-manager-value="<%= manager.to_s %>">
   <div class="dm-card-title">
     Fondo 
     <span class="float-end"><%= checked_icon(repayment_holder_ok?(repayment.object)) %></span>
