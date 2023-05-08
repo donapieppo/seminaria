@@ -31,7 +31,7 @@
       <input type="hidden" value="0" name="payment_bool">
       <input type="checkbox" value="1" name="payment_bool" data-payment-target="paymentBool" <%= 'checked="checked"' if repayment.object.payment %>/>
     </div>
-    <div data-payment-target="paymentDetails">
+    <div class="my-2" data-payment-target="paymentDetails">
       <%= repayment.input :italy, as: :radio_buttons, input_html: { 'data-payment-target': 'italyBool' } %>
       <%= repayment.input :payment, hint: t(:payment_hint), as: :currency_float, input_html: { 'data-payment-target': 'paymentAmount' } %>
       <%= repayment.input :gross, as: :radio_buttons, collection: [['Lordo ente', true], ['Compenso netto', false]], label: "", input_html: { 'data-payment-target': 'grossBool' } %>  
