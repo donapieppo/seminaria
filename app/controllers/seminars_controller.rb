@@ -132,7 +132,7 @@ class SeminarsController < ApplicationController
     end
 
     if @seminar.save
-      if create_zoom == "1"
+      if false && create_zoom == "1"
         @zoom = ZoomOauth.new
         redirect_to @zoom.authorize_url(@seminar.id), allow_other_host: true
       else
