@@ -58,9 +58,9 @@
 <% end %>
 
 <% if policy(@repayment).destroy? %>
-  <center>
+  <div class="mt-3 text-center">
     <%= button_to @repayment, method: :delete, title: 'elimina', form: { data: { 'turbo-confirm': 'Siete sicuri di voler cancellare la richiesta e tutti i dati?' }}, class: "btn btn-danger" do %>
       CANCELLA LA RICHIESTA
     <% end %>
-  </center>
+  </div>
 <% end %>
