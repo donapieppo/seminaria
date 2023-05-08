@@ -49,7 +49,7 @@ class Repayment < ApplicationRecord
       if self.speaker_departure < self.speaker_arrival
         self.errors.add(:speaker_departure, "La partenza non può essere precedente all'arrivo.")
       end
-      if self.speaker_arrival > self.seminar.date
+      if self.speaker_arrival > self.seminar.date.to_date
         self.errors.add(:speaker_arrival, 'Il relatore non può arrivare a Bologna dopo la data prevista per il seminario.')
       end
     end
