@@ -22,12 +22,12 @@
         <div class="title"><%= @seminar.title %></div>
         <div class="notes">
           <%# se in una serie/ciclo ma non stiamo vedendo proprio la serie/ciclo %>
-          <% if @seminar.serial_id and !@serial %>
+          <% if @seminar.serial_id && !@serial %>
             <div>
               nell'ambito della serie: <%= link_to @seminar.serial.to_s.upcase, serial_path(@seminar.serial_id) %>
             </div>
           <% end %>
-          <% if @seminar.cycle_id and !@cycle %>
+          <% if @seminar.cycle_id && !@cycle %>
             <div>
               nel ciclo di seminari: <%= link_to @seminar.cycle.to_s.upcase, cycle_path(@seminar.cycle_id) %>
             </div>
