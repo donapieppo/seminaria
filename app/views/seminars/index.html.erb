@@ -15,13 +15,15 @@
 <% done_conferences = [] %>
 <% @seminars.each do |seminar| %>  
   <%= next if (seminar.hidden && ! @show_hidden) %>  
-  <% if seminar.in_conference? %>  
-    <% unless done_conferences.include?(seminar.conference_id) %>  
-      <%= render seminar.conference %>  
-      <% done_conferences << seminar.conference_id %>  
+  <% cache seminar do %>
+    <% if seminar.in_conference? %>  
+      <% unless done_conferences.include?(seminar.conference_id) %>  
+        <%= render seminar.conference %>  
+        <% done_conferences << seminar.conference_id %>  
+      <% end %>
+    <% else %>
+      <%= render Seminar::SeminarComponent.new(seminar, current_user) %>  
     <% end %>
-  <% else %>
-    <%= render Seminar::SeminarComponent.new(seminar, current_user) %>  
   <% end %>
 <% end %>
 

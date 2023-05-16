@@ -217,10 +217,14 @@ ActiveRecord::Schema[7.0].define(version: 2021_03_04_073352) do
     t.integer "cycle_id"
     t.integer "conference_id", unsigned: true
     t.boolean "hidden"
+    t.text "slug"
+    t.datetime "updated_at", precision: nil
+    t.datetime "created_at", precision: nil
     t.index ["conference_id"], name: "fk_seminars_conference"
     t.index ["cycle_id"], name: "index_seminars_on_cycle_id"
     t.index ["organization_id"], name: "fk_seminars_organization"
     t.index ["serial_id"], name: "index_seminars_on_serial_id"
+    t.index ["slug"], name: "index_seminars_on_slug", length: 1024
     t.index ["user_id"], name: "index_seminars_on_user_id"
   end
 
