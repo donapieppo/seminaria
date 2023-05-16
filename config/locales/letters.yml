@@ -1,4 +1,5 @@
 it:
+  to_kind_attention: Alla cortese attenzione
   i_declare: Il/la sottoscritto/a dichiara sotto la sua personale responsabilità che i seguenti dati sono veritieri
   born_in: nato/a a
   born_at: il
@@ -74,6 +75,7 @@ it:
 
 
 en:
+  to_kind_attention: To the kind attention
   i_declare: I undersigned, under penalties of perjury, hereby declare the following to be true
   born_in: born in 
   born_at: on the date
