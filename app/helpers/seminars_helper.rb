@@ -54,7 +54,7 @@ module SeminarsHelper
   def document_tag(document, short: false)
     if document.attach.attached?
       content_tag :div do
-        dmicon('download') + "&nbsp;".html_safe + link_to(document.description, url_for(document.attach))
+        link_to(dmicon('download') + "&nbsp;".html_safe + document.description, url_for(document.attach))
       end
     end
   end
