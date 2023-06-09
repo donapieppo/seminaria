@@ -1,40 +1,47 @@
+# necessary for block in Caracal::Core::Models::TableCellModel
+repayment = @repayment
 letter_defaults(docx)
 
 repayment_header(docx)
 
-repayment = @repayment
+I18n.locale = @repayment.language.to_sym
 
 col_prot = Caracal::Core::Models::TableCellModel.new do
-  p 'Rep. n.             Prot. n.          del', bold: true
-  p 'Bologna,', bold: true
+  p "Rep. n.             Prot. n.          del", bold: true
+  p "Bologna,", bold: true
 end
 
 col_attenzione = Caracal::Core::Models::TableCellModel.new do
-  p 'Alla cortese attenzione di', align: :left
+  p I18n.t(:to_kind_attention), align: :left
   p repayment.speaker_with_title, align: :left, bold: true
-  p repayment.address, align: :left, bold: true 
+  p repayment.address, align: :left, bold: true
   p "#{repayment.postalcode} #{repayment.city}", align: :left, bold: true
-  p repayment.country, align: :left, bold: true                         
-  p ""
+  p repayment.country, align: :left, bold: true
 end
 
-docx.table [[col_prot,col_attenzione]] do
-  border_line    false
+docx.table [[col_prot, col_attenzione]] do
+  border_line false
 end
-
-docx.p "Oggetto: Lettera di incarico per lo svolgimento di seminari e attività di ricerca scientifica in collaborazione."
 
 docx.p
 
-docx.p "Con la presente si dà incarico #{@repayment.seminar.female_speaker? ? 'alla' : 'al'} #{@repayment.speaker_with_title}, nat#{@repayment.seminar.female_speaker? ? 'a' : 'o'} a #{@repayment.birth_place} (#{@repayment.birth_country}), il #{@repayment.birth_date}, residente in #{@repayment.address} – #{@repayment.postalcode}, #{@repayment.city} (#{@repayment.country}), in qualità di #{@repayment.position_to_s} presso #{@repayment.affiliation}, di svolgere le seguenti prestazioni:"
+if @repayment.italy
+  docx.p "Oggetto: Lettera di incarico per lo svolgimento di seminari e attività di ricerca scientifica in collaborazione."
+else
+  docx.p "Oggetto: Lettera di incarico per lo svolgimento di seminari e attività di ricerca scientifica in collaborazione. "
+end
 
 docx.p
 
-arrival_and_departure = @repayment.seminar.speaker_on_line ? '' : "dal #{I18n.l @repayment.speaker_arrival} al #{I18n.l @repayment.speaker_departure}"
+docx.p "Con la presente si dà incarico #{@repayment.seminar.female_speaker? ? 'alla' : 'al'} #{@repayment.speaker_with_title}, nat#{@repayment.seminar.female_speaker? ? 'a' : 'o'} a #{@repayment.birth_place} (#{@repayment.birth_country}), il #{@repayment.birth_date}, residente in #{@repayment.address} – #{@repayment.postalcode}, #{@repayment.city} (#{@repayment.country}), in qualità di #{@repayment.position_to_s} presso #{@repayment.affiliation}, di svolgere le seguenti prestazioni presso il Dipartimento di Matematica dell'Università di Bologna:"
+
+docx.p
+
+arrival_and_departure = @repayment.seminar.speaker_on_line ? "" : "dal #{I18n.l @repayment.speaker_arrival} al #{I18n.l @repayment.speaker_departure}"
 
 docx.p "Seminario “#{@repayment.seminar.title}” del #{@repayment.seminar.date.strftime("%d/%m/%Y")} e attività di ricerca scientifica in collaborazione #{arrival_and_departure}, organizzati dal prof. #{@repayment.seminar.committee}, nell'ambito del Progetto #{@repayment.fund} del prof. #{@repayment.holder}."  
 
-docx.p 
+docx.p
 
 docx.p "La prestazione è riconducibile nell’ambito di quelle che danno origine a reddito da prestazioni di lavoro autonomo saltuarie ed occasionali ex art.67, comma 1, lett.L) DPR 917/86."
 
@@ -43,8 +50,9 @@ docx.p payment_and_refound_string(@repayment)
 docx.p
 
 # a esclusione di estero con solo compenso (payment) (quindi esculdo i non italiani con refund vuoto)
-docx.p "Sarà a carico #{@repayment.seminar.female_speaker? ? 'della' : 'del'} #{@repayment.speaker_with_title} la marca da bollo da applicarsi ad ogni nota spese." unless (! @repayment.italy.nil? and @repayment.refund.blank?)
+docx.p "Sarà a carico #{@repayment.seminar.female_speaker? ? 'della' : 'del'} #{@repayment.speaker_with_title} la marca da bollo da applicarsi ad ogni nota spese qualora l’importo del rimborso superi 77,47€." unless (! @repayment.italy.nil? && @repayment.refund.blank?)
 
+docx.p
 docx.p "Distinti saluti."
 
 docx.p
@@ -58,33 +66,35 @@ col_delega = Caracal::Core::Models::TableCellModel.new do
 end
 
 col_accettazione = Caracal::Core::Models::TableCellModel.new do
-  p "Per Accettazione",           size: 16, align: :right
+  p "Per accettazione",           size: 16, align: :right
   p "Il prestatore occasionale",  size: 16, align: :right
   p repayment.speaker_with_title, align: :right
   p "_________________________________", align: :right
 end
 
 docx.table [[col_delega, col_accettazione]] do
-  border_line    false
+  border_line false
 end
 
 docx.p
 
-docx.style id: 'notes', name: 'Notes', size: 16
+docx.style id: "notes", name: "Notes", size: 16
 
-docx.p "Il sottoscritto prestatore s’impegna a comunicare tempestivamente all’Università il suo diverso inquadramento fiscale qualora svolga attività libero professionale ex art.53 e ss. DPR 917/86 e la prestazione oggetto dell’incarico rientri nella propria professione abituale.", style: 'notes'
+docx.p "Il sottoscritto prestatore s’impegna a comunicare tempestivamente all’Università il suo diverso inquadramento fiscale qualora svolga attività libero professionale ex art.53 e ss. DPR 917/86 e la prestazione oggetto dell’incarico rientri nella propria professione abituale.", style: "notes"
 
-if @repayment.refund
-  docx.p "Il sottoscritto s’impegna altresì a non detrarre/dedurre in sede di dichiarazione dei redditi le somme relative alle spese rimborsate per l’espletamento del presente incarico.", style: 'notes'
-end
+# if @repayment.refund
+  docx.p "Il sottoscritto s’impegna altresì a non detrarre/dedurre in sede di dichiarazione dei redditi le somme relative alle spese rimborsate per l’espletamento del presente incarico. Il sottoscritto si impegna altresì a non presentare richiesta di rimborso/pagamento delle spese effettuate per l’attività oggetto dell’incarico ad altro Ente che non sia il Dipartimento di Matematica dell’Alma Mater Studiorum - Università di Bologna.", style: "notes"
+# end
 
-docx.p "Per l’esecuzione della prestazione di cui trattasi, il sottoscritto dovrà attenersi ai seguenti criteri, che accetta:", style: 'notes'
+docx.p
+
+docx.p "Per l’esecuzione della prestazione di cui trattasi, il sottoscritto dovrà attenersi ai seguenti criteri, che accetta:", style: "notes"
 
 docx.list_style do
   type :ordered
-  level   2        
-  format  'decimal'
-  value   '%3.' 
+  level 2
+  format "decimal"
+  value "%3."
 end
 
 docx.ul do
@@ -99,4 +109,3 @@ docx.p
 
 docx.p "In fede, ______________________________"
 docx.p "            #{@repayment.speaker_with_title}"
-
