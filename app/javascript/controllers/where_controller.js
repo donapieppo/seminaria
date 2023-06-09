@@ -12,7 +12,6 @@ export default class extends Controller {
     console.log("connect where");
     toggle_div(this.in_presenceTarget, this.in_presence_detailsTarget, null, true);
     toggle_div(this.on_lineTarget, this.on_line_detailsTarget, null, true);
-    toggle_div("#seminar_zoom_meeting_create", "#zoom_auto_div", "#manual_seminar_div", true);
 
     this.place_description_field();
     this.place_selectorTarget.addEventListener('change', () => {
