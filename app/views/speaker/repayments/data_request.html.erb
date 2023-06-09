@@ -18,8 +18,8 @@
   <pre>
 Dear <%= @repayment.name %> <%= @repayment.surname %>,
 
-in order to recive repayment / refund for your seminar in 
-Bologna on <%= l @repayment.seminar.date, locale: :en, format: :short %> please visit the page
+in order to recive repayment / refund for your seminar 
+on <%= l @repayment.seminar.date, locale: :en, format: :short %> please visit the page
 
 <%= link_to accept_speaker_repayment_url(@repayment.spkr_token), accept_speaker_repayment_url(@repayment.spkr_token) %>
 
@@ -35,7 +35,7 @@ Sincerally
   <pre>
 Gentile <%= @repayment.name %> <%= @repayment.surname %>,
 
-Per permettere il pagamento di rimborsi / compenso per il seminario a Bologna
+Per permettere il pagamento di rimborsi / compenso per il seminario 
 del giorno <%= l @repayment.seminar.date %> la preghiamo di visitare la pagina web
 
 <%= link_to accept_speaker_repayment_url(@repayment.spkr_token), accept_speaker_repayment_url(@repayment.spkr_token) %>
