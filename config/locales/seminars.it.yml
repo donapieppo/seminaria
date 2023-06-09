@@ -1,3 +1,4 @@
+---
 it:
   new_arguments: "Per aggiungere nuovi argomenti scrivere a %{reply_to}"
   can_read: può leggere
@@ -88,6 +89,7 @@ it:
         postalcode: Codice postale
         city:       Città
         country:    Paese
+        language: Lingua per le comunicazioni
         birth_date:    Data di nascita
         birth_place:   Luogo di nascita
         birth_country: Paese di nascita
@@ -98,7 +100,7 @@ it:
         reason: Descrizione dettagliata delle eccezionali ragioni di particolare qualificazione, abilità e conoscenze possedute dal conferenziere che motivano la deroga alla procedura comparativa pubblica con assegnazione diretta dell’incarico
         activity_details: Descrizione dettagliata del tipo di attività che verrà svolta dallo speaker (scaletta/programma).
         scientific_interests: Interesse scientifico o di terza missione che ci si aspetta di soddisfare con la prestazione dello speaker, con illustrazione dei presupposti scientifici o di terza missione dell’intervento
-        payment: Compenso 
+        payment: Compenso
         gross: lordo
         role: Dettagli posizione
         position: In qualità di
@@ -181,7 +183,7 @@ it:
         in_presence: Selezionare se è possibile seguire il seminario in presenza.
         on_line: Selezionare se è possibile seguire il seminario on line.
         speaker_on_line: Selezionare se il relatore non sarà presente in aula ma collegato on-line. Informazione necessaria per seminari con rimborso/compenso.
-        link: Altre informazioni sul seminario. Non usare per fornire il link del meeting in caso di seminari on-line. 
+        link: Altre informazioni sul seminario. Non usare per fornire il link del meeting in caso di seminari on-line.
         meeting_url: Indirizzo della stanza di Zoom / Teams / Skype o altri servizi (è possibile anche inserirlo in seguito).
         meeting_code: Codice opzionale da condividere.
         meeting_visible: Selezionare per rendere visibili a tutti codice e url del meeting. Se l'opzione non viene selezionata, l'organizzatore dovrà inviare agli iscritti i dati della stanza virtuale prima dell'inizio del seminario.
@@ -207,4 +209,3 @@ it:
   phdstudent: Dottorando di ricerca
   emeritus: Professore Emerito
   other: Altro
-  
