@@ -24,16 +24,16 @@ class SeminarPolicy < ApplicationPolicy
   end
 
   def create?
-    record_organization_manager? || (@user && ! @record.past?)
+    @user
   end
 
   def update?
-    record_organization_manager? || (owner? && ! @record.past?)
+    record_organization_manager? || owner?
   end
 
   # FIXME li cancella solo manager o se non e' ancora stata inviata
   def destroy?
-    record_organization_manager? || (owner? && ! @record.repayment)
+    record_organization_manager? || (owner? && !@record.repayment)
   end
 
   def mail_text?
