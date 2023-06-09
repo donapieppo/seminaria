@@ -28,9 +28,9 @@ class Repayment < ApplicationRecord
 
   def payment_limits
     if self.seminar.speaker_on_line && self.lordo_percipiente && self.lordo_percipiente > 200
-      self.errors.add(:payment, 'il compenso massimo erogabile a conferenzieri per seminari on line è pari a 200 Euro lordo ente, corrispondenti a 184,33 Euro lordo percipiente (147,47 Euro netti per conferenzieri con residenza fiscale in Italia; 129,03 euro netti per conferenzieri con residenza fiscale estera)')
+      self.errors.add(:payment, "il compenso massimo erogabile a conferenzieri per seminari on line è pari a 200 Euro lordo ente, corrispondenti a 184,33 Euro lordo percipiente (147,47 Euro netti per conferenzieri con residenza fiscale in Italia; 129,03 euro netti per conferenzieri con residenza fiscale estera)")
     elsif self.italy && self.lordo_percipiente && self.lordo_percipiente > 500
-      self.errors.add(:payment, 'il compenso massimo erogabile a conferenzieri con residenza fiscale in Italia è pari a Euro 500 lordo percipiente (400 euro nette; 542,50 euro lordo ente)')
+      self.errors.add(:payment, "il compenso massimo erogabile a conferenzieri con residenza fiscale in Italia è pari a Euro 500 lordo percipiente (400 euro nette; 542,50 euro lordo ente)")
     end
   end
 
@@ -134,51 +134,4 @@ class Repayment < ApplicationRecord
       self.update_attribute(:spkr_token, SecureRandom.urlsafe_base64(50))
     end
   end
-  
-  # def missing_payment_and_refund?
-  #   ! ((self.payment.to_i > 0) || (self.expected_refund.to_i > 0))
-  # end
-
-  # def holder_ok?
-  #   self.holder_id
-  # end
-
-  # def speaker_reason_ok?
-  #   ! ((self.documents.empty?) || (self.reason.blank?))
-  # end
-
-  # def speaker_anagrafica_ok?
-  #   ! ((self.name.blank?) || (self.surname.blank?) || (self.birth_place.blank?) || (self.birth_date.blank?))
-  # end
-
-  # def speaker_role_ok?
-  #   ! ((self.affiliation.blank?) || (self.position_id.nil?) || (self.email.blank?))
-  # end
-
-  # def speaker_address_ok?
-  #   ! ((self.address.blank?) || (self.postalcode.blank?) || (self.city.blank?))
-  # end
-
-  # def all_ok_to_send?
-  #   holder_ok? && speaker_reason_ok? &&  speaker_anagrafica_ok? && speaker_role_ok? && speaker_address_ok? 
-  # end
-
-  # def correct_data_group?(what)
-  #   case what
-  #   when :reason
-  #     speaker_reason_ok?
-  #   when :fund
-  #     if self.holder_id == self.seminar.user_id
-  #       (self.holder_id and self.fund_id)
-  #     else
-  #       self.holder_id
-  #     end
-  #   when :compensation
-  #     ! missing_payment_and_refund?
-  #   when :speaker_details
-  #     speaker_anagrafica_ok? and speaker_address_ok? and speaker_role_ok?
-  #   else
-  #     false
-  #   end
-  # end
 end
