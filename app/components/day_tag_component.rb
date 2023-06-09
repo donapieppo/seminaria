@@ -7,10 +7,10 @@ class DayTagComponent < ViewComponent::Base
         @conference = what.conference
       else
         @seminar = what
-        @month  = I18n.l(@seminar.date, format: :month)
-        @nday   = I18n.l(@seminar.date, format: :nday)
+        @month = I18n.l(@seminar.date, format: :month)
+        @nday  = I18n.l(@seminar.date, format: :nday)
         # week day for future seminar or year if already done
-        @detail = (@seminar.date < Time.now) ? @seminar.date.year : I18n.l(@seminar.date, format: :wday) 
+        @detail = (@seminar.date < Time.now) ? @seminar.date.year : I18n.l(@seminar.date, format: :wday).capitalize
       end
     else
       @conference = what
