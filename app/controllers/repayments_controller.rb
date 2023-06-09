@@ -199,7 +199,7 @@ class RepaymentsController < ApplicationController
   private
 
   def repayment_params
-    p = [:name, :surname, :email, :address, :postalcode, :city, :italy, :country, :birth_date, :birth_place, :birth_country, :affiliation,
+    p = [:name, :surname, :email, :address, :postalcode, :city, :italy, :country, :language, :birth_date, :birth_place, :birth_country, :affiliation,
          :payment, :gross, :position_id, :role, :refund, 
          :reason, :activity_details, :scientific_interests, 
          :speaker_arrival, :speaker_departure, :expected_refund, :taxid, 
