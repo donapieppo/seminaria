@@ -19,7 +19,7 @@ class Seminar < ApplicationRecord
   scope :this_year, -> { where('YEAR(seminars.date) = YEAR(NOW())') }
   scope :date_today, -> { where('DATE(seminars.date)=CURDATE()') }
 
-  before_save :manage_place_choice, :date_in_future
+  before_save :manage_place_choice
 
   validates :title, :speaker_title, :speaker, :date, presence: true
   validates :meeting_url, :link, format: { with: URI.regexp(['http', 'https']), allow_blank: true }
@@ -34,11 +34,6 @@ class Seminar < ApplicationRecord
   # convenzione che fino ad due ore fa non e' passato
   def past?
     self.date < Time.now - 2.hour
-  end
-
-  # non so se sono amministratore
-  # FIXME TODO
-  def date_in_future
   end
 
   def where_to_s(visible: false)
