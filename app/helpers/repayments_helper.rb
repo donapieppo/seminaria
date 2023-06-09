@@ -1,26 +1,40 @@
 module RepaymentsHelper
+  # compenso senza rimborso spese
+  def _payment_string(lordo_percipiente)
+    "Per il presente incarico è previsto un compenso lordo percipiente pari a #{euro(lordo_percipiente)}. Il compenso sarà assoggettato alle ritenute previste in termini di legge e verrà corrisposto dopo la conclusione dell’incarico in subordine alla regolare esecuzione di quest’ultimo.
+Il prestatore si impegna a conservare e presentare al termine dell’incarico i documenti giustificativi comprovanti il sostenimento delle spese necessarie allo svolgimento dell’attività, unitamente alla nota spese."
+  end
+
+  # rimborso spese
+  def _refund_string
+    "Per il presente incarico a titolo gratuito non è previsto alcun compenso ma il mero rimborso delle spese strettamente necessarie risultanti dai documenti giustificativi visionati e trattenuti in originale dall’Ufficio Amministrazione fino ad un importo massimo di ____________€. I documenti giustificativi comprovanti il sostenimento delle spese possono essere rimborsati entro i massimali ed in conformità alla disciplina di cui al Regolamento Missioni dell’Università. Il rimborso spese non è assoggettato ad alcuna ritenuta, verrà corrisposto previa presentazione di nota spese al termine dell’incontro ed è subordinato alla regolare esecuzione di quest’ultimo."
+  end
+
+  # compenso + rimborso spese
+  def _payment_and_refound_string(lordo_percipiente)
+    "Per il presente incarico è previsto un compenso lordo percipiente pari a #{euro(lordo_percipiente)} e il rimborso delle spese strettamente necessarie risultanti dai documenti giustificativi visionati e trattenuti in originale dall’Ufficio Amministrazione. Il compenso e il rimborso spese sono assoggettati alle ritenute previste a termini di legge, verranno corrisposti previa presentazione di nota spese al termine dell’incontro, e sono subordinati alla regolare esecuzione di quest’ultimo. I documenti giustificativi comprovanti il sostenimento delle spese possono essere rimborsati entro i massimali ed in conformità alla disciplina di cui al Regolamento Missioni dell’Università."
+  end
+
   def payment_and_refound_string(repayment)
-    if repayment.payment.blank? 
-      "Per il presente incarico non è previsto alcun compenso ma il mero rimborso delle spese strettamente necessarie risultanti dai documenti giustificativi visionati e trattenuti in originale dall’Ufficio Amministrazione. I documenti giustificativi comprovanti il sostenimento delle spese possono essere rimborsati entro i massimali ed in conformità alla disciplina di cui al Regolamento Missioni dell’Università. Il rimborso spese non è assoggettato ad alcuna ritenuta, verrà corrisposto previa presentazione di nota spese al termine dell’incontro ed è subordinato alla regolare esecuzione di quest’ultimo."
-    else
+    if repayment.payment.to_f > 0
       if repayment.refund
-        # compenso + rimborso spese
-        "Per il presente incarico è previsto un compenso lordo percipiente pari a #{euro(repayment.lordo_percipiente)} e il rimborso delle spese strettamente necessarie risultanti dai documenti giustificativi visionati e trattenuti in originale dall’Ufficio Amministrazione. Il compenso e il rimborso spese sono assoggettati alle ritenute previste a termini di legge, verranno corrisposti previa presentazione di nota spese al termine dell’incontro, e sono subordinati alla regolare esecuzione di quest’ultimo. I documenti giustificativi comprovanti il sostenimento delle spese possono essere rimborsati entro i massimali ed in conformità alla disciplina di cui al Regolamento Missioni dell’Università."
-      else 
-        # compenso senza rimborso spese
-        "Per il presente incarico è previsto un compenso lordo percipiente pari a #{euro(repayment.lordo_percipiente)}, assoggettato alle ritenute previste a termini di legge, corrisposto al termine dell’incontro e subordinato alla regolare esecuzione di quest’ultimo."
+        _payment_and_refound_string(repayment.lordo_percipiente)
+      else
+        _payment_string(repayment.lordo_percipiente)
       end
+    else
+      _refund_string
     end
   end
 
   def repayment_header(docx)
     logopath = "#{Rails.root}/app/assets/images/sigillo1.png"
     docx.img logopath do
-      width  50
+      width 50
       height 50
       align :center
     end
-    
+
     docx.p "ALMA MATER STUDIORUM - UNIVERSITÀ DI BOLOGNA", align: :center, bold: true
     docx.p "Dipartimento di Matematica", align: :center, bold: true
   end
@@ -49,7 +63,7 @@ module RepaymentsHelper
 
   # FIXME 
   def considerations(repayment)
-    if repayment.position and repayment.position.phd?
+    if repayment.position && repayment.position.phd?
       "che le attività di partecipazione a seminari in qualità di conferenzieri svolta dai dottorandi sono da considerare attività di divulgazione scientifica ricomprese nello status degli stessi, pertanto  esulano dal campo di applicazione dell'art. 7, comma 6, del D.Lgs. 165/2001"
     else
       "l’art. 7 del D.Lgs. 165 del 2001, in particolare sul conferimento di incarichi di collaborazione"
@@ -60,42 +74,43 @@ module RepaymentsHelper
     if repayment.payment
       "compenso lordo di euro #{repayment.lordo_ente}"
     else
-      "rimborso spese di viaggio e/o vitto e/o alloggio, in conformità ai massimali di spesa e alla disciplina di cui al Regolamento Missioni" # :   □ Gruppo A  □ Gruppo B (1) (2)"
+      "rimborso spese di viaggio e/o vitto e/o alloggio, in conformità ai massimali di spesa e alla disciplina di cui al Regolamento Missioni" 
+      # :   □ Gruppo A  □ Gruppo B (1) (2)"
     end
   end
 
   def letter_defaults(docx)
-    full_size  = 20
+    full_size = 20
     small_size = 12
 
     docx.style do
-      id   'Normal'
-      name 'Normal'
-      font 'Serif'
+      id "Normal"
+      name "Normal"
+      font "Serif"
       size full_size
-      line 300 
+      line 300
     end
 
     docx.page_margins do
-      left    800     # sets the left margin. units in twips.
-      right   800     # sets the right margin. units in twips.
-      top     600    # sets the top margin. units in twips.
-      bottom  600    # sets the bottom margin. units in twips.
+      left 800   # sets the left margin. units in twips.
+      right 800  # sets the right margin. units in twips.
+      top 600    # sets the top margin. units in twips.
+      bottom 600 # sets the bottom margin. units in twips.
     end
   end
 
   def field_or_underscores(s, size: 20)
-    s.blank? ? ('_' * size) : s
+    s.blank? ? ("_" * size) : s
   end
 
   def status_class(repayment)
-    c = 'list-group-item list-group-item-action'
+    c = "list-group-item list-group-item-action"
     if repayment.complete?
-      c + ' list-group-item-success'
+      c + " list-group-item-success"
     elsif repayment.notified
-      c + ' list-group-item-primary'
+      c + " list-group-item-primary"
     else
-      c + ' list-group-item-light'
+      c + " list-group-item-light"
     end
   end
 end
