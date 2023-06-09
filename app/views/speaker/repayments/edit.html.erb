@@ -1,18 +1,20 @@
 <% I18n.locale = :en %>  
 
 <div class="alert alert-info">
-  <p>Dear <%= @repayment.name %> <%= @repayment.surname %>, in order to recive repayment / refund for your seminar in Bologna</p>
+  <p>Dear <%= @repayment.name %> <%= @repayment.surname %>, in order to recive repayment / refund for your seminar</p>
   <p class="font-weight-bold">(<%= l @repayment.seminar.date, format: :short %>) <%= @repayment.seminar.title %></p>
   <p>please fill out the form below and provide a copy of an ID document.</p>
 </div>
 
-<%= dm_form_for [:speaker, @repayment, IdCard.new], url: speaker_repayment_id_cards_path(@repayment.spkr_token), title: 'Id Document ' do |form| %>
+<%= dm_card title: "Id Document" do %>  
+  <%= simple_form_for [:speaker, @repayment, IdCard.new], url: speaker_repayment_id_cards_path(@repayment.spkr_token), title: 'Id Document ' do |form| %>
+    <%= form.input :attach, as: :file %>
+    <%= form.submit "Submit" %>  
+  <% end %>
   <% @repayment.id_cards.each do |doc| %>  
     <%= link_to_id_card doc %> 
     <%= link_to_delete speaker_repayment_id_card_path(@repayment.spkr_token, doc.id) %><br/>
   <% end %>
-  <%= form.input :attach, as: :file %>
-  <%= form.submit "Submit" %>  
 <% end %>
 
 <%= dm_form_for [:speaker, @repayment], url: speaker_repayment_path(@repayment.spkr_token), title: 'Data required for repayment / refund ' do |repayment| %>
