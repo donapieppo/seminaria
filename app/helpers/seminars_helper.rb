@@ -54,13 +54,13 @@ module SeminarsHelper
   def document_tag(document, short: false)
     if document.attach.attached?
       content_tag :div do
-        link_to(dmicon('download') + "&nbsp;".html_safe + document.description, url_for(document.attach))
+        link_to(dmicon('download') + "&nbsp;&nbsp;".html_safe + document.description, url_for(document.attach))
       end
     end
   end
 
   def abstract_tag(seminar)
-    if ! seminar.abstract.blank?  
+    if !seminar.abstract.blank?  
       content_tag :div, seminar.abstract, class: 'abstract'
     end
   end
