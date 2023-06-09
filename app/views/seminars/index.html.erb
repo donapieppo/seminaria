@@ -15,7 +15,7 @@
 <% done_conferences = [] %>
 <% @seminars.each do |seminar| %>  
   <%= next if (seminar.hidden && ! @show_hidden) %>  
-  <% cache seminar do %>
+  <% cache_if !current_user, seminar do %>
     <% if seminar.in_conference? %>  
       <% unless done_conferences.include?(seminar.conference_id) %>  
         <%= render seminar.conference %>  
