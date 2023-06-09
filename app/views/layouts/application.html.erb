@@ -12,18 +12,15 @@
     <%= dm_unibo_common_headers %>  
   </head>
   <body>
-    <% unless @no_menu %>  
-      <%= render partial: 'layouts/menu' %>
-    <% end %>
+    <%= render partial: 'layouts/menu' %>
 
     <div class="container">
+      <%= render DmUniboCommon::PrivacyAlertComponent.new(cookies) %>  
       <%= bootstrap_flash %>
       <%= turbo_frame_tag "modal" %>
       <%= yield %>
     </div><!-- container -->
 
-    <% unless @no_menu %>
-      <%= dm_footer %>  
-    <% end %>
+    <%= render DmUniboCommon::FooterComponent.new(current_user, contact_mail: "dipmat-supportoweb@unibo.it") %>  
   </body>
 </html>
