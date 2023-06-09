@@ -4,10 +4,10 @@ module DmUniboCommon
   module Controllers
     module Helpers
       def redirect_unsigned_user
-        if ! user_signed_in?
-          if controller_name == 'repayments'
+        if !user_signed_in?
+          if controller_name == "repayments"
             session[:original_request] = request.fullpath
-            redirect_to dm_unibo_common.auth_shibboleth_callback_path 
+            redirect_to dm_unibo_common.auth_shibboleth_callback_path
           else
             redirect_to root_path, alert: "Si prega di loggarsi per accedere alla pagina richiesta."
           end
