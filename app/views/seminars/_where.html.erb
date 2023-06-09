@@ -1,8 +1,7 @@
 <h2>Modalità di svolgimento</h2>
 
 <div class="alert alert-info">
-  Nel caso di seminari <strong>on line</strong> è possibile inserire l'indirizzo della stanza oppure permettere all'applicativo di creare 
-  una stanza su Zoom con tutti i dati del seminario. <br/>
+  Nel caso di seminari <strong>on line</strong> è possibile inserire l'indirizzo della stanza.
 </div>
 
 <%= dm_form_for @seminar, title: "È possibile seguire il seminario:" do |s| %>  
@@ -24,16 +23,20 @@
 
       <div data-where-target="on_line_details" class="ms-3 my-3">
         <%# <%= s.input :meeting_visible %1> %>  
-        <% if zm = @seminar.zoom_meeting %>  
+        <% if false && zm = @seminar.zoom_meeting %>  
           <%= render Zoom::ZoomComponent.new(zm) %>
         <% else %>
           <div id="manual_seminar_div">
-            Istruzioni per collegarsi online:
+            <div class="text-center my-3 fw-bold text-primary">
+              Istruzioni opzionali per collegarsi online:
+            </div>
             <%= s.input :meeting_url %>  
             <%= s.input :meeting_code %> 
-            Oppure è possibile far creare all'applicativo il seminario su Zoom.
+            <%# Oppure è possibile far creare all'applicativo il seminario su Zoom. %>
           </div>
-          <%= s.input :zoom_meeting_create, as: :boolean, label: '' %>  
+          <div style="display: none">
+            <%= s.input :zoom_meeting_create, as: :boolean, label: '' %>  
+          </div>
           <div id="zoom_auto_div" class="font-weight-light font-italic ms-3">
             <%= image_tag 'ZoomLogo.png', width: 80 %> <br/>
             <span class="text-warning">Nota:</span>
