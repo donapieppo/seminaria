@@ -5,6 +5,8 @@
     <span class="float-end"><%= checked_icon(repayment_speaker_anagrafica_ok?(repayment.object)) %></span>
   </div>
   <div class="dm-card-body">
+    <%= repayment.input :language, as: :radio_buttons, collection: [['italiano', 'it'], ['inglese', 'en']] %>
+    <hr/>
     <%= repayment.input :name %>
     <%= repayment.input :surname %>
     <%= repayment.input :birth_date %>
@@ -13,5 +15,3 @@
     <%= repayment.input :taxid %>
   </div>
 </div>
-
-
