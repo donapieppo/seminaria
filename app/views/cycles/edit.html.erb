@@ -3,3 +3,7 @@
 <% @cycle.seminars.each do |seminar| %>  
   <%= render Seminar::SeminarComponent.new(seminar, current_user) %>  
 <% end %>
+
+<div>
+  Creato da <%= @cycle.user %>  
+</div>
