@@ -20,29 +20,13 @@
 
     <div class="my-4 border-bottom border-info">
       <%= s.input :on_line, as: :boolean, label: '', input_html: { 'data-where-target': 'on_line' } %>  
-
       <div data-where-target="on_line_details" class="ms-3 my-3">
         <%# <%= s.input :meeting_visible %1> %>  
-        <% if false && zm = @seminar.zoom_meeting %>  
-          <%= render Zoom::ZoomComponent.new(zm) %>
-        <% else %>
-          <div id="manual_seminar_div">
-            <div class="text-center my-3 fw-bold text-primary">
-              Istruzioni opzionali per collegarsi online:
-            </div>
-            <%= s.input :meeting_url %>  
-            <%= s.input :meeting_code %> 
-            <%# Oppure è possibile far creare all'applicativo il seminario su Zoom. %>
-          </div>
-          <div style="display: none">
-            <%= s.input :zoom_meeting_create, as: :boolean, label: '' %>  
-          </div>
-          <div id="zoom_auto_div" class="font-weight-light font-italic ms-3">
-            <%= image_tag 'ZoomLogo.png', width: 80 %> <br/>
-            <span class="text-warning">Nota:</span>
-            nella riunione creata automaticamente su zoom verrà abilitata l'opzione di sicurezza "sala di attesa" (waiting room).
-          </div>
-        <% end %>
+        <div class="text-center my-3 fw-bold text-primary">
+          Istruzioni opzionali per collegarsi online:
+        </div>
+        <%= s.input :meeting_url %>  
+        <%= s.input :meeting_code %> 
       </div>
     </div>
 
