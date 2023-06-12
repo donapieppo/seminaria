@@ -53,7 +53,11 @@
   </div>
 
   <div class="seminar-footer">
-    <% unless @seminar.conference_id %>  
+    <% if @seminar.in_conference? %>  
+      <div>
+        Relazione all'interno del Convegno &ldquo;<%= link_to @seminar.conference.title, @seminar.conference %>&rdquo;
+      </div>
+    <% else %>  
       <span class="committee">
         <hr/>
         <%= t :organized_by %> <%= @seminar.committee %> <br/>
