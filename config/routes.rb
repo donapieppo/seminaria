@@ -2,11 +2,12 @@ Rails.application.routes.draw do
   mount DmUniboCommon::Engine => "/dm_unibo_common"
 
   get '/choose_organization', to: "home#choose_organization"
+
   # https://tester.dm.unibo.it/seminars/zoom-oauth
-  get '/zoom-oauth',    to: "zoom#oauth"
-  get '/zoom/show',     to: "zoom#new"
-  get '/zoom/user',     to: "zoom#user"
-  get '/zoom/list',     to: "zoom#list"
+  # get '/zoom-oauth',    to: "zoom#oauth"
+  # get '/zoom/show',     to: "zoom#new"
+  # get '/zoom/user',     to: "zoom#user"
+  # get '/zoom/list',     to: "zoom#list"
 
   get '/logins/logout', to: 'dm_unibo_common/logins#logout'
 
@@ -64,7 +65,7 @@ Rails.application.routes.draw do
       resources :curricula_vitae
     end
 
-    resources :funds 
+    resources :funds
 
     namespace(:speaker) do
       resources :repayments do
