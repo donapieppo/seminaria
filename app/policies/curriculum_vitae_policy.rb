@@ -3,4 +3,3 @@ class CurriculumVitaePolicy < DocumentPolicy
     @user && RepaymentPolicy.new(@user, @record.repayment).update?
   end
 end
-

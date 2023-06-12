@@ -1,6 +1,6 @@
 class PlacePolicy < ApplicationPolicy
   def index?
-    true 
+    true
   end
 
   def show?

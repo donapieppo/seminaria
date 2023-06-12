@@ -1,6 +1,6 @@
 class CyclePolicy < ApplicationPolicy
   def index?
-    true 
+    true
   end
 
   def show?
@@ -10,7 +10,7 @@ class CyclePolicy < ApplicationPolicy
   # every user can create a cycle in current_organization
   # FIXME
   def create?
-    @user 
+    @user
   end
 
   def update?
@@ -21,4 +21,3 @@ class CyclePolicy < ApplicationPolicy
     update?
   end
 end
-
