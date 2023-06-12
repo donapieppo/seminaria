@@ -7,25 +7,25 @@ class SeminarsController < ApplicationController
   def index
     authorize :seminar
     if params[:only_current_user] && current_user # see config/routes.rb
-      @title = "Seminari inseriti da #{current_user.cn}"  
-      @seminars = current_user.seminars.order('seminars.date DESC')
+      @title = "Seminari inseriti da #{current_user.cn}"
+      @seminars = current_user.seminars.order("seminars.date DESC")
       @show_hidden = true
     elsif params[:funds_current_user] && current_user
       @title = "Seminari sui miei fondi"
       @fund_ids = current_user.fund_ids
-      @seminars = current_user.seminars_on_my_funds_last_year.order('seminars.date DESC')
+      @seminars = current_user.seminars_on_my_funds_last_year.order("seminars.date DESC")
       @show_hidden = true
     elsif current_organization
       @title = "Prossimi seminari del #{current_organization.description}"
-      @seminars = current_organization.seminars.order('seminars.date ASC').future
+      @seminars = current_organization.seminars.order("seminars.date ASC").future
     else
       # TODO
       # redirect_to choose_organization_path and return
-      redirect_to seminars_path(__org__: 'mat') and return
+      redirect_to seminars_path(__org__: "mat") and return
     end
-    @seminars = @seminars.includes(:repayment, :serial, :cycle, :documents, :arguments, :place, :zoom_meeting)
+    @seminars = @seminars.includes(:repayment, :serial, :cycle, :documents, :arguments, :place)
 
-    @show_hidden = @show_hidden || user_is_manager?
+    @show_hidden ||= user_is_manager?
 
     respond_to do |format|
       format.html
@@ -36,13 +36,14 @@ class SeminarsController < ApplicationController
   # ics formato per ical
   def show
     respond_to do |format|
-      format.html 
+      format.html
       format.ics
-    end  
+    end
   end
 
   def print
-    @no_menu = true
+    @documents = @seminar.documents.to_a
+    render layout: 'print'
   end
 
   # archivio quelli da ieri
@@ -83,18 +84,18 @@ class SeminarsController < ApplicationController
     @seminar = current_user.seminars.new(seminar_params)
     @seminar.organization_id = current_organization.id
 
-    @seminar.link = nil if @seminar.link == 'http://'
+    @seminar.link = nil if @seminar.link == "http://"
 
     set_seminar_conference_cycle_serial(params[:seminar])
 
+    authorize @seminar
+
     # FIXME
-    if (@seminar.date < Date.today) && (! user_is_manager?)
+    if (@seminar.date < Date.today) && (!user_is_manager?)
       @seminar.errors.add(:base, "Non è possibile inserire seminari con data nel passato")
       render action: :new, status: :unprocessable_entity
       return
     end
-
-    authorize @seminar
 
     if @seminar.save
       if @seminar.conference_id
