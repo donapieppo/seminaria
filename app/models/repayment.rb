@@ -1,11 +1,11 @@
 class Repayment < ApplicationRecord
   belongs_to :seminar
-  belongs_to :holder, class_name: 'User', foreign_key: :holder_id, optional: true
+  belongs_to :holder, class_name: "User", foreign_key: :holder_id, optional: true
   belongs_to :fund, optional: true
   belongs_to :position, optional: true
-  has_many   :documents, dependent: :destroy
-  has_many   :curricula_vitae, dependent: :destroy
-  has_many   :id_cards, dependent: :destroy
+  has_many :documents, dependent: :destroy
+  has_many :curricula_vitae, dependent: :destroy
+  has_many :id_cards, dependent: :destroy
 
   # validates :taxid, format: { with: /\A[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]\z/i, message: 'Controllare il formato del codice fiscale' }, allow_nil: true, allow_blank: true
 
@@ -23,34 +23,34 @@ class Repayment < ApplicationRecord
   ADAPT_NET_FOREIGN_VALUE = 1.42858142
 
   def complete?
-    self.ugov
+    ugov.to_i > 0
   end
 
   def payment_limits
-    if self.seminar.speaker_on_line && self.lordo_percipiente && self.lordo_percipiente > 200
-      self.errors.add(:payment, "il compenso massimo erogabile a conferenzieri per seminari on line è pari a 200 Euro lordo ente, corrispondenti a 184,33 Euro lordo percipiente (147,47 Euro netti per conferenzieri con residenza fiscale in Italia; 129,03 euro netti per conferenzieri con residenza fiscale estera)")
-    elsif self.italy && self.lordo_percipiente && self.lordo_percipiente > 500
-      self.errors.add(:payment, "il compenso massimo erogabile a conferenzieri con residenza fiscale in Italia è pari a Euro 500 lordo percipiente (400 euro nette; 542,50 euro lordo ente)")
+    lp = lordo_percipiente.to_i
+    if seminar.speaker_on_line && lp > 200
+      errors.add(:payment, "il compenso massimo erogabile a conferenzieri per seminari on line è pari a 200 Euro lordo ente, corrispondenti a 184,33 Euro lordo percipiente (147,47 Euro netti per conferenzieri con residenza fiscale in Italia; 129,03 euro netti per conferenzieri con residenza fiscale estera)")
+    elsif italy && lp > 500
+      errors.add(:payment, "il compenso massimo erogabile a conferenzieri con residenza fiscale in Italia è pari a Euro 500 lordo percipiente (400 euro nette; 542,50 euro lordo ente)")
     end
   end
 
   def speaker_arrival_departure_validation
-    return true if self.seminar.speaker_on_line
+    return true if seminar.speaker_on_line
+    return true unless (refund || payment)
 
-    return true unless (self.refund || self.payment)
-
-    if self.speaker_departure.blank?
-      self.errors.add(:speaker_departure, 'È necessario inserire la data di partenza da Bologna del relatore')
+    if speaker_departure.blank?
+      errors.add(:speaker_departure, "È necessario inserire la data di partenza da Bologna del relatore.")
     end
-    if self.speaker_arrival.blank?
-      self.errors.add(:speaker_arrival, 'È necessario inserire la data di arrivo a Bologna del relatore')
+    if speaker_arrival.blank?
+      errors.add(:speaker_arrival, "È necessario inserire la data di arrivo a Bologna del relatore.")
     end
-    if self.speaker_arrival.present? && self.speaker_departure.present?
-      if self.speaker_departure < self.speaker_arrival
-        self.errors.add(:speaker_departure, "La partenza non può essere precedente all'arrivo.")
+    if speaker_arrival.present? && speaker_departure.present?
+      if speaker_departure < speaker_arrival
+        errors.add(:speaker_departure, "La partenza non può essere precedente all'arrivo.")
       end
-      if self.speaker_arrival > self.seminar.date.to_date
-        self.errors.add(:speaker_arrival, 'Il relatore non può arrivare a Bologna dopo la data prevista per il seminario.')
+      if speaker_arrival > (seminar.in_conference? ? seminar.conference.end_date : seminar.date.to_date)
+        errors.add(:speaker_arrival, "Il relatore non può arrivare a Bologna dopo la data prevista per il seminario.")
       end
     end
   end
@@ -61,16 +61,16 @@ class Repayment < ApplicationRecord
     end
   end
 
-  # Caso 1: Il richiedente inserisce il compenso netto che viene liquidato allo speaker (compenso netto = CN). 
+  # Caso 1: Il richiedente inserisce il compenso netto che viene liquidato allo speaker (compenso netto = CN).
   #         Nella lettera dobbiamo inserire il valore del lordo percipiente (LP).
   #         X STRANIERI: CN x 1,42858142. Esempio: CN = 100,00 LP = 100 x 1,42858142 = 142,86
   #         X ITALIANI:  CN x 1,25.       Esempio: CN = 100,00 LP = 100 x 1,25 = 125,00
   #
-  # Caso 2: Il richiedente inserisce il compenso Lordo Ente che esce dal fondo (LE). 
+  # Caso 2: Il richiedente inserisce il compenso Lordo Ente che esce dal fondo (LE).
   #         Nella lettera dobbiamo sempre inserire il valore del lordo percipiente (LP). La formula è:
   #         LE x 0,92165898. Esempio: LE = 155,00 LP = 100 x 0,92165898 = 142,86
   def lordo_percipiente
-    return unless (self.payment && self.payment > 0)
+    return unless self.payment.to_i > 0
     res = if self.gross
             self.payment * ADAPT_GROSS_VALUE
           else
