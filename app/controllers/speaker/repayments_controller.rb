@@ -34,8 +34,8 @@ class Speaker::RepaymentsController < ApplicationController
   def update
     if @repayment.notified
       redirect_to(root_path, alert: "Too late to modify data. Please contact the organizer of the seminar.") and return
-    elsif @repayment.update(speaker_repayment_attributes) 
-      redirect_to edit_speaker_repayment_path(@repayment.spkr_token), notice: 'The data have been saved.'
+    elsif @repayment.update(speaker_repayment_attributes)
+      redirect_to edit_speaker_repayment_path(@repayment.spkr_token), notice: "The data have been saved."
     else
       render :edit, status: :unprocessable_entity
     end
