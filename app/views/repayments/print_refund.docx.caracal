@@ -1,9 +1,8 @@
 letter_defaults(docx)
 
-repayment_header(docx) 
-repayment = @repayment
+repayment_header(docx)
 
-I18n.locale = @repayment.italy ? :it : :en 
+I18n.locale = @repayment.language.to_sym
 
 docx.p
 
