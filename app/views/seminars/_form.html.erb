@@ -38,14 +38,16 @@
 <%= dm_form_for @seminar, title: "Seminario del #{current_organization.description}", html: { data: { turbo: false } } do |seminar| %>  
   <%= seminar.dm_error_notification %>  
   <%= seminar.input :hidden, label: '', as: :boolean %>  
-  <% if ! @conference && current_organization && policy(current_organization).manage? %>  
+  <% if !@conference && current_organization && policy(current_organization).manage? %>  
     <%= seminar.association :cycle, collection: current_organization.cycles.order(:title) %>  
     <%= seminar.association :serial, collection: current_organization.serials.active.order(:title) %>  
     <%= seminar.association :conference, collection: current_organization.conferences.order(:title) %>  
   <% else %>
-    <%= seminar.input :serial_id, as: :hidden %>  
-    <%= seminar.input :cycle_id,  as: :hidden %>  
-    <%= seminar.input :conference_id,  as: :hidden %>  
+    <div style="display: none">
+      <%= seminar.input :serial_id, as: :hidden %>  
+      <%= seminar.input :cycle_id, as: :hidden %> 
+      <%= seminar.input :conference_id, as: :hidden %>  
+    </div>
   <% end %>
   <%= seminar.input :title %>  
   <% unless @conference %>  
