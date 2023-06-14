@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
 class Repayment::PrintComponent < ViewComponent::Base
-  def initialize(repayment, current_user,  ok_to_send: false)
+  def initialize(repayment, current_user, ok_to_send: false)
     @repayment = repayment
     @current_user = current_user
     @ok_to_send = ok_to_send
+  end
+
+  def print_document_button(name, path)
+    link_to dmicon("print", text: name), path, class: "btn btn-sm btn-outline-primary"
   end
 
   def render?
