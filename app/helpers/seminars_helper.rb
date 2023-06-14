@@ -32,21 +32,21 @@ module SeminarsHelper
     # lascerei il posto fino a ieri (prima era if ! seminar.past?)
     content_tag(:div, class: "where-tag") do
       if seminar.in_presence
-        dmicon('map-marker-alt') + "&nbsp;".html_safe + " " + seminar.place_to_s 
+        dmicon("map-marker-alt") + "&nbsp;".html_safe + " " + seminar.place_to_s
       end
     end +
     content_tag(:div, class: "where-tag") do
       if seminar.on_line
-        dmicon('cloud') + " seminario on line • " + on_line_where_url(seminar).html_safe
+        dmicon("cloud") + " seminario on line • " + on_line_where_url(seminar).html_safe
       end
     end
   end
 
   def seminar_link_tag(seminar)
-    if ! seminar.link.blank?
+    if !seminar.link.blank?
       txt = seminar.link_text.blank? ? seminar.link : seminar.link_text
       content_tag :div, class: "link-tag" do
-        dmicon('external-link-alt') + "&nbsp;".html_safe + link_to(txt, seminar.link, target: "_blank")
+        dmicon("external-link-alt") + "&nbsp;".html_safe + link_to(txt, seminar.link, target: "_blank")
       end
     end
   end
@@ -54,7 +54,7 @@ module SeminarsHelper
   def document_tag(document, short: false)
     if document.attach.attached?
       content_tag :div do
-        link_to(dmicon('download') + "&nbsp;&nbsp;".html_safe + document.description, url_for(document.attach))
+        link_to(dmicon("download") + "&nbsp;&nbsp;".html_safe + document.description, url_for(document.attach))
       end
     end
   end
