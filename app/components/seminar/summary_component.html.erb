@@ -21,7 +21,9 @@
 
   <% if @with_repayment %>  
     <div class="m-2">
-      Residenza fiscale: <%= @repayment.italy ? 'Italia' : 'Estero' %><br/>
+      <% unless @repayment.italy.nil? %>  
+        Residenza fiscale: <%= @repayment.italy ? 'Italia' : 'Estero' %><br/>
+      <% end %>
       Compenso lordo percipiente: <%= euro @repayment.lordo_percipiente %><br/>
       Compenso netto percipiente: <%= euro @repayment.netto_percipiente %><br/>
       Compenso lordo ente: <%= euro @repayment.lordo_ente %><br/>
