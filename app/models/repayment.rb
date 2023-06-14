@@ -70,7 +70,7 @@ class Repayment < ApplicationRecord
   #         Nella lettera dobbiamo sempre inserire il valore del lordo percipiente (LP). La formula è:
   #         LE x 0,92165898. Esempio: LE = 155,00 LP = 100 x 0,92165898 = 142,86
   def lordo_percipiente
-    return unless self.payment.to_i > 0
+    return unless with_payment?
     res = if self.gross
             self.payment * ADAPT_GROSS_VALUE
           else
@@ -88,7 +88,7 @@ class Repayment < ApplicationRecord
   #
   # netto che prende lo speaker (in tasca)
   def netto_percipiente
-    return unless (self.payment && self.payment > 0)
+    return unless with_payment?
     self.gross or return self.payment.round(2)
     lordo_percipiente = self.payment * 0.92165898
     if self.italy
@@ -100,7 +100,7 @@ class Repayment < ApplicationRecord
 
   # lordo_ente 
   def lordo_ente
-    return unless (self.payment && self.payment > 0)
+    return unless with_payment?
     self.gross and return self.payment.round(2)
     lordo_percipiente = self.payment * (self.italy ? 1.25 : 1.42858142)
     (lordo_percipiente + lordo_percipiente * 0.085).round(2)
@@ -133,5 +133,13 @@ class Repayment < ApplicationRecord
     unless self.spkr_token
       self.update_attribute(:spkr_token, SecureRandom.urlsafe_base64(50))
     end
+  end
+
+  def with_payment?
+    payment.to_i > 0
+  end
+
+  def with_refund?
+    !!refund
   end
 end
