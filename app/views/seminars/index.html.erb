@@ -14,11 +14,11 @@
 <%# Only first seminar in conference %>
 <% done_conferences = [] %>
 <% @seminars.each do |seminar| %>  
-  <%= next if (seminar.hidden && ! @show_hidden) %>  
+  <%= next if (seminar.hidden && !@show_hidden) %>  
   <% cache_if !current_user, seminar do %>
     <% if seminar.in_conference? %>  
       <% unless done_conferences.include?(seminar.conference_id) %>  
-        <%= render seminar.conference %>  
+        <%= render Conference::ConferenceComponent.new(seminar.conference, current_user) %>
         <% done_conferences << seminar.conference_id %>  
       <% end %>
     <% else %>
