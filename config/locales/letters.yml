@@ -32,6 +32,7 @@ it:
   owned_car: Auto propria
   extra_traqnsport: Dichiara di essersi avvalso di uno dei seguenti mezzi di trasporto straordinari
   only_responsable: dichiaro di essere l'unico responsabile per l'uso dei mezzi di trasporto sopra selezionati e sollevo l'Università di Bologna da ogni responsabilità.
+  payment_request_for: "Richiesta compenso/rimborso spese di %{user} per il seminario di %{speaker} del %{date}"
 
   travel_costs: Spese di viaggio
   taxi: Taxi
@@ -108,6 +109,7 @@ en:
   owned_car: Owned car
   extra_traqnsport: I declare that I used one of the following non-ordinary means of transport
   only_responsable: I declare that I am the only responsible for the use of the above means of trasport and discharge the University of Bologna from any liability
+  payment_request_for: "Richiesta compenso/rimborso spese di %{user} per il seminario di %{speaker} del %{date}"
 
   travel_costs: Travel costs
   taxi: Taxi
