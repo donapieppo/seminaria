@@ -15,11 +15,11 @@
 <% done_conferences = [] %>
 <% @seminars.each do |seminar| %>  
   <%= next if (seminar.hidden && !@show_hidden) %>  
-  <% cache_if !current_user, seminar do %>
+  <% cache_if !current_user, seminar, expires_in: 5.minutes do %>
     <% if seminar.in_conference? %>  
       <% unless done_conferences.include?(seminar.conference_id) %>  
-        <%= render Conference::ConferenceComponent.new(seminar.conference, current_user) %>
         <% done_conferences << seminar.conference_id %>  
+        <%= render Conference::ConferenceComponent.new(seminar.conference, current_user) %>
       <% end %>
     <% else %>
       <%= render Seminar::SeminarComponent.new(seminar, current_user) %>  
