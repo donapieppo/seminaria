@@ -1,6 +1,5 @@
 class SeminarsController < ApplicationController
-  skip_before_action :redirect_unsigned_user, only: [:index, :archive, :show, :print, :totem]
-
+  skip_before_action :redirect_unsigned_user, only: [:index, :archive, :show, :print, :totem, :page]
   before_action :get_seminar_and_check_permission, only: [:show, :print, :edit, :update, :destroy, :mail_text, :submit_mail_text]
 
   # Prossimi sono quelli a partire da tutto oggi
@@ -43,7 +42,20 @@ class SeminarsController < ApplicationController
 
   def print
     @documents = @seminar.documents.to_a
-    render layout: 'print'
+    # render layout: "print"
+  end
+
+  def page
+    @date = "#{params[:year].to_i}/#{params[:mm].to_i}/#{params[:dd].to_i}"
+    @seminar = Seminar.where("DATE(date) = ?", @date).first
+    if @seminar
+      authorize @seminar
+      @documents = @seminar.documents.to_a
+      render layout: "page"
+    else
+      skip_authorization
+      redirect_to root_path
+    end
   end
 
   # archivio quelli da ieri
