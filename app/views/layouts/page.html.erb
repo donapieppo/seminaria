@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="Gestione seminari e Notizie del Dipartimento di Matematia. Università di Bologna.">
+    <meta name="author" content="Dipartimento di Matematica - Unibo">
+    <title>Seminario del Dipartimento di Matematica</title>
+
+    <%= dm_unibo_common_headers %>  
+  </head>
+  <body>
+    <%= yield %>
+    <%= render DmUniboCommon::FooterComponent.new(current_user, contact_mail: "dipmat-supportoweb@unibo.it") %>
+  </body>
+</html>
