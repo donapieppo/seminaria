@@ -1,18 +1,17 @@
 <% past = @seminar.past? %>  
 
 <%= content_tag :div, class: css_classes(@seminar) do %>
-
   <div class="seminar-header">
     <%= render ClockTagComponent.new(@seminar.date) %>  
     <div class="row">
       <div class="when col-md-2">
         <%= render DayTagComponent.new(@seminar) %>  
-      </div> <!-- when -->
+      </div>
 
       <div class="col ps-lg-4">
         <div class="py-4 py-md-0">
           <div class="float-end">
-            <%= render Seminar::ActionsTag.new(@seminar, @current_user) %>  
+            <%= render Seminar::ActionsDropdownComponent.new(@seminar, @current_user) %>  
           </div>
         </div>
 
@@ -42,9 +41,9 @@
             <%= document_tag(document) %>
           <% end %>
         </div>
-      </div><!-- what -->
-    </div> <!-- row -->
-  </div> <!-- header -->
+      </div>
+    </div>
+  </div>
 
   <div class="seminar-body">
     <div class="abstract">
@@ -67,5 +66,4 @@
 
     <%# <%= on_line_tag(seminar) unless past %1> %>  
   </div><!-- footer -->
-<% end %><!-- seminar -->
-
+<% end %>
