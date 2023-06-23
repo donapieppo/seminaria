@@ -8,7 +8,7 @@ class Repayment::PrintComponent < ViewComponent::Base
   end
 
   def print_document_button(name, path)
-    link_to dmicon("print", text: name), path, class: "btn btn-sm btn-outline-primary"
+    link_to dm_icon("print", text: name), path, class: "btn btn-sm btn-outline-primary"
   end
 
   def render?
