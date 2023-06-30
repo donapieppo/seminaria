@@ -111,11 +111,6 @@ class Repayment < ApplicationRecord
    "richiesta_compenso_#{clean_speaker_name}.pdf"
   end
 
-  def letter_filename_docx(what)
-    clean_speaker_name = self.seminar.speaker.downcase.gsub(' ', '_')
-   "#{what}_per_seminario_di_#{clean_speaker_name}.docx"
-  end
-
   def speaker_with_title
     if self.name.blank? || self.surname.blank?
       self.seminar.speaker_with_title
