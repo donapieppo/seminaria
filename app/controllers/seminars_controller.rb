@@ -22,7 +22,10 @@ class SeminarsController < ApplicationController
       # redirect_to choose_organization_path and return
       redirect_to seminars_path(__org__: "mat") and return
     end
-    @seminars = @seminars.includes(:repayment, :serial, :cycle, :documents, :arguments, :place)
+
+    @seminars = @seminars
+      .includes(:repayment, :serial, :cycle, :documents, :arguments, :place, :conference)
+      .group(:conference_id)
 
     @show_hidden ||= user_is_manager?
 
@@ -46,8 +49,12 @@ class SeminarsController < ApplicationController
   end
 
   def page
-    @date = "#{params[:year].to_i}/#{params[:mm].to_i}/#{params[:dd].to_i}"
-    @seminar = Seminar.where("DATE(date) = ?", @date).first
+    if params[:id]
+      @seminar = Seminar.find(params[:id])
+    else
+      date_param = "#{params[:year].to_i}/#{params[:mm].to_i}/#{params[:dd].to_i}"
+      @seminar = Seminar.where("DATE(date) = ?", date_param).first
+    end
     if @seminar
       authorize @seminar
       @documents = @seminar.documents.to_a
@@ -62,29 +69,28 @@ class SeminarsController < ApplicationController
   def archive
     authorize :seminar
     @year = params[:year] ? params[:year].to_i : Date.today.year
-    @seminars = current_organization.seminars.order('seminars.date DESC')
-                                             .where("YEAR(date) = ? and date < NOW()", @year)
-                                             .includes(:cycle, :serial, :user, :documents, :arguments, :conference, repayment: :fund)
+    @seminars = current_organization
+      .seminars.order("seminars.date DESC")
+      .where("YEAR(date) = ? and date < NOW()", @year)
+      .includes(:cycle, :serial, :user, :documents, :arguments, :conference, repayment: :fund)
   end
 
   def choose_type
-    @cycles  = current_user.cycles.where(organization_id: current_organization.id).all
+    @cycles = current_user.cycles.where(organization_id: current_organization.id).all
     @conferences = current_user.conferences.where(organization_id: current_organization.id).all
-    @serials = current_organization.serials.order('title asc').active.all
+    @serials = current_organization.serials.order("title asc").active.all
     authorize :seminar
   end
 
   def new
     # replicate
     if params[:as]
-      @as      = Seminar.find(params[:as])
+      @as = Seminar.find(params[:as])
       @seminar = Seminar.new(@as.attributes)
       @seminar.arguments = @as.arguments
     else
-      @seminar = current_organization.seminars.new(duration: 60,
-                                                   link: 'http://', 
-                                                   committee: current_user.cn, 
-                                                   date: Date.tomorrow)
+      @seminar = current_organization
+        .seminars.new(duration: 60, link: "http://", committee: current_user.cn, date: Date.tomorrow)
     end
 
     set_seminar_conference_cycle_serial(params)
@@ -103,7 +109,7 @@ class SeminarsController < ApplicationController
     authorize @seminar
 
     # FIXME
-    if (@seminar.date < Date.today) && (!user_is_manager?)
+    if (@seminar.date < Date.today) && !user_is_manager?
       @seminar.errors.add(:base, "Non è possibile inserire seminari con data nel passato")
       render action: :new, status: :unprocessable_entity
       return
@@ -127,10 +133,10 @@ class SeminarsController < ApplicationController
     # user can change existing repayment. FIXME
     @too_late_for_repayment = user_too_late_for_repayment?(@seminar) unless @seminar.repayment
 
-    @serial     = @seminar.serial 
-    @cycle      = @seminar.cycle
+    @serial = @seminar.serial
+    @cycle = @seminar.cycle
     @conference = @seminar.conference
-    @documents  = @seminar.documents
+    @documents = @seminar.documents
   end
 
   def update
@@ -138,27 +144,27 @@ class SeminarsController < ApplicationController
     @seminar.assign_attributes(seminar_params)
 
     # FIXME
-    if (@seminar.date < Date.today) && (! user_is_manager?)
+    if (@seminar.date < Date.today) && !user_is_manager?
       @seminar.errors.add(:base, "Non è possibile inserire seminari con data nel passato")
       render action: :new, status: :unprocessable_entity
       return
     end
 
     if @seminar.save
-      if false && create_zoom == "1"
-        @zoom = ZoomOauth.new
-        redirect_to @zoom.authorize_url(@seminar.id), allow_other_host: true
-      else
-        redirect_to edit_seminar_path(@seminar), notice: "Il seminario è stato aggiornato."
-      end
+      # if false && create_zoom == "1"
+      #   @zoom = ZoomOauth.new
+      #   redirect_to @zoom.authorize_url(@seminar.id), allow_other_host: true
+      # else
+      redirect_to edit_seminar_path(@seminar), notice: "Il seminario è stato aggiornato."
+      # end
     else
       # TO REFACTOR
-      @repayment  = @seminar.repayment
-      @serial     = @seminar.serial 
+      @repayment = @seminar.repayment
+      @serial = @seminar.serial
       @conference = @seminar.conference
-      @cycle      = @seminar.cycle
-      @documents  = @seminar.documents
-      @document   = Document.new
+      @cycle = @seminar.cycle
+      @documents = @seminar.documents
+      @document = Document.new
       render action: :edit, status: :unprocessable_entity
     end
   end
@@ -172,14 +178,14 @@ class SeminarsController < ApplicationController
     redirect_to root_path
   end
 
-  # Editing del mail avviso seminario 
+  # Editing del mail avviso seminario
   def mail_text
   end
 
   def submit_mail_text
-    to      = params[:seminar_mail][:to].split(",")
+    to = params[:seminar_mail][:to].split(",")
     subject = params[:seminar_mail][:subject]
-    text    = params[:seminar_mail][:text]
+    text = params[:seminar_mail][:text]
 
     if SeminarMailer.notify_seminar(@seminar, to, subject, text).deliver
       flash[:notice] = "La mail è stata inviata correttamente."
@@ -189,26 +195,26 @@ class SeminarsController < ApplicationController
     redirect_to seminar_path(@seminar)
   end
 
-  private 
+  private
 
   def get_seminar_and_check_permission
-    begin
-      @seminar = current_organization.seminars.find(params[:id])
-      authorize @seminar
-    rescue ActiveRecord::RecordNotFound
-      redirect_to seminars_path, alert: 'Seminario non presente in archivio.'
-    end
+    @seminar = current_organization.seminars.find(params[:id])
+    authorize @seminar
+  rescue ActiveRecord::RecordNotFound
+    redirect_to seminars_path, alert: "Seminario non presente in archivio."
   end
 
   def seminar_params
     if params[:seminar][:date]
       params[:seminar][:date] = params[:seminar][:date] + " " + params[:seminar].delete('date(4i)') + ':' + params[:seminar].delete('date(5i)')
     end
-    p = [:hidden, :date, :duration, :in_presence, :on_line, :meeting_url, :meeting_code, # :meeting_visible, 
-         :place_id, :place_description, :speaker_title, :speaker, :speaker_on_line, 
-         :committee, { argument_ids: [] }, :title, :abstract, :file, :link, :link_text, 
-         :serial_id, :cycle_id, :conference_id] # FIXME :serial_id, :cycle_id, :conference_id
-    p = p + [:user_id, :serial_id, :cycle_id] if policy(current_organization).manage?
+    p = [
+      :hidden, :date, :duration, :in_presence, :on_line, :meeting_url, :meeting_code, # :meeting_visible,
+      :place_id, :place_description, :speaker_title, :speaker, :speaker_on_line,
+      :committee, :title, :abstract, :file, :link, :link_text,
+      :serial_id, :cycle_id, :conference_id, {argument_ids: []}
+    ]
+    p += [:user_id, :serial_id, :cycle_id] if policy(current_organization).manage?
     params[:seminar].permit(p)
   end
 
