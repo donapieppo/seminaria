@@ -95,56 +95,48 @@ class RepaymentsController < ApplicationController
   end
 
   # MODULISTICA
+  def print_respond(txt)
+    clean_speaker_name = @repayment.seminar.speaker.downcase.tr(" ", "_")
+    filename = "#{txt}_per_seminario_di#{clean_speaker_name}.docx"
+
+    respond_to do |format|
+      format.docx { headers["Content-Disposition"] = %(attachment; filename="#{filename}") }
+    end
+  end
 
   def print_request
-    respond_to do |format|
-      format.docx { headers["Content-Disposition"] = "attachment; filename=\"#{@repayment.letter_filename_docx('richiesta_docente')}\"" }
-    end
+    print_respond "richiesta_docente"
   end
 
   def print_letter
-    respond_to do |format|
-      format.docx { headers["Content-Disposition"] = "attachment; filename=\"#{@repayment.letter_filename_docx('lettera_di_incarico')}\"" }
-    end
+    print_respond "lettera_di_incarico"
   end
 
   def print_decree
-    respond_to do |format|
-      format.docx { headers["Content-Disposition"] = "attachment; filename=\"#{@repayment.letter_filename_docx('decreto')}\"" }
-    end
+    print_respond "decreto"
   end
 
   def print_proposal
-    respond_to do |format|
-      format.docx { headers["Content-Disposition"] = "attachment; filename=\"#{@repayment.letter_filename_docx('proposta_di_compenso_o_rimborso')}\"" }
-    end
+    print_respond "proposta_di_compenso_o_rimborso"
   end
 
   def print_repayment
-    respond_to do |format|
-      format.docx { headers["Content-Disposition"] = "attachment; filename=\"#{@repayment.letter_filename_docx('dati_anagrafici_e_modalita_pagamento')}\"" }
-    end
+    print_respond "dati_anagrafici_e_modalita_pagamento"
   end
 
   def print_refund
-    respond_to do |format|
-      format.docx { headers["Content-Disposition"] = "attachment; filename=\"#{@repayment.letter_filename_docx('nota_spese_trasferta')}\"" }
-    end
+    print_respond "nota_spese_trasferta"
   end
 
   def print_other
-    respond_to do |format|
-      format.docx { headers["Content-Disposition"] = "attachment; filename=\"#{@repayment.letter_filename_docx('altri_incarichi_trasferta')}\"" }
-    end
+    print_respond "altri_incarichi_trasferta"
   end
 
   def print_regularity
-    respond_to do |format|
-      format.docx { headers["Content-Disposition"] = "attachment; filename=\"#{@repayment.letter_filename_docx('regolare_esecuzione')}\"" }
-    end
+    print_respond "regolare_esecuzione"
   end
 
-  # Utilizzato da user se non possiede i fondi. Invia mail al gestore dei fondi 
+  # Utilizzato da user se non possiede i fondi. Invia mail al gestore dei fondi
   # che ha scelto. Una volta notificato non può più essere cambiato da utente.
   def notify
     if user_too_late_for_repayment?(@seminar)
@@ -239,7 +231,7 @@ class RepaymentsController < ApplicationController
 
   # [] if missing holder (first choose holder)
   def available_funds
-    if user_is_manager? 
+    if user_is_manager?
       if @repayment.holder_id
         @repayment.holder.funds.active
       else
