@@ -6,14 +6,14 @@
     <div class="dm-card-body">
       <ul>
         <% conference.seminars.each do |seminar| %>  
-          <li><%= l seminar.date, format: :seminar %> <strong><%= seminar %></strong> (<%= seminar.speaker %>)</li>
+          <li><%= l seminar.date, format: :date %> <strong><%= seminar %></strong> (<%= seminar.speaker %>)</li>
         <% end %>
       </ul>
     </div>
     <% if policy(conference).update? %>  
       <div class="dm-card-footer">
-        <%= link_to dmicon('edit'), edit_conference_path(conference) %>  
-        <%= link_to dmicon('plus'), new_conference_seminar_path(conference) %>  
+        <%= link_to dm_icon("edit", text: "Modifica i dati del convegno"), edit_conference_path(conference), class: "me-2" %>  
+        <%= link_to dm_icon("plus", text: "Aggiungi un seminario al convegno"), new_conference_seminar_path(conference) %>  
       </div>
     <% end %>
   </div>
