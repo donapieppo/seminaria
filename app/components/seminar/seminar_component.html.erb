@@ -1,5 +1,3 @@
-<% past = @seminar.past? %>  
-
 <%= content_tag :div, class: css_classes(@seminar) do %>
   <div class="seminar-header">
     <%= render ClockTagComponent.new(@seminar.date) %>  
@@ -18,7 +16,13 @@
         <div class="speaker">
           <%= @seminar.speaker %>
         </div>
-        <div class="title"><%= @seminar.title %></div>
+        <div class="title">
+          <% if @seminar.in_conference? %>
+            <%= @seminar.title %>
+          <% else %>
+            <%= link_to @seminar.title, single_page_path(year: "2023", mm: "07", dd: "06", slug: "pippo123") %>
+          <% end %>
+        </div>
         <div class="notes">
           <%# se in una serie/ciclo ma non stiamo vedendo proprio la serie/ciclo %>
           <% if @seminar.serial_id && !@serial %>
@@ -33,9 +37,11 @@
           <% end %>
           <%= arguments_tag(@seminar) %>
         </div> <!-- notes -->
-        <%= hour_tag(@seminar, short: @short) unless past %>  
-        <%= where_tag(@seminar, short: @short) unless past %>  
-        <%= seminar_link_tag(@seminar) %>  
+        <% if !@seminar.past? %>  
+          <%= render HourTagComponent.new(@seminar) %>  
+          <%= render WhereTagComponent.new(@seminar) %>
+          <%= seminar_link_tag(@seminar) %>  
+        <% end %>
         <div>
           <% @seminar.documents.each do |document| %>
             <%= document_tag(document) %>
@@ -52,18 +58,16 @@
   </div>
 
   <div class="seminar-footer">
+    <hr/>
     <% if @seminar.in_conference? %>  
       <div>
         Relazione all'interno del Convegno &ldquo;<%= link_to @seminar.conference.title, @seminar.conference %>&rdquo;
       </div>
     <% else %>  
       <span class="committee">
-        <hr/>
         <%= t :organized_by %> <%= @seminar.committee %> <br/>
         <%= @seminar.project %>  
       </span>
     <% end %>
-
-    <%# <%= on_line_tag(seminar) unless past %1> %>  
-  </div><!-- footer -->
+  </div>
 <% end %>
