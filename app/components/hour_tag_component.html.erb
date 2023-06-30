@@ -1,0 +1,7 @@
+<% if !@seminar.conference_id %>
+  <div class="hour-tag">
+    <%= dm_icon("clock") %>
+    <%= I18n.t(:hours) %>
+    <%= I18n.l(@seminar.date, format: :hour) %>
+  </div>
+<% end %>

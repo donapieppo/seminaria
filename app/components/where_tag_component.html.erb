@@ -1,0 +1,18 @@
+<div class="where-tag" >
+  <% if @seminar.in_presence %>
+    <%= dm_icon("map-marker-alt") %>
+    <%= @seminar.place_to_s %>
+  <% end %>
+</div>
+<div class="where-tag" >
+  <% if @seminar.on_line %>
+    <%= dm_icon("cloud") %> seminario on line • 
+    <% if !@seminar.meeting_url.blank? %>
+      <%= link_to "collegamento al meeting", @seminar.meeting_url %>
+    <% end %>
+    <% if !@seminar.meeting_code.blank? %>
+      (codice: <%= @seminar.meeting_code %>) 
+    <% end %>
+  <% end %>
+</div>
+
