@@ -25,42 +25,50 @@
   </div>
 </div>
 
+<!-- actions -->
 <div style="text-align: center">
-  <% if ! @repayment.notified && user_can_edit %>  
+  <% if !@repayment.notified && user_can_edit %>  
     <% if ok_to_send %>  
-      <%= button_to 'invia richiesta', notify_repayment_path(@repayment), class: "btn btn-success btn-lg my-2", data: { turbo: false } %>
+      <%= button_to 'Invia la richiesta', notify_repayment_path(@repayment), class: "btn btn-success btn-lg my-2", data: {turbo: false} %>
     <% else %>  
       <div class="alert alert-warning m-3">
         Per <strong>inviare la richiesta</strong> è necessario che tutti i campi siano compilati correttamente.
       </div>
     <% end %>
-    <%= link_to 'torna al seminario', [:edit, @repayment.seminar] %>  
   <% end %>
-  <% if ! user_can_edit %>  
+
+  <% if !user_can_edit %>  
     <div class="alert alert-info">Non è più possibile modificare i dati relativi al rimborso / compenso.</div>
   <% end %>
-</div>
 
-<% if @repayment.complete? %>
-  <div class="alert alert-success">
-    La pratica è stata completata con <strong>Numero Reg. DG <%=@repayment.ugov %></strong>.
-  </div>
-<% elsif policy(@repayment).close? %>  
-  <div class="text-center alert alert-warning">
-    <div class="my-2">
-      Se la pratica è stata <strong>completata</strong> (registrata in UGOV e pagata) inserire il Numero Reg. DG di UGOV.
+  <% if @repayment.complete? %>
+    <div class="alert alert-success">
+      La pratica è stata completata con <strong>Numero Reg. DG <%=@repayment.ugov %></strong>.
     </div>
-    <%= simple_form_for @repayment, url: [:close, @repayment] do |f| %>  
-      <%= f.input :ugov %>  
-      <%= f.submit "Chiudi pratica" %>  
-    <% end %>
-  </div>
-<% end %>
+  <% elsif policy(@repayment).close? %>  
+    <div class="text-center alert alert-warning">
+      <div class="my-2">
+        Se la pratica è stata <strong>completata</strong> (registrata in UGOV e pagata) inserire il Numero Reg. DG di UGOV.
+      </div>
+      <%= simple_form_for @repayment, url: [:close, @repayment] do |f| %>  
+        <%= f.input :ugov %>  
+        <%= f.submit "Chiudi pratica" %>  
+      <% end %>
+    </div>
+  <% end %>
 
-<% if policy(@repayment).destroy? %>
-  <div class="mt-3 text-center">
-    <%= button_to @repayment, method: :delete, title: 'elimina', form: { data: { 'turbo-confirm': 'Siete sicuri di voler cancellare la richiesta e tutti i dati?' }}, class: "btn btn-danger" do %>
-      CANCELLA LA RICHIESTA
-    <% end %>
+  <% if policy(@repayment).destroy? %>
+    <div class="my-2">
+      <%= button_to @repayment, 
+            method: :delete, 
+            class: "btn btn-danger",
+            form: {data: {'turbo-confirm': 'Siete sicuri di voler cancellare la richiesta e tutti i dati?'}} do %>
+        CANCELLA LA RICHIESTA
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="my-2">
+    <%= link_to 'torna al seminario', [:edit, @repayment.seminar], class: "my-2" %>  
   </div>
-<% end %>
+</div>
