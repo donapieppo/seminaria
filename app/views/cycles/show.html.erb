@@ -6,12 +6,13 @@
   </div> 
 <% end %>
 
+<% if policy(@cycle).update? %>  
+  <div class="text-center">
+    <%= link_to dm_icon('edit', text: 'modifica il ciclo'), edit_cycle_path(@cycle), class: :button %> 
+    <%= link_to dm_icon('plus', text: 'aggiungi un seminario al ciclo'), new_cycle_seminar_path(@cycle), class: :button %>  
+  </div>
+<% end %>
+
 <% @seminars.each do |seminar| %>  
   <%= render Seminar::SeminarComponent.new(seminar, current_user) %>  
 <% end %>
-
-<% if policy(@cycle).update? %>  
-  <%= link_to dmicon('edit', text: 'modifica il ciclo'), edit_cycle_path(@cycle), class: :button %> 
-  <%= link_to dmicon('plus', text: 'aggiungi seminario al ciclo'), new_cycle_seminar_path(@cycle), class: :button %>  
-<% end %>
-
