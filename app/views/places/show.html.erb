@@ -1,4 +1,4 @@
-<h1>Seminari presso a <%= @place %> <%= link_to_edit(edit_place_path(@place)) if policy(@place).edit? %></h1>
+<h1>Seminari presso a <%= @place %> <%= link_to_edit("", edit_place_path(@place)) if policy(@place).edit? %></h1>
 
 <% @seminars.each do |seminar| %>  
   <%= render Seminar::SeminarComponent.new(seminar, current_user) %>  

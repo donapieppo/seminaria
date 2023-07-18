@@ -20,7 +20,7 @@
 <% if policy(@seminar).destroy? %>
   <div class="text-end">
     <%= button_to mail_text_seminar_path(@seminar), method: :get, form: { class: "btn btn-warning my-4" } do %>
-      <%= fwdmicon('trash-alt', text: "PREPARA EMAIL") %>
+      <%= dm_icon('envelope', text: "PREPARA EMAIL", fw: true) %>
     <% end %>
     <div class="btn btn-danger my-4">
       <%= link_to_delete 'Cancella il seminario', seminar_path(@seminar) %>

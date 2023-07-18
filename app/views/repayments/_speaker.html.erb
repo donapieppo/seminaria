@@ -1,7 +1,7 @@
 <%= dm_card title: checked_title(repayment, :speaker_details) do %>
   <% if user_can_edit && (!repayment.email.blank?) && (!repayment.notified) %>  
     <p style="text-align: right">
-      <%= link_to big_dmicon('envelope', text: 'Testo della mail da inviare al relatore per richiedere la compilazione dei dati anagrafici e bancari.'), data_request_speaker_repayment_path(repayment) %>
+      <%= link_to dm_icon('envelope', text: 'Testo della mail da inviare al relatore per richiedere la compilazione dei dati anagrafici e bancari.'), data_request_speaker_repayment_path(repayment) %>
     </p>
   <% end %>
 

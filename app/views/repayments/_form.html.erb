@@ -1,10 +1,10 @@
 <%# I's a modal popup and shows one part of the form one at a time with @what %>
 
-<p class="alert alert-warning">
-<%= big_dmicon("hand-point-right") %> <%= repayment_days_warning(@repayment.seminar) %>
-</p>
+<div class="alert alert-warning">
+  <%= dm_icon("hand-point-right", size: "xl") %> <%= repayment_days_warning(@repayment.seminar) %>
+</div>
 
-<%= simple_form_for @repayment, html: { data: { turbo: false } } do |repayment| %>  
+<%= simple_form_for @repayment, html: {data: {turbo: false}} do |repayment| %>  
   <%= repayment.dm_error_notification %>  
   <input type="hidden" name="what" value="<%= @what %>">  
 

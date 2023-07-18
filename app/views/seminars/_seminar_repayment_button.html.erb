@@ -1,9 +1,9 @@
 <% seminar_repayment = @seminar.repayment %>  
 
-<%= dm_card title: big_dmicon('euro-sign', text: 'Richiesta di compenso e/o rimborso').html_safe do %>
+<%= dm_card title: dm_icon("euro-sign", text: "Richiesta di compenso e/o rimborso", fw: true, size: "xl").html_safe do %>
   <% if @seminar.speaker_on_line %>  
     <div class="alert alert-danger">
-      <%= dmicon('exclamation-circle') %> La richiesta per seminari che prevedono compenso per un <strong>relatore on-line</strong> dovrà 
+      <%= dm_icon("exclamation-circle", size: :xl) %> La richiesta per seminari che prevedono compenso per un <strong>relatore on-line</strong> dovrà 
       essere approvata dalla Giunta di Dipartimento.<br/> 
       Si invita, prima di inserire una nuova richiesta, a prendere contatto con la Direzione del Dipartimento per verificare la 
       fattibilità dell’iniziativa e rispettare le modalità di predisposizione della pratica.

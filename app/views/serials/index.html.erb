@@ -14,7 +14,7 @@
         <div class="accordion-body">
           <% unless serial.link.blank? %>  
             <div class="float-end small"> 
-              <%= link_to fwdmicon('home', text: 'pagina web ufficiale'), serial.link, target: "_blank" %>
+              <%= link_to dm_icon('home', text: 'pagina web ufficiale', fw: true), serial.link, target: "_blank" %>
             </div>
           <% end %>
           <div>
@@ -27,16 +27,16 @@
             </p>
           <% end %>
           <div class="mt-4 mx-2">
-            <%= link_to fwdmicon('list', text: ' elenco seminari'), serial_path(serial) %>
+            <%= link_to dm_icon("list", text: "elenco seminari", fw: true), serial_path(serial) %>
           </div>
           <% if current_user && serial.active %>  
             <div class="mt-2 mx-2">
-              <%= link_to fwdmicon('plus-circle', text: " crea nuovo seminario"), new_serial_seminar_path(serial) %>
+              <%= link_to dm_icon("plus-circle", text: "crea nuovo seminario", fw: true), new_serial_seminar_path(serial) %>
             </div>
           <% end %>
           <% if policy(serial).edit? %>  
             <div class="mt-2 mx-2">
-              <%= link_to_edit 'modifica', edit_serial_path(serial.id) %>
+              <%= link_to_edit "modifica", edit_serial_path(serial.id) %>
             </div>
           <% end %>
         </div><!-- accordion-body -->

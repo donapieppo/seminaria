@@ -13,7 +13,7 @@
   <% end %>
   <% @repayment.id_cards.each do |doc| %>  
     <%= link_to_id_card doc %> 
-    <%= link_to_delete speaker_repayment_id_card_path(@repayment.spkr_token, doc.id) %><br/>
+    <%= link_to_delete "", speaker_repayment_id_card_path(@repayment.spkr_token, doc.id) %><br/>
   <% end %>
 <% end %>
 
