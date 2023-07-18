@@ -35,7 +35,7 @@
               nel ciclo di seminari: <%= link_to @seminar.cycle.to_s.upcase, cycle_path(@seminar.cycle_id) %>
             </div>
           <% end %>
-          <%= arguments_tag(@seminar) %>
+          <%= render ArgumentsTagComponent.new(@seminar) %>
         </div> <!-- notes -->
         <% if !@seminar.past? %>  
           <%= render HourTagComponent.new(@seminar) %>  
