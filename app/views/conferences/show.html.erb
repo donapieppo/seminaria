@@ -1,6 +1,6 @@
 <h1>Convegno <br/><small>&ldquo;<%= @conference.to_s.upcase %>&rdquo;</small></h1>
 
-<div class="alert p-4 py-2" style="font-size: 120%">
+<div class="alert p-4 py-2">
   <% unless @conference.abstract.blank? %>  
     <div class="text-justify font-italic">
       <%= @conference.abstract %>
@@ -20,12 +20,13 @@
 
 <% if policy(@conference).update? %>  
   <div class="centered my-2">
-    <%= link_to dmicon('edit', text: 'modifica il convegno'), edit_conference_path(@conference), class: :button %> 
-    <%= link_to dmicon('plus', text: 'aggiungi seminario al convegno'), new_conference_seminar_path(@conference), class: :button %>  
+    <%= link_to dm_icon('edit', text: 'Modifica il convegno'), edit_conference_path(@conference), class: :button %> 
+    <%= link_to dm_icon('plus', text: 'Aggiungi un seminario al convegno'), new_conference_seminar_path(@conference), class: :button %>  
   </div>
 <% end %>
 
 <h2>Elenco seminari</h2>
+
 <% @seminars.each do |seminar| %>  
   <%= render Seminar::SeminarComponent.new(seminar, current_user) %>  
 <% end %>
