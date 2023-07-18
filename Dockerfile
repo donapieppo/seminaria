@@ -8,7 +8,7 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man
 
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -
 
 RUN apt-get update \
     && apt-get install -yq nodejs \
@@ -25,6 +25,7 @@ COPY . .
 
 # configuration
 RUN ["/bin/cp", "doc/docker_database.yml",        "config/database.yml"]
+RUN ["/bin/cp", "doc/docker_omniauth.rb",         "config/initializers/omniauth.rb"]
 RUN ["/bin/cp", "doc/dm_unibo_common_docker.yml", "config/dm_unibo_common.yml"]
 RUN ["/bin/cp", "doc/seminaria_example.rb",       "config/initializers/seminaria.rb"]
 RUN ["/bin/cp", "doc/docker_seeds.rb",            "db/seeds.rb"]
