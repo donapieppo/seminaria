@@ -155,11 +155,12 @@ it:
         description: Descrizione
         committee:   Organizzazione
       conference:
-        title:       Nome
-        abstract:    Descrizione
-        committee:   Organizzazione
-        start_date:  Inizio
-        end_date:    Fine
+        title:      Nome
+        abstract:   Descrizione
+        committee:  Organizzazione
+        start_date: Inizio
+        end_date:   Fine
+        url:        Pagina web del convegno
       document: 
         description: Descrizione
         attach:      Allegato
