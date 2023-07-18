@@ -8,27 +8,27 @@ class Seminar < ApplicationRecord
   belongs_to :cycle, optional: true
   belongs_to :serial, optional: true
   belongs_to :conference, optional: true
-  has_many   :documents, dependent: :destroy
-  has_one    :repayment, dependent: :destroy
+  has_many :documents, dependent: :destroy
+  has_one :repayment, dependent: :destroy
   has_and_belongs_to_many :arguments
-  has_one    :zoom_meeting
+  has_one :zoom_meeting
   # has_many   :registrations
 
-  scope :future, -> { where('seminars.date > DATE_ADD(UTC_TIMESTAMP(), INTERVAL -2 hour)') }
-  scope :past, -> { where('seminars.date <= DATE_ADD(UTC_TIMESTAMP(), INTERVAL -2 hour)') }
-  scope :this_year, -> { where('YEAR(seminars.date) = YEAR(NOW())') }
-  scope :date_today, -> { where('DATE(seminars.date)=CURDATE()') }
+  scope :future, -> { where("seminars.date > DATE_ADD(UTC_TIMESTAMP(), INTERVAL -2 hour)") }
+  scope :past, -> { where("seminars.date <= DATE_ADD(UTC_TIMESTAMP(), INTERVAL -2 hour)") }
+  scope :this_year, -> { where("YEAR(seminars.date) = YEAR(NOW())") }
+  scope :date_today, -> { where("DATE(seminars.date)=CURDATE()") }
 
   before_save :manage_place_choice
 
   validates :title, :speaker_title, :speaker, :date, presence: true
-  validates :meeting_url, :link, format: { with: URI.regexp(['http', 'https']), allow_blank: true }
-  validates :committee, length: { maximum: 200 }
+  validates :meeting_url, :link, format: {with: URI.regexp(['http', 'https']), allow_blank: true}
+  validates :committee, length: {maximum: 200}
 
   # place_id == 1 -> 'non definita'
   # place_id == 2 -> 'esterna' -> si puo' mettere descrizione
   def manage_place_choice
-    self.place_description = nil unless (self.place_id == 2)
+    self.place_description = nil unless self.place_id == 2
   end
 
   # convenzione che fino ad due ore fa non e' passato
@@ -50,12 +50,12 @@ class Seminar < ApplicationRecord
       when 2
         "#{I18n.t :place} #{self.place_description}"
       when nil
-        'Aula non definita'
+        "Aula non definita"
       else
         "#{I18n.t :place} #{self.place.to_s}"
       end
     else
-      ''
+      ""
     end
   end
 
@@ -63,12 +63,12 @@ class Seminar < ApplicationRecord
     if self.on_line
       # if visible || (self.meeting_visible && ! self.meeting_url.blank?)
       if self.meeting_url.blank?
-        'on-line'
+        "on-line"
       else
         "on-line all'indirizzo: #{self.meeting_url}"
       end
     else
-      ''
+      ""
     end
   end
 
@@ -93,7 +93,7 @@ class Seminar < ApplicationRecord
   end
 
   def speaker_with_title
-    self.speaker_title + ' ' + self.speaker
+    self.speaker_title + " " + self.speaker
   end
 
   def project
@@ -103,7 +103,7 @@ class Seminar < ApplicationRecord
     elsif self.repayment&.fund_id && self.repayment&.holder_id
       "nell'ambito del Progetto #{self.repayment.fund} del prof. #{self.repayment.holder}"
     else
-      ''
+      ""
     end
   end
 
@@ -138,7 +138,7 @@ class Seminar < ApplicationRecord
 
   # to use in simple form
   def zoom_meeting_create
-    ! self.zoom_meeting.blank?
+    !self.zoom_meeting.blank?
   end
 
   def in_conference?
