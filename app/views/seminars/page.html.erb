@@ -32,12 +32,11 @@
   <div class="row">
     <div class="col-md-4 text-md-end p-3">
       <%= render DayTagComponent.new(@seminar) %>  
-
-      <%= arguments_tag(@seminar) %>
+      <%= render ArgumentsTagComponent.new(@seminar) %>
     </div> <!-- notes -->
     <div class="col-md-8 page-details p-3">
-      <%= hour_tag @seminar %>  
-      <%= where_tag @seminar %>  
+      <%= render HourTagComponent.new(@seminar) %>  
+      <%= render WhereTagComponent.new(@seminar) %>  
       <%= seminar_link_tag @seminar %>  
     </div>
   </div>
