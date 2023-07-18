@@ -1,7 +1,7 @@
-<div>
+<div class="text-secondary">
   <% if @arguments.first.name == 'interdisciplinare' %>
-    seminario interdisciplinare
+    Seminario interdisciplinare
   <% else %>
-    seminario di <%= @arguments.to_a.join(", ") %>
+    Seminario di <%= @arguments.to_a.join(", ") %>
   <% end %>
 </div>
