@@ -1,3 +1,9 @@
+# print_request
+it:
+  payment_request_for: "Richiesta compenso/rimborso spese di %{user} per il seminario di %{speaker} del %{date}"
+en: 
+  payment_request_for: "Richiesta compenso/rimborso spese di %{user} per il seminario di %{speaker} del %{date}"
+
 it:
   to_kind_attention: Alla cortese attenzione
   i_declare: Il/la sottoscritto/a dichiara sotto la sua personale responsabilità che i seguenti dati sono veritieri
@@ -32,7 +38,6 @@ it:
   owned_car: Auto propria
   extra_traqnsport: Dichiara di essersi avvalso di uno dei seguenti mezzi di trasporto straordinari
   only_responsable: dichiaro di essere l'unico responsabile per l'uso dei mezzi di trasporto sopra selezionati e sollevo l'Università di Bologna da ogni responsabilità.
-  payment_request_for: "Richiesta compenso/rimborso spese di %{user} per il seminario di %{speaker} del %{date}"
 
   travel_costs: Spese di viaggio
   taxi: Taxi
@@ -74,7 +79,6 @@ it:
   warning: Avvertenza
   i_notify_any_change: "Il/la sottoscritto/a si impegna a comunicare tempestivamente ogni eventuale variazione dei dati dichiarati."
 
-
 en:
   to_kind_attention: To the kind attention
   i_declare: I undersigned, under penalties of perjury, hereby declare the following to be true
@@ -109,7 +113,6 @@ en:
   owned_car: Owned car
   extra_traqnsport: I declare that I used one of the following non-ordinary means of transport
   only_responsable: I declare that I am the only responsible for the use of the above means of trasport and discharge the University of Bologna from any liability
-  payment_request_for: "Richiesta compenso/rimborso spese di %{user} per il seminario di %{speaker} del %{date}"
 
   travel_costs: Travel costs
   taxi: Taxi
