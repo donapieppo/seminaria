@@ -1,9 +1,9 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem 'dm_unibo_user_search', git: 'https://github.com/donapieppo/dm_unibo_user_search.git'
-gem 'dm_unibo_common',      git: 'https://github.com/donapieppo/dm_unibo_common.git', branch: 'turbo'
-#gem 'dm_unibo_common',      path: '/home/rails/gems/dm_unibo_common/'
+gem "dm_unibo_user_search", git: "https://github.com/donapieppo/dm_unibo_user_search.git"
+gem 'dm_unibo_common', git: "https://github.com/donapieppo/dm_unibo_common.git"
+# gem "dm_unibo_common", path: "/home/rails/gems/dm_unibo_common/"
 
 gem "sprockets-rails"
 gem "jsbundling-rails"
@@ -13,20 +13,21 @@ gem "turbo-rails"
 gem "prawn"
 gem "prawn-table"
 gem "caracal"
-gem 'caracal-rails'
+gem "caracal-rails"
 
-gem 'roo'
-gem 'roo-xls'
+gem "roo"
+gem "roo-xls"
 
 # for zoom
-gem 'oauth2'
+gem "oauth2"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
+gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem "debug", platforms: %i[mri mingw x64_mingw]
+  gem "factory_bot_rails"
 end
 
 group :development do
