@@ -15,6 +15,10 @@ class SeminarPolicy < ApplicationPolicy
     show?
   end
 
+  def page?
+    show?
+  end
+
   def choose_type?
     @user
   end
