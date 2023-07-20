@@ -18,6 +18,7 @@ production:
 
 development:
   omniauth_provider:   :developer
+  omniauth_developer_user_id: 436108
   searchable_provider: false
   host:                tester.example.com
   smtp_address:        mailhost.example.com
