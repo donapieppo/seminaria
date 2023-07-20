@@ -22,7 +22,7 @@ RUN apt-get update \
     && useradd --create-home --no-log-init -u ${UID} -g ${GID} ruby \
     && chown ruby:ruby -R /app
  
-FROM donapieppo_ruby AS donapieppo_seminaria
+FROM donapieppo_ruby AS donapieppo_seminaria_bundle
 
 USER ruby
 
@@ -32,9 +32,10 @@ RUN bundle install
 COPY --chown=ruby:ruby package.json *yarn* ./
 RUN yarn install
 
+FROM donapieppo_seminaria_bundle AS donapieppo_seminaria
+
 COPY --chown=ruby:ruby . .
 
-ENV RAILS_ENV=production
 RUN ./bin/rails assets:precompile
 
 # configuration
