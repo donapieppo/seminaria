@@ -3,25 +3,39 @@ MAINTAINER Donapieppo <donapieppo@yahoo.it>
 
 ENV DEBIAN_FRONTEND noninteractive
 
+WORKDIR /app
+
+ARG UID=1000
+ARG GID=1000
+
 RUN apt-get update \
-    && apt-get install -yq --no-install-recommends build-essential gnupg2 curl git vim locales libvips \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man
+    && apt-get install -yq --no-install-recommends build-essential gnupg2 curl git vim locales libvips libmariadb-dev
 
 RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -
 
 RUN apt-get update \
-    && apt-get install -yq nodejs \
-    && apt-get clean
+    && apt-get install -yq --no-install-recommends nodejs \
+    && npm install -g yarn \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man \
+    && groupadd -g ${GID} ruby \
+    && useradd --create-home --no-log-init -u ${UID} -g ${GID} ruby \
+    && chown ruby:ruby -R /app
  
-RUN npm install -g yarn
-
 FROM donapieppo_ruby AS donapieppo_seminaria
 
-WORKDIR /app
-COPY Gemfile* ./
+USER ruby
+
+COPY --chown=ruby:ruby Gemfile* ./
 RUN bundle install
-COPY . .
+
+COPY --chown=ruby:ruby package.json *yarn* ./
+RUN yarn install
+
+COPY --chown=ruby:ruby . .
+
+ENV RAILS_ENV=production
+RUN ./bin/rails assets:precompile
 
 # configuration
 RUN ["/bin/cp", "doc/docker_database.yml",        "config/database.yml"]
