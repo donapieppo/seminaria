@@ -4,19 +4,26 @@
     <div class="row">
       <div class="when col-md-2">
         <%= render DayTagComponent.new(@conference) %>  
-      </div> <!-- when -->
+      </div>
 
       <div class="col">
         <div class="title">
-          <div>Conference</div>
-          <div>
+          <div class="">
+            Conference
+          </div>
+          <div class="my-2">
             <% if @conference_policy.update? %>  
               <%= link_to @conference.title, @conference %>
-            <% else %>
+            <% elsif !@conference.url.blank? %>
               <%= link_to @conference.title, @conference.url %>
+            <% else %>
+              <%= @conference.title %>
             <% end %>
           </div>
-          <div class="small"><%= @conference.start_date %> - <%= @conference.end_date %></div>
+          <div class="small fw-normal my-2">
+            da <%= l @conference.start_date, format: :dm_with_day %> 
+            a <%= l @conference.end_date, format: :dm_with_day %>
+          </div>
         </div>
       </div>
     </div> 
