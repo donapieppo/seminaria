@@ -26,10 +26,9 @@ FROM donapieppo_ruby AS donapieppo_seminaria_bundle
 
 USER ruby
 
-COPY --chown=ruby:ruby Gemfile* ./
-RUN bundle install
+COPY --chown=ruby:ruby Gemfile Gemfile.lock package.json yarn.lock ./
 
-COPY --chown=ruby:ruby package.json *yarn* ./
+RUN bundle install
 RUN yarn install
 
 FROM donapieppo_seminaria_bundle AS donapieppo_seminaria
