@@ -7,7 +7,7 @@ require "rails/all"
 Bundler.require(*Rails.groups)
 
 ActiveSupport::Inflector.inflections(:en) do |inflect|
-  inflect.irregular 'curriculum_vitae', 'curricula_vitae'
+  inflect.irregular "curriculum_vitae", "curricula_vitae"
 end
 
 module Seminaria
@@ -15,13 +15,15 @@ module Seminaria
     config.load_defaults 7.0
     config.hosts << "tester.dm.unibo.it"
     config.hosts << "www.dm.unibo.it"
+    config.hosts << "127.0.0.1"
 
-    config.autoload_paths += %W(#{Rails.root}/app/pdfs)
-    config.time_zone = 'Rome'
+    config.autoload_paths << "#{Rails.root}/app/pdfs"
+    config.time_zone = "Rome"
     config.i18n.default_locale = :it
 
     config.authlevels = {read: 1, manage: 2}
 
+    config.action_mailer.default_url_options = {protocol: "https"}
     config.dm_unibo_common = ActiveSupport::HashWithIndifferentAccess.new config_for(:dm_unibo_common)
   end
 end
