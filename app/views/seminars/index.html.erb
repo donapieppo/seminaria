@@ -3,24 +3,19 @@
 <% if user_signed_in? %>
   <div class="home-filters">
     <% if params[:only_current_user] %>
-      <%= link_to dmicon('list', text: "prossimi seminari"), root_path, class: 'btn btn-outline-primary mt-1' %> 
+      <%= link_to dm_icon('list', text: "prossimi seminari"), root_path, class: 'btn btn-outline-primary mt-1' %> 
     <% else %>
-      <%= link_to dmicon('list', text: "seminari inseriti da me"), user_seminars_path, class: 'btn btn-outline-primary mt-1' %> 
+      <%= link_to dm_icon('list', text: "seminari inseriti da me"), user_seminars_path, class: 'btn btn-outline-primary mt-1' %> 
     <% end %>
-    <%= link_to dmicon('list', text: "seminari sui miei fondi"), funds_seminars_path, class: 'btn btn-outline-primary mt-1' %> 
+    <%= link_to dm_icon('list', text: "seminari sui miei fondi"), funds_seminars_path, class: 'btn btn-outline-primary mt-1' %> 
   </div>
 <% end %>
 
-<%# Only first seminar in conference %>
-<% done_conferences = [] %>
 <% @seminars.each do |seminar| %>  
   <%= next if (seminar.hidden && !@show_hidden) %>  
   <% cache_if !current_user, seminar, expires_in: 5.minutes do %>
     <% if seminar.in_conference? %>  
-      <% unless done_conferences.include?(seminar.conference_id) %>  
-        <% done_conferences << seminar.conference_id %>  
-        <%= render Conference::ConferenceComponent.new(seminar.conference, current_user) %>
-      <% end %>
+      <%= render Conference::ConferenceComponent.new(seminar.conference, current_user) %>
     <% else %>
       <%= render Seminar::SeminarComponent.new(seminar, current_user) %>  
     <% end %>
