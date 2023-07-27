@@ -3,10 +3,10 @@ letter_defaults(docx)
 repayment = @repayment
 
 col_left = Caracal::Core::Models::TableCellModel.new do
-  p 'ID CONTRATTO ANAGRAFE COLLABORATORI / WEBPERSONALE:', size: 16
-  p ''
+  p "ID CONTRATTO ANAGRAFE COLLABORATORI / WEBPERSONALE:", size: 16
+  p ""
 
-  p 'NUMERO VINCOLO DI COSTO', size: 16
+  p "NUMERO VINCOLO DI COSTO", size: 16
   p "#{repayment.bond_year} / #{repayment.bond_number}"
 
   if repayment.payment
@@ -21,23 +21,23 @@ end
 col_center = Caracal::Core::Models::TableCellModel.new do
   logopath = "#{Rails.root}/app/assets/images/sigillo1.png"
   img logopath do
-    width  50
+    width 50
     height 50
     align :center
   end
-  p 'ALMA MATER STUDIORUM', align: :center, bold: true
-  p 'UNIVERSITÁ DI BOLOGNA', align: :center, bold: true
-  p 'Dipartimento di Matematica', align: :center, italic: true
-  p 'Amministrazione', align: :center, italic: true
+  p "ALMA MATER STUDIORUM", align: :center, bold: true
+  p "UNIVERSITÁ DI BOLOGNA", align: :center, bold: true
+  p "Dipartimento di Matematica", align: :center, italic: true
+  p "Amministrazione", align: :center, italic: true
 end
 
 col_right = Caracal::Core::Models::TableCellModel.new do
-  p 'CAPITOLO DI BILANCIO – VOCE COAN:', size: 16
-  p ' □ CA.EC.02.12.03.01 CONVEGNI E SEMINARI – COMPENSI E RIMBORSI SPESE RELATORI', size: 16
-  p ' □ CA.EC.02.12.05.04 TRASFERTE PERSONALE NON DIPENDENTE', size: 16
-  p ' □ _________________________', size: 16
+  p "CAPITOLO DI BILANCIO – VOCE COAN:", size: 16
+  p " □ CA.EC.02.12.03.01 CONVEGNI E SEMINARI – COMPENSI E RIMBORSI SPESE RELATORI", size: 16
+  p " □ CA.EC.02.12.05.04 TRASFERTE PERSONALE NON DIPENDENTE", size: 16
+  p " □ _________________________", size: 16
   p
-  p 'Codice progetto:', size: 16
+  p "Codice progetto:", size: 16
   p "DIP.P4 #{repayment.fund.name.upcase} #{repayment.fund.holder.surname.upcase}", size: 16
 end
 
@@ -47,26 +47,34 @@ end
 
 docx.p ""
 
-docx.p 'PROPOSTA DI COMPENSO/RIMBORSO SPESE', align: :center, bold: true
-docx.p '(Residenti e non residenti)', align: :center
+docx.p "PROPOSTA DI COMPENSO/RIMBORSO SPESE", align: :center, bold: true
+docx.p "(Residenti e non residenti)", align: :center
 
 docx.p ""
 
-docx.p "Il sottoscritto #{@repayment.fund.holder} propone #{he_she_proposes(@repayment)} a favore di #{@repayment.speaker_with_title.upcase} in qualità di #{@repayment.position} presso #{@repayment.affiliation}, che si dichiara non essere componente del progetto di ricerca/didattica nell’ambito del quale viene resa la prestazione e su cui graverà la spesa per"
-docx.p 
+docx.p "Il sottoscritto #{@repayment.fund.holder} propone #{he_she_proposes(@repayment)} a favore di #{@repayment.speaker_with_title.upcase} " \
+       "in qualità di #{@repayment.position} presso #{@repayment.affiliation}, che si dichiara non essere componente del progetto di " \
+       "ricerca/didattica nell’ambito del quale viene resa la prestazione e su cui graverà la spesa per"
+docx.p
 
-docx.p "SEMINARIO “#{@repayment.seminar.title}” del #{@repayment.seminar.date.strftime("%d/%m/%Y")} e colloqui scientifici per ricerca in collaborazione - periodo #{I18n.l(@repayment.speaker_arrival) if @repayment.speaker_arrival} - #{I18n.l(@repayment.speaker_departure) if @repayment.speaker_departure} nell’ambito del seguente progetto di ricerca/didattica, su cui graverà la spesa:"
-docx.p 
+docx.p "SEMINARIO “#{@repayment.seminar.title}” del #{@repayment.seminar.date.strftime("%d/%m/%Y")} e colloqui scientifici " \
+       "per ricerca in collaborazione - " \
+       "periodo #{I18n.l(@repayment.speaker_arrival) if @repayment.speaker_arrival} - " \
+       "#{I18n.l(@repayment.speaker_departure) if @repayment.speaker_departure} nell’ambito del seguente progetto " \
+       "di ricerca/didattica, su cui graverà la spesa:"
+docx.p
 
 docx.p "progetto: #{@repayment.fund} titolare prof. #{@repayment.holder}."
 docx.p
 
-docx.p "I sottoscritti dichiarano altresì che l’iniziativa è attinente al progetto su menzionato, poiché essa tratta  metodi, tecniche e problematiche direttamente connessi alle tematiche in esso sviluppate, e che la scelta del relatore è giustificata dalla riconosciuta qualifica di esperto scientifico della materia"
+docx.p "I sottoscritti dichiarano altresì che l’iniziativa è attinente al progetto su menzionato, poiché essa tratta metodi, " \
+       "tecniche e problematiche direttamente connessi alle tematiche in esso sviluppate, e che la scelta del relatore è giustificata " \
+       "dalla riconosciuta qualifica di esperto scientifico della materia"
 
 docx.p ""
 
 col_proponente = Caracal::Core::Models::TableCellModel.new do
-  p "IL PROPONENTE" 
+  p "IL PROPONENTE"
   p "_________________________________"
 end
 
@@ -76,10 +84,10 @@ col_titolare = Caracal::Core::Models::TableCellModel.new do
 end
 
 docx.table [[col_proponente, col_titolare]] do
-  border_line    false
+  border_line false
 end
 
-docx.p 
+docx.p
 
 if repayment.payment
   docx.p "RISERVATO AL RESPONSABILE SCIENTIFICO (solo in caso di compenso. Per rimborsi, usare la ‘Nota Spese’):"
@@ -87,25 +95,24 @@ if repayment.payment
   docx.p "in fede: ______________________, Bologna, _____________"
 end
 
-docx.p 
+docx.p
 
 col_left = Caracal::Core::Models::TableCellModel.new do
-  p 'ALLEGATI:', bold: true
-  p ' - Locandina/Avviso web di seminario'
-  p ' - Modulistica anagrafica e fiscale '
-  p ' - Fotocopia documento di riconoscimento '
-  p ' - In caso di rimborso spese: Nota spese; biglietti e ricevute in originale; marca da bollo da € 2,00 (solo se le spese sono superiori a 77,47 €)'
-
+  p "ALLEGATI:", bold: true
+  p " - Locandina/Avviso web di seminario"
+  p " - Modulistica anagrafica e fiscale "
+  p " - Fotocopia documento di riconoscimento "
+  p " - In caso di rimborso spese: Nota spese; biglietti e ricevute in originale; marca da bollo da € 2,00 (solo se le spese sono superiori a 77,47 €)"
 end
 
 col_right = Caracal::Core::Models::TableCellModel.new do
-  p 'ALLEGATI professionisti:', bold: true
-  p ' - Avviso di seminario'
-  p ' - Fattura (non si accettano fatture pro-forma)'
-  p ' - Fotocopia documento di riconoscimento '
+  p "ALLEGATI professionisti:", bold: true
+  p " - Avviso di seminario"
+  p " - Fattura (non si accettano fatture pro-forma)"
+  p " - Fotocopia documento di riconoscimento "
 end
 
 docx.table [[col_left, col_right]] do
   border_line :single
-  border_size    4
+  border_size 4
 end
