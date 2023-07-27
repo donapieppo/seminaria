@@ -61,10 +61,12 @@ Il prestatore si impegna a conservare e presentare al termine dell’incarico i 
     "#{u}" + ((u == h) ? "" : " e #{h}")
   end
 
-  # FIXME 
+  # FIXME
   def considerations(repayment)
-    if repayment.position && repayment.position.phd?
-      "che le attività di partecipazione a seminari in qualità di conferenzieri svolta dai dottorandi sono da considerare attività di divulgazione scientifica ricomprese nello status degli stessi, pertanto  esulano dal campo di applicazione dell'art. 7, comma 6, del D.Lgs. 165/2001"
+    if repayment&.position.phd?
+      "che le attività di partecipazione a seminari in qualità di conferenzieri svolta dai dottorandi sono da considerare " \
+      "attività di divulgazione scientifica ricomprese nello status degli stessi, pertanto  esulano dal " \
+      "campo di applicazione dell'art. 7, comma 6, del D.Lgs. 165/2001"
     else
       "l’art. 7 del D.Lgs. 165 del 2001, in particolare sul conferimento di incarichi di collaborazione"
     end
@@ -74,14 +76,13 @@ Il prestatore si impegna a conservare e presentare al termine dell’incarico i 
     if repayment.payment
       "compenso lordo di euro #{repayment.lordo_ente}"
     else
-      "rimborso spese di viaggio e/o vitto e/o alloggio, in conformità ai massimali di spesa e alla disciplina di cui al Regolamento Missioni" 
+      "rimborso spese di viaggio e/o vitto e/o alloggio, in conformità ai massimali di spesa e alla disciplina di cui al Regolamento Missioni"
       # :   □ Gruppo A  □ Gruppo B (1) (2)"
     end
   end
 
   def letter_defaults(docx)
-    full_size = 20
-    small_size = 12
+    full_size = 18
 
     docx.style do
       id "Normal"
