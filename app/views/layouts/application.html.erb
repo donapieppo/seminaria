@@ -12,6 +12,8 @@
     </main>
 
     <%= render DmUniboCommon::FooterComponent.new(current_user, contact_mail: "dipmat-supportoweb@unibo.it") %>  
-    <%= render DmUniboCommon::ImpersonationComponent.new(current_user, true_user) %>  
+    <%= render DmUniboCommon::ImpersonationComponent.new(current_user, true_user, 
+                                                         who_impersonate_path: dm_unibo_common.who_impersonate_path, 
+                                                         stop_impersonating_path: dm_unibo_common.stop_impersonating_path) %>
   </body>
 </html>
