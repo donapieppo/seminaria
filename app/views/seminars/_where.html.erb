@@ -1,10 +1,8 @@
-<h2>Modalità di svolgimento</h2>
-
 <div class="alert alert-info">
   Nel caso di seminari <strong>on line</strong> è possibile inserire l'indirizzo della stanza.
 </div>
 
-<%= dm_form_for @seminar, title: "È possibile seguire il seminario:" do |s| %>  
+<%= dm_form_for @seminar, title: "Come è possibile seguire il seminario:" do |s| %>  
   <%= s.dm_error_notification %>  
 
   <div data-controller="where">
