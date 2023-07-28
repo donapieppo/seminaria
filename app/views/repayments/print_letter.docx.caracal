@@ -1,7 +1,6 @@
 # necessary for block in Caracal::Core::Models::TableCellModel
 repayment = @repayment
 letter_defaults(docx)
-
 repayment_header(docx)
 
 I18n.locale = @repayment.language.to_sym
@@ -25,48 +24,80 @@ end
 
 docx.p
 
-if @repayment.italy
-  docx.p "Oggetto: Lettera di incarico per lo svolgimento di seminari e attività di ricerca scientifica in collaborazione."
+if @repayment.language == "it"
+  docx.p "Oggetto: Lettera di incarico per lo svolgimento di seminari e attività di ricerca scientifica " \
+         "in collaborazione con il Dipartimento di Matematica, Università di Bologna."
 else
-  docx.p "Oggetto: Lettera di incarico per lo svolgimento di seminari e attività di ricerca scientifica in collaborazione. "
+  docx.p "Subject: Letter of engagement for carrying out seminars and scientific research activities " \
+         "in collaboration with the Department of Mathematics, University of Bologna."
 end
 
 docx.p
 
-docx.p "Con la presente si dà incarico #{@repayment.seminar.female_speaker? ? 'alla' : 'al'} #{@repayment.speaker_with_title}, nat#{@repayment.seminar.female_speaker? ? 'a' : 'o'} a #{@repayment.birth_place} (#{@repayment.birth_country}), il #{@repayment.birth_date}, residente in #{@repayment.address} – #{@repayment.postalcode}, #{@repayment.city} (#{@repayment.country}), in qualità di #{@repayment.position_to_s} presso #{@repayment.affiliation}, di svolgere le seguenti prestazioni presso il Dipartimento di Matematica dell'Università di Bologna:"
+if @repayment.language == "it"
+  docx.p "Con la presente si dà incarico #{@repayment.seminar.female_speaker? ? "alla" : "al"} #{@repayment.speaker_with_title}, " \
+         "nat#{@repayment.seminar.female_speaker? ? "a" : "o"} a #{@repayment.birth_place} (#{@repayment.birth_country}), " \
+         "il #{@repayment.birth_date}, residente in #{@repayment.address} – #{@repayment.postalcode}, #{@repayment.city} (#{@repayment.country}), " \
+         "in qualità di #{@repayment.position_to_s} presso #{@repayment.affiliation}, di svolgere le seguenti prestazioni presso il " \
+         "Dipartimento di Matematica dell'Università di Bologna:"
+else
+  docx.p "We hereby appoint #{@repayment.speaker_with_title}, " \
+         "born in a #{@repayment.birth_place} (#{@repayment.birth_country}), " \
+         "on #{@repayment.birth_date}, residing in #{@repayment.address} – #{@repayment.postalcode}, #{@repayment.city} (#{@repayment.country}), " \
+         "as #{@repayment.position_to_s} at #{@repayment.affiliation}, to perform the following tasks at the " \
+         "Department of Mathematics, University of Bologna:"
+end
 
 docx.p
 
-arrival_and_departure = @repayment.seminar.speaker_on_line ? "" : "dal #{I18n.l @repayment.speaker_arrival} al #{I18n.l @repayment.speaker_departure}"
+arrival_and_departure = @repayment.seminar.speaker_on_line ? "" : "#{I18n.t :from} #{I18n.l @repayment.speaker_arrival} #{I18n.t :to } #{I18n.l @repayment.speaker_departure}"
 
-docx.p "Seminario “#{@repayment.seminar.title}” del #{@repayment.seminar.date.strftime("%d/%m/%Y")} e attività di ricerca scientifica in collaborazione #{arrival_and_departure}, organizzati dal prof. #{@repayment.seminar.committee}, nell'ambito del Progetto #{@repayment.fund} del prof. #{@repayment.holder}."
+if @repayment.language == "it"
+  docx.p "Seminario “#{@repayment.seminar.title}” del #{@repayment.seminar.date.strftime("%d/%m/%Y")} e attività di ricerca scientifica " \
+         "in collaborazione #{arrival_and_departure}, organizzati dal prof. #{@repayment.seminar.committee}, nell'ambito del " \
+         "Progetto #{@repayment.fund} del prof. #{@repayment.holder}."
+else
+  docx.p "Seminar “#{@repayment.seminar.title}” organized by prof. #{@repayment.seminar.committee} " \
+         "to be given on #{@repayment.seminar.date.strftime("%d/%m/%Y")}, and joint scientific research activities to be " \
+         "carried out #{arrival_and_departure} within the project #{@repayment.fund} of prof. #{@repayment.holder}."
+end
 
 docx.p
 
-docx.p "La prestazione è riconducibile nell’ambito di quelle che danno origine a reddito da prestazioni di lavoro autonomo saltuarie ed occasionali ex art.67, comma 1, lett.L) DPR 917/86."
+if @repayment.language == "it"
+  docx.p "La prestazione è riconducibile nell’ambito di quelle che danno origine a reddito da prestazioni di lavoro " \
+         "autonomo saltuarie ed occasionali ex art.67, comma 1, lett.L) DPR 917/86."
+end
 
-docx.p payment_and_refound_string(@repayment)
+docx.p payment_and_refound_string(@repayment, @repayment.language)
 
 docx.p
 
 # a esclusione di estero con solo compenso (payment) (quindi esculdo i non italiani con refund vuoto)
-docx.p "Sarà a carico #{@repayment.seminar.female_speaker? ? 'della' : 'del'} #{@repayment.speaker_with_title} la marca da bollo da applicarsi ad ogni nota spese qualora l’importo del rimborso superi 77,47€." unless (! @repayment.italy.nil? && @repayment.refund.blank?)
+if !@repayment.refund.blank?
+  if @repayment.language == "it"
+    docx.p "Sarà a carico #{@repayment.seminar.female_speaker? ? "della" : "del"} #{@repayment.speaker_with_title} la marca da bollo " \
+           "da applicarsi ad ogni nota spese qualora l’importo del rimborso superi 77,47€."
+  else
+    docx.p "If the reimbursement amount exceeds 77,47€, a 2€ revenue stamp to be applied to the Bill of Costs will be borne " \
+           "by Prof. #{@repayment.speaker}."
+  end
+end
 
 docx.p
 docx.p "Distinti saluti."
-
 docx.p
 
 col_delega = Caracal::Core::Models::TableCellModel.new do
   p "In attuazione della Delibera della Giunta del Dipartimento di Matematica"
   p "del 07.06.2021"
-  p "Il Direttore"
+  p I18n.t :head_of_department
   p "Prof. Fabrizio Caselli"
-  p "(FIRMATO DIGITALMENTE)"
+  p "(#{i18n.t :digitally_signed})"
 end
 
 col_accettazione = Caracal::Core::Models::TableCellModel.new do
-  p "Per accettazione", size: 16, align: :right
+  p I18n.t :acceptance, size: 16, align: :right
   p "Il prestatore occasionale", size: 16, align: :right
   p repayment.speaker_with_title, align: :right
   p "_________________________________", align: :right
@@ -80,10 +111,14 @@ docx.p
 
 docx.style id: "notes", name: "Notes", size: 16
 
-docx.p "Il sottoscritto prestatore s’impegna a comunicare tempestivamente all’Università il suo diverso inquadramento fiscale qualora svolga attività libero professionale ex art.53 e ss. DPR 917/86 e la prestazione oggetto dell’incarico rientri nella propria professione abituale.", style: "notes"
+docx.p "Il sottoscritto prestatore s’impegna a comunicare tempestivamente all’Università il suo diverso inquadramento fiscale " \
+       "qualora svolga attività libero professionale ex art.53 e ss. DPR 917/86 e la prestazione oggetto dell’incarico rientri " \
+       "nella propria professione abituale.", style: "notes"
 
-docx.p "Il sottoscritto s’impegna altresì a non detrarre/dedurre in sede di dichiarazione dei redditi le somme relative alle spese rimborsate per l’espletamento del presente incarico. Il sottoscritto si impegna altresì a non presentare richiesta di rimborso/pagamento delle spese effettuate per l’attività oggetto dell’incarico ad altro Ente che non sia il Dipartimento di Matematica dell’Alma Mater Studiorum - Università di Bologna.", style: "notes"
-
+docx.p "Il sottoscritto s’impegna altresì a non detrarre/dedurre in sede di dichiarazione dei redditi le somme relative alle spese " \
+       "rimborsate per l’espletamento del presente incarico. Il sottoscritto si impegna altresì a non presentare richiesta di " \
+       "rimborso/pagamento delle spese effettuate per l’attività oggetto dell’incarico ad altro Ente che non sia il " \
+       "Dipartimento di Matematica dell’Alma Mater Studiorum - Università di Bologna.", style: "notes"
 docx.p
 
 docx.p "Per l’esecuzione della prestazione di cui trattasi, il sottoscritto dovrà attenersi ai seguenti criteri, che accetta:", style: "notes"

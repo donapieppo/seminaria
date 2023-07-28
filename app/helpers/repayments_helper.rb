@@ -1,29 +1,63 @@
 module RepaymentsHelper
   # compenso senza rimborso spese
-  def _payment_string(lordo_percipiente)
-    "Per il presente incarico è previsto un compenso lordo percipiente pari a #{euro(lordo_percipiente)}. Il compenso sarà assoggettato alle ritenute previste in termini di legge e verrà corrisposto dopo la conclusione dell’incarico in subordine alla regolare esecuzione di quest’ultimo.
-Il prestatore si impegna a conservare e presentare al termine dell’incarico i documenti giustificativi comprovanti il sostenimento delle spese necessarie allo svolgimento dell’attività, unitamente alla nota spese."
+  def _payment_string(repayment, lang)
+    if lang == "it"
+      "Per il presente incarico è previsto un compenso lordo percipiente pari a #{euro(repayment.lordo_percipiente)}. " \
+      "Il compenso sarà assoggettato alle ritenute previste in termini di legge e verrà corrisposto dopo la conclusione " \
+      "dell’incarico in subordine alla regolare esecuzione di quest’ultimo." \
+      "Il prestatore si impegna a conservare e presentare al termine dell’incarico i documenti giustificativi comprovanti " \
+      "il sostenimento delle spese necessarie allo svolgimento dell’attività, unitamente alla nota spese."
+    else
+      "The service to be provided by Prof. #{repayment.speaker} is considered an occasional working activity and it will be " \
+      "regulated as an employment contract pursuant to article 67, paragraph 1, letter L) of Presidential Decree 917/86. " \
+      "For this assignment, a gross remuneration of #{euro(repayment.lordo_percipiente)} is envisaged, subject to the withholdings " \
+      "established by law. " \
+      "The payment will be done at the end of the activity and it will be subject to verification of regular execution by the " \
+      "Department Administration. The payment will be also subject to receipt of the Bill of Costs duly filled with costs incurred " \
+      "for the implementation of the activity and signed by Prof. _______________, " \
+      "together with a scanned copy of the supporting documents, which shall be delivered to the Department Administrative Offices."
+    end
   end
 
   # rimborso spese
-  def _refund_string
-    "Per il presente incarico a titolo gratuito non è previsto alcun compenso ma il mero rimborso delle spese strettamente necessarie risultanti dai documenti giustificativi visionati e trattenuti in originale dall’Ufficio Amministrazione fino ad un importo massimo di ____________€. I documenti giustificativi comprovanti il sostenimento delle spese possono essere rimborsati entro i massimali ed in conformità alla disciplina di cui al Regolamento Missioni dell’Università. Il rimborso spese non è assoggettato ad alcuna ritenuta, verrà corrisposto previa presentazione di nota spese al termine dell’incontro ed è subordinato alla regolare esecuzione di quest’ultimo."
+  def _refund_string(repayment, lang)
+    if lang == "it"
+      "Per il presente incarico a titolo gratuito non è previsto alcun compenso ma il mero rimborso delle spese strettamente necessarie " \
+      "risultanti dai documenti giustificativi visionati e trattenuti in originale dall’Ufficio Amministrazione fino ad un importo massimo " \
+      "di #{euro(repayment.lordo_ente)}. I documenti giustificativi comprovanti il sostenimento delle spese possono essere rimborsati entro " \
+      "i massimali ed in conformità alla disciplina di cui al Regolamento Missioni dell’Università. " \
+      "Il rimborso spese non è assoggettato ad alcuna ritenuta, verrà corrisposto previa presentazione di nota spese al termine dell’incontro " \
+      "ed è subordinato alla regolare esecuzione di quest’ultimo."
+    else
+      "No remuneration is foreseen for the assigned activities, but the mere reimbursement of strictly necessary expenses " \
+      "up to a maximum amount of #{euro(repayment.lordo_ente)}}, resulting from the original supporting documents to be delivered to the Department " \
+      "Administrative Offices by Prof. _________"
+    end
   end
 
   # compenso + rimborso spese
-  def _payment_and_refound_string(lordo_percipiente)
-    "Per il presente incarico è previsto un compenso lordo percipiente pari a #{euro(lordo_percipiente)} e il rimborso delle spese strettamente necessarie risultanti dai documenti giustificativi visionati e trattenuti in originale dall’Ufficio Amministrazione. Il compenso e il rimborso spese sono assoggettati alle ritenute previste a termini di legge, verranno corrisposti previa presentazione di nota spese al termine dell’incontro, e sono subordinati alla regolare esecuzione di quest’ultimo. I documenti giustificativi comprovanti il sostenimento delle spese possono essere rimborsati entro i massimali ed in conformità alla disciplina di cui al Regolamento Missioni dell’Università."
+  def _payment_and_refound_string(repayment, lang)
+    if lang == "it"
+      "Per il presente incarico è previsto un compenso lordo percipiente pari a #{euro(repayment.lordo_percipiente)} " \
+      "e il rimborso delle spese strettamente necessarie risultanti dai documenti giustificativi visionati e trattenuti " \
+      "in originale dall’Ufficio Amministrazione. Il compenso e il rimborso spese sono assoggettati alle ritenute previste " \
+      "a termini di legge, verranno corrisposti previa presentazione di nota spese al termine dell’incontro, e sono subordinati " \
+      "alla regolare esecuzione di quest’ultimo. I documenti giustificativi comprovanti il sostenimento delle spese possono essere " \
+      "rimborsati entro i massimali ed in conformità alla disciplina di cui al Regolamento Missioni dell’Università."
+    else
+      ""
+    end
   end
 
-  def payment_and_refound_string(repayment)
+  def payment_and_refound_string(repayment, lang)
     if repayment.payment.to_f > 0
       if repayment.refund
-        _payment_and_refound_string(repayment.lordo_percipiente)
+        _payment_and_refound_string(repayment.lordo_percipiente, lang)
       else
-        _payment_string(repayment.lordo_percipiente)
+        _payment_string(repayment.lordo_percipiente, lang)
       end
     else
-      _refund_string
+      _refund_string(repayment, lang)
     end
   end
 
@@ -55,15 +89,27 @@ Il prestatore si impegna a conservare e presentare al termine dell’incarico i 
     end
   end
 
+  def decree_spending_upper_limit(repayment)
+    if repayment.refund
+      "fino ad un importo di €" + repayment.expected_refund.to_s
+    elsif repayment.payment
+      "fino ad un importo di €" + repayment.lordo_ente.to_s
+    end
+  end
+
   def proponent_and_holder(seminar)
     u = seminar.user
     h = seminar.repayment.fund.holder
-    "#{u}" + ((u == h) ? "" : " e #{h}")
+    if u == h
+      u.to_s
+    else
+      "#{u} e #{h}"
+    end
   end
 
   # FIXME
   def considerations(repayment)
-    if repayment&.position.phd?
+    if repayment.position&.phd?
       "che le attività di partecipazione a seminari in qualità di conferenzieri svolta dai dottorandi sono da considerare " \
       "attività di divulgazione scientifica ricomprese nello status degli stessi, pertanto  esulano dal " \
       "campo di applicazione dell'art. 7, comma 6, del D.Lgs. 165/2001"

@@ -1,10 +1,11 @@
+repayment = @repayment
 letter_defaults(docx)
 repayment_header(docx)
 
-repayment = @repayment
+I18n.locale = @repayment.language.to_sym
 
-docx.p "DECRETO"
-docx.p "TIT. VII CL. 16"
+# docx.p "DECRETO"
+# docx.p "TIT. VII CL. 16"
 
 docx.p
 docx.p "IL DIRETTORE", align: :center
@@ -42,7 +43,7 @@ docx.p "ATTESO\t\tche per le sovra esposte ragioni non si procede a procedura co
 
 docx.p
 docx.p "ACCERTATA\t\tla copertura finanziaria garantita dai Progetti di ricerca: “#{repayment.fund}”, " \
-       "di cui è titolare #{repayment.fund.holder} fino ad un importo di ........ ;"
+       "di cui è titolare #{repayment.fund.holder} #{decree_spending_upper_limit(repayment)};"
 
 docx.p
 docx.p "DECRETA", align: :center
