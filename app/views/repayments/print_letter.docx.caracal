@@ -3,7 +3,7 @@ repayment = @repayment
 letter_defaults(docx)
 repayment_header(docx)
 
-I18n.locale = @repayment.language.to_sym
+I18n.locale = repayment.language.to_sym
 
 col_prot = Caracal::Core::Models::TableCellModel.new do
   p "Rep. n.             Prot. n.          del", bold: true
@@ -24,7 +24,7 @@ end
 
 docx.p
 
-if @repayment.language == "it"
+if repayment.language == "it"
   docx.p "Oggetto: Lettera di incarico per lo svolgimento di seminari e attività di ricerca scientifica " \
          "in collaborazione con il Dipartimento di Matematica, Università di Bologna."
 else
@@ -34,53 +34,53 @@ end
 
 docx.p
 
-if @repayment.language == "it"
-  docx.p "Con la presente si dà incarico #{@repayment.seminar.female_speaker? ? "alla" : "al"} #{@repayment.speaker_with_title}, " \
-         "nat#{@repayment.seminar.female_speaker? ? "a" : "o"} a #{@repayment.birth_place} (#{@repayment.birth_country}), " \
-         "il #{@repayment.birth_date}, residente in #{@repayment.address} – #{@repayment.postalcode}, #{@repayment.city} (#{@repayment.country}), " \
-         "in qualità di #{@repayment.position_to_s} presso #{@repayment.affiliation}, di svolgere le seguenti prestazioni presso il " \
+if repayment.language == "it"
+  docx.p "Con la presente si dà incarico #{repayment.seminar.female_speaker? ? "alla" : "al"} #{repayment.speaker_with_title}, " \
+         "nat#{repayment.seminar.female_speaker? ? "a" : "o"} a #{repayment.birth_place} (#{repayment.birth_country}), " \
+         "il #{repayment.birth_date}, residente in #{repayment.address} – #{repayment.postalcode}, #{repayment.city} (#{repayment.country}), " \
+         "in qualità di #{repayment.position_to_s} presso #{repayment.affiliation}, di svolgere le seguenti prestazioni presso il " \
          "Dipartimento di Matematica dell'Università di Bologna:"
 else
-  docx.p "We hereby appoint #{@repayment.speaker_with_title}, " \
-         "born in a #{@repayment.birth_place} (#{@repayment.birth_country}), " \
-         "on #{@repayment.birth_date}, residing in #{@repayment.address} – #{@repayment.postalcode}, #{@repayment.city} (#{@repayment.country}), " \
-         "as #{@repayment.position_to_s} at #{@repayment.affiliation}, to perform the following tasks at the " \
+  docx.p "We hereby appoint #{repayment.speaker_with_title}, " \
+         "born in a #{repayment.birth_place} (#{repayment.birth_country}), " \
+         "on #{repayment.birth_date}, residing in #{repayment.address} – #{repayment.postalcode}, #{repayment.city} (#{repayment.country}), " \
+         "as #{repayment.position_to_s} at #{repayment.affiliation}, to perform the following tasks at the " \
          "Department of Mathematics, University of Bologna:"
 end
 
 docx.p
 
-arrival_and_departure = @repayment.seminar.speaker_on_line ? "" : "#{I18n.t :from} #{I18n.l @repayment.speaker_arrival} #{I18n.t :to } #{I18n.l @repayment.speaker_departure}"
+arrival_and_departure = repayment.seminar.speaker_on_line ? "" : "#{I18n.t :from} #{I18n.l repayment.speaker_arrival} #{I18n.t :to } #{I18n.l repayment.speaker_departure}"
 
-if @repayment.language == "it"
-  docx.p "Seminario “#{@repayment.seminar.title}” del #{@repayment.seminar.date.strftime("%d/%m/%Y")} e attività di ricerca scientifica " \
-         "in collaborazione #{arrival_and_departure}, organizzati dal prof. #{@repayment.seminar.committee}, nell'ambito del " \
-         "Progetto #{@repayment.fund} del prof. #{@repayment.holder}."
+if repayment.language == "it"
+  docx.p "Seminario “#{repayment.seminar.title}” del #{repayment.seminar.date.strftime("%d/%m/%Y")} e attività di ricerca scientifica " \
+         "in collaborazione #{arrival_and_departure}, organizzati dal prof. #{repayment.seminar.committee}, nell'ambito del " \
+         "Progetto #{repayment.fund} del prof. #{repayment.holder}."
 else
-  docx.p "Seminar “#{@repayment.seminar.title}” organized by prof. #{@repayment.seminar.committee} " \
-         "to be given on #{@repayment.seminar.date.strftime("%d/%m/%Y")}, and joint scientific research activities to be " \
-         "carried out #{arrival_and_departure} within the project #{@repayment.fund} of prof. #{@repayment.holder}."
+  docx.p "Seminar “#{repayment.seminar.title}” organized by prof. #{repayment.seminar.committee} " \
+         "to be given on #{repayment.seminar.date.strftime("%d/%m/%Y")}, and joint scientific research activities to be " \
+         "carried out #{arrival_and_departure} within the project #{repayment.fund} of prof. #{repayment.holder}."
 end
 
 docx.p
 
-if @repayment.language == "it"
+if repayment.language == "it"
   docx.p "La prestazione è riconducibile nell’ambito di quelle che danno origine a reddito da prestazioni di lavoro " \
          "autonomo saltuarie ed occasionali ex art.67, comma 1, lett.L) DPR 917/86."
 end
 
-docx.p payment_and_refound_string(@repayment, @repayment.language)
+docx.p payment_and_refound_string(repayment, repayment.language)
 
 docx.p
 
 # a esclusione di estero con solo compenso (payment) (quindi esculdo i non italiani con refund vuoto)
-if !@repayment.refund.blank?
-  if @repayment.language == "it"
-    docx.p "Sarà a carico #{@repayment.seminar.female_speaker? ? "della" : "del"} #{@repayment.speaker_with_title} la marca da bollo " \
+if !repayment.refund.blank?
+  if repayment.language == "it"
+    docx.p "Sarà a carico #{repayment.seminar.female_speaker? ? "della" : "del"} #{repayment.speaker_with_title} la marca da bollo " \
            "da applicarsi ad ogni nota spese qualora l’importo del rimborso superi 77,47€."
   else
     docx.p "If the reimbursement amount exceeds 77,47€, a 2€ revenue stamp to be applied to the Bill of Costs will be borne " \
-           "by Prof. #{@repayment.speaker}."
+      "by Prof. #{repayment.seminar.speaker}."
   end
 end
 
@@ -89,15 +89,15 @@ docx.p "Distinti saluti."
 docx.p
 
 col_delega = Caracal::Core::Models::TableCellModel.new do
-  p "In attuazione della Delibera della Giunta del Dipartimento di Matematica"
-  p "del 07.06.2021"
+  # p "In attuazione della Delibera della Giunta del Dipartimento di Matematica"
+  # p "del 07.06.2021"
   p I18n.t :head_of_department
   p "Prof. Fabrizio Caselli"
-  p "(#{i18n.t :digitally_signed})"
+  p "(#{I18n.t :digitally_signed})"
 end
 
 col_accettazione = Caracal::Core::Models::TableCellModel.new do
-  p I18n.t :acceptance, size: 16, align: :right
+  p I18n.t(:acceptance), size: 16, align: :right
   p "Il prestatore occasionale", size: 16, align: :right
   p repayment.speaker_with_title, align: :right
   p "_________________________________", align: :right
@@ -111,17 +111,36 @@ docx.p
 
 docx.style id: "notes", name: "Notes", size: 16
 
-docx.p "Il sottoscritto prestatore s’impegna a comunicare tempestivamente all’Università il suo diverso inquadramento fiscale " \
-       "qualora svolga attività libero professionale ex art.53 e ss. DPR 917/86 e la prestazione oggetto dell’incarico rientri " \
-       "nella propria professione abituale.", style: "notes"
+if repayment.language == "it"
+  docx.p "Il sottoscritto prestatore s’impegna a comunicare tempestivamente all’Università il suo diverso inquadramento fiscale " \
+         "qualora svolga attività libero professionale ex art.53 e ss. DPR 917/86 e la prestazione oggetto dell’incarico rientri " \
+         "nella propria professione abituale.", style: "notes"
+else
+  docx.p "The undersigned Prof. #{repayment.seminar.speaker} undertakes to promptly notify the University of his/her different tax " \
+         "status if he/she carries out a freelance activity pursuant to article 53 et seq. " \
+         "Presidential Decree 917/86 and the service covered by the assignment falls within one's usual profession.", style: "notes"
+end
 
-docx.p "Il sottoscritto s’impegna altresì a non detrarre/dedurre in sede di dichiarazione dei redditi le somme relative alle spese " \
-       "rimborsate per l’espletamento del presente incarico. Il sottoscritto si impegna altresì a non presentare richiesta di " \
-       "rimborso/pagamento delle spese effettuate per l’attività oggetto dell’incarico ad altro Ente che non sia il " \
-       "Dipartimento di Matematica dell’Alma Mater Studiorum - Università di Bologna.", style: "notes"
+if repayment.language == "it"
+  docx.p "Il sottoscritto s’impegna altresì a non detrarre/dedurre in sede di dichiarazione dei redditi le somme relative alle spese " \
+         "rimborsate per l’espletamento del presente incarico. Il sottoscritto si impegna altresì a non presentare richiesta di " \
+         "rimborso/pagamento delle spese effettuate per l’attività oggetto dell’incarico ad altro Ente che non sia il " \
+         "Dipartimento di Matematica dell’Alma Mater Studiorum - Università di Bologna.", style: "notes"
+else
+  docx.p "The undersigned also undertakes not to deduct the sums relating to expenses reimbursed for the performance of this role " \
+         "in the tax return. The undersigned also undertakes not to submit a request for reimbursement/payment of expenses incurred " \
+         "for the activity covered by the assignment to another body other than the Department of Mathematics of the " \
+         "Alma Mater Studiorum - University of Bologna.", style: "notes"
+end
 docx.p
 
-docx.p "Per l’esecuzione della prestazione di cui trattasi, il sottoscritto dovrà attenersi ai seguenti criteri, che accetta:", style: "notes"
+if repayment.language == "it"
+  docx.p "Per l’esecuzione della prestazione di cui trattasi, il sottoscritto dovrà attenersi ai seguenti criteri, che accetta:", style: "notes"
+else
+  docx.p "The undersigned Prof. #{repayment.seminar.speaker}, in the execution of the activity subject of the present agreement, " \
+         "accepts to comply with the following criteria:", style: "notes"
+end
+docx.p
 
 docx.list_style do
   type :ordered
@@ -131,14 +150,20 @@ docx.list_style do
 end
 
 docx.ul do
-  li "Svolgere l’opera in piena autonomia, col solo obbligo di compiere il lavoro nel termine sopraindicato, senza potersi valere di sostituti.", size: 16
-  li "Nel caso di mancato adempimento della prestazione oggetto del presente contratto, nonché qualora si riscontrino negligenze di rilevante entità, tali da configurare l’inesatto adempimento, l’Università potrà procedere alla risoluzione del contratto ai sensi degli artt. 1453 s.s. del Codice Civile. Il recesso potrà essere esercitato da entrambe le parti ai sensi dell’art. 2237 del Codice Civile. Il recesso dovrà essere esercitato dalla S.V. per giusta causa ed in modo da evitare qualsiasi pregiudizio all’Università.", size: 16
-  li "Tutti i dati e le informazioni di carattere tecnico, amministrativo, scientifico, didattico, di cui la S.V. dovesse avere conoscenza nello svolgimento dell’incarico di cui trattasi, dovranno essere considerati strettamente riservati e pertanto la S.V. non ne potrà fare uso per scopi diversi da quelli esclusivamente contemplati e rientranti nell’oggetto della prestazione di cui al presente contratto.", size: 16
-  li "Ai sensi dell’art. 30 del D.Lgs. 30 giugno 2003, n. 196, la S.V. è nominato “Incaricato del trattamento dei dati personali”. Potrà trattare i dati personali solo limitatamente alle operazioni essenziali per svolgere l’incarico conferito. Dovrà trattare i dati conformemente alle istruzioni che saranno impartite dal Titolare. Non potrà in nessun caso effettuare trattamenti autonomi né comunicare i dati ad altri soggetti, se non secondo le istruzioni ricevute. Ogni trattamento dei dati difforme può essere oggetto di sanzione penale.", size: 16
-  li "Impegnarsi a rispettare, per quanto compatibili, gli obblighi di condotta previsti dalla Sezione III del Codice etico e di comportamento dell’Università di Bologna http://www.unibo.it/it/ateneo/concorsi-e-selezioni/modulistica-attivazione-incarichi-1 (Estratto del Codice Etico e di Comportamento – Sezione III Obblighi di comportamento connessi all’attività di servizio).", size: 16
+  if repayment.language == "it"
+    li "Svolgere l’opera in piena autonomia, col solo obbligo di compiere il lavoro nel termine sopraindicato, senza potersi valere di sostituti."
+    li "Nel caso di mancato adempimento della prestazione oggetto del presente contratto, nonché qualora si riscontrino negligenze di rilevante entità, tali da configurare l’inesatto adempimento, l’Università potrà procedere alla risoluzione del contratto ai sensi degli artt. 1453 s.s. del Codice Civile. Il recesso potrà essere esercitato da entrambe le parti ai sensi dell’art. 2237 del Codice Civile. Il recesso dovrà essere esercitato dalla S.V. per giusta causa ed in modo da evitare qualsiasi pregiudizio all’Università."
+    li "Tutti i dati e le informazioni di carattere tecnico, amministrativo, scientifico, didattico, di cui la S.V. dovesse avere conoscenza nello svolgimento dell’incarico di cui trattasi, dovranno essere considerati strettamente riservati e pertanto la S.V. non ne potrà fare uso per scopi diversi da quelli esclusivamente contemplati e rientranti nell’oggetto della prestazione di cui al presente contratto."
+    li "Ai sensi dell’art. 30 del D.Lgs. 30 giugno 2003, n. 196, la S.V. è nominato “Incaricato del trattamento dei dati personali”. Potrà trattare i dati personali solo limitatamente alle operazioni essenziali per svolgere l’incarico conferito. Dovrà trattare i dati conformemente alle istruzioni che saranno impartite dal Titolare. Non potrà in nessun caso effettuare trattamenti autonomi né comunicare i dati ad altri soggetti, se non secondo le istruzioni ricevute. Ogni trattamento dei dati difforme può essere oggetto di sanzione penale."
+    li "Impegnarsi a rispettare, per quanto compatibili, gli obblighi di condotta previsti dalla Sezione III del Codice etico e di comportamento dell’Università di Bologna http://www.unibo.it/it/ateneo/concorsi-e-selezioni/modulistica-attivazione-incarichi-1 (Estratto del Codice Etico e di Comportamento – Sezione III Obblighi di comportamento connessi all’attività di servizio)."
+  else
+    li "Carry out the work in full autonomy, with the only obligation to complete the work within the aforementioned term;"
+    li "In the event of non-fulfillment of the the service covered by this contract, as well as in case of negligence the University may terminate the contract pursuant to articles 1453 s.s. of the Civil Code. The withdrawal may be exercised by both parties pursuant to art. 2237 of the Civil Code. The withdrawal must be exercised by the Prof. _____________ for just cause and in order to avoid any prejudice to the University;"
+    li "obligations set out in the GDPR EU regulation 2016/679 to guarantee maximum confidentiality on all confidential information protected by current legislation on intellectual and industrial property that may be shared during the activity;"
+    li "respecting the Ethical Code of Behaviour (http://www.unibo.it/it/ateneo/concorsi-e-selezioni/modulistica-attivazione-incarichi-1 (Estratto del Codice Etico e di Comportamento – Sezione III Obblighi di comportamento connessi all’attività di servizio) which lays down the basic values of the university community and the rules for avoiding all forms of discrimination and abuse, as well as for regulating cases of conflict of interest and the area of intellectual property."
+  end
 end
-
 docx.p
 
-docx.p "In fede, ______________________________"
-docx.p "            #{@repayment.speaker_with_title}"
+docx.p I18n.t(:faithfully) + ", ______________________________"
+docx.p "            #{repayment.speaker_with_title}"
