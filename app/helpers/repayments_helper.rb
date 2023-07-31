@@ -8,13 +8,13 @@ module RepaymentsHelper
       "Il prestatore si impegna a conservare e presentare al termine dell’incarico i documenti giustificativi comprovanti " \
       "il sostenimento delle spese necessarie allo svolgimento dell’attività, unitamente alla nota spese."
     else
-      "The service to be provided by Prof. #{repayment.speaker} is considered an occasional working activity and it will be " \
+      "The service to be provided by Prof. #{repayment.seminar.speaker} is considered an occasional working activity and it will be " \
       "regulated as an employment contract pursuant to article 67, paragraph 1, letter L) of Presidential Decree 917/86. " \
       "For this assignment, a gross remuneration of #{euro(repayment.lordo_percipiente)} is envisaged, subject to the withholdings " \
       "established by law. " \
       "The payment will be done at the end of the activity and it will be subject to verification of regular execution by the " \
       "Department Administration. The payment will be also subject to receipt of the Bill of Costs duly filled with costs incurred " \
-      "for the implementation of the activity and signed by Prof. _______________, " \
+      "for the implementation of the activity and signed by Prof. #{repayment.seminar.speaker}, " \
       "together with a scanned copy of the supporting documents, which shall be delivered to the Department Administrative Offices."
     end
   end
@@ -24,13 +24,13 @@ module RepaymentsHelper
     if lang == "it"
       "Per il presente incarico a titolo gratuito non è previsto alcun compenso ma il mero rimborso delle spese strettamente necessarie " \
       "risultanti dai documenti giustificativi visionati e trattenuti in originale dall’Ufficio Amministrazione fino ad un importo massimo " \
-      "di #{euro(repayment.lordo_ente)}. I documenti giustificativi comprovanti il sostenimento delle spese possono essere rimborsati entro " \
+      "di #{euro(repayment.expected_refund)}. I documenti giustificativi comprovanti il sostenimento delle spese possono essere rimborsati entro " \
       "i massimali ed in conformità alla disciplina di cui al Regolamento Missioni dell’Università. " \
       "Il rimborso spese non è assoggettato ad alcuna ritenuta, verrà corrisposto previa presentazione di nota spese al termine dell’incontro " \
       "ed è subordinato alla regolare esecuzione di quest’ultimo."
     else
       "No remuneration is foreseen for the assigned activities, but the mere reimbursement of strictly necessary expenses " \
-      "up to a maximum amount of #{euro(repayment.lordo_ente)}}, resulting from the original supporting documents to be delivered to the Department " \
+      "up to a maximum amount of #{euro(repayment.expected_refund)}, resulting from the original supporting documents to be delivered to the Department " \
       "Administrative Offices by Prof. _________"
     end
   end
@@ -52,9 +52,9 @@ module RepaymentsHelper
   def payment_and_refound_string(repayment, lang)
     if repayment.payment.to_f > 0
       if repayment.refund
-        _payment_and_refound_string(repayment.lordo_percipiente, lang)
+        _payment_and_refound_string(repayment, lang)
       else
-        _payment_string(repayment.lordo_percipiente, lang)
+        _payment_string(repayment, lang)
       end
     else
       _refund_string(repayment, lang)
