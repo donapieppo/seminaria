@@ -2,14 +2,13 @@ Rails.application.routes.draw do
   mount DmUniboCommon::Engine => "/dm_unibo_common", :as => "dm_unibo_common"
 
   get "/choose_organization", to: "home#choose_organization"
+  get "/logins/logout", to: "dm_unibo_common/logins#logout"
 
   # https://tester.dm.unibo.it/seminars/zoom-oauth
   # get '/zoom-oauth',    to: "zoom#oauth"
   # get '/zoom/show',     to: "zoom#new"
   # get '/zoom/user',     to: "zoom#user"
   # get '/zoom/list',     to: "zoom#list"
-
-  get "/logins/logout", to: "dm_unibo_common/logins#logout"
 
   scope ":__org__" do
     get "seminars/archive/(:year)", to: "seminars#archive", as: "archive_seminars"
