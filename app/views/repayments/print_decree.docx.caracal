@@ -25,13 +25,13 @@ docx.p "VISTA\t\t\tla delibera della Giunta di Dipartimento del 07.06.2021 che d
        "degli incarichi a conferenzieri per seminari, "
 docx.p
 
-docx.p "CONSIDERATO \t#{considerations(repayment)};"
+docx.p "CONSIDERATO\t#{considerations(repayment)};"
 docx.p
-docx.p "TENUTO CONTO \tdella giurisprudenza della Corte dei conti pronunciatasi sugli atti di spesa relativi a collaborazioni, " \
+docx.p "TENUTO CONTO\tdella giurisprudenza della Corte dei conti pronunciatasi sugli atti di spesa relativi a collaborazioni, " \
        "consulenze, studi e ricerche e sulle modalità di conferimento di esse, nonché delle “Linee guida visiting” adottate " \
        "dall’Università di Bologna con Delibera del Senato Accademico del 24.09.2019;"
 docx.p
-docx.p "RILEVATO CHE \t#{repayment.reason};"
+docx.p "RILEVATO CHE\t#{repayment.reason};"
 docx.p
 docx.p "ATTESO\t\tche per le sovra esposte ragioni non si procede a procedura comparativa pubblica, con assegnazione diretta " \
        "dell’incarico motivata in relazione alla circostanza che il seminario e la ricerca in collaborazione si configurano come " \
