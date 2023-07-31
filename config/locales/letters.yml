@@ -1,10 +1,11 @@
 # print_request
 it:
+  digitally_signed: FIRMATO DIGITALMENTE
+  head_of_department: Il Direttore del Dipartimento
+  from: dal
+  to: al
+  faithfully: In fede
   payment_request_for: "Richiesta compenso/rimborso spese di %{user} per il seminario di %{speaker} del %{date}"
-en: 
-  payment_request_for: "Richiesta compenso/rimborso spese di %{user} per il seminario di %{speaker} del %{date}"
-
-it:
   to_kind_attention: Alla cortese attenzione
   i_declare: Il/la sottoscritto/a dichiara sotto la sua personale responsabilità che i seguenti dati sono veritieri
   born_in: nato/a a
@@ -38,6 +39,7 @@ it:
   owned_car: Auto propria
   extra_traqnsport: Dichiara di essersi avvalso di uno dei seguenti mezzi di trasporto straordinari
   only_responsable: dichiaro di essere l'unico responsabile per l'uso dei mezzi di trasporto sopra selezionati e sollevo l'Università di Bologna da ogni responsabilità.
+  acceptance: Per accettazione
 
   travel_costs: Spese di viaggio
   taxi: Taxi
@@ -80,6 +82,12 @@ it:
   i_notify_any_change: "Il/la sottoscritto/a si impegna a comunicare tempestivamente ogni eventuale variazione dei dati dichiarati."
 
 en:
+  digitally_signed: DIGITALLY SIGNED
+  head_of_department: Head of Department
+  from: from
+  to: to
+  faithfully: Yours faithfully
+  payment_request_for: "Richiesta compenso/rimborso spese di %{user} per il seminario di %{speaker} del %{date}"
   to_kind_attention: To the kind attention
   i_declare: I undersigned, under penalties of perjury, hereby declare the following to be true
   born_in: born in 
@@ -154,3 +162,4 @@ en:
   i_have_read_notes: I declare that I have read the notes, which are an integral part of the forms.
   attach_id_document: "Important: always attach a copy of a valid identity document to this substitute declaration"
   warning: Warning
+  acceptance: For acceptance
