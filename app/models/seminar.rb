@@ -144,4 +144,8 @@ class Seminar < ApplicationRecord
   def in_conference?
     self.conference_id
   end
+
+  def single_page_attributes
+    {year: date.year, mm: date.strftime("%m"), dd: date.strftime("%d"), slug: speaker.to_s.parameterize, id: self.id}
+  end
 end
