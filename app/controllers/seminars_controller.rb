@@ -52,8 +52,8 @@ class SeminarsController < ApplicationController
     if params[:id]
       @seminar = Seminar.find(params[:id])
     else
-      date_param = "#{params[:year].to_i}/#{params[:mm].to_i}/#{params[:dd].to_i}"
-      @seminar = Seminar.where("DATE(date) = ?", date_param).first
+      date_param = Date.new(params[:year], params[:mm], params[:dd])
+      @seminar = Seminar.where("date = ?", date_param).first
     end
     if @seminar
       authorize @seminar
@@ -140,7 +140,7 @@ class SeminarsController < ApplicationController
   end
 
   def update
-    create_zoom = params[:seminar].delete(:zoom_meeting_create)
+    # create_zoom = params[:seminar].delete(:zoom_meeting_create)
     @seminar.assign_attributes(seminar_params)
 
     # FIXME
@@ -206,7 +206,7 @@ class SeminarsController < ApplicationController
 
   def seminar_params
     if params[:seminar][:date]
-      params[:seminar][:date] = params[:seminar][:date] + " " + params[:seminar].delete('date(4i)') + ':' + params[:seminar].delete('date(5i)')
+      params[:seminar][:date] = params[:seminar][:date] + " " + params[:seminar].delete("date(4i)") + ":" + params[:seminar].delete("date(5i)")
     end
     p = [
       :hidden, :date, :duration, :in_presence, :on_line, :meeting_url, :meeting_code, # :meeting_visible,
