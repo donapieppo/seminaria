@@ -85,7 +85,7 @@ if !repayment.refund.blank?
 end
 
 docx.p
-docx.p "Distinti saluti."
+docx.p I18n.t(:faithfully)
 docx.p
 
 col_delega = Caracal::Core::Models::TableCellModel.new do
@@ -97,8 +97,7 @@ col_delega = Caracal::Core::Models::TableCellModel.new do
 end
 
 col_accettazione = Caracal::Core::Models::TableCellModel.new do
-  p I18n.t(:acceptance), size: 16, align: :right
-  p "Il prestatore occasionale", size: 16, align: :right
+  p I18n.t(:acceptance), align: :right
   p repayment.speaker_with_title, align: :right
   p "_________________________________", align: :right
 end
@@ -114,31 +113,31 @@ docx.style id: "notes", name: "Notes", size: 16
 if repayment.language == "it"
   docx.p "Il sottoscritto prestatore s’impegna a comunicare tempestivamente all’Università il suo diverso inquadramento fiscale " \
          "qualora svolga attività libero professionale ex art.53 e ss. DPR 917/86 e la prestazione oggetto dell’incarico rientri " \
-         "nella propria professione abituale.", style: "notes"
+         "nella propria professione abituale."
 else
   docx.p "The undersigned Prof. #{repayment.seminar.speaker} undertakes to promptly notify the University of his/her different tax " \
          "status if he/she carries out a freelance activity pursuant to article 53 et seq. " \
-         "Presidential Decree 917/86 and the service covered by the assignment falls within one's usual profession.", style: "notes"
+         "Presidential Decree 917/86 and the service covered by the assignment falls within one's usual profession."
 end
 
 if repayment.language == "it"
   docx.p "Il sottoscritto s’impegna altresì a non detrarre/dedurre in sede di dichiarazione dei redditi le somme relative alle spese " \
          "rimborsate per l’espletamento del presente incarico. Il sottoscritto si impegna altresì a non presentare richiesta di " \
          "rimborso/pagamento delle spese effettuate per l’attività oggetto dell’incarico ad altro Ente che non sia il " \
-         "Dipartimento di Matematica dell’Alma Mater Studiorum - Università di Bologna.", style: "notes"
+         "Dipartimento di Matematica dell’Alma Mater Studiorum - Università di Bologna."
 else
   docx.p "The undersigned also undertakes not to deduct the sums relating to expenses reimbursed for the performance of this role " \
          "in the tax return. The undersigned also undertakes not to submit a request for reimbursement/payment of expenses incurred " \
          "for the activity covered by the assignment to another body other than the Department of Mathematics of the " \
-         "Alma Mater Studiorum - University of Bologna.", style: "notes"
+         "Alma Mater Studiorum - University of Bologna."
 end
 docx.p
 
 if repayment.language == "it"
-  docx.p "Per l’esecuzione della prestazione di cui trattasi, il sottoscritto dovrà attenersi ai seguenti criteri, che accetta:", style: "notes"
+  docx.p "Per l’esecuzione della prestazione di cui trattasi, il sottoscritto dovrà attenersi ai seguenti criteri, che accetta:"
 else
   docx.p "The undersigned Prof. #{repayment.seminar.speaker}, in the execution of the activity subject of the present agreement, " \
-         "accepts to comply with the following criteria:", style: "notes"
+         "accepts to comply with the following criteria:"
 end
 docx.p
 
@@ -166,4 +165,4 @@ end
 docx.p
 
 docx.p I18n.t(:faithfully) + ", ______________________________"
-docx.p "            #{repayment.speaker_with_title}"
+docx.p "                   #{repayment.speaker_with_title}"
