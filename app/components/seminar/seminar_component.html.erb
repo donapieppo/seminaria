@@ -20,7 +20,7 @@
           <% if @seminar.in_conference? %>
             <%= @seminar.title %>
           <% else %>
-            <%= link_to @seminar.title, single_page_path(year: "2023", mm: "07", dd: "06", slug: "pippo123") %>
+            <%= link_to @seminar.title, single_page_path(@seminar.single_page_attributes) %>
           <% end %>
         </div>
         <div class="notes">
