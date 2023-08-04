@@ -31,7 +31,10 @@ module RepaymentsHelper
     else
       "No remuneration is foreseen for the assigned activities, but the mere reimbursement of strictly necessary expenses " \
       "up to a maximum amount of #{euro(repayment.expected_refund)}, resulting from the original supporting documents to be delivered to the Department " \
-      "Administrative Offices by Prof. _________"
+      "Administrative Offices by Prof. #{repayment.seminar.speaker}. " \
+      "The supporting documents proving that the expenses have been incurred can be reimbursed within the limits and in compliance " \
+      "with the University Regulations on Travels and Reimbursements. The reimbursement of expenses is not subject to any withholding  "\
+      "tax, it will be paid upon submission of an expense report (Bill of Costs) at the end of the activity."
     end
   end
 
