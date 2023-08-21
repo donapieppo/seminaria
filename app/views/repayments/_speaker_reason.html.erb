@@ -19,7 +19,7 @@
   </dl>
   <% if user_can_edit %>  
     <div class="text-end">
-      <%= link_to 'Modifica', edit_repayment_path(repayment, what: :reason, modal: 1), class: :button, data: { turbo_frame: 'modal' } %>
+      <%= link_to "Modifica", edit_repayment_path(repayment, what: :reason, modal: 1), class: :button, data: {turbo_frame: "modal"} %>
     </div>
   <% end %>
 <% end %>
