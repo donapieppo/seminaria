@@ -15,11 +15,11 @@ class Repayment < ApplicationRecord
 
   after_create :create_spkr_token
 
-  ADAPT_GROSS_VALUE       = 0.92165898
-  IRAP                    = 0.085 # 8,5%
-  IRPEF_ITALIAN           = 0.2   # 20%
-  IRPEF_FOREIGN           = 0.3   # 30%
-  ADAPT_NET_ITALIAN_VALUE = 1.25 
+  ADAPT_GROSS_VALUE = 0.92165898
+  IRAP = 0.085 # 8,5%
+  IRPEF_ITALIAN = 0.2   # 20%
+  IRPEF_FOREIGN = 0.3   # 30%
+  ADAPT_NET_ITALIAN_VALUE = 1.25
   ADAPT_NET_FOREIGN_VALUE = 1.42858142
 
   def complete?
@@ -57,7 +57,7 @@ class Repayment < ApplicationRecord
 
   def validate_fund_and_holder
     if self.fund
-      (self.fund.holder_id == self.holder_id) or self.errors.add(:fund, 'ERRORE')
+      (self.fund.holder_id == self.holder_id) or self.errors.add(:fund, "ERRORE")
     end
   end
 
@@ -72,15 +72,15 @@ class Repayment < ApplicationRecord
   def lordo_percipiente
     return unless with_payment?
     res = if self.gross
-            self.payment * ADAPT_GROSS_VALUE
-          else
-            self.italy ? self.payment * ADAPT_NET_ITALIAN_VALUE : self.payment * ADAPT_NET_FOREIGN_VALUE
-          end
+      self.payment * ADAPT_GROSS_VALUE
+    else
+      self.italy ? self.payment * ADAPT_NET_ITALIAN_VALUE : self.payment * ADAPT_NET_FOREIGN_VALUE
+    end
     res.round(2)
   end
 
-  # Nel primo caso per calcolare da lordo ente a netto la formula è il lordo percipiente - la ritenuta irpef (20 o 30 percento a secondo che siano rispettivamente italiani o stranieri), ossia, 
-  # per italiani: LORDO ENTE * 0,92165898 = LORDO SOGGETTO --> NETTO = LORDO SOGGETTO - LORDO SOGGETTO * 20%. 
+  # Nel primo caso per calcolare da lordo ente a netto la formula è il lordo percipiente - la ritenuta irpef (20 o 30 percento a secondo che siano rispettivamente italiani o stranieri), ossia,
+  # per italiani: LORDO ENTE * 0,92165898 = LORDO SOGGETTO --> NETTO = LORDO SOGGETTO - LORDO SOGGETTO * 20%
   # Per stranieri: LORDO ENTE * 0,92165898 = LORDO SOGGETTO --> LORDO SOGGETTO - LORDO SOGGETTO * 30%.
   # Nel secondo caso per passare da netto a Lordo Ente si aggiunge la variabile IRAP (8,5 percento del Lordo Soggetto), che è a nostro carico. Quindi
   # Per italiani: NETTO * 1,25 = LORDO SOGGETTO. LORDO ENTE = LORDO SOGGETTO*8,5% + LORDO SOGGETTO
@@ -98,7 +98,7 @@ class Repayment < ApplicationRecord
     end
   end
 
-  # lordo_ente 
+  # lordo_ente
   def lordo_ente
     return unless with_payment?
     self.gross and return self.payment.round(2)
@@ -107,21 +107,21 @@ class Repayment < ApplicationRecord
   end
 
   def letter_filename
-    clean_speaker_name = self.seminar.speaker.downcase.gsub(' ', '_')
-   "richiesta_compenso_#{clean_speaker_name}.pdf"
+    clean_speaker_name = self.seminar.speaker.downcase.tr(" ", "_")
+    "richiesta_compenso_#{clean_speaker_name}.pdf"
   end
 
   def speaker_with_title
     if self.name.blank? || self.surname.blank?
       self.seminar.speaker_with_title
     else
-      self.seminar.speaker_title + ' ' + self.name + ' ' + self.surname
+      self.seminar.speaker_title + " " + self.name + " " + self.surname
     end
   end
 
   def position_to_s
-    return ' - ' unless self.position_id
-    self.position.code == 'other' ? self.role : self.position.name
+    return " - " unless self.position_id
+    self.position.code == "other" ? self.role : self.position.name
   end
 
   def create_spkr_token
