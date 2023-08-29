@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   scope ":__org__" do
     get "seminars/archive/(:year)", to: "seminars#archive", as: "archive_seminars"
-    get "seminars/:year/:mm/:dd/:slug", to: "seminars#page", year: /20\d\d/, mm: /\d\d/, dd: /\d\d/, as: :single_page
+    get "seminars/:year/:mm/:dd/:speaker", to: "seminars#page", year: /20\d\d/, mm: /\d\d/, dd: /\d\d/, as: :single_page
 
     get "totem", controller: "home", action: "totem", as: "totem"
 
