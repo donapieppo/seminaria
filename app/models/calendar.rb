@@ -1,6 +1,6 @@
 # ricorda che siamo con ActiveSupport::TimeWithZone
 module Calendar
-  Time::DATE_FORMATS[:google] = '%Y%m%dT%H%M%SZ'
+  Time::DATE_FORMATS[:google] = "%Y%m%dT%H%M%SZ"
 
   def calendar_start_date
     self.date.utc.to_formatted_s(:google)
@@ -13,8 +13,8 @@ module Calendar
 
   # action(required)  This value is always TEMPLATE (all capitalized).  action=TEMPLATE
   # text(required)
-  # dates(required) Date and time of the event, in UTC format. 
-  #    Append a capitalized letter “Z” to the end of times. 
+  # dates(required) Date and time of the event, in UTC format.
+  #    Append a capitalized letter “Z” to the end of times.
   #    Google Calendar will interpret the date and time for the user’s time zone.
   # sprop(required) Information to identify your organization, like your website address
   #    sprop=website:www.dm.unibo.it
@@ -25,10 +25,10 @@ module Calendar
   # http://www.google.com/calendar/images/ext/gc_button1.gif
   # in ruby 1.9 .getlocal("+01:00")
   def google_url(url)
-    google_base = 'http://www.google.com/calendar'
-    title       = self.title 
-    speaker     = self.speaker
-    where       = self.where_to_s
+    google_base = "http://www.google.com/calendar"
+    title = self.title
+    speaker = self.speaker
+    where = self.where_to_s
 
     "#{google_base}/event?action=TEMPLATE&text=Seminario #{speaker}: #{title}&details=#{url}&dates=#{self.calendar_start_date}/#{self.calendar_end_date}&location=#{where}&trp=false&sprop=website:www.dm.unibo.it"
   end
