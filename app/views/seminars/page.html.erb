@@ -1,75 +1,83 @@
-<div style="flex" class="page-header">
-  <div style="align-items: center;justify-content: center;">
+<div class="page-header">
+  <div style="">
     &nbsp;
     <div class="page-header-intro">
-      Seminario del Dipartimento di Matematica - Università di Bologna
+      Seminari del Dipartimento di Matematica - Università di Bologna
     </div>
-    <h1 class="page-title">
-      <%= @seminar.title %>
-    </h1>
+
+    <% @seminars.each do |seminar| %>
+      <h1 class="page-title">
+        <%= seminar.title %>
+      </h1>
+    <% end %>
+
     <h2 class="page-speaker">
       <span style="font-size: 70%; font-style: italic; padding-right: 5px">
         tenuto da
       </span>
-      <%= @seminar.speaker %>  
+      <%= @seminars.first.speaker %>  
     </h2>
-    <div class="page-header-notes">
-      <% if @seminar.serial_id %>
-        <div>
-          <span style="font-size: 70%; font-style: italic">nell'ambito della serie:</span> <%= @seminar.serial %>
-        </div>
-      <% end %>
-      <% if @seminar.cycle_id %>
-        <div>
-          <span style="font-size: 70%; font-style: italic">nel ciclo di seminari:</span> <%= @seminar.cycle %>
-        </div>
-      <% end %>
-    </div>
   </div>
 </div>
 
-<div class="container mt-3">
-  <div class="row">
-    <div class="col-md-4 text-md-end p-3">
-      <%= render DayTagComponent.new(@seminar) %>  
-      <%= render ArgumentsTagComponent.new(@seminar) %>
-    </div> <!-- notes -->
-    <div class="col-md-8 page-details p-3">
-      <%= render HourTagComponent.new(@seminar) %>  
-      <%= render WhereTagComponent.new(@seminar) %>  
-      <%= seminar_link_tag @seminar %>  
-    </div>
-  </div>
-
-  <div class="notes">
-    <div class="page-abstract">
-      <% if @seminar.abstract.blank? %>  
-        TBA
-      <% else %>
-        <%= @seminar.abstract %>
-      <% end %>
-    </div>
-
-    <% if @documents.any? %>  
-      <dl>
-        <dt>Allegati:</dt>
-        <% @seminar.documents.each do |document| %>
-          <dd><%= document_tag(document) %></dd>
+<% @seminars.each do |seminar| %>
+  <div class="container mt-3">
+    <div class="row">
+      <div class="col-md-4 text-md-end px-3">
+        <%= render DayTagComponent.new(seminar) %>  
+        <%= render ArgumentsTagComponent.new(seminar) %>
+      </div> <!-- notes -->
+      <div class="col-md-8 page-details px-3">
+        <%= render HourTagComponent.new(seminar) %>  
+        <%= render WhereTagComponent.new(seminar) %>  
+        <%= seminar_link_tag seminar %>  
+      <div class="page-abstract">
+        <% if seminar.abstract.blank? %>  
+          TBA
+        <% else %>
+          <%= seminar.abstract %>
         <% end %>
-      </dl>
-    <% end %>
+      </div>
 
-    <div class="seminar-footer">
-      <% unless @seminar.conference_id %>  
-        <span class="committee">
-          <hr/>
-          <%= t :organized_by %> <%= @seminar.committee %> <br/>
-          <%= @seminar.project %>  
-        </span>
+      </div>
+    </div>
+
+
+    <div class="page-notes">
+      <% if seminar.serial_id %>
+        <div>
+          <span style="font-size: 70%; font-style: italic">nell'ambito della serie:</span> <%= seminar.serial %>
+        </div>
       <% end %>
-      <p class="centered mt-4">
-      <%= link_to 'indietro', root_path %>  
-      </p>
+      <% if seminar.cycle_id %>
+        <div>
+          <span style="font-size: 70%; font-style: italic">nel ciclo di seminari:</span> <%= seminar.cycle %>
+        </div>
+      <% end %>
+    </div>
+    <div class="notes">
+      <% if @documents.any? %>  
+        <dl>
+          <dt>Allegati:</dt>
+          <% seminar.documents.each do |document| %>
+            <dd><%= document_tag(document) %></dd>
+          <% end %>
+        </dl>
+      <% end %>
+
+      <div class="page-footer">
+        <% unless seminar.conference_id %>  
+          <span class="committee">
+            <hr/>
+            <%= t :organized_by %> <%= seminar.committee %> <br/>
+            <%= seminar.project %>  
+          </span>
+        <% end %>
+      </div>
     </div>
   </div>
+<% end %>
+
+<div class="centered mt-4">
+  <%= link_to 'indietro', root_path %>  
 </div>
