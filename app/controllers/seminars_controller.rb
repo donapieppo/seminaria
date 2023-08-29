@@ -23,9 +23,7 @@ class SeminarsController < ApplicationController
       redirect_to seminars_path(__org__: "mat") and return
     end
 
-    @seminars = @seminars
-      .includes(:repayment, :serial, :cycle, :documents, :arguments, :place, :conference)
-      .group(:conference_id)
+    @seminars = @seminars.includes(:repayment, :serial, :cycle, :documents, :arguments, :place, :conference)
 
     @show_hidden ||= user_is_manager?
 
@@ -52,10 +50,11 @@ class SeminarsController < ApplicationController
     if params[:id]
       @seminar = Seminar.find(params[:id])
     else
-      date_param = Date.new(params[:year], params[:mm], params[:dd])
-      @seminar = Seminar.where("date = ?", date_param).first
+      date_param = Date.new(params[:year].to_i, params[:mm].to_i, params[:dd].to_i)
+      @seminars = Seminar.where("DATE(date) = ?", date_param).select { |s| s.speaker.parameterize == params[:speaker] }
+      @seminar = @seminars.first
     end
-    if @seminar
+    if @seminars.any?
       authorize @seminar
       @documents = @seminar.documents.to_a
       render layout: "page"
