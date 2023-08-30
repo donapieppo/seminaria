@@ -3,4 +3,3 @@ class Authorization
 
   configure_authlevels
 end
-

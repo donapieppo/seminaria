@@ -2,5 +2,3 @@
 class Category < ApplicationRecord
   has_many :funds
 end
-
-

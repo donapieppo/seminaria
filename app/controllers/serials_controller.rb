@@ -49,6 +49,4 @@ class SerialsController < ApplicationController
   def serial_params
     params.require(:serial).permit(:title, :description, :committee, :link, :active)
   end
-
 end
-

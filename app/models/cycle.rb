@@ -9,4 +9,3 @@ class Cycle < ApplicationRecord
     self.title
   end
 end
-
