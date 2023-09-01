@@ -14,6 +14,54 @@ class RepaymentsController < ApplicationController
       .where("YEAR(seminars.date) = ?", @year)
       .where("seminars.organization_id = ?", current_organization.id)
       .references(:seminars)
+
+    respond_to do |format|
+      format.html
+      format.csv do
+        x = CSV.generate(col_sep: ";", quote_char: '"') do |csv|
+          @repayments.each do |r|
+            csv << [
+              I18n.l(r.seminar.date, format: :date),
+              r.seminar.speaker,
+              r.taxid,
+              r.seminar.user,
+              if r.complete?
+                "UGOV #{r.ugov}"
+              elsif r.notified
+                r.fund
+              else
+                "richiesta non inviata"
+              end,
+              r.seminar.title
+            ]
+          end
+        end
+        send_data x, filename: "compensi_seminari_#{current_organization.code}_#{@year}.csv"
+      end
+    end
+  end
+
+  def massive_decree_form
+    authorize current_organization, :manage?
+
+    @year ||= (params[:year] || Date.today.year).to_i
+    @repayments = Repayment
+      .includes(seminar: :user, fund: [:category, :holder])
+      .order("seminars.date DESC")
+      .where("YEAR(seminars.date) = ?", @year)
+      .where("seminars.organization_id = ?", current_organization.id)
+      .references(:seminars)
+  end
+
+  def massive_decree
+    authorize current_organization, :manage?
+    filename = "decreto_massivo_#{current_organization.code}.docx"
+
+    @repayments = Repayment.find(params[:repayment_ids])
+
+    respond_to do |format|
+      format.docx { headers["Content-Disposition"] = %(attachment; filename="#{filename}") }
+    end
   end
 
   # Only the basic questions (name, surname, email)
