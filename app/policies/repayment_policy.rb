@@ -8,11 +8,10 @@ class RepaymentPolicy < ApplicationPolicy
   end
 
   def not_too_late?
-    ! @record.seminar.too_late_for_repayment?
+    !@record.seminar.too_late_for_repayment?
   end
 
   # index? - see controller authorize current_organization, :manage?
-  
   # can update seminar
   # user can read all organization (Greta)
   # fund owner
