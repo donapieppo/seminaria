@@ -1,14 +1,26 @@
 <div class="seminar-small-info">
   <div>
-    SEMINARIO DEL <%= @seminar.organization.description.upcase %> - <%= l @seminar.date, format: :long %> 
-  </div>
-  <div>
-    <%= link_to @seminar do %>  
-      <%= @seminar.speaker %> - <%= @seminar.title %>
+    <% if @seminar.in_conference? %>
+      RELAZIONE ALL'INTERNO DEL CONVEGNO &ldquo;<%= link_to @seminar.conference, @seminar.conference %>&rdquo;
+    <% else %>
+      SEMINARIO DEL <%= @seminar.organization.description.upcase %> - <%= l @seminar.date, format: :long %>
     <% end %>
   </div>
   <div>
-    <%= t :organized_by %> <%= @seminar.committee %>
+    <%= link_to @seminar do %>  
+      &ldquo;<%= @seminar.title %>&rdquo;
+    <% end %>
+    tenuto da <%= @seminar.speaker %>
+  </div>
+  <div class="mt-1">
+     Proponente: <%= @seminar.user %> (<%= mail_to @seminar.user.upn %>)
+  </div>
+  <div>
+    <% if @seminar.in_conference? %>
+      Comitato oragnizzatore del convegno: <%= @seminar.conference.committee %>
+    <% else %>
+      Organizzatore: <%= @seminar.committee %>
+    <% end %>
   </div>
   <div>
     <%= @seminar.project %>
