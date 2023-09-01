@@ -2,14 +2,12 @@
 
 <div class="alert p-4 py-2">
   <% unless @conference.abstract.blank? %>  
-    <div class="text-justify font-italic">
+    <div class="alert alert-info text-justify font-italic">
       <%= @conference.abstract %>
     </div> 
   <% end %>
-  <div>
-    <span class="committee">
-      <%= t :organized_by %> <%= @conference.committee %> <br/>
-    </span>
+  <div class="committee">
+    <strong><%= t :organized_by %></strong> <%= @conference.committee %>
   </div>
   <% unless @conference.url.blank? %>  
     <div class="mt-2">
