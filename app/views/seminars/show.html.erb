@@ -10,3 +10,9 @@
     </div>
   </div>
 <% end %>
+
+<% if policy(@seminar).destroy? %>
+  <div class="btn btn-danger my-4 centered">
+    <%= link_to_delete 'Cancella il seminario', seminar_path(@seminar) %>
+  </div>
+<% end %>
