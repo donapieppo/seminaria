@@ -27,3 +27,8 @@
     <% end %>
   <% end %>
 </div>
+
+<div class="my-3 centered">
+  <%= link_to "Estrai excel", repayments_path(year: @year, format: :csv), class: :button %>
+  <%= link_to "Decreto massivo", massive_decree_form_repayments_path(year: @year), class: :button %>
+</div>
