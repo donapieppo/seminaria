@@ -28,8 +28,8 @@ docx.p "VISTA\t\t\tla delibera della Giunta di Dipartimento del 07.06.2021 che d
        "degli incarichi a conferenzieri per seminari, "
 docx.p
 
-@repayments.each do |repayment|
-  docx.p "CONSIDERATO\t#{considerations(repayment)};"
+@repayments.map { |repayment| "CONSIDERATO\t#{considerations(repayment)};" }.uniq.each do |str|
+  docx.p str
   docx.p
 end
 
@@ -61,16 +61,18 @@ end
 docx.p "DECRETA", align: :center
 docx.p
 
+i = 1
 @repayments.each do |repayment|
-  docx.p "ART. 1 – È conferito #{repayment.seminar.female_speaker? ? "alla" : "al"} #{repayment.speaker_with_title}, " \
+  docx.p "ART. #{i} – È conferito #{repayment.seminar.female_speaker? ? "alla" : "al"} #{repayment.speaker_with_title}, " \
          "nat#{repayment.seminar.female_speaker? ? "a" : "o"} a #{repayment.birth_place} (#{repayment.birth_country}) " \
          "il #{repayment.birth_date}, l’incarico di svolgimento di attività di ricerca scientifica in collaborazione e seminario " \
          "di cui alle premesse e si autorizza il sostenimento della relativa spesa a carico del Dipartimento di Matematica con " \
          "corresponsione #{corresponsione(repayment)}."
   docx.p
+  i += 1
 end
 
-docx.p "ART. 2 - Si autorizza la sottoscrizione della lettera d’incarico stipulata con il conferenziere"
+docx.p "ART. #{i} - Si autorizza la sottoscrizione della lettera d’incarico stipulata con il conferenziere"
 
 docx.p
 docx.p "         Il Direttore         ", align: :right
