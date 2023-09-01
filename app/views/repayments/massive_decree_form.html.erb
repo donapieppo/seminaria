@@ -9,7 +9,7 @@
 <%= form_with url: massive_decree_repayments_path(format: :docx), turbo: false do |f| %>
   <div class="list-group">
     <% @repayments.each do |repayment| %>  
-      <%= content_tag :div, class: status_class(repayment) do %>
+      <%= content_tag :label, class: status_class(repayment) do %>
         <input type="checkbox" name="repayment_ids[]" value="<%= repayment.id %>>" class="pe-2"></input>
         <span class="font-weight-bold mr-3"><%= l(repayment.seminar.date, format: :date) %></span> 
         <%= repayment.seminar.speaker %>
