@@ -1,0 +1,36 @@
+<h1>Richieste di compenso</h1>
+
+<ul class="pagination justify-content-center">
+  <% (2014..(Date.today + 2.months).year).each do |year| %>  
+    <li class="page-item <%= 'active' if (@year == year) %>"><%= link_to year, repayments_path(year: year), class: "page-link" %></li>
+  <% end %>
+</ul>
+
+<%= form_with url: massive_decree_repayments_path(format: :docx), turbo: false do |f| %>
+  <div class="list-group">
+    <% @repayments.each do |repayment| %>  
+      <%= content_tag :div, class: status_class(repayment) do %>
+        <input type="checkbox" name="repayment_ids[]" value="<%= repayment.id %>>" class="pe-2"></input>
+        <span class="font-weight-bold mr-3"><%= l(repayment.seminar.date, format: :date) %></span> 
+        <%= repayment.seminar.speaker %>
+        <% if repayment.taxid %>
+          <small>(<%= repayment.taxid %>)</small>
+        <% end %>
+        <span class="float-end"><small>
+            richiedente <%= repayment.seminar.user %> -  
+            <% if repayment.complete? %>  
+              UGOV <%= repayment.ugov %>
+          <% elsif repayment.notified %>  
+            <%= repayment.fund %>
+          <% else %>
+            richiesta non inviata
+          <% end %>
+        </small></span>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="my-3 centered">
+    <%= submit_tag "Prepara il Decreto", class: :button %>
+  </div>
+<% end %>

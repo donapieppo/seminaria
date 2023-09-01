@@ -63,6 +63,8 @@ Rails.application.routes.draw do
       get :print_other, on: :member
       get :print_regularity, on: :member
 
+      get :massive_decree_form, on: :collection
+      post :massive_decree, on: :collection
       resources :curricula_vitae
     end
 
