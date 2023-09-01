@@ -44,16 +44,16 @@ class Speaker::RepaymentsController < ApplicationController
   private
 
   def get_repayment_from_token_and_authorize
-    @repayment = Repayment.where(spkr_token: params[:id]).first or raise "Uncorrect tkn."
+    @repayment = Repayment.get_form_token(params[:id]) or raise "Uncorrect tkn."
     authorize [:speaker, @repayment]
   end
 
   def speaker_repayment_attributes
-    params[:repayment].permit(:name, :surname, :email, :birth_date, :birth_place, :birth_country, :taxid, 
-                              :italy, :address, :postalcode, :city, :country, 
-                              :affiliation, :position_id, 
-                              :iban, :swift, :aba, :bank_name, :bank_address)
+    params[:repayment].permit(
+      :name, :surname, :email, :birth_date, :birth_place, :birth_country, :taxid,
+      :italy, :address, :postalcode, :city, :country,
+      :affiliation, :position_id,
+      :iban, :swift, :aba, :bank_name, :bank_address
+    )
   end
-
 end
-

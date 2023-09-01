@@ -17,8 +17,8 @@ class Repayment < ApplicationRecord
 
   ADAPT_GROSS_VALUE = 0.92165898
   IRAP = 0.085 # 8,5%
-  IRPEF_ITALIAN = 0.2   # 20%
-  IRPEF_FOREIGN = 0.3   # 30%
+  IRPEF_ITALIAN = 0.2 # 20%
+  IRPEF_FOREIGN = 0.3 # 30%
   ADAPT_NET_ITALIAN_VALUE = 1.25
   ADAPT_NET_FOREIGN_VALUE = 1.42858142
 
@@ -79,7 +79,8 @@ class Repayment < ApplicationRecord
     res.round(2)
   end
 
-  # Nel primo caso per calcolare da lordo ente a netto la formula è il lordo percipiente - la ritenuta irpef (20 o 30 percento a secondo che siano rispettivamente italiani o stranieri), ossia,
+  # Nel primo caso per calcolare da lordo ente a netto la formula è il lordo percipiente - la ritenuta irpef
+  #   (20 o 30 percento a secondo che siano rispettivamente italiani o stranieri), ossia,
   # per italiani: LORDO ENTE * 0,92165898 = LORDO SOGGETTO --> NETTO = LORDO SOGGETTO - LORDO SOGGETTO * 20%
   # Per stranieri: LORDO ENTE * 0,92165898 = LORDO SOGGETTO --> LORDO SOGGETTO - LORDO SOGGETTO * 30%.
   # Nel secondo caso per passare da netto a Lordo Ente si aggiunge la variabile IRAP (8,5 percento del Lordo Soggetto), che è a nostro carico. Quindi
@@ -136,5 +137,23 @@ class Repayment < ApplicationRecord
 
   def with_refund?
     !!refund
+  end
+
+  def clear_privacy
+    [:taxid, :address, :postalcode, :birth_date, :birth_place, :iban, :bank_name, :bank_address, :spkr_token, :swift, :aba].each do |x|
+      p self.send("#{x}=".to_sym, "_")
+    end
+    self.spkr_token = nil
+    self.save
+  end
+
+  def self.validate_spkr_token(x)
+    x&.size == 67
+  end
+
+  def self.get_form_token(x)
+    if validate_spkr_token(x)
+      Repayment.where(spkr_token: x).first
+    end
   end
 end
