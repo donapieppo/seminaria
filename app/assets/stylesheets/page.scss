@@ -18,11 +18,15 @@
   margin: auto;
   margin: 5vmin auto;
 }
-
+.page-header-intro a {
+  color: #333;
+}
 h1.page-title {
   font-size: max(21px, 6vmin);
-  width: 70vw;
-  font-weight: bold;
+  width: 60vw;
+  text-transform: uppercase;
+  // letter-spacing: -3px;
+  font-weight: 400;
   text-align: center;
   margin: 10vmin auto;
 }
