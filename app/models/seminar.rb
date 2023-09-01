@@ -22,7 +22,7 @@ class Seminar < ApplicationRecord
   before_save :manage_place_choice
 
   validates :title, :speaker_title, :speaker, :date, presence: true
-  validates :meeting_url, :link, format: {with: URI.regexp(['http', 'https']), allow_blank: true}
+  validates :meeting_url, :link, format: {with: URI.regexp(["http", "https"]), allow_blank: true}
   validates :committee, length: {maximum: 200}
 
   # place_id == 1 -> 'non definita'
@@ -38,7 +38,7 @@ class Seminar < ApplicationRecord
 
   def where_to_s(visible: false)
     res = ""
-    res += self.place_to_s 
+    res += self.place_to_s
     res += " e " if self.in_presence && self.on_line
     res += self.on_line_to_s(visible: visible)
     res
@@ -52,7 +52,7 @@ class Seminar < ApplicationRecord
       when nil
         "Aula non definita"
       else
-        "#{I18n.t :place} #{self.place.to_s}"
+        "#{I18n.t :place} #{self.place}"
       end
     else
       ""
@@ -77,7 +77,7 @@ class Seminar < ApplicationRecord
   end
 
   def to_long_s
-    "#{self.date.strftime('%d/%m/%Y')}: #{self.speaker} (#{self.title})"
+    "#{self.date.strftime("%d/%m/%Y")}: #{self.speaker} (#{self.title})"
   end
 
   def zoom_topic
@@ -89,7 +89,7 @@ class Seminar < ApplicationRecord
   end
 
   def speaker_with_date
-    "#{self.date.strftime('%d/%m/%Y')}: #{self.speaker}"
+    "#{self.date.strftime("%d/%m/%Y")}: #{self.speaker}"
   end
 
   def speaker_with_title
@@ -111,13 +111,8 @@ class Seminar < ApplicationRecord
   # - seminar start in less than repayment_deadline days (see configuration)
   # - the repayment has a speaker_arrival and the arrival is before repayment_deadline days
   def too_late_for_repayment?
-    start_date_possible_repayment = Date.today + Rails.configuration.repayment_deadline.days
-
-    return true if (self.date < start_date_possible_repayment)
-
-    return true if (self.repayment&.speaker_arrival && self.repayment.speaker_arrival < start_date_possible_repayment)
-
-    false
+    first_start_date_possible_repayment = Date.today + Rails.configuration.repayment_deadline.days
+    (self.date < first_start_date_possible_repayment) || (self.repayment&.speaker_arrival && self.repayment.speaker_arrival < first_start_date_possible_repayment)
   end
 
   def day
@@ -146,6 +141,9 @@ class Seminar < ApplicationRecord
   end
 
   def single_page_attributes
-    {year: date.year, mm: date.strftime("%m"), dd: date.strftime("%d"), slug: speaker.to_s.parameterize, id: self.id}
+    {year: date.year,
+     mm: date.strftime("%m"),
+     dd: date.strftime("%d"),
+     speaker: speaker.to_s.parameterize}
   end
 end
