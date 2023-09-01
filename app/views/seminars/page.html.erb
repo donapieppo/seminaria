@@ -36,12 +36,14 @@
         <div class="page-notes">
           <% if seminar.serial_id %>
             <div>
-              <span style="font-size: 80%; font-style: italic">nell'ambito della serie:</span> <%= seminar.serial %>
+              <span style="font-size: 80%; font-style: italic">nell'ambito della serie:</span> 
+              <%= link_to seminar.serial.to_s.upcase, serial_path(seminar.serial_id) %>
             </div>
           <% end %>
           <% if seminar.cycle_id %>
             <div>
-              <span style="font-size: 80%; font-style: italic">nel ciclo di seminari:</span> <%= seminar.cycle %>
+              <span style="font-size: 80%; font-style: italic">nel ciclo di seminari:</span>
+              <%= link_to seminar.cycle.to_s.upcase, cycle_path(seminar.cycle_id) %>
             </div>
           <% end %>
         </div>
