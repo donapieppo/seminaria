@@ -18,7 +18,7 @@
   <pre>
 Dear <%= @repayment.name %> <%= @repayment.surname %>,
 
-in order to recive repayment / refund for your seminar 
+in order to receive repayment / refund for your seminar 
 on <%= l @repayment.seminar.date, locale: :en, format: :short %> please visit the page
 
 <%= link_to accept_speaker_repayment_url(@repayment.spkr_token), accept_speaker_repayment_url(@repayment.spkr_token) %>

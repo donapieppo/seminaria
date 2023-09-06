@@ -1,7 +1,7 @@
 <% I18n.locale = :en %>  
 
 <div class="alert alert-info">
-  <p>Dear <%= @repayment.name %> <%= @repayment.surname %>, in order to recive repayment / refund for your seminar</p>
+  <p>Dear <%= @repayment.name %> <%= @repayment.surname %>, in order to receive repayment / refund for your seminar</p>
   <p class="font-weight-bold">(<%= l @repayment.seminar.date, format: :short %>) <%= @repayment.seminar.title %></p>
   <p>please fill out the form below and provide a copy of an ID document.</p>
 </div>
