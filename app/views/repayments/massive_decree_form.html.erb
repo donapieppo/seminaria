@@ -10,7 +10,9 @@
   <div class="list-group">
     <% @repayments.each do |repayment| %>  
       <%= content_tag :label, class: status_class(repayment) do %>
-        <input type="checkbox" name="repayment_ids[]" value="<%= repayment.id %>>" class="pe-2"></input>
+        <% if repayment.fund_id %>
+          <input type="checkbox" name="repayment_ids[]" value="<%= repayment.id %>>" class="pe-2"></input>
+        <% end %>
         <span class="font-weight-bold mr-3"><%= l(repayment.seminar.date, format: :date) %></span> 
         <%= repayment.seminar.speaker %>
         <% if repayment.taxid %>
