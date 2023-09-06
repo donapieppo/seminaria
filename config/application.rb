@@ -15,7 +15,6 @@ module Seminaria
     config.load_defaults 7.0
     config.hosts << "tester.dm.unibo.it"
     config.hosts << "www.dm.unibo.it"
-    config.hosts << "127.0.0.1"
 
     config.autoload_paths << "#{Rails.root}/app/pdfs"
     config.time_zone = "Rome"
