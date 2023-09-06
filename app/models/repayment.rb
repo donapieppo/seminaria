@@ -139,7 +139,7 @@ class Repayment < ApplicationRecord
     !!refund
   end
 
-  def clear_privacy
+  def clear_privacy!
     [:taxid, :address, :postalcode, :birth_date, :birth_place, :iban, :bank_name, :bank_address, :spkr_token, :swift, :aba].each do |x|
       p self.send("#{x}=".to_sym, "_")
     end
