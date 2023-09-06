@@ -127,6 +127,7 @@ class RepaymentsController < ApplicationController
       add_cv
       redirect_to repayment_path(@repayment), message: "La richiesta è stata salvata correttamente."
     else
+      Rails.logger.info(@repayment.errors.inspect)
       @funds = available_funds
       render :edit, status: :unprocessable_entity
     end
