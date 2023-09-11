@@ -42,7 +42,7 @@ it:
   time:
     am: am
     formats:
-      seminar: ! "%a %d %b, ore %H:%M"
+      seminar: ! "%A %d %B, ore %H:%M"
       day: !     "%A %d %B"
       past: !    "%d %b %Y"
       hour: !    "%H:%M"
