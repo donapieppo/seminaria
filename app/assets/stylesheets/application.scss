@@ -37,7 +37,6 @@ div.home-filters {
 
   .when {
     text-align: center;
-    border-right: 2px solid rgb(30, 30, 30);
     .day-and-month {
       font-weight: 600; 
       font-size: 24px; 
@@ -70,6 +69,12 @@ div.home-filters {
   .link-tag {
     @extend .mt-1;
     @extend .mb-3;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .seminar .when, .conference .when {
+    border-right: 2px solid rgb(30, 30, 30);
   }
 }
 
