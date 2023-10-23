@@ -96,6 +96,7 @@ it:
         speaker_arrival: Arrivo del relatore a Bologna
         speaker_departure: Partenza del relatore da Bologna
         expected_refund: Importo presunto
+        travel_agency: Rimborso a mezzo di agenzia viaggi
         affiliation: Ente di appartenenza
         reason: Descrizione dettagliata delle eccezionali ragioni di particolare qualificazione, abilità e conoscenze possedute dal conferenziere che motivano la deroga alla procedura comparativa pubblica con assegnazione diretta dell’incarico
         activity_details: Descrizione dettagliata del tipo di attività che verrà svolta dallo speaker (scaletta/programma).

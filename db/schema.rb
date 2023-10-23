@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_29_093053) do
+ActiveRecord::Schema[7.1].define(version: 2023_09_06_072601) do
   create_table "active_storage_attachments", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -173,6 +173,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_29_093053) do
     t.string "role"
     t.boolean "refund"
     t.integer "expected_refund"
+    t.boolean "travel_agency"
     t.string "iban", limit: 150
     t.string "swift", limit: 150
     t.string "aba", limit: 150
