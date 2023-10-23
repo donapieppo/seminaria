@@ -245,7 +245,7 @@ class RepaymentsController < ApplicationController
       :country, :language, :birth_date, :birth_place, :birth_country, :affiliation,
       :payment, :gross, :position_id, :role, :refund,
       :reason, :activity_details, :scientific_interests,
-      :speaker_arrival, :speaker_departure, :expected_refund, :taxid,
+      :speaker_arrival, :speaker_departure, :expected_refund, :travel_agency, :taxid,
       :iban, :swift, :aba, :bank_name, :bank_address
     ]
     p += [:bond_number, :bond_year] if policy(@repayment).update_bond?
