@@ -173,7 +173,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_09_06_072601) do
     t.string "role"
     t.boolean "refund"
     t.integer "expected_refund"
-    t.boolean "travel_agency"
+    t.boolean "travel_agency", default: false
     t.string "iban", limit: 150
     t.string "swift", limit: 150
     t.string "aba", limit: 150
