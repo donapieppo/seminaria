@@ -20,7 +20,7 @@
   <div class="fs-5 border-4 border-start border-info ps-2 py-2 mt-4">
     <%= @serial.description %>
     <% unless @serial.committee.blank? %>
-      <br/><small><strong>Organizzato da:</strong> <%= @serial.committee %></small>
+      <div><small><strong>Organizzato da:</strong> <%= @serial.committee %></small></div>
     <% end %>
   </div>
 <% end %>
