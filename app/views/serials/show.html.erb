@@ -1,6 +1,8 @@
 <h2 class="text-center">
-  Seminari periodici <br/><%= current_organization.description.upcase %>
+  Seminari periodici<br/>
+  <%= current_organization.description.upcase %>
 </h2>
+
 <h1><%= serial_image(@serial) %> <%= @serial %></h1>
 
 <div class="centered_action">
@@ -13,6 +15,15 @@
     </div>
   <% end %>
 </div>
+
+<% unless @serial.description.blank? && @serial.committee.blank? %>
+  <div class="fs-5 border-4 border-start border-info ps-2 py-2 mt-4">
+    <%= @serial.description %>
+    <% unless @serial.committee.blank? %>
+      <br/><small><strong>Organizzato da:</strong> <%= @serial.committee %></small>
+    <% end %>
+  </div>
+<% end %>
 
 <% @seminars.each do |seminar| %>
   <%= render Seminar::SeminarComponent.new(seminar, current_user) %>  
