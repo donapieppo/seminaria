@@ -18,7 +18,10 @@
             </div>
           <% end %>
           <div>
-            <strong>Organizzazione:</strong> <%= serial.committee %> 
+            <% unless serial.description.blank? %>
+              <p><%= serial.description %></p>
+            <% end %>
+            <p><strong>Organizzazione:</strong> <%= serial.committee %></p>
           </div>
           <% if serial_ids_with_future_seminar.include?(serial.id) %>
             <p class="alert alert-success my-3">
@@ -46,9 +49,11 @@
 </div>
 
 <% if current_organization && policy(current_organization.serials.new).create? %>
-  <p><%= link_to 'nuova serie', new_serial_path, class: :button %> </p>
+  <div class="my-2">
+    <%= link_to 'nuova serie', new_serial_path, class: :button %>
+  </div>
 <% elsif user_signed_in? %>
-  <p class="alert alert-info">
+  <div class="alert alert-info my-2">
   Per l'inserimento di una nuova serie occorre inviare una richiesta all'indirizzo <%= support_mail %>
-  </p>
+  </div>
 <% end %>
