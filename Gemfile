@@ -5,11 +5,6 @@ gem "dm_unibo_user_search", git: "https://github.com/donapieppo/dm_unibo_user_se
 gem "dm_unibo_common", git: "https://github.com/donapieppo/dm_unibo_common.git", branch: "master"
 # gem "dm_unibo_common", path: "/home/rails/gems/dm_unibo_common/"
 
-gem "sprockets-rails"
-gem "jsbundling-rails"
-gem "cssbundling-rails", "~> 1.1"
-gem "turbo-rails"
-
 gem "prawn"
 gem "prawn-table"
 gem "caracal"
@@ -20,9 +15,6 @@ gem "roo-xls"
 
 # for zoom
 gem "oauth2"
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
