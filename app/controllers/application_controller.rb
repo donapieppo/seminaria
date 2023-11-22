@@ -26,8 +26,6 @@ class ApplicationController < DmUniboCommon::ApplicationController
     :set_locale,
     :redirect_unsigned_user
 
-  after_action :verify_authorized, except: [:who_impersonate, :impersonate, :stop_impersonating]
-
   include UserPermissionHelper
 
   def set_locale
