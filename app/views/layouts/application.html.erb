@@ -6,7 +6,7 @@
 
     <main role="main" class="container">
       <%= render DmUniboCommon::PrivacyAlertComponent.new(cookies) %>  
-      <%= bootstrap_flash %>
+      <%= render DmUniboCommon::BootstrapAlertComponent.new(flash) %>  
       <%= turbo_frame_tag "modal" %>
       <%= yield %>
     </main>
