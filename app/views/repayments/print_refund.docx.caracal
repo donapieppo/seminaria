@@ -29,7 +29,7 @@ end
 
 docx.p
 docx.p "Rep n.  ______  del ________________ "
-docx.p 
+docx.p
 docx.p "#{t :vat} ________________________"
 docx.p
 docx.p "IBAN / BANK ACCOUNT: #{field_or_underscores @repayment.iban}"
@@ -44,91 +44,93 @@ docx.p "INDIRIZZO DELLA BANCA/ADDRESS OF THE BANK (for Extra-UE only): #{field_o
 docx.p
 
 if @repayment.speaker_arrival and @repayment.speaker_departure
-  docx.p "Arrivo del relatore a Bologna/Date of arrival at Bologna and Place of Departure: #{I18n.l @repayment.speaker_arrival} #{t :arrival_from} __________________________________" 
+  docx.p "Arrivo del relatore a Bologna/Date of arrival at Bologna and Place of Departure: #{I18n.l @repayment.speaker_arrival} #{t :arrival_from} __________________________________"
   docx.p
-  docx.p "Partenza del relatore da Bologna/Date of leaving from Bologna and Place of Arrival: #{I18n.l @repayment.speaker_departure} #{t :departure_to} __________________________________" 
+  docx.p "Partenza del relatore da Bologna/Date of leaving from Bologna and Place of Arrival: #{I18n.l @repayment.speaker_departure} #{t :departure_to} __________________________________"
   docx.p
 end
 
-docx.table [[t(:description), t(:required_import), t(:accepted_import)],
-            [t(:travel_costs), '', ''],
-            [t(:taxi), '', ''],
-            [t(:rentals), '', ''],
-            [t(:bus_or_metro), '', ''],
-            [t(:accomodation), '', ''],
-            [t(:meals), '', ''],
-            [t(:km), '', ''],
-            [t(:motorway_tolls), '', ''],
-            [t(:parking), '', ''],
-            [t(:visas), '', ''],
-            [t(:taxes), '', ''],
-            [t(:vaccinations_and_prophylaxes), '', ''],
-            [t(:health_insurances), '', ''],
-            [t(:other_insurances), '', ''],
-            [t(:tips), '', ''],
-            [t(:luggage_storage), '', ''],
-            [t(:museums), '', ''],
-            [t(:prints), '', ''],
-            [t(:registrations), '', ''],
-            [t(:other), '', ''], 
-            [t(:total_to_refund), '', '']] do
-  cell_style rows[0], background: '3366cc', color: 'ffffff', bold: true, align: :center
-  border_color   '666666'   # sets the border color. defaults to 'auto'.
-  border_line    :single    # sets the border style. defaults to :single. see OOXML docs for details.
-  border_size    2          # sets the border width. defaults to 0. units in twips.
-  border_spacing 2          # sets the spacing around the border. defaults to 0. units in twips.
+docx.table [
+  [t(:description), t(:required_import), t(:accepted_import)],
+  [t(:travel_costs), "", ""],
+  [t(:taxi), "", ""],
+  [t(:rentals), "", ""],
+  [t(:bus_or_metro), "", ""],
+  [t(:accomodation), "", ""],
+  [t(:meals), "", ""],
+  [t(:km), "", ""],
+  [t(:motorway_tolls), "", ""],
+  [t(:parking), "", ""],
+  [t(:visas), "", ""],
+  [t(:taxes), "", ""],
+  [t(:vaccinations_and_prophylaxes), "", ""],
+  [t(:health_insurances), "", ""],
+  [t(:other_insurances), "", ""],
+  [t(:tips), "", ""],
+  [t(:luggage_storage), "", ""],
+  [t(:museums), "", ""],
+  [t(:prints), "", ""],
+  [t(:registrations), "", ""],
+  [t(:other), "", ""],
+  [t(:total_to_refund), "", ""]
+] do
+  cell_style rows[0], background: "3366cc", color: "ffffff", bold: true, align: :center
+  border_color "666666" # sets the border color. defaults to "auto".
+  border_line :single   # sets the border style. defaults to :single. see OOXML docs for details.
+  border_size 2         # sets the border width. defaults to 0. units in twips.
+  border_spacing 2      # sets the spacing around the border. defaults to 0. units in twips.
   cell_style cols[0], width: 5000
-  cell_style cells, margins: { top: 20, bottom: 20, left: 100, right: 100 }
+  cell_style cells, margins: {top: 20, bottom: 20, left: 100, right: 100}
 end
 
-# docx.page 
+# docx.page
 
-docx.p 
+docx.p
 docx.p t(:extra_traqnsport)
 docx.p " □ #{t :taxi} "
 docx.p " □ #{t :rentals} "
 docx.p " □ #{t :owned_car} "
-docx.p 
+docx.p
 docx.p " □ * #{t :only_responsable}"
 
-docx.p 
+docx.p
 if @repayment.italy
-  sciopero      = '□ sciopero dei mezzi ordinari di trasporto'
-  ingombranti   = '□ trasporto di materiali e/o strumenti delicati o ingombranti'
-  convenienza   = "□ convenienza economica per l'Università di Bologna"
-  esigenze      = "□ particolari esigenze di servizio e/o necessità di raggiungere il luogo o di rientrare al più presto in sede per motivi istituzionali"
-  orario        = "□ incompatibilità di orario dei mezzi ordinari di trasporto con le esigenze dell'attività oggetto della missione"
+  sciopero = "□ sciopero dei mezzi ordinari di trasporto"
+  ingombranti = "□ trasporto di materiali e/o strumenti delicati o ingombranti"
+  convenienza = "□ convenienza economica per l'Università di Bologna"
+  esigenze = "□ particolari esigenze di servizio e/o necessità di raggiungere il luogo o di rientrare al più presto in sede per motivi istituzionali"
+  orario = "□ incompatibilità di orario dei mezzi ordinari di trasporto con le esigenze dell'attività oggetto della missione"
   fascia_oraria = "□ utilizzo nella fascia oraria dalle 21.00 alle 7.00"
-  difficolta    = "□ difficoltà a deambulare debitamente certificata"
+  difficolta = "□ difficoltà a deambulare debitamente certificata"
 else
-  sciopero      = '□ strike of the ordinary means of transport'
-  ingombranti   = '□ need to carry fragile or bulky instruments'
-  convenienza   = '□ economic convenience for the University of Bologna)'
-  esigenze      = '□ requirements related to the activity, to quick reach the place of destination'
-  orario        = '□ ordinary transports non compatible with the activity schedule'
-  fascia_oraria = '□ utilization in the time from 21.00 to 7.00'
-  difficolta    = '□ difficulty in ambulation if duly certified' 
+  sciopero = "□ strike of the ordinary means of transport"
+  ingombranti = "□ need to carry fragile or bulky instruments"
+  convenienza = "□ economic convenience for the University of Bologna)"
+  esigenze = "□ requirements related to the activity, to quick reach the place of destination"
+  orario = "□ ordinary transports non compatible with the activity schedule"
+  fascia_oraria = "□ utilization in the time from 21.00 to 7.00"
+  difficolta = "□ difficulty in ambulation if duly certified" 
 end
 
-docx.table [['Viaggio\n(auto propria o a noleggio)',
-             'Trasporto nel luogo di residenza(taxi o auto a noleggio)', 
-             'Trasporto nella sede del seminario(taxi o auto a noleggio'],
-            [sciopero, sciopero, sciopero],
-            [ingombranti, ingombranti, ingombranti],
-            [convenienza, fascia_oraria, fascia_oraria],
-            [esigenze, difficolta, difficolta],
-            [orario, orario, orario]] do 
-  cell_style rows[0], background: '3366cc', color: 'ffffff', bold: true, align: :center
-  border_color   '666666'   # sets the border color. defaults to 'auto'.
-  border_line    :single    # sets the border style. defaults to :single. see OOXML docs for details.
-  border_size    2          # sets the border width. defaults to 0. units in twips.
+docx.table [
+  ['Viaggio\n(auto propria o a noleggio)', "Trasporto nel luogo di residenza(taxi o auto a noleggio)", "Trasporto nella sede del seminario(taxi o auto a noleggio"],
+  [sciopero, sciopero, sciopero],
+  [ingombranti, ingombranti, ingombranti],
+  [convenienza, fascia_oraria, fascia_oraria],
+  [esigenze, difficolta, difficolta],
+  [orario, orario, orario]
+] do
+  cell_style rows[0], background: "3366cc", color: "ffffff", bold: true, align: :center
+  border_color "666666"   # sets the border color. defaults to "auto".
+  border_line :single    # sets the border style. defaults to :single. see OOXML docs for details.
+  border_size 2          # sets the border width. defaults to 0. units in twips.
   border_spacing 2          # sets the spacing around the border. defaults to 0. units in twips.
-  cell_style cells, margins: { top: 20, bottom: 20, left: 100, right: 100 }
+  cell_style cells, margins: {top: 20, bottom: 20, left: 100, right: 100}
 end
 
 docx.p
 docx.p t :i_attach
-docx.p 
+docx.p
 
 docx.p "Il/La sottoscritto/a, dichiara di non detrarre/dedurre in sede di Dichiarazione dei Redditi le somme relative alle spese rimborsate per l’espletamento del presente incarico."
 docx.p
@@ -139,7 +141,7 @@ docx.p "#{t :the_applicant}  ___________________________", bold: true
 docx.p
 docx.p
 
-docx.hr 
+docx.hr
 
 docx.p
 docx.p "RISERVATO ALL’AMMINISTRAZIONE", bold: true, align: :center
@@ -157,9 +159,5 @@ docx.p
 docx.p "#{t :the_referent} ___________________________", bold: true
 docx.p
 docx.p "#{t :the_director} ___________________________", bold: true
-docx.p 
+docx.p
 docx.p "Bologna, ________________"
-
-
-
-
