@@ -1,5 +1,5 @@
 class SeminarsController < ApplicationController
-  skip_before_action :redirect_unsigned_user, only: [:index, :archive, :show, :print, :totem, :page]
+  skip_before_action :redirect_unsigned_user, only: [:index, :archive, :show, :print, :page]
   before_action :get_seminar_and_check_permission, only: [:show, :print, :edit, :update, :destroy, :mail_text, :submit_mail_text]
 
   # Prossimi sono quelli a partire da tutto oggi
