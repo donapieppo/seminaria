@@ -1,49 +1,80 @@
-FROM ruby:3.2 AS donapieppo_ruby
+# syntax = docker/dockerfile:1
+
+# Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
+ARG RUBY_VERSION=3.2.2
+FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as base
 MAINTAINER Donapieppo <donapieppo@yahoo.it>
 
-ENV DEBIAN_FRONTEND noninteractive
+# Rails app lives here
+WORKDIR /rails
 
-WORKDIR /app
+# Set production environment
+ENV RAILS_ENV="production" \
+    BUNDLE_DEPLOYMENT="1" \
+    BUNDLE_PATH="/usr/local/bundle" \
+    BUNDLE_WITHOUT="development"
 
-ARG UID=1000
-ARG GID=1000
 
-RUN apt-get update \
-    && apt-get install -yq --no-install-recommends build-essential gnupg2 curl git vim locales libvips libmariadb-dev
+# Throw-away build stage to reduce size of final image
+FROM base as build
 
-RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -
+# Install packages needed to build gems and node modules
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y build-essential curl git libvips node-gyp pkg-config python-is-python3 libmariadb3 libmariadb-dev
 
-RUN apt-get update \
-    && apt-get install -yq --no-install-recommends nodejs \
-    && npm install -g yarn \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man \
-    && groupadd -g ${GID} ruby \
-    && useradd --create-home --no-log-init -u ${UID} -g ${GID} ruby \
-    && chown ruby:ruby -R /app
- 
-FROM donapieppo_ruby AS donapieppo_seminaria_bundle
+# Install JavaScript dependencies
+ARG NODE_VERSION=20.5.1
+ARG YARN_VERSION=1.22.19
+ENV PATH=/usr/local/node/bin:$PATH
+RUN curl -sL https://github.com/nodenv/node-build/archive/master.tar.gz | tar xz -C /tmp/ && \
+    /tmp/node-build-master/bin/node-build "${NODE_VERSION}" /usr/local/node && \
+    npm install -g yarn@$YARN_VERSION && \
+    rm -rf /tmp/node-build-master
 
-USER ruby
+# Install application gems
+COPY Gemfile Gemfile.lock ./
+RUN bundle install && \
+    rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
+    bundle exec bootsnap precompile --gemfile
 
-COPY --chown=ruby:ruby Gemfile Gemfile.lock package.json yarn.lock ./
+# Install node modules
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
 
-RUN bundle install
-RUN yarn install
+# Copy application code
+COPY . .
 
-FROM donapieppo_seminaria_bundle AS donapieppo_seminaria
+# Precompile bootsnap code for faster boot times
+RUN bundle exec bootsnap precompile app/ lib/
 
-COPY --chown=ruby:ruby . .
+# Precompiling assets for production without requiring secret RAILS_MASTER_KEY
+RUN SECRET_KEY_BASE_DUMMY=1 RAILS_RELATIVE_URL_ROOT="/seminari" ./bin/rails assets:precompile
 
-# configuration
-RUN ["/bin/cp", "doc/docker_database.yml",        "config/database.yml"]
-RUN ["/bin/cp", "doc/docker_omniauth.rb",         "config/initializers/omniauth.rb"]
-RUN ["/bin/cp", "doc/dm_unibo_common_docker.yml", "config/dm_unibo_common.yml"]
-RUN ["/bin/cp", "doc/seminaria_example.rb",       "config/initializers/seminaria.rb"]
-RUN ["/bin/cp", "doc/docker_seeds.rb",            "db/seeds.rb"]
+RUN ls -l /rails/public/assets
 
-RUN ./bin/rails assets:precompile
+# Final stage for app image
+FROM base
 
+# Install packages needed for deployment
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y curl libsqlite3-0 libmariadb3 libvips && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+# Copy built artifacts: gems, application
+COPY --from=build /usr/local/bundle /usr/local/bundle
+COPY --from=build /rails /rails
+
+# Run and own only the runtime files as a non-root user for security
+RUN useradd rails --create-home --shell /bin/bash && \
+    chown -R rails:rails db log storage tmp
+USER rails:rails
+
+RUN echo 'alias ll="ls -l"' >> ~/.bashrc
+RUN echo 'PS1="DOCKER \w: "' >> ~/.bashrc
+
+# Entrypoint prepares the database.
+ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+
+# Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["./bin/rails", "server", "-b", "127.0.0.1"]
