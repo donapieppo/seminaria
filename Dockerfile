@@ -64,6 +64,12 @@ RUN apt-get update -qq && \
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails /rails
 
+# configuration
+RUN ["/bin/cp", "/root/seminaria/database.yml", "config/database.yml"]
+RUN ["/bin/cp", "/root/seminaria/omniauth.rb", "config/initializers/omniauth.rb"]
+RUN ["/bin/cp", "/root/seminaria/dm_unibo_common.yml", "config/dm_unibo_common.yml"]
+RUN ["/bin/cp", "/root/seminaria/seminaria.rb", "config/initializers/seminaria.rb"]
+
 # Run and own only the runtime files as a non-root user for security
 RUN useradd rails --create-home --shell /bin/bash && \
     chown -R rails:rails db log storage tmp
