@@ -73,6 +73,14 @@ docx.p payment_and_refound_string(repayment, repayment.language)
 
 docx.p
 
+if repayment.language == "it"
+  docx.p "In caso di attività svolta in presenza presso l’Ateneo, il Dipartimento è tenuto a verificare il possesso di idonea copertura assicurativa per infortuni e responsabilità civile verso terzi da parte del Prestatore. Nel caso in cui il Prestatore sia in possesso di tale copertura, verrà richiesto di inviare alla scrivente amministrazione, entro una settimana dallo svolgimento dell’attività, copia della polizza con i relativi massimali per verifica di compatibilità con le soglie minime richieste da UNIBO. Diversamente verranno detratti 6,20 €  dall’emolumento che sarà corrisposto a titolo di rimborso delle spese sostenute, a copertura della polizza che UNIBO stipulerà appositamente per l’attività in oggetto."
+else
+  docx.p "In case of activities carried out in presence at the University of Bologna, the Speaker can access the Department premises only if covered by insurance for accidents and third party liability. If the Speaker has no coverage, the Department will subtract an amount of 6,20€ from the remuneration to activate a specific insurance with UNIBO’s Broker. Visitors who already possess a personal insurance can be exempted from this deduction provided that a copy of the insurance policy is delivered to the Administrative Offices. In any case, the Speaker is required to inform the Department Administrative Offices at least one week before the activity."
+end
+
+docx.p
+
 # a esclusione di estero con solo compenso (payment) (quindi esculdo i non italiani con refund vuoto)
 if !repayment.refund.blank?
   if repayment.language == "it"
