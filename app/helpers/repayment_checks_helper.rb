@@ -12,7 +12,7 @@ module RepaymentChecksHelper
   end
 
   def attribute_to_s(a)
-    a.blank? ? ' - ' : a
+    a.blank? ? " - " : a
   end
 
   def repayment_correct_data_group?(repayment, what)
@@ -23,12 +23,12 @@ module RepaymentChecksHelper
       repayment_seminar_reason_ok?(repayment)
     when :fund
       if (repayment.holder_id == repayment.seminar.user_id) || user_is_manager?
-        (repayment.holder_id && repayment.fund_id)
+        repayment.holder_id && repayment.fund_id
       else
         repayment.holder_id
       end
     when :compensation
-      ! repayment_missing_payment_and_refund?(repayment)
+      !repayment_missing_payment_and_refund?(repayment)
     when :speaker_details
       repayment_speaker_anagrafica_ok?(repayment) && repayment_speaker_address_ok?(repayment) && repayment_speaker_role_ok?(repayment)
     else
@@ -41,35 +41,34 @@ module RepaymentChecksHelper
   end
 
   def repayment_speaker_reason_ok?(repayment)
-    ! ((repayment.documents.empty?) || (repayment.reason.blank?))
+    !(repayment.curricula_vitae.empty? || repayment.reason.blank?)
   end
 
   def repayment_seminar_reason_ok?(repayment)
-    ! ((repayment.activity_details.blank?) || (repayment.scientific_interests.blank?))
+    !(repayment.activity_details.blank? || repayment.scientific_interests.blank?)
   end
 
   def repayment_speaker_anagrafica_ok?(repayment)
-    ! ((repayment.name.blank?) || (repayment.surname.blank?) || (repayment.birth_place.blank?) || (repayment.birth_date.blank?))
+    !(repayment.name.blank? || repayment.surname.blank? || repayment.birth_place.blank? || repayment.birth_date.blank?)
   end
 
   def repayment_speaker_role_ok?(repayment)
-    ! ((repayment.affiliation.blank?) || (repayment.position_id.nil?) || (repayment.email.blank?))
+    !(repayment.affiliation.blank? || repayment.position_id.nil? || repayment.email.blank?)
   end
 
   def repayment_speaker_address_ok?(repayment)
-    ! ((repayment.address.blank?) || (repayment.postalcode.blank?) || (repayment.city.blank?))
+    !(repayment.address.blank? || repayment.postalcode.blank? || repayment.city.blank?)
   end
 
   def repayment_missing_payment_and_refund?(repayment)
-    ! ((repayment.payment.to_i > 0) || (repayment.expected_refund.to_i > 0))
+    !((repayment.payment.to_i > 0) || (repayment.expected_refund.to_i > 0))
   end
 
   def repayment_all_ok_to_send?(repayment)
-    repayment_holder_ok?(repayment) && 
-    repayment_speaker_reason_ok?(repayment) && 
-    repayment_speaker_anagrafica_ok?(repayment) && 
-    repayment_speaker_role_ok?(repayment) && 
-    repayment_speaker_address_ok?(repayment) 
+    repayment_holder_ok?(repayment) &&
+      repayment_speaker_reason_ok?(repayment) &&
+      repayment_speaker_anagrafica_ok?(repayment) &&
+      repayment_speaker_role_ok?(repayment) &&
+      repayment_speaker_address_ok?(repayment)
   end
 end
-
