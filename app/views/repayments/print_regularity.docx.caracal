@@ -3,10 +3,10 @@ letter_defaults(docx)
 repayment = @repayment
 
 col_left = Caracal::Core::Models::TableCellModel.new do
-  p 'ID CONTRATTO ANAGRAFE COLLABORATORI / WEBPERSONALE:', size: 16
-  p ''
+  p "ID CONTRATTO ANAGRAFE COLLABORATORI / WEBPERSONALE:", size: 16
+  p ""
 
-  p 'NUMERO VINCOLO DI COSTO', size: 16
+  p "NUMERO VINCOLO DI COSTO", size: 16
   p "#{repayment.bond_year} / #{repayment.bond_number}"
 
   if repayment.payment
@@ -19,25 +19,26 @@ col_left = Caracal::Core::Models::TableCellModel.new do
 end
 
 col_center = Caracal::Core::Models::TableCellModel.new do
-  logopath = "#{Rails.root}/app/assets/images/sigillo1.png"
+  logopath = "#{Rails.root}/app/assets/images/sigillo.jpg"
   img logopath do
-    width  50
+    # 3575/1582*80
+    width 113
     height 50
     align :center
   end
-  p 'ALMA MATER STUDIORUM', align: :center, bold: true
-  p 'UNIVERSITÁ DI BOLOGNA', align: :center, bold: true
-  p 'Dipartimento di Matematica', align: :center, italic: true
-  p 'Amministrazione', align: :center, italic: true
+  p "ALMA MATER STUDIORUM", align: :center, bold: true
+  p "UNIVERSITÁ DI BOLOGNA", align: :center, bold: true
+  p "Dipartimento di Matematica", align: :center, italic: true
+  p "Amministrazione", align: :center, italic: true
 end
 
 col_right = Caracal::Core::Models::TableCellModel.new do
-  p 'CAPITOLO DI BILANCIO – VOCE COAN:', size: 16
-  p ' □ CA.EC.02.12.03.01 CONVEGNI E SEMINARI – COMPENSI E RIMBORSI SPESE RELATORI', size: 16
-  p ' □ CA.EC.02.12.05.04 TRASFERTE PERSONALE NON DIPENDENTE', size: 16
-  p ' □ _________________________', size: 16
+  p "CAPITOLO DI BILANCIO – VOCE COAN:", size: 16
+  p " □ CA.EC.02.12.03.01 CONVEGNI E SEMINARI – COMPENSI E RIMBORSI SPESE RELATORI", size: 16
+  p " □ CA.EC.02.12.05.04 TRASFERTE PERSONALE NON DIPENDENTE", size: 16
+  p " □ _________________________", size: 16
   p
-  p 'Codice progetto:', size: 16
+  p "Codice progetto:", size: 16
   p "DIP.P4 #{repayment.fund.name.upcase} #{repayment.fund.holder.surname.upcase}", size: 16
 end
 
