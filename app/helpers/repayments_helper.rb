@@ -65,15 +65,16 @@ module RepaymentsHelper
   end
 
   def repayment_header(docx)
-    logopath = "#{Rails.root}/app/assets/images/sigillo1.png"
+    # 3575x1582 3575/1582*80
+    logopath = "#{Rails.root}/app/assets/images/sigillo.jpg"
     docx.img logopath do
-      width 50
-      height 50
+      width 180
+      height 80
       align :center
     end
 
-    docx.p "ALMA MATER STUDIORUM - UNIVERSITÀ DI BOLOGNA", align: :center, bold: true
-    docx.p "Dipartimento di Matematica", align: :center, bold: true
+    # docx.p "ALMA MATER STUDIORUM - UNIVERSITÀ DI BOLOGNA", align: :center, bold: true
+    # docx.p "Dipartimento di Matematica", align: :center, bold: true
   end
 
   def corresponsione(repayment)
