@@ -27,7 +27,7 @@
                   <% if fund.code.blank? %>  
                     <span class="text-danger fw-bold">Manca codice del fondo</span>
                   <% else %>
-                    <%= fund.code %>  
+                    <strong><%= fund.code %></strong>
                   <% end %>
                    - <%= fund.name %>
                 <% end %>
