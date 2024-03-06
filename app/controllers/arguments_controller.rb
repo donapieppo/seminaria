@@ -1,5 +1,5 @@
 class ArgumentsController < ApplicationController
-  before_action :get_argument_and_check_permission, only: [:edit, :update, :destroy]
+  before_action :get_argument_and_check_permission, only: [:edit, :update]
 
   def index
     @arguments = current_organization.arguments.order(:name)
@@ -8,7 +8,7 @@ class ArgumentsController < ApplicationController
 
   def show
     @argument = Argument.find(params[:id])
-    @seminars = @argument.seminars.this_year.order('date desc').includes(:organization)
+    @seminars = @argument.seminars.this_year.order("date desc").includes(:organization)
     authorize @argument
   end
 
