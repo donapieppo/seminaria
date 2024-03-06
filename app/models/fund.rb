@@ -24,6 +24,10 @@ class Fund < ApplicationRecord
     cat + " " + name
   end
 
+  def label_for_select
+    "#{self.to_s} (#{self.code})"
+  end
+
   def to_s_with_holder
     name = self.name || ""
     self.holder.cn_militar + " - " + name + " " + self.category.name
