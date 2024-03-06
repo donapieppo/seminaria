@@ -19,7 +19,11 @@
       <% if repayment.complete? %>  
         UGOV <%= repayment.ugov %>
       <% elsif repayment.notified %>  
-        <%= repayment.fund %>
+        <% if (fund = repayment.fund) %>
+          <%= fund %>
+        <% else %>
+          <span class="text-danger">Fondo non ancora selezionato</span>
+        <% end %>
       <% else %>
         richiesta non inviata
       <% end %>
