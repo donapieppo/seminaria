@@ -1,5 +1,5 @@
 class PlacesController < ApplicationController
-  before_action :get_place_and_check_permission, only: [:edit, :update, :destroy]
+  before_action :get_place_and_check_permission, only: [:edit, :update]
 
   def index
     @places = current_organization.places
@@ -9,7 +9,7 @@ class PlacesController < ApplicationController
   def show
     @place = Place.find(params[:id])
     authorize @place
-    @seminars = @place.seminars.this_year.order('date desc').includes(:organization)
+    @seminars = @place.seminars.this_year.order("date desc").includes(:organization)
   end
 
   def new
