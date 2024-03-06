@@ -12,7 +12,7 @@
 
     <div data-fund-target="fund">
       <% if policy(repayment.object).update_fund? %>  
-        <%= repayment.association :fund, collection: @funds, label_method: :to_s, include_blank: false %>
+        <%= repayment.association :fund, collection: @funds, label_method: :label_for_select, include_blank: false %>
       <% end %>
     </div>
 
