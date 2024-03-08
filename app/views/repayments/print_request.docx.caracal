@@ -3,7 +3,7 @@ repayment = @repayment
 letter_defaults(docx)
 repayment_header(docx)
 # I18n.locale = @repayment.language.to_sym
-I18n.locale = "it"
+I18n.locale = :it
 
 docx.p
 docx.p
