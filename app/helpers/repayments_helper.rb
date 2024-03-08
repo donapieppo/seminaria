@@ -79,7 +79,7 @@ module RepaymentsHelper
 
   def corresponsione(repayment)
     if repayment.payment
-      "di un compenso per prestazione occasionale pari a € #{repayment.lordo_percipiente} lordo percipiente"
+      "di un compenso per prestazione occasionale pari a #{euro(repayment.lordo_percipiente)} lordo percipiente"
     else
       "del mero rimborso spese"
     end
@@ -89,15 +89,15 @@ module RepaymentsHelper
     if repayment.refund
       "a titolo gratuito con corresponsione del mero rimborso spese"
     elsif repayment.payment
-      "con corresponsione di un compenso per un importo pari a € #{repayment.lordo_percipiente} lordo percipiente"
+      "con corresponsione di un compenso per un importo pari a #{euro(repayment.lordo_percipiente)} lordo percipiente"
     end
   end
 
   def decree_spending_upper_limit(repayment)
     if repayment.refund
-      "fino ad un importo di €" + repayment.expected_refund.to_s
+      "fino ad un importo di #{euro(repayment.expected_refund)}"
     elsif repayment.payment
-      "fino ad un importo di €" + repayment.lordo_ente.to_s
+      "fino ad un importo di #{euro(repayment.lordo_ente)}"
     end
   end
 
