@@ -103,7 +103,7 @@ col_left = Caracal::Core::Models::TableCellModel.new do
   p " - Locandina/Avviso web di seminario"
   p " - Modulistica anagrafica e fiscale "
   p " - Fotocopia documento di riconoscimento "
-  p " - In caso di rimborso spese: Nota spese; biglietti e ricevute in originale; marca da bollo da 2,00 € (solo se le spese sono superiori a 77,47 €)"
+  p " - In caso di rimborso spese: Nota spese; biglietti e ricevute in originale; marca da bollo da #{euro(2)} (solo se le spese sono superiori a #{euro(77.47)})"
 end
 
 col_right = Caracal::Core::Models::TableCellModel.new do
