@@ -52,7 +52,7 @@ docx.p "#{@repayment.payment ? "COMPENSO" : "RIMBORSO SPESE"} PER SEMINARI E ATT
 
 docx.p ""
 
-docx.p "OGGETTO: #{@repayment.payment ? "Compenso" : "Rimborso spese"} di € #{@repayment.payment ? @repayment.lordo_ente : @repayment.expected_refund} a favore di #{@repayment.speaker_with_title.upcase} in qualità di #{@repayment.position} presso #{@repayment.affiliation} per SEMINARIO “#{@repayment.seminar.title}” del #{@repayment.seminar.date.strftime("%d/%m/%Y")} e colloqui scientifici per ricerca in collaborazione - periodo #{I18n.l(@repayment.speaker_arrival) if @repayment.speaker_arrival} - #{I18n.l(@repayment.speaker_departure) if @repayment.speaker_departure} nell’ambito del seguente progetto di ricerca/didattica, su cui graverà la spesa:"
+docx.p "OGGETTO: #{@repayment.payment ? "Compenso" : "Rimborso spese"} di #{euro(@repayment.payment ? @repayment.lordo_ente : @repayment.expected_refund)} a favore di #{@repayment.speaker_with_title.upcase} in qualità di #{@repayment.position} presso #{@repayment.affiliation} per SEMINARIO “#{@repayment.seminar.title}” del #{@repayment.seminar.date.strftime("%d/%m/%Y")} e colloqui scientifici per ricerca in collaborazione - periodo #{I18n.l(@repayment.speaker_arrival) if @repayment.speaker_arrival} - #{I18n.l(@repayment.speaker_departure) if @repayment.speaker_departure} nell’ambito del seguente progetto di ricerca/didattica, su cui graverà la spesa:"
 docx.p
 
 docx.p "progetto: #{@repayment.fund} titolare prof. #{@repayment.holder}."
