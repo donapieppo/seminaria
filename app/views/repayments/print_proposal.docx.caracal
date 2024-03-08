@@ -10,11 +10,11 @@ col_left = Caracal::Core::Models::TableCellModel.new do
   p "#{repayment.bond_year} / #{repayment.bond_number}"
 
   if repayment.payment
-    p "LORDO ENTE: € #{repayment.lordo_ente}", size: 16
-    p "LORDO PERCIPIENTE: € #{repayment.lordo_percipiente}", size: 16
-    p "NETTO PERCIPIENTE: € #{repayment.netto_percipiente}", size: 16
+    p "LORDO ENTE: #{euro(repayment.lordo_ente)}", size: 16
+    p "LORDO PERCIPIENTE: #{euro(repayment.lordo_percipiente)}", size: 16
+    p "NETTO PERCIPIENTE: #{euro(repayment.netto_percipiente)}", size: 16
   elsif repayment.expected_refund
-    p "NETTO: € #{repayment.expected_refund}", size: 16
+    p "NETTO: #{euro(repayment.expected_refund)}", size: 16
   end
 end
 
@@ -103,7 +103,7 @@ col_left = Caracal::Core::Models::TableCellModel.new do
   p " - Locandina/Avviso web di seminario"
   p " - Modulistica anagrafica e fiscale "
   p " - Fotocopia documento di riconoscimento "
-  p " - In caso di rimborso spese: Nota spese; biglietti e ricevute in originale; marca da bollo da € 2,00 (solo se le spese sono superiori a 77,47 €)"
+  p " - In caso di rimborso spese: Nota spese; biglietti e ricevute in originale; marca da bollo da 2,00 € (solo se le spese sono superiori a 77,47 €)"
 end
 
 col_right = Caracal::Core::Models::TableCellModel.new do
