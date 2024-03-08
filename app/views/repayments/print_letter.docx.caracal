@@ -83,6 +83,7 @@ docx.p
 
 if repayment.language == "it"
   docx.p "Qualora l’incaricato sia dipendente da ente pubblico, lo stesso è tenuto a verificare l’obbligatorietà del rilascio del NULLA OSTA allo svolgimento dell’attività oggetto del presente incarico da parte del proprio ente di affiliazione. Una volta acquisito, il NULLA OSTA andrà trasmesso alla Segreteria Amministrativa del Dipartimento di Matematica."
+  docx.p
 end
 
 # a esclusione di estero con solo compenso (payment) (quindi esculdo i non italiani con refund vuoto)
