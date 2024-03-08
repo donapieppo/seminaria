@@ -2,7 +2,8 @@
 repayment = @repayment
 letter_defaults(docx)
 repayment_header(docx)
-I18n.locale = @repayment.language.to_sym
+# I18n.locale = @repayment.language.to_sym
+I18n.locale = "it"
 
 docx.p
 docx.p
@@ -64,19 +65,19 @@ end
 docx.p do
   if repayment.with_payment?
     text "Compenso lordo percipiente: ", bold: true
-    text "euro #{repayment.lordo_percipiente}"
+    text euro(repayment.lordo_percipiente)
     br
     text "Compenso netto percipiente: ", bold: true
-    text "euro #{repayment.netto_percipiente}"
+    text euro(repayment.netto_percipiente)
     br
     text "Compenso lordo ente: ", bold: true
-    text "euro #{repayment.lordo_ente}"
+    text euro(repayment.lordo_ente)
   end
 
   if repayment.with_refund?
     br
     text "Rimborsi: ", bold: true
-    text "#{I18n.t :expected_refund}: euro #{repayment.expected_refund}"
+    text "#{I18n.t :expected_refund}: #{euro(repayment.expected_refund)}"
   end
 end
 
@@ -85,7 +86,7 @@ docx.p
 docx.p do
   [:name, :surname, :email, :affiliation, :position_to_s, :address, :postalcode, :city, :country, :birth_date, :birth_place, :birth_country, :taxid].each do |m|
     text "#{I18n.t(m)}: ", bold: true
-    text "#{attribute_to_s repayment.send(m)}"
+    text attribute_to_s(repayment.send(m))
     br
   end
 end
