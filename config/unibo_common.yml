@@ -1,0 +1,37 @@
+shared:
+  superusers:          ["pietro.donatini@example.it"]
+  html_title:          Gestione seminari e Notizie del Dipartimento di Matematia. Università di Bologna.
+  html_description:    Gestione Rifiuti Speciali. Università di Bologna.
+  header_title:        Seminari
+  header_subtitle:     del Dipartimento di Matematica
+  header_icon:         bullhorn
+  lograge:             true
+
+development:
+  omniauth_provider:   :developer
+  searchable_provider: true
+  host:                locahost
+  smtp_example:          true
+  support_mail:        support_mail@example.it
+  reply_to:            reply_to@example.it
+  contact_mail:        contact_mail@example.it
+  domain_name:         dm.example.it
+  html_title:          AlmaRusco - Gestione Rifiuti Speciali - Università di Bologna
+  html_description:    Gestione Rifiuti Speciali. Università di Bologna.
+  header_title:        AlmaRusco
+  header_subtitle:     Rifiuti Speciali
+  header_icon:         dumpster
+  default_from:        DipMat Seminari <notifica.inviodlist.08218@example.it>
+  login_method:        :log_and_create
+  no_students:         true
+  message_footer:      "Messaggio inviato da 'Gestione Seminari Dipartimento di Matematica'.\nNon rispondere a questo messaggio.\nPer problemi tecnici contattare dipmat-supportoweb@example.it"
+  impersonate_admins: 
+    - pietro@example.it
+    - valeria3@example.it
+  interceptor_mails:  
+    - pietro@example.it
+  main_impersonations: 
+    - paola@example.it
+    - nicola@example.it
+  home_description: |
+    <p>HOME DESCRIPTION</p>
