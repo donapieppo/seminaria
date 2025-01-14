@@ -55,7 +55,7 @@
   <% unless @conference %>  
     <%= seminar.input :committee %>
   <% end %>
-  <%= seminar.association :arguments, collection: current_organization.arguments.order(:name), hint: I18n.t('new_arguments', reply_to: Rails.configuration.reply_to), as: :check_boxes %>
+  <%= seminar.association :arguments, collection: current_organization.arguments.order(:name), hint: I18n.t('new_arguments', reply_to: Rails.configuration.unibo_common.reply_to), as: :check_boxes %>
   <%= seminar.input :abstract, input_html: {cols: 50, rows: 3} %>
   <% unless @conference %>  
     <%= seminar.input :link %>
