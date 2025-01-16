@@ -3,9 +3,6 @@
 body {
   color: #222;
 }
-div.home-filters {
-  text-align: right;
-}
 
 .seminar, .conference {
    // box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
@@ -43,15 +40,10 @@ div.home-filters {
       line-height: 20px;
     }
   }
-  .speaker {
-    // font-weight: bold;
-  }
   .title {
-    @extend .my-1;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: black;
   }
   .notes {
     @extend .small;
