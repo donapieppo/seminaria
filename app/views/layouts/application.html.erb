@@ -4,7 +4,7 @@
   <body>
     <%= render partial: 'layouts/menu' %>
 
-    <main role="main" class="container">
+    <main role="main" class="container-xl">
       <%= render DmUniboCommon::PrivacyAlertComponent.new(cookies) %>  
       <%= render DmUniboCommon::BootstrapAlertComponent.new(flash) %>  
       <%= turbo_frame_tag "modal" %>

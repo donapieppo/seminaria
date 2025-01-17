@@ -6,7 +6,7 @@
   justify-content: center;
   background-color: #4F7942;
   background: #4F7942;  /* fallback for old browsers */
-  background: linear-gradient(to right, #4F7942, #71B280); 
+  background: linear-gradient(to right, $primary, $secondary); 
   color: #222;
   a { color: #222; }
 }

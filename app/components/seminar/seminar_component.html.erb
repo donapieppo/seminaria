@@ -1,9 +1,9 @@
 <%= content_tag :div, class: css_classes(@seminar) do %>
   <div class="seminar-header">
-    <%= render ClockTagComponent.new(@seminar.date) %>  
     <div class="row">
-      <div class="when col-md-2">
+      <div class="when col-md-3 col-xl-2">
         <%= render DayTagComponent.new(@seminar) %>  
+        <%= render ClockTagComponent.new(@seminar.date) %>  
       </div>
 
       <div class="col ps-lg-4">
@@ -13,10 +13,10 @@
           </div>
         </div>
 
-        <div class="speaker">
+        <div class="">
           <%= @seminar.speaker %>
         </div>
-        <div class="title">
+        <div class="title my-1">
           <% if @seminar.in_conference? %>
             <%= @seminar.title %>
           <% else %>

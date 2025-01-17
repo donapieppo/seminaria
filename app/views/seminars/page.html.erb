@@ -8,14 +8,14 @@
     </div>
 
     <% @seminars.each do |seminar| %>
-      <h1 class="page-title">
+      <h1 class="page-title bg-secondary text-black py-4">
         <%= seminar.title %>
       </h1>
     <% end %>
 
-    <h2 class="page-speaker">
+    <h2 class="page-speaker container">
       <span style="font-size: 70%; font-style: italic; padding-right: 5px">
-        tenuto da
+        seminario tenuto da <br/>
       </span>
       <%= @seminars.first.speaker %>  
     </h2>
@@ -27,9 +27,9 @@
     <div class="row">
       <div class="col-md-4 text-md-end px-3">
         <%= render DayTagComponent.new(seminar) %>  
-        <%= render ArgumentsTagComponent.new(seminar) %>
       </div> <!-- notes -->
       <div class="col-md-8 page-details px-3">
+        <%= render ArgumentsTagComponent.new(seminar) %>
         <%= render HourTagComponent.new(seminar) %>  
         <%= render WhereTagComponent.new(seminar) %>  
         <%= seminar_link_tag seminar %>  

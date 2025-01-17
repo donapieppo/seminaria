@@ -1,19 +1,20 @@
-<div class="date row">
-  <div class="my-2">
-    <%= dm_icon("calendar", "regular", size: "2xl") %>  
+<div class="date text-center px-2">
+  <div class="bg-info text-white text-center py-2 mb-2 fs-5">
+    <%= l(@date, format: :month).capitalize %>
   </div>
-  <div class='fw-bold'>
-    <%= @detail %>
+  <div>
+    <% if @conference %>
+      dal giorno
+    <% end %>
+    <div class="fs-1"><%= l @date, format: :nday %></div>
   </div>
-  <% if @conference %>  
-    <div class='fw-bold'>
-      <% if @conference.start_date == @conference.end_date %>  
-        <%= @conference.start_date %>
-      <% else %>
-        <%= l @conference.start_date %><br/><%= l @conference.end_date %>
-      <% end %>
-    </div>
-  <% else %>
-    <div class='fw-bold'><%= @nday %> <%= @month %></div>
-  <% end %>
+  <div class="">
+    <%= @detail %><br/>
+    <% if @conference && @conference.start_date != @conference.end_date%>  
+      <div >
+        nella conferenza dal<br/>
+        <%= l @conference.start_date %><br/>al<br/><%= l @conference.end_date %>
+      </div>
+    <% end %>
+  </div>
 </div>
