@@ -55,7 +55,7 @@ it:
     formats:
       wday: !    "%A"
       nday: !    "%d"
-      month: !   "%b"
+      month: !   "%B"
 
   organized_by: "organizzato da:"
   seminar: Seminario
