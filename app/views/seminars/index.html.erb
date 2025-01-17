@@ -1,13 +1,13 @@
 <h1><%= @title %></h1>
 
 <% if user_signed_in? %>
-  <div class="home-filters">
+  <div class="text-end my-2">
     <% if params[:only_current_user] %>
-      <%= link_to dm_icon('list', text: "prossimi seminari"), root_path, class: 'btn btn-outline-primary mt-1' %> 
+      <%= link_to dm_icon('list', text: "prossimi seminari"), root_path, class: 'btn btn-outline-primary' %> 
     <% else %>
-      <%= link_to dm_icon('list', text: "seminari inseriti da me"), user_seminars_path, class: 'btn btn-outline-primary mt-1' %> 
+      <%= link_to dm_icon('list', text: "seminari inseriti da me"), user_seminars_path, class: 'btn btn-outline-primary' %> 
     <% end %>
-    <%= link_to dm_icon('list', text: "seminari sui miei fondi"), funds_seminars_path, class: 'btn btn-outline-primary mt-1' %> 
+    <%= link_to dm_icon('list', text: "seminari sui miei fondi"), funds_seminars_path, class: 'btn btn-outline-primary ms-2' %> 
   </div>
 <% end %>
 
