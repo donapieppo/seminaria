@@ -89,5 +89,6 @@ Rails.application.routes.draw do
   # get 'cycles', to: redirect('mat/cycles', status: 302)
   # get 'cycles/(:id)', to: redirect('mat/cycles/%{id}', status: 302)
 
+  get "/home", to: "seminars#index", as: "home"
   root to: "seminars#index"
 end
