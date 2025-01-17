@@ -5,12 +5,12 @@ class SerialsController < ApplicationController
 
   def index
     authorize :serial
-    @serials = current_organization.serials.order('serials.active desc, serials.title asc')
+    @serials = current_organization.serials.order("serials.active desc, serials.title asc")
   end
 
   def show
-    @seminars = @serial.seminars.future.includes(:repayment, :documents, :arguments).order('seminars.date ASC')
-    @archive  = @serial.seminars.past.includes(:repayment, :documents, :arguments).order('seminars.date DESC')
+    @seminars = @serial.seminars.future.includes(:repayment, :documents, :arguments).order("seminars.date ASC")
+    @archive = @serial.seminars.past.includes(:repayment, :documents, :arguments).order("seminars.date DESC")
   end
 
   def new
@@ -42,7 +42,7 @@ class SerialsController < ApplicationController
   private
 
   def get_serial_and_check_permission
-    @serial = current_organization.serials.find(params[:id]) 
+    @serial = current_organization.serials.find(params[:id])
     authorize @serial
   end
 
