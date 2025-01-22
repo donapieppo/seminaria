@@ -25,5 +25,3 @@ application.register("fund", FundController)
 import { DmTest, TurboModalController } from "dm_unibo_common"
 application.register("turbo-modal", TurboModalController)
 
-dm = new DmTest()
-dm.ciao()
