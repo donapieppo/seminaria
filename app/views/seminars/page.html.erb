@@ -1,25 +1,21 @@
-<div class="page-header">
-  <div style="">
-    <div class="page-header-intro">
-      <%= link_to "Seminari del Dipartimento di Matematica", root_path %><br/>
-      <span style="font-size: 90%">
-        <a href="https://www.unibo.it">Università di Bologna</a>
-      </span>
+<div class="page-header py-5 px-2">
+  <div class="mx-auto text-center my-4">
+    <%= link_to "Seminari del Dipartimento di Matematica", root_path, class: "fs-2" %>
+    <div class="fs-4 my-2">
+      <a href="https://www.unibo.it">Università di Bologna</a>
     </div>
-
-    <% @seminars.each do |seminar| %>
-      <h1 class="page-title bg-secondary text-black py-4">
-        <%= seminar.title %>
-      </h1>
-    <% end %>
-
-    <h2 class="page-speaker container">
-      <span style="font-size: 70%; font-style: italic; padding-right: 5px">
-        seminario tenuto da <br/>
-      </span>
-      <%= @seminars.first.speaker %>  
-    </h2>
   </div>
+
+  <% @seminars.each do |seminar| %>
+    <h1 class="page-title my-5 text-black fs-1" style="max-width: 1024px">
+      <%= seminar.title %>
+    </h1>
+  <% end %>
+
+  <h2 class="container fs-4 fst-italic fw-normal text-end">
+    <div class="fs-5">seminario tenuto da</div>
+    <div class="fs-4"><%= @seminars.first.speaker %></div>
+  </h2>
 </div>
 
 <% @seminars.each do |seminar| %>
