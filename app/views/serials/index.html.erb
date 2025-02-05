@@ -30,11 +30,11 @@
             </p>
           <% end %>
           <div class="mt-4 mx-2">
-            <%= link_to dm_icon("list", text: "elenco seminari", fw: true), serial_path(serial) %>
+            <%= link_to dm_icon("list", text: "Elenco seminari", fw: true), serial_path(serial) %>
           </div>
           <% if current_user && serial.active %>  
             <div class="mt-2 mx-2">
-              <%= link_to dm_icon("plus-circle", text: "crea nuovo seminario", fw: true), new_serial_seminar_path(serial) %>
+              <%= link_to dm_icon("plus-circle", text: "Crea nuovo seminario", fw: true), new_serial_seminar_path(serial) %>
             </div>
           <% end %>
           <% if policy(serial).edit? %>  
