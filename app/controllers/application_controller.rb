@@ -25,7 +25,6 @@ class ApplicationController < DmUniboCommon::ApplicationController
     :update_authorization,
     :set_current_organization,
     :after_current_user_and_organization,
-    :log_current_user,
     :set_locale,
     :redirect_unsigned_user
 
