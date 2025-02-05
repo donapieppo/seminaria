@@ -1,5 +1,3 @@
-CESIA_UPN = ["pietro.donatini@unibo.it"]
-
 module Seminaria
   class Application < Rails::Application
     config.repayment_deadline = 14 # 8 days for working on repayment/refund before speaker arrival
