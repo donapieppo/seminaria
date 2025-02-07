@@ -497,9 +497,9 @@ browserslist@^4.23.3:
     update-browserslist-db "^1.1.1"
 
 caniuse-lite@^1.0.30001646, caniuse-lite@^1.0.30001688:
-  version "1.0.30001697"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001697.tgz#040bbbb54463c4b4b3377c716b34a322d16e6fc7"
-  integrity sha512-GwNPlWJin8E+d7Gxq96jxM6w0w+VFeyyXRsjU58emtkYqnbwHqXm5uT2uCmO0RQE9htWknOP4xtBlLmM/gWxvQ==
+  version "1.0.30001698"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001698.tgz#3e86d4bad6f87f493197fb2483a211fe8841abd3"
+  integrity sha512-xJ3km2oiG/MbNU8G6zIq6XRZ6HtAOVXsbOrP/blGazi52kc5Yy7b6sDA5O+FbROzRrV7BSTllLHuNvmawYUJjw==
 
 chokidar@^3.3.0, chokidar@^3.5.2:
   version "3.6.0"
@@ -573,7 +573,7 @@ detect-libc@^1.0.3:
 
 dm_unibo_common@donapieppo/dm_unibo_common.git#master:
   version "0.1.0"
-  resolved "https://codeload.github.com/donapieppo/dm_unibo_common/tar.gz/0f2117687d6620447856b45586757734e10e3e67"
+  resolved "https://codeload.github.com/donapieppo/dm_unibo_common/tar.gz/cd7abc6b978ee397797182e10c2de3b784c2574c"
   dependencies:
     "@fortawesome/fontawesome-free" "^6.4.0"
     "@hotwired/stimulus" "^3.2.2"
@@ -599,9 +599,9 @@ dompurify@^3.2.3:
     "@types/trusted-types" "^2.0.7"
 
 electron-to-chromium@^1.5.73:
-  version "1.5.92"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.92.tgz#81e8ebe06f8e2a49fdba84bd10e9ad5b63efffe0"
-  integrity sha512-BeHgmNobs05N1HMmMZ7YIuHfYBGlq/UmvlsTgg+fsbFs9xVMj+xJHFg19GN04+9Q+r8Xnh9LXqaYIyEWElnNgQ==
+  version "1.5.95"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.95.tgz#c7819461af3cc64f467bd10bf020516e20682a2a"
+  integrity sha512-XNsZaQrgQX+BG37BRQv+E+HcOZlWhqYaDoVVNCws/WrYYdbGrkR1qCDJ2mviBF3flCs6/BTa4O7ANfFTFZk6Dg==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -1060,9 +1060,9 @@ run-parallel@^1.1.9:
     queue-microtask "^1.2.2"
 
 sass@^1.77.8:
-  version "1.83.4"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.83.4.tgz#5ccf60f43eb61eeec300b780b8dcb85f16eec6d1"
-  integrity sha512-B1bozCeNQiOgDcLd33e2Cs2U60wZwjUUXzh900ZyQF5qUasvMdDZYbQ566LJu7cqR+sAHlAfO6RMkaID5s6qpA==
+  version "1.84.0"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.84.0.tgz#da9154cbccb2d2eac7a9486091b6d9ba93ef5bad"
+  integrity sha512-XDAbhEPJRxi7H0SxrnOpiXFQoUJHwkR2u3Zc4el+fK/Tt5Hpzw5kkQ59qVDfvdaUq6gCrEZIbySFBM2T9DNKHg==
   dependencies:
     chokidar "^4.0.0"
     immutable "^5.0.2"

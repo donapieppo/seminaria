@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/donapieppo/dm_unibo_common.git
-  revision: 0f2117687d6620447856b45586757734e10e3e67
+  revision: cd7abc6b978ee397797182e10c2de3b784c2574c
   branch: master
   specs:
     dm_unibo_common (5.1.3)
@@ -117,16 +117,16 @@ GEM
       gyoku (>= 0.4.0)
       nokogiri
     aws-eventstream (1.3.0)
-    aws-partitions (1.1045.0)
-    aws-sdk-core (3.217.1)
+    aws-partitions (1.1047.0)
+    aws-sdk-core (3.218.0)
       aws-eventstream (~> 1, >= 1.3.0)
       aws-partitions (~> 1, >= 1.992.0)
       aws-sigv4 (~> 1.9)
       jmespath (~> 1, >= 1.6.1)
-    aws-sdk-kms (1.97.0)
+    aws-sdk-kms (1.98.0)
       aws-sdk-core (~> 3, >= 3.216.0)
       aws-sigv4 (~> 1.5)
-    aws-sdk-s3 (1.179.0)
+    aws-sdk-s3 (1.180.0)
       aws-sdk-core (~> 3, >= 3.216.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.5)
@@ -228,7 +228,7 @@ GEM
     method_source (1.1.0)
     mini_mime (1.1.5)
     minitest (5.25.4)
-    msgpack (1.7.5)
+    msgpack (1.8.0)
     multi_xml (0.7.1)
       bigdecimal (~> 3.1)
     mutex_m (0.3.0)
@@ -344,7 +344,7 @@ GEM
     rake (13.2.1)
     rbs (3.8.1)
       logger
-    rdoc (6.11.0)
+    rdoc (6.12.0)
       psych (>= 4.0.0)
     regexp_parser (2.10.0)
     reline (0.6.0)
@@ -359,7 +359,7 @@ GEM
       nokogiri
       roo (>= 2.0.0, < 3)
       spreadsheet (> 0.9.0)
-    ruby-lsp (0.23.8)
+    ruby-lsp (0.23.9)
       language_server-protocol (~> 3.17.0)
       prism (>= 1.2, < 2.0)
       rbs (>= 3, < 4)
@@ -386,7 +386,7 @@ GEM
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
-    sorbet-runtime (0.5.11802)
+    sorbet-runtime (0.5.11810)
     spreadsheet (1.3.3)
       bigdecimal
       ruby-ole
