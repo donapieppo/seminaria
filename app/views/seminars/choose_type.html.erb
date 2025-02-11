@@ -56,7 +56,9 @@
       <%= link_to 'nuova serie', new_serial_path, class: 'btn btn-primary my-3' %>  
       <%= link_to 'tutte le serie', serials_path, class: 'btn btn-primary my-3' %>  
     <% else %>
-      <div class="alert alert-info mt-3">Per far inserire una <strong>nuova serie</strong> si prega di inviare la richiesta all'indirizzo <%= support_mail %></div>
+      <div class="alert alert-info mt-3">
+        Per far inserire una <strong>nuova serie</strong> si prega di inviare la richiesta all'amministrazione.
+      </div>
     <% end %>
   </div>
 </div>
