@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/donapieppo/dm_unibo_common.git
-  revision: cd7abc6b978ee397797182e10c2de3b784c2574c
+  revision: 405fae6612f9c8808e8c61a3388d7de07ea13dc7
   branch: master
   specs:
     dm_unibo_common (5.1.3)
@@ -9,6 +9,7 @@ GIT
       importmap-rails
       jbuilder
       jsbundling-rails
+      lograge
       mysql2 (~> 0.5)
       omniauth
       omniauth-azure-activedirectory-v2
@@ -117,11 +118,12 @@ GEM
       gyoku (>= 0.4.0)
       nokogiri
     aws-eventstream (1.3.0)
-    aws-partitions (1.1047.0)
-    aws-sdk-core (3.218.0)
+    aws-partitions (1.1049.0)
+    aws-sdk-core (3.218.1)
       aws-eventstream (~> 1, >= 1.3.0)
       aws-partitions (~> 1, >= 1.992.0)
       aws-sigv4 (~> 1.9)
+      base64
       jmespath (~> 1, >= 1.6.1)
     aws-sdk-kms (1.98.0)
       aws-sdk-core (~> 3, >= 3.216.0)
@@ -154,6 +156,7 @@ GEM
     caracal-rails (1.0.2)
       caracal (~> 1.0)
       rails (>= 3.2)
+    coderay (1.1.3)
     concurrent-ruby (1.3.5)
     connection_pool (2.5.0)
     crass (1.0.6)
@@ -204,7 +207,7 @@ GEM
     jmespath (1.6.2)
     jsbundling-rails (1.3.1)
       railties (>= 6.0.0)
-    json (2.9.1)
+    json (2.10.1)
     jwt (2.10.1)
       base64
     language_server-protocol (3.17.0.4)
@@ -235,7 +238,7 @@ GEM
     mysql2 (0.5.6)
     net-http (0.6.0)
       uri
-    net-imap (0.5.5)
+    net-imap (0.5.6)
       date
       net-protocol
     net-pop (0.1.2)
@@ -291,6 +294,9 @@ GEM
       actionpack (>= 6.1)
     prettyprint (0.2.0)
     prism (1.3.0)
+    pry (0.15.2)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
     psych (5.2.3)
       date
       stringio
@@ -359,7 +365,7 @@ GEM
       nokogiri
       roo (>= 2.0.0, < 3)
       spreadsheet (> 0.9.0)
-    ruby-lsp (0.23.9)
+    ruby-lsp (0.23.10)
       language_server-protocol (~> 3.17.0)
       prism (>= 1.2, < 2.0)
       rbs (>= 3, < 4)
@@ -386,7 +392,7 @@ GEM
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
-    sorbet-runtime (0.5.11810)
+    sorbet-runtime (0.5.11820)
     spreadsheet (1.3.3)
       bigdecimal
       ruby-ole
@@ -453,6 +459,7 @@ DEPENDENCIES
   omniauth-rails_csrf_protection
   prawn
   prawn-table
+  pry
   roo
   roo-xls
   ruby-lsp
