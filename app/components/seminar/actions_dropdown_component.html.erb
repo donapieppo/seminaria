@@ -1,5 +1,5 @@
 <div class="dropdown">
-  <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton<%= @seminar.id %>" data-bs-toggle="dropdown" aria-expanded="false" label="action dropdown menu">
+  <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton<%= @seminar.id %>" data-bs-toggle="dropdown" aria-expanded="false" aria-label="action dropdown menu" label="action dropdown menu">
     <i class="fas fa-bars fa-2xl text-primary <%= (@can_update_seminar || @can_update_fund) ? 'can_update' : '' %>"></i>
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton<%= @seminar.id %>">
