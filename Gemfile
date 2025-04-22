@@ -5,6 +5,9 @@ gem "dm_unibo_user_search", git: "https://github.com/donapieppo/dm_unibo_user_se
 gem "dm_unibo_common", git: "https://github.com/donapieppo/dm_unibo_common.git", branch: "master"
 # gem "dm_unibo_common", path: "/home/rails/gems/dm_unibo_common/"
 
+gem "sentry-ruby"
+gem "sentry-rails"
+
 gem "jsbundling-rails"
 gem "cssbundling-rails"
 
