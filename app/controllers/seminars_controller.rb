@@ -67,11 +67,15 @@ class SeminarsController < ApplicationController
   # archivio quelli da ieri
   def archive
     authorize :seminar
-    @year = params[:year] ? params[:year].to_i : Date.today.year
-    @seminars = current_organization
-      .seminars.order("seminars.date DESC")
-      .where("YEAR(date) = ? and date < NOW()", @year)
-      .includes(:cycle, :serial, :user, :documents, :arguments, :conference, repayment: :fund)
+    if current_organization
+      @year = params[:year] ? params[:year].to_i : Date.today.year
+      @seminars = current_organization
+        .seminars.order("seminars.date DESC")
+        .where("YEAR(date) = ? and date < NOW()", @year)
+        .includes(:cycle, :serial, :user, :documents, :arguments, :conference, repayment: :fund)
+    else
+      redirect_to seminars_path(__org__: "mat") and return
+    end
   end
 
   def choose_type
