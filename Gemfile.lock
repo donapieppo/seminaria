@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/donapieppo/dm_unibo_common.git
-  revision: 5e53b3eabde1491bd2e56e4f6f162499e9ddb395
+  revision: 4b6ecca5fc00192e3209c55cc9052bb6bdc121d7
   branch: master
   specs:
-    dm_unibo_common (5.1.3)
+    dm_unibo_common (6.0.0)
       bootsnap
       cssbundling-rails
       importmap-rails
@@ -12,7 +12,6 @@ GIT
       lograge
       mysql2 (~> 0.5)
       omniauth
-      omniauth-azure-activedirectory-v2
       omniauth-entra-id
       omniauth-google-oauth2
       omniauth-rails_csrf_protection
@@ -21,20 +20,18 @@ GIT
       puma (~> 6.4)
       pundit
       rack (~> 3.1)
-      rails (< 8.0)
+      rails (~> 7.2)
       simple_form (~> 5.3)
       sprockets-rails
       stimulus-rails
       turbo-rails
-      view_component
+      view_component (< 4.0.0)
 
 GIT
   remote: https://github.com/donapieppo/dm_unibo_user_search.git
-  revision: 07c4c4979f32705cbd9dd4f8458cf5feb3904276
+  revision: 8f55982cb862c1d0754e0491825e69b1773d0534
   specs:
     dm_unibo_user_search (0.2.1)
-      rack (~> 3.1)
-      rails (~> 7.0)
       savon (~> 2.15.0)
 
 GEM
@@ -118,19 +115,20 @@ GEM
       gyoku (>= 0.4.0)
       nokogiri
     aws-eventstream (1.4.0)
-    aws-partitions (1.1123.0)
-    aws-sdk-core (3.226.1)
+    aws-partitions (1.1141.0)
+    aws-sdk-core (3.229.0)
       aws-eventstream (~> 1, >= 1.3.0)
       aws-partitions (~> 1, >= 1.992.0)
       aws-sigv4 (~> 1.9)
       base64
+      bigdecimal
       jmespath (~> 1, >= 1.6.1)
       logger
-    aws-sdk-kms (1.106.0)
-      aws-sdk-core (~> 3, >= 3.225.0)
+    aws-sdk-kms (1.110.0)
+      aws-sdk-core (~> 3, >= 3.228.0)
       aws-sigv4 (~> 1.5)
-    aws-sdk-s3 (1.191.0)
-      aws-sdk-core (~> 3, >= 3.225.0)
+    aws-sdk-s3 (1.196.0)
+      aws-sdk-core (~> 3, >= 3.228.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.5)
     aws-sigv4 (1.12.1)
@@ -169,14 +167,14 @@ GEM
       irb (~> 1.10)
       reline (>= 0.3.8)
     drb (2.2.3)
-    erb (5.0.1)
+    erb (5.0.2)
     erubi (1.13.1)
     factory_bot (6.5.4)
       activesupport (>= 6.1.0)
     factory_bot_rails (6.5.0)
       factory_bot (~> 6.5)
       railties (>= 6.1.0)
-    faraday (2.13.1)
+    faraday (2.13.4)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
@@ -195,11 +193,11 @@ GEM
       rack (>= 2.0, < 4)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
-    importmap-rails (2.1.0)
+    importmap-rails (2.2.2)
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
-    io-console (0.8.0)
+    io-console (0.8.1)
     irb (1.15.2)
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
@@ -210,7 +208,7 @@ GEM
     jmespath (1.6.2)
     jsbundling-rails (1.3.1)
       railties (>= 6.0.0)
-    json (2.12.2)
+    json (2.13.2)
     jwt (3.1.2)
       base64
     language_server-protocol (3.17.0.5)
@@ -252,7 +250,7 @@ GEM
       net-protocol
     nio4r (2.7.4)
     nkf (0.2.0)
-    nokogiri (1.18.8-x86_64-linux-gnu)
+    nokogiri (1.18.9-x86_64-linux-gnu)
       racc (~> 1.4)
     nori (2.7.1)
       bigdecimal
@@ -268,8 +266,6 @@ GEM
       hashie (>= 3.4.6)
       rack (>= 2.2.3)
       rack-protection
-    omniauth-azure-activedirectory-v2 (2.4.0)
-      omniauth-oauth2 (~> 1.8)
     omniauth-entra-id (3.1.0)
       jwt (>= 2.9.2)
       omniauth-oauth2 (~> 1.8)
@@ -306,7 +302,7 @@ GEM
       date
       stringio
     public_suffix (6.0.2)
-    puma (6.6.0)
+    puma (6.6.1)
       nio4r (~> 2.0)
     pundit (2.5.0)
       activesupport (>= 3.0.0)
@@ -355,11 +351,11 @@ GEM
     rake (13.3.0)
     rbs (3.9.4)
       logger
-    rdoc (6.14.1)
+    rdoc (6.14.2)
       erb
       psych (>= 4.0.0)
-    regexp_parser (2.10.0)
-    reline (0.6.1)
+    regexp_parser (2.11.0)
+    reline (0.6.2)
       io-console (~> 0.5)
     request_store (1.7.0)
       rack (>= 1.4)
@@ -371,11 +367,10 @@ GEM
       nokogiri
       roo (>= 2.0.0, < 3)
       spreadsheet (> 0.9.0)
-    ruby-lsp (0.24.2)
+    ruby-lsp (0.26.1)
       language_server-protocol (~> 3.17.0)
       prism (>= 1.2, < 2.0)
       rbs (>= 3, < 5)
-      sorbet-runtime (>= 0.5.10782)
     ruby-ole (1.2.13.1)
     rubyzip (1.3.0)
     savon (2.15.1)
@@ -404,7 +399,6 @@ GEM
     snaky_hash (2.0.3)
       hashie (>= 0.1.0, < 6)
       version_gem (>= 1.1.8, < 3)
-    sorbet-runtime (0.5.12214)
     spreadsheet (1.3.4)
       bigdecimal
       logger
@@ -420,8 +414,8 @@ GEM
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
     stringio (3.1.7)
-    thor (1.3.2)
-    tilt (2.6.0)
+    thor (1.4.0)
+    tilt (2.6.1)
     timeout (0.4.3)
     ttfunk (1.8.0)
       bigdecimal (~> 3.1)
