@@ -4,9 +4,9 @@ class FundsController < ApplicationController
   def index
     authorize current_organization, :manage?
     @all = params[:all]
-    @funds = current_organization.funds.includes(:holder, :category).order('users.surname, users.name, funds.name desc')
+    @funds = current_organization.funds.includes(:holder, :category).order("users.surname, users.name, funds.name desc")
     @funds = @funds.where(available: true) unless @all
-    @holders = @funds.inject({}) {|res, fund| res[fund.holder] ||= []; res[fund.holder] << fund; res}
+    @holders = @funds.inject({}) { |res, fund| res[fund.holder] ||= []; res[fund.holder] << fund; res }
   end
 
   def show
@@ -25,7 +25,7 @@ class FundsController < ApplicationController
     if @fund.save
       redirect_to funds_path, notice: "Il fondo è stato creato correttamente."
     else
-      render action: 'new', status: :unprocessable_entity
+      render action: "new", status: :unprocessable_entity
     end
   end
 
@@ -36,7 +36,7 @@ class FundsController < ApplicationController
     if @fund.update(fund_params)
       redirect_to funds_path, notice: "Il fondo è stato aggiornato correttamente."
     else
-      render action: 'edit', status: :unprocessable_entity
+      render action: "edit", status: :unprocessable_entity
     end
   end
 
@@ -71,7 +71,6 @@ class FundsController < ApplicationController
   end
 
   def fund_params
-    params.require(:fund).permit!
+    params.require(:fund).permit(:category_id, :name, :description, :code, :holder_id, :available)
   end
-
 end
