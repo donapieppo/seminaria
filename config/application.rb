@@ -21,6 +21,8 @@ module Seminaria
 
     config.authlevels = {read: 1, manage: 2}
 
+    config.cache_store = :memory_store, {size: 64.megabytes}
+
     config.action_mailer.default_url_options = {protocol: "https"}
     config.unibo_common = config_for(:unibo_common)
   end
