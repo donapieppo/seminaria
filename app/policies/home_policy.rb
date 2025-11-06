@@ -6,5 +6,9 @@ class HomePolicy < ApplicationPolicy
   def choose_organization?
     @user
   end
+
+  def stats?
+    @user.is_cesia?
+  end
 end
 
