@@ -561,9 +561,9 @@ detect-libc@^1.0.3:
   resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-1.0.3.tgz#fa137c4bd698edf55cd5cd02ac559f91a4c4ba9b"
   integrity sha512-pGjwhsmsp4kL2RTz08wcOlGN83otlqHeD/Z5T8GXZB+/YcpQ/dgo+lbU8ZsGxV0HIvqqxo9l7mqYwyYMD9bKDg==
 
-dm_unibo_common@donapieppo/dm_unibo_common.git#master:
+dm_unibo_common@donapieppo/dm_unibo_common.git#rails8:
   version "0.1.0"
-  resolved "https://codeload.github.com/donapieppo/dm_unibo_common/tar.gz/b04a48c5cc6c4df8d2fad4e73f36abbe017b14c5"
+  resolved "https://codeload.github.com/donapieppo/dm_unibo_common/tar.gz/8918a041b00d13d8225f04d759115972f5e26307"
   dependencies:
     "@fortawesome/fontawesome-free" "^6.4.0"
     "@hotwired/stimulus" "^3.2.2"
