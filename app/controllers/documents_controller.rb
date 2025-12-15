@@ -1,5 +1,10 @@
 class DocumentsController < ApplicationController
-  before_action :get_seminar_and_check_permission
+  before_action :get_seminar_and_check_permission, only: [:create, :destroy]
+
+  # def index
+  #   authorize :document
+  #   @documents = Document.where("created_at > ?", Date.today - 1.year).includes(:seminar, :repayment)
+  # end
 
   def create
     document = @seminar.documents.new(document_params)
@@ -9,7 +14,7 @@ class DocumentsController < ApplicationController
 
     logger.info document.inspect
 
-    if !document.attach.attached? 
+    if !document.attach.attached?
       flash[:error] = "Non è stato allegato il file."
     elsif document.save
       flash[:notice] = "L'allegato è stato salvato."
@@ -27,7 +32,7 @@ class DocumentsController < ApplicationController
     redirect_to document.seminar_id ? edit_seminar_path(document.seminar_id) : repayment_path(document.repayment_id)
   end
 
-  private 
+  private
 
   def get_seminar_and_check_permission
     @seminar = Seminar.find(params[:seminar_id])
@@ -37,4 +42,3 @@ class DocumentsController < ApplicationController
     params[:document].permit(:description, :attach)
   end
 end
-
