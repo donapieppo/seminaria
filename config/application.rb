@@ -12,7 +12,7 @@ end
 
 module Seminaria
   class Application < Rails::Application
-    config.load_defaults 7.1
+    config.load_defaults 8.1
 
     config.hosts += ENV.fetch("ALLOWED_HOSTS", "").split(",")
 
@@ -20,8 +20,6 @@ module Seminaria
     config.i18n.default_locale = :it
 
     config.authlevels = {read: 1, manage: 2}
-
-    config.cache_store = :memory_store, {size: 64.megabytes}
 
     config.action_mailer.default_url_options = {protocol: "https"}
     config.unibo_common = config_for(:unibo_common)
