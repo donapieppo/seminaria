@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class DayTagComponent < ViewComponent::Base
+  include DmUniboCommon::ApplicationHelper
+
   def initialize(what)
     @conference = if what.is_a?(Seminar)
       what.conference

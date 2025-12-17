@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Seminar::ActionsDropdownComponent < ViewComponent::Base
+  include DmUniboCommon::ApplicationHelper
+
   def initialize(seminar, current_user)
     @seminar = seminar
     @current_user = current_user

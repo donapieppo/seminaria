@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Zoom::ZoomComponent < ViewComponent::Base
+  include DmUniboCommon::ApplicationHelper
+
   def initialize(zoom_meeting)
     @zoom_meeting = zoom_meeting
   end
@@ -9,5 +11,3 @@ class Zoom::ZoomComponent < ViewComponent::Base
     @zoom_meeting
   end
 end
-
-
