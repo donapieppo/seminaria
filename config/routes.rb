@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     get "user/seminars", controller: "seminars", action: "index", only_current_user: true, as: "user_seminars"
     get "funds/seminars", controller: "seminars", action: "index", funds_current_user: true, as: "funds_seminars"
     get "user/cycles", controller: "cycles", action: "index", as: "user_cycles"
+    get "stats", controller: "home", action: "stats", as: "stats"
 
     resources :places
     resources :arguments
