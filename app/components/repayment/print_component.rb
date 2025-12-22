@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Repayment::PrintComponent < ViewComponent::Base
+  include DmUniboCommon::ApplicationHelper
+
   def initialize(repayment, current_user, ok_to_send: false)
     @repayment = repayment
     @current_user = current_user

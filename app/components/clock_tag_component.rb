@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ClockTagComponent < ViewComponent::Base
+  include DmUniboCommon::ApplicationHelper
+
   def initialize(date)
     if date.today?
       @date = date
