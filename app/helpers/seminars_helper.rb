@@ -1,13 +1,4 @@
 module SeminarsHelper
-  def css_classes(seminar)
-    res = "seminar"
-    res += seminar.past? ? " past" : " future"
-    res += " seminar-serial" if seminar.serial_id
-    res += " seminar-cycle" if seminar.cycle_id
-    res += " seminar-conference" if seminar.conference_id
-    res
-  end
-
   def seminar_link_tag(seminar)
     if !seminar.link.blank?
       txt = seminar.link_text.blank? ? seminar.link : seminar.link_text
