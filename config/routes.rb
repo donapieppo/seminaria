@@ -72,6 +72,7 @@ Rails.application.routes.draw do
     end
 
     resources :funds
+    resources :documents
 
     namespace(:speaker) do
       resources :repayments do
