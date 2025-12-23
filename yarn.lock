@@ -562,7 +562,7 @@ detect-libc@^1.0.3:
 
 dm_unibo_common@donapieppo/dm_unibo_common.git#rails8:
   version "0.1.0"
-  resolved "https://codeload.github.com/donapieppo/dm_unibo_common/tar.gz/1613ef278c5534f943fcf0fc88d752709db180c5"
+  resolved "https://codeload.github.com/donapieppo/dm_unibo_common/tar.gz/2326ed63cf9c0d962ec425618a08535d52be2a42"
   dependencies:
     "@fortawesome/fontawesome-free" "^6.4.0"
     "@hotwired/stimulus" "^3.2.2"

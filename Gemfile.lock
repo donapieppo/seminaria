@@ -1,12 +1,7 @@
 GIT
-  remote: https://github.com/donapieppo/dm_unibo_user_search.git
-  revision: 8f55982cb862c1d0754e0491825e69b1773d0534
-  specs:
-    dm_unibo_user_search (0.2.1)
-      savon (~> 2.15.0)
-
-PATH
-  remote: /home/rails/gems/dm_unibo_common
+  remote: https://github.com/donapieppo/dm_unibo_common.git
+  revision: 2326ed63cf9c0d962ec425618a08535d52be2a42
+  branch: rails8
   specs:
     dm_unibo_common (6.0.0)
       bootsnap
@@ -31,6 +26,13 @@ PATH
       stimulus-rails
       turbo-rails
       view_component (~> 4.1)
+
+GIT
+  remote: https://github.com/donapieppo/dm_unibo_user_search.git
+  revision: 8f55982cb862c1d0754e0491825e69b1773d0534
+  specs:
+    dm_unibo_user_search (0.2.1)
+      savon (~> 2.15.0)
 
 GEM
   remote: https://rubygems.org/
@@ -136,7 +138,7 @@ GEM
       aws-eventstream (~> 1, >= 1.0.2)
     base64 (0.3.0)
     bigdecimal (3.3.1)
-    bootsnap (1.19.0)
+    bootsnap (1.20.0)
       msgpack (~> 1.2)
     builder (3.3.0)
     capybara (3.40.0)
@@ -358,9 +360,9 @@ GEM
       tsort (>= 0.2)
       zeitwerk (~> 2.6)
     rake (13.3.1)
-    rbs (3.9.5)
+    rbs (3.10.0)
       logger
-    rdoc (7.0.1)
+    rdoc (7.0.2)
       erb
       psych (>= 4.0.0)
       tsort
