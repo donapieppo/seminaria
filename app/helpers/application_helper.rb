@@ -1,6 +1,4 @@
 module ApplicationHelper
-  include DmUniboCommon::ApplicationHelper
-
   include UserPermissionHelper
   include RepaymentChecksHelper
   include MoneyHelper
