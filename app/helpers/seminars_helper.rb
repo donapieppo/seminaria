@@ -19,7 +19,7 @@ module SeminarsHelper
   end
 
   def repayment_days_warning(seminar = nil)
-    if seminar && seminar.on_line
+    if seminar&.on_line
       "La richiesta di compenso / rimborso spese deve essere conclusa con <strong>l'autorizzazione del titolare del fondo</strong> almeno 
       <strong>#{Rails.configuration.on_line_repayment_deadline_1} giorni </strong> prima della seduta della Giunta; tra la seduta e l’iniziativa sono necessari <strong>#{Rails.configuration.on_line_repayment_deadline_2} giorni</strong> per l’espletamento delle pratiche.".html_safe
     else
