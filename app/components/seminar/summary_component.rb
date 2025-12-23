@@ -2,6 +2,7 @@
 
 class Seminar::SummaryComponent < ViewComponent::Base
   include DmUniboCommon::ApplicationHelper
+  include MoneyHelper
 
   def initialize(seminar, with_repayment: false)
     @seminar = seminar

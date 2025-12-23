@@ -2,6 +2,7 @@
 
 class Seminar::SeminarComponent < ViewComponent::Base
   include DmUniboCommon::ApplicationHelper
+  include SeminarsHelper
 
   def initialize(seminar, current_user, short: false)
     @seminar = seminar
