@@ -14,9 +14,9 @@
       <%= print_document_button "modulo nota spese", print_refund_repayment_path(@repayment, format: :docx) %>
       <%= print_document_button "dichiarazione altri incarichi", print_other_repayment_path(@repayment, format: :docx) %>
       <% if @repayment.italy %>  
-        <%= print_document_button "modulo D", "https://www.dm.unibo.it/seminari/unibo_modules/OccasionaliResidentiModuloD.doc" %>
+        <%= print_document_button "modulo D", "https://www.dm.unibo.it/moduli/seminari/OccasionaliResidentiModuloD.doc" %>
       <% else %>
-        <%= print_document_button " modulo D non residenti", "https://www.dm.unibo.it/seminari/unibo_modules/OccasionaliNonResidentiModuloD.doc" %> 
+        <%= print_document_button " modulo D non residenti", "https://www.dm.unibo.it/moduli/seminari/OccasionaliNonResidentiModuloD.doc" %> 
       <% end %>
     </div>
   <% else %>
