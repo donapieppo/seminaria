@@ -2,7 +2,7 @@
 # check=error=true
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
-ARG RUBY_VERSION=3.3.5
+ARG RUBY_VERSION=3.4
 FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim AS base
 LABEL org.opencontainers.image.authors="Pietro Donatini <pietro.donatini@unibo.ir>"
 LABEL org.opencontainers.image.source="https://github.com/donapieppo/seminaria" 
@@ -12,14 +12,14 @@ WORKDIR /rails
 
 # Install base packages
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libjemalloc2 libvips default-libmysqlclient-dev fonts-freefont-ttf && \
+    apt-get install --no-install-recommends -y libjemalloc2 libvips default-libmysqlclient-dev fonts-freefont-ttf && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set production environment
 ENV RAILS_ENV="production" \
     BUNDLE_DEPLOYMENT="1" \
     BUNDLE_PATH="/usr/local/bundle" \
-    BUNDLE_WITHOUT="development"
+    BUNDLE_WITHOUT="development test"
 
 
 # Throw-away build stage to reduce size of final image
@@ -27,7 +27,7 @@ FROM base AS build
 
 # Install packages needed to build gems and node modules
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git node-gyp pkg-config python-is-python3 && \
+    apt-get install --no-install-recommends -y build-essential git curl libyaml-dev node-gyp pkg-config python-is-python3 && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install JavaScript dependencies
