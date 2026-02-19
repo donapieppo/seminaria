@@ -1,3 +1,5 @@
+view_ctx = self
+
 letter_defaults(docx)
 
 repayment = @repayment
@@ -10,11 +12,11 @@ col_left = Caracal::Core::Models::TableCellModel.new do
   p "#{repayment.bond_year} / #{repayment.bond_number}"
 
   if repayment.payment
-    p "LORDO ENTE: #{euro(repayment.lordo_ente)}", size: 16
-    p "LORDO PERCIPIENTE: #{euro(repayment.lordo_percipiente)}", size: 16
-    p "NETTO PERCIPIENTE: #{euro(repayment.netto_percipiente)}", size: 16
+    p "LORDO ENTE: #{view_ctx.euro(repayment.lordo_ente)}", size: 16
+    p "LORDO PERCIPIENTE: #{view_ctx.euro(repayment.lordo_percipiente)}", size: 16
+    p "NETTO PERCIPIENTE: #{view_ctx.euro(repayment.netto_percipiente)}", size: 16
   elsif repayment.expected_refund
-    p "NETTO: #{euro(repayment.expected_refund)}", size: 16
+    p "NETTO: #{view_ctx.euro(repayment.expected_refund)}", size: 16
   end
 end
 
