@@ -1,19 +1,19 @@
 <%= content_tag :div, class: css_classes(@seminar) do %>
-  <div class="seminar-header">
+  <div class="seminar-header p-2">
     <div class="row">
       <div class="when col-md-3 col-xl-2">
         <%= render DayTagComponent.new(@seminar) %>  
         <%= render ClockTagComponent.new(@seminar.date) %>  
       </div>
 
-      <div class="col ps-lg-4">
+      <div class="col details ps-lg-4">
         <div class="py-4 py-md-0">
           <div class="float-end">
             <%= render Seminar::ActionsDropdownComponent.new(@seminar, @current_user) %>  
           </div>
         </div>
 
-        <div class="">
+        <div class="speaker">
           <%= @seminar.speaker %>
         </div>
         <div class="title my-1">
@@ -26,25 +26,29 @@
         <div class="notes">
           <%# se in una serie/ciclo ma non stiamo vedendo proprio la serie/ciclo %>
           <% if @seminar.serial_id && !@serial %>
-            <div>
+            <div class="note-item">
               nell'ambito della serie: <%= link_to @seminar.serial.to_s.upcase, serial_path(@seminar.serial_id) %>
             </div>
           <% end %>
           <% if @seminar.cycle_id && !@cycle %>
-            <div>
+            <div class="note-item">
               nel ciclo di seminari: <%= link_to @seminar.cycle.to_s.upcase, cycle_path(@seminar.cycle_id) %>
             </div>
           <% end %>
-          <%= render ArgumentsTagComponent.new(@seminar) %>
         </div> <!-- notes -->
         <% if !@seminar.past? %>  
-          <%= render HourTagComponent.new(@seminar) %>  
-          <%= render WhereTagComponent.new(@seminar) %>
-          <%= seminar_link_tag(@seminar) %>  
+          <div class="seminar-meta">
+            <%= render HourTagComponent.new(@seminar) %>  
+            <%= render WhereTagComponent.new(@seminar) %>
+            <%= seminar_link_tag(@seminar) %>  
+          </div>
         <% end %>
-        <div>
+        <%= render ArgumentsTagComponent.new(@seminar) %>
+        <div class="seminar-documents">
           <% @seminar.documents.each do |document| %>
-            <%= document_tag(document) %>
+            <div class="my-2">
+              <%= document_tag(document) %>
+            </div>
           <% end %>
         </div>
       </div>
