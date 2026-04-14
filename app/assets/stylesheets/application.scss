@@ -8,7 +8,7 @@ body {
    // box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
    // h-offset v-offset blur spread color
   border: 1px solid #BFBFBF;
-  box-shadow: 6px 3px 3px #aaaaaa;
+  box-shadow: 3px 3px 3px #aaaaaa;
   @extend .card;
   @extend .my-3;
   .today {
@@ -18,7 +18,6 @@ body {
     text-align: center;
   }
   .seminar-header {
-    @extend .card-header;
     @extend .py-3;
   }
   .seminar-body {
@@ -43,10 +42,39 @@ body {
   .title {
     font-weight: bold;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.06em;
+  }
+  .argument {
+    display: inline-block;
+    padding: 0.2rem 0.7rem;
+    border: 1px solid #6f8e5f;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+    text-transform: uppercase;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  }
+  .argument-interdisciplinare {
+    display: inline-block;
+    padding: 0.28rem 0.85rem;
+    border: 1px solid #8a6d1d;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    line-height: 1.4;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
   }
   .notes {
     @extend .small;
+    .text-body-secondary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 0.5rem;
+      align-items: center;
+    }
     .abstract {
       font-style: italic;
       text-align: justify;
@@ -171,7 +199,6 @@ dl.inline {
 //   padding-top: 0.75rem;
 //   padding-bottom: 0.75rem;
 // }
-
 
 
 
