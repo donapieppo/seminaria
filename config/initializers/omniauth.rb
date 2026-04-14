@@ -3,6 +3,8 @@
 # require "omniauth-google-oauth2"
 require "dm_unibo_common/omniauth/strategies/test"
 
+OmniAuth.config.request_validation_phase = OmniAuth::AuthenticityTokenProtection.new(key: :_csrf_token)
+
 Rails.application.config.middleware.use OmniAuth::Builder do
   configure do |config|
     config.path_prefix = "/dm_unibo_common/auth"
