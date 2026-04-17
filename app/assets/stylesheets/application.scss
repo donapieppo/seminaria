@@ -42,6 +42,7 @@ body {
   .title {
     font-weight: bold;
     text-transform: uppercase;
+    font-size: 1.2em;
     letter-spacing: 0.06em;
   }
   .argument {
@@ -89,6 +90,15 @@ body {
   .link-tag {
     @extend .mt-1;
     @extend .mb-3;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #49657a;
+    text-decoration: none;
   }
 }
 
@@ -199,6 +209,4 @@ dl.inline {
 //   padding-top: 0.75rem;
 //   padding-bottom: 0.75rem;
 // }
-
-
 
