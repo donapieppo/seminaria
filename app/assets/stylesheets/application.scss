@@ -150,11 +150,6 @@ dl.cycles {
   width: 15em;
 }
 
-.seminar-small-info {
-  @extend .ps-3;
-  border-left: 3px solid rgb(0,255,255);
-}
-
 table.funds {
   @extend .table;
   @extend .table-striped;
@@ -209,4 +204,3 @@ dl.inline {
 //   padding-top: 0.75rem;
 //   padding-bottom: 0.75rem;
 // }
-
