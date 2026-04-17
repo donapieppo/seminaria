@@ -1,7 +1,7 @@
 <div class="seminar-small-info">
   <div>
     <% if @seminar.in_conference? %>
-      RELAZIONE ALL'INTERNO DEL CONVEGNO &ldquo;<%= link_to @seminar.conference, @seminar.conference %>&rdquo;
+      RELAZIONE ALL'INTERNO DEL CONVEGNO &ldquo;<%= link_to @seminar.conference.title.upcase, @seminar.conference %>&rdquo;
     <% else %>
       SEMINARIO DEL <%= @seminar.organization.description.upcase %> - <%= l @seminar.date, format: :long %>
     <% end %>
@@ -9,7 +9,7 @@
   <div>
     <%= link_to @seminar do %>  
       &ldquo;<%= @seminar.title %>&rdquo;
-    <% end %>
+    <% end %> &nbsp;
     tenuto da <%= @seminar.speaker %>
   </div>
   <div class="mt-1">
