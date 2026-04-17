@@ -1,4 +1,9 @@
-<h1>Archivio <%= @year %></h1>
+<h1>
+  Archivio <%= @year %>
+  <span class="badge rounded-pill bg-info text-light fs-6 align-top">
+    <%= @seminars.count %> seminari
+  </span>
+</h1>
 
 <nav aria-label="Year pagination">
   <ul class="pagination pagination-sm justify-content-center my-4">
