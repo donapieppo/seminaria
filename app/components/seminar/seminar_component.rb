@@ -18,4 +18,13 @@ class Seminar::SeminarComponent < ViewComponent::Base
     res += " seminar-conference" if seminar.conference_id
     res
   end
+
+  def with_seminar_link(&block)
+    content = capture(&block)
+    return content if @seminar.in_conference?
+
+    link_to single_page_path(@seminar.single_page_attributes) do
+      content
+    end
+  end
 end

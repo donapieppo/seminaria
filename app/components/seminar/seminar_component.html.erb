@@ -2,8 +2,10 @@
   <div class="seminar-header p-2">
     <div class="row">
       <div class="when col-md-3 col-xl-2">
-        <%= render DayTagComponent.new(@seminar) %>  
-        <%= render ClockTagComponent.new(@seminar.date) %>  
+        <%= with_seminar_link do %>
+          <%= render DayTagComponent.new(@seminar) %>  
+          <%= render ClockTagComponent.new(@seminar.date) %>  
+        <% end %>
       </div>
 
       <div class="col details ps-lg-4">
@@ -13,16 +15,14 @@
           </div>
         </div>
 
-        <div class="speaker">
-          <%= @seminar.speaker %>
-        </div>
-        <div class="title my-1">
-          <% if @seminar.in_conference? %>
+        <%= with_seminar_link do %>
+          <div class="speaker">
+            <%= @seminar.speaker %>
+          </div>
+          <div class="title my-1">
             <%= @seminar.title %>
-          <% else %>
-            <%= link_to @seminar.title, single_page_path(@seminar.single_page_attributes) %>
-          <% end %>
-        </div>
+          </div>
+        <% end %>
         <div class="notes">
           <%# se in una serie/ciclo ma non stiamo vedendo proprio la serie/ciclo %>
           <% if @seminar.serial_id && !@serial %>
@@ -57,7 +57,9 @@
 
   <div class="seminar-body">
     <div class="abstract">
-      <%= @seminar.abstract %>
+      <%= with_seminar_link do %>
+        <%= @seminar.abstract %>
+      <% end %>
     </div>
   </div>
 
