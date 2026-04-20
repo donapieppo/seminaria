@@ -140,11 +140,22 @@ class Repayment < ApplicationRecord
   end
 
   def clear_privacy!
-    [:taxid, :address, :postalcode, :birth_date, :birth_place, :iban, :bank_name, :bank_address, :spkr_token, :swift, :aba].each do |x|
-      p self.send("#{x}=".to_sym, "_")
+    [:taxid, :address, :postalcode, :birth_date, :birth_place, :iban, :bank_name, :bank_address, :swift, :aba].each do |x|
+      send("#{x}=".to_sym, "_")
     end
     self.spkr_token = nil
-    self.save
+
+    curricula_vitae.find_each do |doc|
+      doc.attach.purge if doc.attach.attached?
+      doc.destroy!
+    end
+
+    id_cards.find_each do |doc|
+      doc.attach.purge if doc.attach.attached?
+      doc.destroy!
+    end
+
+    save!
   end
 
   def self.validate_spkr_token(x)
