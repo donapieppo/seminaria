@@ -1,7 +1,9 @@
 <h1>
   Archivio <%= @year %>
   <span class="badge rounded-pill bg-info text-light fs-6 align-top">
-    <%= @seminars.count %> seminari
+    <% cache "archive_count_#{@year}", expires_in: 1.day do %>
+      <%= @seminars.count %>
+    <% end %> seminari
   </span>
 </h1>
 
@@ -15,7 +17,7 @@
   </ul>
 </nav>
 
-<% cache "archive_#{@year}" do %>
+<% cache "archive_#{@year}", expires_in: 1.day do %>
   <% @seminars.each do |seminar| %>  
     <%= render Seminar::SeminarComponent.new(seminar, current_user, short: true) %>  
   <% end %>
