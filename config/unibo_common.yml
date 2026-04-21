@@ -1,22 +1,22 @@
 shared:
   superusers:          ["pietro.donatini@unibo.it"]
-  html_title:          Seminari del Dipartimento di Matematica
-  html_description:    Gestione seminari e Notizie del Dipartimento di Matematia. Università di Bologna.
-  header_title:        Seminari
-  header_subtitle:     Dipartimento Matematica
-  header_icon:         bullhorn
+  html_title:          "Seminari del Dipartimento di Matematica"
+  html_description:    "Gestione seminari e Notizie del Dipartimento di Matematia. Università di Bologna."
+  header_title:        "Seminari"
+  header_subtitle:     "Dipartimento Matematica"
+  header_icon:         "bullhorn"
   lograge:             true
 
 development:
   omniauth_provider:   :developer
   searchable_provider: true
-  host:                locahost
+  host:                "locahost"
   smtp_unibo:          false
-  support_mail:        support_mail@example.it
-  reply_to:            reply_to@example.it
-  contact_mail:        contact_mail@example.it
-  domain_name:         dm.example.it
-  default_from:        DipMat Seminari <notifica.inviodlist.08218@example.it>
+  support_mail:        "support_mail@example.it"
+  reply_to:            "reply_to@example.it"
+  contact_mail:        "contact_mail@example.it"
+  domain_name:         "dm.example.it"
+  default_from:        "DipMat Seminari <notifica.inviodlist.08218@example.it>"
   login_method:        :allow_and_create
   no_students:         true
   message_footer:      "Messaggio inviato da 'Gestione Seminari Dipartimento di Matematica'.\nNon rispondere a questo messaggio.\nPer problemi tecnici contattare dipmat-supportoweb@example.it"
