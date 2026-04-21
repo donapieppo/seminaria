@@ -13,15 +13,21 @@ end
 module Seminaria
   class Application < Rails::Application
     config.load_defaults 8.1
+    config.unibo_common = config_for(:unibo_common)
 
-    config.hosts += ENV.fetch("ALLOWED_HOSTS", "").split(",")
+    config.hosts << config.unibo_common.host
 
     config.time_zone = "Rome"
     config.i18n.default_locale = :it
 
-    config.authlevels = {read: 1, manage: 2}
+    config.authlevels = {
+      read: 1,
+      manage: 2
+    }
 
-    config.action_mailer.default_url_options = {protocol: "https"}
-    config.unibo_common = config_for(:unibo_common)
+    Rails.application.routes.default_url_options = {
+      host: config.unibo_common.host,
+      protocol: "https"
+    }
   end
 end
