@@ -25,6 +25,8 @@ module Seminaria
       manage: 2
     }
 
+    config.active_storage.variant_processor = :disabled
+
     Rails.application.routes.default_url_options = {
       host: config.unibo_common.host,
       protocol: "https"
