@@ -1,6 +1,6 @@
 <h1>
   Archivio <%= @year %>
-  <span class="badge rounded-pill bg-info text-light fs-6 align-top">
+  <span class="badge rounded-pill border border-info bg-secondary-subtle text-info fs-6 align-top">
     <% cache "archive_count_#{@year}", expires_in: 1.day do %>
       <%= @seminars.count %>
     <% end %> seminari
