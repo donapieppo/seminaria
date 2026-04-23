@@ -1,4 +1,4 @@
-name: Docker
+name: Publish Seminaria do github registry 
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
@@ -7,11 +7,8 @@ name: Docker
 
 on:
   push:
-    branches: [ "master" ]
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
-  pull_request:
-    branches: [ "master" ]
 
 env:
   # Use docker.io for Docker Hub if empty
