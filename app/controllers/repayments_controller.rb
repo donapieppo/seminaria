@@ -194,10 +194,10 @@ class RepaymentsController < ApplicationController
       @repayment.update_attribute(:notified, true)
       if !@repayment.fund
         # notify who has to choose the fund
-        RepaymentMailer.notify_repayment_to_holder(@repayment).deliver
+        RepaymentMailer.notify_repayment_to_holder(@repayment).deliver_now
         flash[:notice] = "La richiesta di rimborso è stata inviata a #{@repayment.holder}."
       else
-        RepaymentMailer.notify_fund(@repayment).deliver
+        RepaymentMailer.notify_fund(@repayment).deliver_now
         flash[:notice] = "La richiesta di rimborso è stata inviata all'amministrazione."
       end
     end
@@ -224,7 +224,7 @@ class RepaymentsController < ApplicationController
 
     @repayment.update_attribute(:fund_id, @fund.id)
 
-    RepaymentMailer.notify_fund(@repayment).deliver unless policy(@repayment.seminar).update?
+    RepaymentMailer.notify_fund(@repayment).deliver_now unless policy(@repayment.seminar).update?
     redirect_to root_path, notice: "È stato selezionato il fondo #{@fund}."
   end
 

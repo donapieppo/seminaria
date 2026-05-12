@@ -190,7 +190,7 @@ class SeminarsController < ApplicationController
     subject = params[:seminar_mail][:subject]
     text = params[:seminar_mail][:text]
 
-    if SeminarMailer.notify_seminar(@seminar, to, subject, text).deliver
+    if SeminarMailer.notify_seminar(@seminar, to, subject, text).deliver_now
       flash[:notice] = "La mail è stata inviata correttamente."
     else
       flash[:error] = "Errore nell'invio della mail."
