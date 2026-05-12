@@ -11,8 +11,8 @@ The seminars shedule is public with many different views
 
 ## Requirements
 
-*  Rails 5
-*  Ruby 2.6+
+*  Rails 8
+*  Ruby 3.4+
 
 ## Installation
 
