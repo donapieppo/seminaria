@@ -1,30 +1,35 @@
-<div class="page-header py-5 px-2">
-  <div class="mx-auto text-center my-4">
-    <%= link_to "Seminari del Dipartimento di Matematica", root_path, class: "fs-2" %>
-    <div class="fs-4 my-2">
+<div class="page-header pt-2 pb-4 px-2">
+  <div class="mx-auto text-center">
+    <div>
+      <%= image_tag("sigillo.png", alt: "Sigillo dell'Università di Bologna", class: "img-fluid", style: "max-height: 110px;") %>
+    </div>
+    <div class="mt-4">
+      <%= link_to "Seminari del Dipartimento di Matematica", root_path, class: "fs-4" %>
+    <div>
+    <div class="fs-5 my-1">
       <a href="https://www.unibo.it">Università di Bologna</a>
     </div>
   </div>
 
   <% @seminars.each do |seminar| %>
-    <h1 class="page-title my-5 text-black fs-1" style="max-width: 1024px">
+    <h1 class="page-title my-4 text-black fs-2" style="max-width: 1024px">
       <%= seminar.title %>
     </h1>
   <% end %>
 
   <h2 class="container fs-4 fst-italic fw-normal text-end">
-    <div class="fs-5">seminario tenuto da</div>
-    <div class="fs-4"><%= @seminars.first.speaker %></div>
+    <div class="fs-6">seminario tenuto da</div>
+    <div class="fs-5"><%= @seminars.first.speaker %></div>
   </h2>
 </div>
 
 <% @seminars.each do |seminar| %>
-  <div class="container my-3">
+  <div class="container my-4">
     <div class="row">
       <div class="col-md-4 text-md-end px-3">
         <%= render DayTagComponent.new(seminar) %>  
       </div> <!-- notes -->
-      <div class="col-md-8 page-details px-3">
+      <div class="col-md-8 page-details px-3 text-start">
         <%= render ArgumentsTagComponent.new(seminar) %>
         <%= render HourTagComponent.new(seminar) %>  
         <%= render WhereTagComponent.new(seminar) %>  
