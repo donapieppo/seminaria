@@ -15,15 +15,17 @@ WORKDIR /rails
 ENV LANG=C.UTF-8 \
     BUNDLE_PATH=/usr/local/bundle \
     BUNDLE_JOBS=4 \
-    BUNDLE_RETRY=3 \
-    LD_PRELOAD="/usr/local/lib/libjemalloc.so"
+    BUNDLE_RETRY=3
 
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \
       fonts-freefont-ttf \
       libjemalloc2 \
       libmariadb3 && \
+    ln -s /usr/lib/$(uname -m)-linux-gnu/libjemalloc.so.2 /usr/local/lib/libjemalloc.so && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
+
+ENV LD_PRELOAD="/usr/local/lib/libjemalloc.so"
 
 # Shared build/development tooling stage
 FROM base AS tooling
