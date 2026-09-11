@@ -5,6 +5,9 @@ gem "dm_unibo_user_search", git: "https://github.com/donapieppo/dm_unibo_user_se
 gem "dm_unibo_common", git: "https://github.com/donapieppo/dm_unibo_common.git"
 # gem "dm_unibo_common", path: "/home/rails/gems/dm_unibo_common/"
 
+# FIXME
+gem 'json', '~> 2.0'
+
 gem "sentry-ruby"
 gem "sentry-rails"
 
@@ -35,7 +38,7 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri mingw x64_mingw]
   gem "factory_bot_rails"
-  gem "ruby-lsp", require: false
+  gem "standard", require: false
 end
 
 group :development do
@@ -47,6 +50,7 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+  gem "ruby-lsp", require: false
 end
 
 group :test do

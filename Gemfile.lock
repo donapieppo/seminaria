@@ -120,11 +120,12 @@ GEM
       nokogiri
     anonymous_loader (0.1.3)
       version_gem (~> 1.1, >= 1.1.14)
+    ast (2.4.3)
     auth-sanitizer (0.2.3)
       version_gem (~> 1.1, >= 1.1.14)
     aws-eventstream (1.4.0)
-    aws-partitions (1.1284.0)
-    aws-sdk-core (3.254.1)
+    aws-partitions (1.1285.0)
+    aws-sdk-core (3.255.0)
       aws-eventstream (~> 1, >= 1.3.0)
       aws-partitions (~> 1, >= 1.992.0)
       aws-sigv4 (~> 1.9)
@@ -132,11 +133,12 @@ GEM
       bigdecimal
       jmespath (~> 1, >= 1.6.1)
       logger
-    aws-sdk-kms (1.130.0)
-      aws-sdk-core (~> 3, >= 3.254.0)
+      rexml (~> 3.4, >= 3.4.2)
+    aws-sdk-kms (1.131.0)
+      aws-sdk-core (~> 3, >= 3.255.0)
       aws-sigv4 (~> 1.5)
-    aws-sdk-s3 (1.230.0)
-      aws-sdk-core (~> 3, >= 3.254.1)
+    aws-sdk-s3 (1.231.0)
+      aws-sdk-core (~> 3, >= 3.255.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.5)
     aws-sigv4 (1.12.1)
@@ -218,10 +220,11 @@ GEM
     jmespath (1.6.2)
     jsbundling-rails (1.3.1)
       railties (>= 6.0.0)
-    json (3.0.2)
+    json (2.21.2)
     jwt (3.2.0)
       base64
     language_server-protocol (3.17.0.6)
+    lint_roller (1.1.0)
     logger (1.7.0)
     lograge (0.15.0)
       actionpack (>= 4)
@@ -253,7 +256,7 @@ GEM
       bigdecimal
     net-http (0.9.1)
       uri (>= 0.11.1)
-    net-imap (0.6.6)
+    net-imap (0.6.7)
       date
       net-protocol
     net-pop (0.1.2)
@@ -300,6 +303,10 @@ GEM
       omniauth (~> 2.0)
     omniauth-shibboleth (1.3.0)
       omniauth (>= 1.0.0)
+    parallel (2.2.0)
+    parser (3.3.12.0)
+      ast (~> 2.4.1)
+      racc
     pdf-core (0.10.0)
     pp (0.6.4)
       prettyprint
@@ -372,6 +379,7 @@ GEM
       thor (~> 1.0, >= 1.2.2)
       tsort (>= 0.2)
       zeitwerk (~> 2.6)
+    rainbow (3.1.1)
     rake (13.4.2)
     rbs (4.2.0)
       logger
@@ -400,11 +408,30 @@ GEM
       nokogiri
       roo (>= 2.0.0, < 4)
       spreadsheet (>= 1.3.4, < 2)
+    rubocop (1.91.0)
+      json (>= 2.3)
+      language_server-protocol (~> 3.17.0.2)
+      lint_roller (~> 1.1.0)
+      parallel (>= 1.10)
+      parser (>= 3.3.0.2)
+      rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 2.9.3, < 3.0)
+      rubocop-ast (>= 1.49.0, < 2.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 2.4.0, < 4.0)
+    rubocop-ast (1.50.0)
+      parser (>= 3.3.7.2)
+      prism (~> 1.7)
+    rubocop-performance (1.26.1)
+      lint_roller (~> 1.1)
+      rubocop (>= 1.75.0, < 2.0)
+      rubocop-ast (>= 1.47.1, < 2.0)
     ruby-lsp (0.26.11)
       language_server-protocol (~> 3.17.0)
       prism (>= 1.2, < 2.0)
       rbs (>= 3, < 5)
     ruby-ole (1.2.13.1)
+    ruby-progressbar (1.13.0)
     rubyzip (1.3.0)
     savon (2.15.1)
       akami (~> 1.2)
@@ -445,6 +472,18 @@ GEM
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
+    standard (1.35.0.1)
+      language_server-protocol (~> 3.17.0.2)
+      lint_roller (~> 1.0)
+      rubocop (~> 1.62)
+      standard-custom (~> 1.0.0)
+      standard-performance (~> 1.3)
+    standard-custom (1.0.2)
+      lint_roller (~> 1.0)
+      rubocop (~> 1.50)
+    standard-performance (1.9.0)
+      lint_roller (~> 1.1)
+      rubocop-performance (~> 1.26.0)
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
     stringio (3.2.0)
@@ -459,6 +498,9 @@ GEM
       railties (>= 7.1.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    unicode-display_width (3.2.0)
+      unicode-emoji (~> 4.1)
+    unicode-emoji (4.2.0)
     uri (1.1.1)
     useragent (0.16.11)
     version_gem (1.1.15)
@@ -498,6 +540,7 @@ DEPENDENCIES
   dm_unibo_user_search!
   factory_bot_rails
   jsbundling-rails
+  json (~> 2.0)
   lograge
   logstash-event
   omniauth-rails_csrf_protection
@@ -511,6 +554,7 @@ DEPENDENCIES
   selenium-webdriver
   sentry-rails
   sentry-ruby
+  standard
   webdrivers
 
 BUNDLED WITH
