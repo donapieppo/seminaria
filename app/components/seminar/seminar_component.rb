@@ -4,10 +4,11 @@ class Seminar::SeminarComponent < ViewComponent::Base
   include DmUniboCommon::ApplicationHelper
   include SeminarsHelper
 
-  def initialize(seminar, current_user, short: false)
+  def initialize(seminar, current_user, short: false, first_in_month: false)
     @seminar = seminar
     @current_user = current_user
     @short = short
+    @first_in_month = first_in_month
   end
 
   def css_classes(seminar)

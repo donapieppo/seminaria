@@ -1,3 +1,6 @@
+<% last_conference_id = 0 %>
+<% last_month = nil %>
+
 <h1><%= @title %></h1>
 
 <% if user_signed_in? %>
@@ -11,18 +14,18 @@
   </div>
 <% end %>
 
-<% last_conference_id = 0 %>
-
 <% @seminars.each do |seminar| %>  
   <%= next if (seminar.hidden && !@show_hidden) %>  
-  <% cache_if !current_user, seminar, expires_in: 5.minutes do %>
+
+  <% first_in_month = (last_month != (last_month = seminar.date.beginning_of_month)) %>
+
+  <% cache_if !current_user, [seminar, first_in_month], expires_in: 5.minutes do %>
     <% if seminar.in_conference? %>  
       <% if last_conference_id != (last_conference_id = seminar.conference_id) %>
-        <%= render Conference::ConferenceComponent.new(seminar.conference, current_user) %>
+        <%= render Conference::ConferenceComponent.new(seminar.conference, current_user, first_in_month: first_in_month) %>
       <% end %>
     <% else %>
-      <%= render Seminar::SeminarComponent.new(seminar, current_user) %>  
+      <%= render Seminar::SeminarComponent.new(seminar, current_user, first_in_month: first_in_month) %>
     <% end %>
   <% end %>
 <% end %>
-
