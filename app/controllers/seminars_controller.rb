@@ -1,5 +1,6 @@
 class SeminarsController < ApplicationController
   skip_before_action :redirect_unsigned_user, only: [:index, :archive, :show, :print, :page]
+
   before_action :get_seminar_and_check_permission, only: [:show, :print, :edit, :update, :destroy, :mail_text, :submit_mail_text]
 
   # Prossimi sono quelli a partire da tutto oggi
@@ -48,15 +49,15 @@ class SeminarsController < ApplicationController
 
   def page
     if params[:id]
-      @seminar = Seminar.find(params[:id])
+      @seminars = [Seminar.find(params[:id])]
     else
       date_param = Date.new(params[:year].to_i, params[:mm].to_i, params[:dd].to_i)
       @seminars = Seminar.where("DATE(date) = ?", date_param).select { |s| s.speaker.parameterize == params[:speaker] }
       @seminar = @seminars.first
     end
+
     if @seminars.any?
-      authorize @seminar
-      @documents = @seminar.documents.to_a
+      @seminars.each { |s| authorize s }
       render layout: "page"
     else
       skip_authorization

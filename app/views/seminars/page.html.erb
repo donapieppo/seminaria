@@ -59,9 +59,8 @@
       </div>
     </div>
 
-
     <div class="notes">
-      <% if @documents.any? %>  
+      <% if seminar.documents.any? %>  
         <dl>
           <dt>Allegati:</dt>
           <% seminar.documents.each do |document| %>
