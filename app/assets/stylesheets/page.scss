@@ -1,48 +1,206 @@
-.page-header {
-  background-color: #4F7942;
-  background: linear-gradient(to right, $secondary, $light); 
-}
-.page-header-intro a {
-  color: #333;
-}
-h1.page-title {
-  font-size: max(21px, 6vmin);
-  width: 60vw;
-  text-transform: uppercase;
-  // letter-spacing: -3px;
-  font-weight: 400;
-  text-align: center;
-  margin: 10vmin auto;
-}
-h2.page-speaker {
-  margin-top: 5vmin;
-  font-weight: normal;
-  text-align: right;
-  font-size: max(22px, 3vmin);
-  width: 80vw;
-  color: #222;
-}
-.page-notes {
-  margin-top: 2vmin;
-  // width: 80vw;
-  // font-size: max(22px, 3vmin);
-  font-weight: normal;
-  text-align: right;
-}
-.page-details {
-  margin: 10px 0;
-  padding-left: 10px;
-  border-left: 6px solid #4F7942;
-}
-.page-abstract {
-  background-color: #F8F8F8;
-  margin: 20px 0;
-  padding: 20px;
-  border: 1px solid #4F7942;
-  font-style: italic;
-}
-.page-footer {
-  text-align: right;
-  font-style: italic;
-}
+.seminar-page {
+  --page-ink: #26313b;
+  --page-muted: #626970;
+  --page-rule: #d7d5cf;
+  --page-accent: #8c3434;
 
+  margin-inline: auto;
+  padding: clamp(1.25rem, 4vw, 4rem);
+  padding-top: clamp(0.5rem, 1.5vw, 1rem);
+  color: var(--page-ink);
+  overflow-wrap: anywhere;
+
+  > header {
+    padding-block: clamp(0.75rem, 2vw, 1.5rem) clamp(1.25rem, 3vw, 2rem);
+    text-align: center;
+
+    &::before {
+      content: "";
+      display: block;
+      width: 3rem;
+      height: 2px;
+      margin: 0 auto 1rem;
+      background: var(--page-accent);
+    }
+  }
+
+  h1.page-title {
+    max-width: 22ch;
+    margin: 0 auto 1.25rem;
+    font-family: Georgia, "Times New Roman", serif;
+    // The global heading rule extends an !important Bootstrap size utility.
+    font-size: clamp(2rem, 4.5vw, 3.75rem) !important;
+    font-weight: 400;
+    letter-spacing: -0.035em;
+    line-height: 1.12;
+    text-wrap: balance;
+  }
+
+  .page-speaker {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.25rem, 2.5vw, 1.65rem);
+    line-height: 1.5;
+
+    span {
+      display: block;
+    }
+  }
+
+  .page-speaker-label {
+    margin-bottom: 0.6rem;
+    color: var(--page-muted);
+    font-family: var(--bs-font-sans-serif);
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  a {
+    color: var(--page-accent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+
+    &:hover {
+      color: var(--page-ink);
+    }
+  }
+
+  .page-event {
+    padding-top: clamp(1.75rem, 4vw, 3rem);
+    border-top: 1px solid var(--page-rule);
+
+    + .page-event {
+      margin-top: 3rem;
+    }
+  }
+
+  .page-event-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .page-date {
+    width: 100%;
+    max-width: 12rem;
+    margin-inline: auto;
+    color: var(--page-muted);
+    font-size: 0.85rem;
+
+    .bg-info {
+      // Override utilities emitted by the shared date component only here.
+      padding: 0 !important;
+      background: transparent !important;
+      color: var(--page-accent);
+      font-size: 0.8rem !important;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .fs-1 {
+      color: var(--page-ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 4rem !important;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+  }
+
+  .page-details {
+    min-width: 0;
+
+    > .mt-3:first-child {
+      margin-top: 0 !important;
+    }
+
+    .argument,
+    .argument-interdisciplinare {
+      display: inline-block;
+      margin: 0 1rem 0.75rem 0;
+      color: var(--page-accent);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      line-height: 1.6;
+      text-transform: uppercase;
+    }
+
+    .hour-tag,
+    .where-tag,
+    .link-tag {
+      margin-block: 0.5rem;
+      color: var(--page-muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+  }
+
+  .page-notes {
+    margin-top: 1.25rem;
+    color: var(--page-muted);
+    font-size: 0.85rem;
+    line-height: 1.7;
+
+    div + div {
+      margin-top: 0.5rem;
+    }
+  }
+
+  .page-abstract {
+    margin-top: 2.5rem;
+    max-width: 65ch;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.1rem, 1.7vw, 1.25rem);
+    line-height: 1.85;
+  }
+
+  .page-attachments {
+    margin-top: 2.5rem;
+    font-size: 0.85rem;
+
+    dt {
+      font-weight: 500;
+      color: var(--page-muted);
+    }
+
+    dd {
+      margin-top: 0.5rem;
+    }
+  }
+
+  .page-footer .committee {
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--page-rule);
+    color: var(--page-muted);
+    font-size: 0.8rem;
+    line-height: 1.8;
+  }
+
+  .page-back {
+    margin-top: clamp(3rem, 7vw, 5rem);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--page-rule);
+    text-align: center;
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+
+  @media (min-width: 768px) {
+    .page-event-grid {
+      grid-template-columns: 9rem minmax(0, 1fr);
+      gap: 3rem;
+    }
+
+    .page-date {
+      padding-right: 1.5rem;
+      border-right: 1px solid var(--page-rule);
+    }
+
+    .page-attachments {
+      margin-left: 12rem;
+    }
+  }
+}
