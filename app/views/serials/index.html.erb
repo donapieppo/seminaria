@@ -2,7 +2,7 @@
 
 <% serial_ids_with_future_seminar = Seminar.future.where('serial_id IS NOT NULL').select(:serial_id).pluck(:serial_id).uniq %>  
 
-<div class="accordion" id="serials_accordion">
+<div class="accordion my-4" id="serials_accordion">
   <% @serials.each do |serial| %>  
     <div class="accordion-item">
       <h2 class="accordion-header" id="heading_<%= dom_id serial %>">

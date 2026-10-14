@@ -1,10 +1,5 @@
-@import "variables";
-
-body {
-  color: #222;
-}
-
 .seminar, .conference {
+  --page-accent: #8c3434;
    // box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
    // h-offset v-offset blur spread color
   border: 1px solid #BFBFBF;
@@ -76,10 +71,6 @@ body {
       gap: 0.4rem 0.5rem;
       align-items: center;
     }
-    .abstract {
-      font-style: italic;
-      text-align: justify;
-    }
   }
   .hour-tag {
     @extend .mt-3;
@@ -104,7 +95,8 @@ body {
 
 @media screen and (min-width: 768px) {
   .seminar .when, .conference .when {
-    border-right: 2px solid rgb(30, 30, 30);
+    --page-accent: #8c3434;
+    border-right: 2px solid var(--page-accent);
   }
 }
 
@@ -204,3 +196,32 @@ dl.inline {
 //   padding-top: 0.75rem;
 //   padding-bottom: 0.75rem;
 // }
+
+.seminar, .conference {
+  --page-accent: #8c3434;
+  --page-ink: #26313b;
+  --page-muted: #626970;
+  --page-rule: #d7d5cf;
+  --page-accent: #8c3434;
+
+  .date-month {
+        padding: 0 !important;
+        background: transparent !important;
+        color: var(--page-accent);
+        font-size: 0.8rem !important;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+  .date-day {
+        color: var(--page-ink);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 4rem !important;
+        font-weight: 400;
+        line-height: 1.2;
+  }
+  .conference-title-text {
+    color: var(--page-accent);
+  }
+}

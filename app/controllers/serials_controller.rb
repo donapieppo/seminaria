@@ -1,6 +1,7 @@
 class SerialsController < ApplicationController
   skip_before_action :redirect_unsigned_user, only: [:index, :show]
 
+  before_action :redirect_missing_current_organization
   before_action :get_serial_and_check_permission, only: [:show, :edit, :update]
 
   def index

@@ -1,19 +1,21 @@
 <div class="date text-center px-2">
-  <div class="bg-info rounded w-100 text-center py-2 mb-2 fs-5">
+  <div class="date-month">
     <%= l(@date, format: :month).capitalize %>
   </div>
   <div>
     <% if @conference %>
-      <% if @conference && @conference.start_date != @conference.end_date%>
-        dal giorno <br/>
-        <span class="fs-5"><%= l @conference.start_date %></span><br/>
-        al giorno<br/>
-        <%= l @conference.end_date %>
-      <% else %>
-        del <%= l @conference.start_date %>
-      <% end %>
+      <div class="my-2">
+        <% if @conference && @conference.start_date != @conference.end_date%>
+          dal giorno <br/>
+          <span class="fw-bold"><%= l @conference.start_date %></span><br/>
+          al giorno<br/>
+          <span class="fw-bold"><%= l @conference.end_date %></span>
+        <% else %>
+          del <%= l @conference.start_date %>
+        <% end %>
+      </div>
     <% else %>
-      <div class="fs-1"><%= l @date, format: :nday %></div>
+      <div class="date-day"><%= l @date, format: :nday %></div>
       <div><%= @detail %></div>
     <% end %>
   </div>

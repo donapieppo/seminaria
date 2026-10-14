@@ -58,7 +58,6 @@ class SeminarsController < ApplicationController
 
     if @seminars.any?
       @seminars.each { |s| authorize s }
-      render layout: "page"
     else
       skip_authorization
       redirect_to root_path

@@ -1,6 +1,7 @@
 class CyclesController < ApplicationController
   skip_before_action :redirect_unsigned_user, only: :show
 
+  before_action :redirect_missing_current_organization
   before_action :get_cycle_and_check_permission, only: [:edit, :update]
 
   def index

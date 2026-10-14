@@ -64,9 +64,11 @@
   </div>
 
   <div class="seminar-body">
-    <div class="abstract">
+    <div class="text-start">
       <%= with_seminar_link do %>
+        <div class="text-muted">
         <%= @seminar.abstract %>
+        </div>
       <% end %>
     </div>
   </div>

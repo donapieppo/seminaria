@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="it">
   <%= render DmUniboCommon::HeaderComponent.new %>
-  <body>
+  <body class="d-flex flex-column min-vh-100 bg-body-tertiary">
     <%= render partial: 'layouts/menu' %>
 
-    <main role="main" class="container-xl">
+    <main id="content" class="container-xl my-4 my-md-5">
       <%= render DmUniboCommon::PrivacyAlertComponent.new(cookies) %>  
       <%= render DmUniboCommon::BootstrapAlertComponent.new(flash) %>  
       <%= turbo_frame_tag "modal" %>
       <%= yield %>
     </main>
 
-    <%= render DmUniboCommon::FooterComponent.new(current_user, contact_mail: "dipmat-supportoweb@unibo.it") %>  
-    <%= render DmUniboCommon::ImpersonationComponent.new(current_user, true_user, 
-                                                         who_impersonate_path: dm_unibo_common.who_impersonate_path, 
-                                                         stop_impersonating_path: dm_unibo_common.stop_impersonating_path) %>
+    <%= render DmUniboCommon::ImpersonationComponent.new current_user, 
+      true_user, 
+      who_impersonate_path: dm_unibo_common.who_impersonate_path, 
+      stop_impersonating_path: dm_unibo_common.stop_impersonating_path %>
+    <%= render DmUniboCommon::FooterComponent.new current_user %>
   </body>
 </html>

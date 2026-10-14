@@ -18,8 +18,8 @@
 
 <% if policy(@conference).update? %>  
   <div class="centered my-2">
-    <%= link_to dm_icon('edit', text: 'Modifica il convegno'), edit_conference_path(@conference), class: :button %> 
-    <%= link_to dm_icon('plus', text: 'Aggiungi un seminario al convegno'), new_conference_seminar_path(@conference), class: :button %>  
+    <%= link_to dm_icon('edit', text: 'Modifica il convegno'), edit_conference_path(@conference), class: "btn btn-primary" %> 
+    <%= link_to dm_icon('plus', text: 'Aggiungi un seminario al convegno'), new_conference_seminar_path(@conference), class: "btn btn-primary" %>  
   </div>
 <% end %>
 
