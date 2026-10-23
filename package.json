@@ -5,7 +5,7 @@
     "esbuild": "^0.24.2"
   },
   "dependencies": {
-    "dm_unibo_common": "donapieppo/dm_unibo_common.git"
+    "dm_unibo_common": "donapieppo/dm_unibo_common#istituzionale"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
