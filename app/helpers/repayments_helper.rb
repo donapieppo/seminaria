@@ -33,7 +33,7 @@ module RepaymentsHelper
       "up to a maximum amount of #{euro(repayment.expected_refund)}, resulting from the original supporting documents to be delivered to the Department " \
       "Administrative Offices by Prof. #{repayment.seminar.speaker}. " \
       "The supporting documents proving that the expenses have been incurred can be reimbursed within the limits and in compliance " \
-      "with the University Regulations on Travels and Reimbursements. The reimbursement of expenses is not subject to any withholding  "\
+      "with the University Regulations on Travels and Reimbursements. The reimbursement of expenses is not subject to any withholding  " \
       "tax, it will be paid upon submission of an expense report (Bill of Costs) at the end of the activity."
     end
   end
@@ -66,7 +66,7 @@ module RepaymentsHelper
 
   def repayment_header(docx)
     # 3575x1582 3575/1582*80
-    logopath = "#{Rails.root}/app/assets/images/sigillo.jpg"
+    logopath = "#{Rails.root}/public/branding/sigillo.jpg"
     docx.img logopath do
       width 180
       height 80
