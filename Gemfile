@@ -2,11 +2,8 @@ source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem "dm_unibo_user_search", git: "https://github.com/donapieppo/dm_unibo_user_search.git"
-gem "dm_unibo_common", git: "https://github.com/donapieppo/dm_unibo_common.git", branch: "sett26"
+gem "dm_unibo_common", git: "https://github.com/donapieppo/dm_unibo_common.git", branch: "istituzionale"
 # gem "dm_unibo_common", path: "/home/rails/gems/dm_unibo_common/"
-
-# FIXME
-gem "json", "~> 2.0"
 
 gem "sentry-ruby"
 gem "sentry-rails"
