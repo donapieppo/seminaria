@@ -1,4 +1,4 @@
-<%= render DmUniboCommon::MenuComponent.new(sso_user_upn, current_organization: current_organization) do %>  
+<%= render DmUniboCommon::MenuComponent.new(sso_user_upn, current_organization: current_organization, tag: "Dip. Matematica") do %>  
   <li><%= link_to dm_icon('home', text: 'Home', size: :lg), main_app.seminars_path %></li>
   <% if current_organization %>
     <% if user_signed_in? %>  
