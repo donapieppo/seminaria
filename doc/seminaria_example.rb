@@ -1,5 +1,3 @@
-CESIA_UPN = ["pietro.donatini@unibo.it"]
-
 module Seminaria
   class Application < Rails::Application
     config.domain_name = "dm.unibo.it"
